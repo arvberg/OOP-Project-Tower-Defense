@@ -25,4 +25,11 @@ public abstract class Unit implements UnitPosition, UnitSize {
         }
         this.position = position;
     }
+
+    void setSize(Dimension size){
+        if (size == null){
+            throw new NullPointerException();
+        }
+        this.size = new Dimension(100, 100); // could be wrong
+    }
 }
