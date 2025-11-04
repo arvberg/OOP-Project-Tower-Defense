@@ -2,7 +2,7 @@ package model;
 
 import java.awt.*;
 
-public class Enemy extends Unit{
+public abstract class Enemy extends Unit implements EnemySpeed{
     public Enemy(Point position, Dimension size) {
         super(position, size);
     }
