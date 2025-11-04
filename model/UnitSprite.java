@@ -1,10 +1,9 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public interface Sprite {
-    ArrayList<Sprite> getSprites();
+public interface UnitSprite {
+    ArrayList<UnitSprite> getSprites();
 
     /*
     TODO: I excluded this as I don't know how the graphics library works yet. We'll figure that out later.
