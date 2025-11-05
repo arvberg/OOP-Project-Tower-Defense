@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 
+
 public abstract class Unit implements UnitPosition, UnitSize {
 
     private Point position;
