@@ -1,4 +1,4 @@
-package model;
+package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 
@@ -24,12 +24,5 @@ public abstract class Unit implements UnitPosition, UnitSize {
             throw new NullPointerException();
         }
         this.position = position;
-    }
-
-    void setSize(Dimension size){
-        if (size == null){
-            throw new NullPointerException();
-        }
-        this.size = new Dimension(100, 100); // could be wrong
     }
 }
