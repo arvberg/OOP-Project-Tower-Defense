@@ -1,4 +1,4 @@
-package model;
+package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 
