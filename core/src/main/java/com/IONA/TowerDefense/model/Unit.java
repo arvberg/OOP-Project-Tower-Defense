@@ -3,7 +3,7 @@ package com.IONA.TowerDefense.model;
 import java.awt.*;
 
 
-public abstract class Unit implements UnitPosition, UnitSize {
+public abstract class Unit {
 
     private Point position;
     private Dimension size;
@@ -13,12 +13,12 @@ public abstract class Unit implements UnitPosition, UnitSize {
         this.position = new Point(position);
         this.size = size;
     }
-    public Point getPosition() {
-        return position;
-    }
+
     public Dimension getSize() {
         return size;
     }
+
+    public Point getPosition() { return position; }
 
     void setPosition(Point position){
         if (position == null){

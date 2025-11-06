@@ -1,5 +1,7 @@
 package com.IONA.TowerDefense.model;
 
-public interface Movable {
-    int move();
+interface Movable {
+    void move();
+    int getSpeed();
+    void setSpeed(int speed);
 }
