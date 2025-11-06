@@ -2,34 +2,39 @@ package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 
-public abstract class Unit implements UnitPosition, UnitSize {
+public abstract class Unit implements Movable {
 
-    private Point position;
-    private Dimension size;
+    protected Point position;
+    protected Dimension size;
 
 
     public Unit(Point position, Dimension size){
+        if (position == null || size == null) throw new NullPointerException();
         this.position = new Point(position);
         this.size = size;
     }
+
+    @Override
     public Point getPosition() {
-        return position;
+        return new Point(position);
     }
+
     public Dimension getSize() {
         return size;
     }
 
-    void setPosition(Point position){
+    public Rectangle getHitbox(){
+        return new Rectangle(position.x, position.y, size.width, size.height);
+    }
+
+    public void setPosition(Point position){
         if (position == null){
             throw new NullPointerException();
         }
         this.position = position;
     }
 
-    void setSize(Dimension size){
-        if (size == null){
-            throw new NullPointerException();
-        }
-        this.size = size;
+    public void move(int dx, int dy){
+        position.translate(dx, dy);
     }
 }

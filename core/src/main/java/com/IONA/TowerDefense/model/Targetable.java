@@ -2,6 +2,8 @@ package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 
-public interface UnitPosition {
+public interface Targetable {
     Point getPosition();
+
+    Rectangle getHitbox();
 }
