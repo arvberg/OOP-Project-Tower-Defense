@@ -12,6 +12,7 @@ public abstract class Unit implements UnitPosition, UnitSize {
         this.position = new Point(position);
         this.size = size;
     }
+
     public Point getPosition() {
         return position;
     }
@@ -34,4 +35,3 @@ public abstract class Unit implements UnitPosition, UnitSize {
     }
 }
 
-// test
