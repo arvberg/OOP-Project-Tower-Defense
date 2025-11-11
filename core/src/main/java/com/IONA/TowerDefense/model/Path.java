@@ -25,8 +25,8 @@ public class Path {
         double sumY = 0;
         for (int w = 0; w < waypoints.size() -1; w++) {
             double distanceX = waypoints.get(w).getX() - waypoints.get(w + 1).getX();
-            double distanceY = ...
-            switch (waypoint.getDirection()) {
+            double distanceY = waypoints.get(w).getY() - waypoints.get(w + 1).getY();
+            switch (waypoints.getDirection()) {
                 case 0:
                     sumY =+ distanceY;
                     break;
