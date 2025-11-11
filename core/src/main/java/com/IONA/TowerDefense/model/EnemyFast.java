@@ -1,7 +1,7 @@
 package com.IONA.TowerDefense.model;
 
-public class EnemySpeedy extends Enemy{
-    public EnemySpeedy(){
+public class EnemyFast extends Enemy{
+    public EnemyFast(){
         super();
         hp = 100;
         speed = 300;
