@@ -20,7 +20,7 @@ public abstract class Tower extends Unit{
         return attack;
     }
 
-    public float getSpeed(){
+    public int getSpeed(){
         return speed;
     }
 
