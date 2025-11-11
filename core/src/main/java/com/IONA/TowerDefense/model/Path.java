@@ -4,42 +4,29 @@ import java.awt.*;
 import java.util.List;
 
 public class Path {
-    private List<WayPoint> waypoints;
 
-    public Path(List<WayPoint> waypoints) {
-        this.waypoints = waypoints;
+    private final List<Segment> segments;
+
+    public Path(List<Segment> segments) {
+        this.segments = segments;
     }
 
-    public int wayPointIndex(WayPoint waypoint) {
-        return getWaypoints().indexOf(waypoint);
+    public int segmentIndex(Segment segment) {
+        return getSegments().indexOf(segment);
     }
 
-    // TODO create new points based on additional positions and directions
-    public void addNewWayPoint(int additionalX, int additionalY, int direction) {
-        if (waypoints.isEmpty()) {
-            new WayPoint(additionalX, additionalY, direction);
-        }
-        else {
-            WayPoint lastWayPoint = waypoints.get(waypoints.size() - 1);
-            int lastWayPointX = lastWayPoint.getX();
-            int lastWayPointY = lastWayPoint.getY();
-
-            int newX = lastWayPoint.getX() + additionalX;
-            int newY = lastWayPoint.getY() + additionalY;
-            WayPoint newWayPoint = new WayPoint(newX, newY, direction);
-        }
+    public List<Segment> getSegments() {
+        return segments;
     }
 
-    public List<WayPoint> getWaypoints() {
-        return waypoints;
-    }
+    /*
 
-    public Point endPointCoordinate(List<WayPoint> waypoints) {
+    public Point endPointCoordinate(List<Segment> waypoints) {
         int sumX = 0;
         int sumY = 0;
 
         for (int w = 0; w < waypoints.size() - 1; w++) {
-            WayPoint waypoint = waypoints.get(w);
+            Segment waypoint = waypoints.get(w);
             int distanceX = waypoints.get(w + 1).getX() - waypoints.get(w).getX();
             int distanceY = waypoints.get(w + 1).getY() - waypoints.get(w).getY();
 
@@ -64,9 +51,9 @@ public class Path {
         return new Point(sumX, sumY);
     }
 
-    public boolean isCompletePath(List<WayPoint> waypoints) {
+    public boolean isCompletePath(List<Segment> waypoints) {
         int size = waypoints.size();
-        WayPoint endWaypoint = waypoints.get(size -1);
+        Segment endWaypoint = waypoints.get(size -1);
         int endWayPointX = endWaypoint.getX();
         int endWayPointY = endWaypoint.getY();
 
@@ -76,4 +63,6 @@ public class Path {
 
         return endWayPointX == referenceX && endWayPointY == referenceY;
     }
+
+     */
 }
