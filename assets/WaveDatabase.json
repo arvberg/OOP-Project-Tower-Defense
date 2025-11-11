@@ -1,0 +1,68 @@
+{ // I Waves är detta ett Wave objekt.
+
+  "waveslist": [  // Som innehåller en waves lista
+
+    {   // Som innehåller Waves objekt.
+      "id": 0,
+      "enemies":[   // Varje Wave objekt har ett id och en lista av enemies
+        {"type": "1", "difficulty": "e"},   // Varje enemy har en type och en difficulty.
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "1", "difficulty": "h"},
+        {"type": "1", "difficulty": "h"},
+        {"type": "1", "difficulty": "h"},
+        {"type": "1", "difficulty": "h"}
+
+      ]
+    },
+
+
+    {
+      "id": 1,
+      "enemies":[
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "2", "difficulty": "e"},
+        {"type": "2", "difficulty": "e"},
+        {"type": "2", "difficulty": "e"},
+        {"type": "2", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "1", "difficulty": "e"},
+        {"type": "2", "difficulty": "e"},
+        {"type": "2", "difficulty": "e"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "1", "difficulty": "m"},
+        {"type": "2", "difficulty": "m"},
+        {"type": "2", "difficulty": "m"},
+        {"type": "2", "difficulty": "m"},
+        {"type": "1", "difficulty": "h"},
+        {"type": "1", "difficulty": "h"},
+        {"type": "2", "difficulty": "h"},
+        {"type": "2", "difficulty": "h"},
+        {"type": "2", "difficulty": "h"},
+        {"type": "2", "difficulty": "h"},
+        {"type": "2", "difficulty": "h"},
+        {"type": "2", "difficulty": "h"}
+
+      ]
+    }
+
+  ]
+
+}
