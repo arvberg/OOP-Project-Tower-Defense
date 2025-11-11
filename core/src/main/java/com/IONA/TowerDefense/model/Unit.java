@@ -14,6 +14,10 @@ public abstract class Unit implements Movable {
         this.size = size;
     }
 
+    public Unit() {
+
+    }
+
     @Override
     public Point getPosition() {
         return new Point(position);
