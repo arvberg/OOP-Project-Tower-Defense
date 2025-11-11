@@ -8,8 +8,7 @@ public class Waves {
 
     public static class Enemy {
         public String type;
-        //public String difficulty;
-        public int delay;
+        public String difficulty;
     }
 
     public static class Wave {
