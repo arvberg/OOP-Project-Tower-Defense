@@ -33,6 +33,10 @@ public abstract class Unit {
         this.position = position;
     }
 
+    public Point getPosition() {
+        return this.position;
+    }
+
     public void move(int dx, int dy){
         position.translate(dx, dy);
     }
