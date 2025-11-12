@@ -6,7 +6,7 @@ public interface Movable {
 
     Point getPosition();
 
-    float getSpeed();
+    int getSpeed();
 
     void setPosition(Point position);
 

@@ -4,27 +4,48 @@ import java.awt.*;
 import java.util.List;
 
 public class Path {
+    private List<WayPoint> waypoints;
 
-    private final List<Segment> segments;
-
-    public Path(List<Segment> segments) {
-        this.segments = segments;
+    public Path(List<WayPoint> waypoints) {
+        this.waypoints = waypoints;
     }
 
-    public int segmentIndex(Segment segment) {
-        return getSegments().indexOf(segment);
+    public WayPoint getNextWaypoint() {}
+
+    public void addWaypoint(double x, double y, double direction) {
+        waypoints.add(new WayPoint(x, y, direction));
     }
 
-    public List<Segment> getSegments() {
-        return segments;
+    public List<WayPoint> getWaypoints() {
+        return waypoints;
     }
 
-    public Path createPath1() {
-        Path path = new Path(List.of(
-            new Segment(new Point(50, 0),10, Direction.SOUTH),
-            new Segment(new Point(50, 10), 10, Direction.EAST),
-            new Segment(new Point(60, 10), 60, Direction.SOUTH)
-        ));
-        return path;
+    public Point endPointCoordinate(List<WayPoint> waypoints) {
+        double sumX = 0;
+        double sumY = 0;
+        for (int w = 0; w < waypoints.size() -1; w++) {
+            double distanceX = waypoints.get(w).getX() - waypoints.get(w + 1).getX();
+            double distanceY = waypoints.get(w).getY() - waypoints.get(w + 1).getY();
+            switch (waypoints.getDirection()) {
+                case 0:
+                    sumY =+ distanceY;
+                    break;
+
+                    case 1:
+                        sumX =+ distanceX;
+                        break;
+
+                        case 2:
+                            sumY =+ distanceY;
+                            break;
+
+                            case 3:
+                                sumY =+ distanceY;
+            }
+        }
+    }
+
+    public boolean isComplete() {
+
     }
 }

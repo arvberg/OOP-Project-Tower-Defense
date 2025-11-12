@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model;
 
+import javax.swing.*;
 import java.awt.*;
 
 public abstract class Tower extends Unit{
@@ -8,10 +9,15 @@ public abstract class Tower extends Unit{
     protected int cost;
     protected int level;
     protected int rangeRadius;
-    protected int cooldown;
+    protected int direction;
+    protected ImageIcon image;
 
-    public Tower(Point position, Dimension size) {
+    public Tower(int attack, int speed, int cost, int rangeRadius, Point position, Dimension size) {
         super(position, size);
+        this.attack = attack;
+        this.speed = speed;
+        this.cost = cost;
+        this.rangeRadius = rangeRadius;
         level = 1;
     }
 
@@ -19,8 +25,12 @@ public abstract class Tower extends Unit{
         return attack;
     }
 
-    public float getSpeed(){
+    public int getSpeed(){
         return speed;
+    }
+
+    public int getDir(){
+        return direction;
     }
 
     public abstract void attack(Targetable target, long currentTimeMillis);
@@ -33,8 +43,8 @@ public abstract class Tower extends Unit{
         return rangeRadius;
     }
 
-    public int getCooldownMs(){
-        return cooldown;
+    public ImageIcon getImage(){
+        return image;
     }
 
     public abstract void fire();

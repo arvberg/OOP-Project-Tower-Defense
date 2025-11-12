@@ -2,7 +2,7 @@ package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 
-public abstract class Unit implements Movable {
+public abstract class Unit {
 
     protected Point position;
     protected Dimension size;
@@ -14,9 +14,8 @@ public abstract class Unit implements Movable {
         this.size = size;
     }
 
-    @Override
-    public Point getPosition() {
-        return new Point(position);
+    public Unit() {
+
     }
 
     public Dimension getSize() {
