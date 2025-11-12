@@ -12,7 +12,9 @@ public class TowerFactory {
         else if (type.equalsIgnoreCase("TowerFast")) {
             return new TowerFast(pos, size);
         }
-        else if (type.equalsIgnoreCase())
+        else {
+            throw new IllegalArgumentException("Uknown tower");
+        }
 
     }
 }

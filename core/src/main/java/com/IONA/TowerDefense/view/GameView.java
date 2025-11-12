@@ -1,9 +1,6 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.GameModel;
-import com.IONA.TowerDefense.model.Tower;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.Game;
 
 import java.awt.*;
 
