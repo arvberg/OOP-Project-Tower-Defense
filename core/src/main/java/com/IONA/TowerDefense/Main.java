@@ -1,26 +1,26 @@
 package com.IONA.TowerDefense;
 
-import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.model.Projectile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import java.util.Vector;
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
     private BitmapFont font;
+    private static Vector<Projectile> projectiles = new Vector<>();
 
     @Override
     public void create() {
-
-        //Waves waves = Waves.load();
-        //waves.printAll();
-       // batch = new SpriteBatch();
-       // image = new Texture("libgdx.png");
-       // font = new BitmapFont();
+        batch = new SpriteBatch();
+        image = new Texture("libgdx.png");
+        font = new BitmapFont();
     }
 
     @Override
@@ -41,6 +41,10 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         font.draw(batch,"Tower Defense", 140, 210);
         batch.end();
+    }
+
+    public static void addProjectile(Projectile temp) {
+        projectiles.add(temp);
     }
 
     private void input() {

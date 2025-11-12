@@ -1,5 +1,7 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.view.GameFrame;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,17 +17,13 @@ public abstract class Enemy extends Unit{
     protected Rectangle hitBox;
 
     public Enemy() {
-        super();
+        coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
+        setHitBox();
     }
 
-    /* public Enemy(){
-    coord
-    hitbox
-
-    public Rectangle getHitBox(){
-    return hitBox;
+    public Rectangle  getHitBox() {
+        return hitBox;
     }
-    }*/
 
     public void move(){
         switch(dir){
@@ -41,7 +39,7 @@ public abstract class Enemy extends Unit{
             case 3:
                 coor.x += 2;
         }
-        //setHitBox();
+        setHitBox();
     }
 
     public void reduceHP(int dmg) {
