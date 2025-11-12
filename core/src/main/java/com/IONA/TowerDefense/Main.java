@@ -14,7 +14,6 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
     private BitmapFont font;
-    private static Vector<Projectile> projectiles = new Vector<>();
 
     @Override
     public void create() {
@@ -41,10 +40,6 @@ public class Main extends ApplicationAdapter {
         batch.begin();
         font.draw(batch,"Tower Defense", 140, 210);
         batch.end();
-    }
-
-    public static void addProjectile(Projectile temp) {
-        projectiles.add(temp);
     }
 
     private void input() {
