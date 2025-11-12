@@ -1,8 +1,5 @@
 package com.IONA.TowerDefense.model;
 
-import com.IONA.TowerDefense.view.GameFrame;
-
-import javax.swing.*;
 import java.awt.*;
 
 public abstract class Enemy{

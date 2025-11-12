@@ -1,6 +1,11 @@
 package com.IONA.TowerDefense;
 
+import com.IONA.TowerDefense.controller.GameController;
+import com.IONA.TowerDefense.controller.GameUpdater;
+import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.Path;
 import com.IONA.TowerDefense.model.Projectile;
+import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,9 +19,19 @@ public class Main extends ApplicationAdapter {
     private SpriteBatch batch;
     private Texture image;
     private BitmapFont font;
+    public GameController controller;
+    public GameUpdater updater;
+    public Draw painter;
+    public GameModel model;
+    public Path path;
+
 
     @Override
     public void create() {
+        path = new Path();
+        updater = new GameUpdater();
+        model = new GameModel(path);
+        controller = new GameController(model, painter);
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         font = new BitmapFont();
@@ -33,6 +48,8 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
+        controller.update();
+
         input();
         logic();
         draw();
