@@ -12,27 +12,31 @@ public class GameModel {
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private Path path;
+    private Map map;
 
-    private static int resources; // Players resources
-    private static int lives; // Players health
-    private static int score; // Players current score
-
-    public void loseLife() {
-        lives--;
-    }
+    private int resources; // Players resources
+    private int lives; // Players health
+    private int score; // Players current score
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 
     private boolean towerSelected = false;
     private Tower pendingTower = null;
 
-    public GameModel (Path path) {
+    public GameModel (Path path, Map map) {
+        this.map = map;
         this.units = new ArrayList<>();
         this.towers = new ArrayList<>();
         this.projectiles = new ArrayList<>();
         this.path = path;
         this.resources = 100;
         this.score = 0;
+    }
+
+    public void update(int delta) {
+        moveEnemies(enemies);
+        moveProjectiles(projectiles);
+        moveTowers(towers);
     }
 
     public void moveEnemies(List<Enemy> enemies) {
@@ -55,16 +59,18 @@ public class GameModel {
                     break;
                 } else {
                     Segment nextSegment = path.getSegment(segmentIdx + 1);
-
                     enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), segmentIdx + 1);
-
-                    enemy.setSegmentIndex(segmentIdx + 1);
-                    enemy.setCoor(segmentEndPoint);
-                    enemy.setDir(nextSegment.getDirection());
-
                 }
             }
         }
+    }
+
+    public void moveProjectiles(List<Projectile> projectiles) {
+
+    }
+
+    public void loseLife() {
+        lives--;
     }
 
     // Add and remove towers from list
@@ -148,27 +154,4 @@ public class GameModel {
         pendingTower = tower;
         resources -= tower.getCost();
     }
-
-
-    // INPUT HANDLING
-    // Left-mouse click
-    public void onLeftClick(float x, float y) {
-        if (towerSelected) {
-            // place tower
-        }
-        else {
-            // select tower
-        }
-    }
-
-    // Right-mouse click
-    public void onRightClick(float x, float y) {
-        // do something
-    }
-
-    // While dragging mouse
-    public void onMouseDrag(float x, float y) {
-        // do something
-    }
-
 }

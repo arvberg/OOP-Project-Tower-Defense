@@ -102,19 +102,12 @@ public abstract class Enemy extends Unit{
 
     public boolean outsideSegment(Point enemyPosition, Point segmentEnd, Direction direction) {
 
-        switch (direction) {
-
-        case NORTH:
-            return enemyPosition.getY() < segmentEnd.getY();
-
-        case EAST:
-            return enemyPosition.getX() > segmentEnd.getX();
-
-        case SOUTH:
-            return enemyPosition.getY() > segmentEnd.getY();
-
-        case WEST:
-            return enemyPosition.getX() < segmentEnd.getX();
-        }
+        return switch (direction) {
+            case NORTH -> enemyPosition.getY() < segmentEnd.getY();
+            case EAST -> enemyPosition.getX() > segmentEnd.getX();
+            case SOUTH -> enemyPosition.getY() > segmentEnd.getY();
+            case WEST -> enemyPosition.getX() < segmentEnd.getX();
+            default -> false;
+        };
     }
 }
