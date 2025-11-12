@@ -13,6 +13,7 @@ public abstract class Enemy{
     protected int gold;
     protected Point coor;
     protected Rectangle hitBox;
+    protected ImageIcon enemyImage;
 
     public Enemy(int difficulty) {
         coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
@@ -71,5 +72,9 @@ public abstract class Enemy{
 
     public Point getCoor() {
         return coor;
+    }
+
+    public ImageIcon getImage() {
+        return enemyImage;
     }
 }
