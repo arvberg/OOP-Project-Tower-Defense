@@ -1,7 +1,12 @@
 package com.IONA.TowerDefense.controller;
 
+import com.IONA.TowerDefense.view.RenderEnemy;
+
+
+
 import com.IONA.TowerDefense.model.*;
 import com.badlogic.gdx.controllers.Controller;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
 public class WaveGenerator {
@@ -10,6 +15,9 @@ public class WaveGenerator {
     Waves waves;
     int WaveNr;
     String GameDiff;
+
+    private Array<RenderEnemy> viewEnemies = new Array<>();
+    public Array<RenderEnemy> getViewEnemies() { return viewEnemies; }
 
     public WaveGenerator(String difficulty) {
         //this.controller = new GameController();
@@ -30,8 +38,13 @@ public class WaveGenerator {
                     if (GameDiff.equals("e")) {
 
                         if(e.type.equals("1")){
-                            //enemy = newType1Enemy("e")
+                            Enemy enemy = new EnemyBasic();
+                            //gm.addEnemy(enemy);
+
+                            //RenderEnemy renderEnemy = new RenderEnemy()
+                            //RenderEnemy renderEnemy = new RenderEnemy(enemy.getX(),enemy.getY(),getTexture(e));
                             //DrawClass.liveEnemies.add(enemy)
+                            //
                         }
 
                         // Här tänker jag att vi lägger till fienden i en "liveEnemies" array som våran
@@ -49,8 +62,10 @@ public class WaveGenerator {
                 }
             }, e.delay);
 
-            WaveNr++;
+
         }
+
+        WaveNr++;
 
     }
 
