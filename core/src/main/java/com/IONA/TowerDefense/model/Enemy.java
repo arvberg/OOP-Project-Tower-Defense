@@ -10,4 +10,6 @@ public abstract class Enemy extends Unit{
     protected int speed;
     protected int value;
     protected Rectangle hitbox;
+
+
 }

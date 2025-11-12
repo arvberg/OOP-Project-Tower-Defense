@@ -19,50 +19,12 @@ public class Path {
         return segments;
     }
 
-    /*
-
-    public Point endPointCoordinate(List<Segment> waypoints) {
-        int sumX = 0;
-        int sumY = 0;
-
-        for (int w = 0; w < waypoints.size() - 1; w++) {
-            Segment waypoint = waypoints.get(w);
-            int distanceX = waypoints.get(w + 1).getX() - waypoints.get(w).getX();
-            int distanceY = waypoints.get(w + 1).getY() - waypoints.get(w).getY();
-
-            switch (waypoint.getDirection()) {
-                case 0: // upp
-                    sumY += distanceY;
-                    break;
-                case 1: // höger
-                    sumX += distanceX;
-                    break;
-                case 2: // ner
-                    sumY += distanceY;
-                    break;
-                case 3: // vänster
-                    sumX += distanceX;
-                    break;
-                default:
-                    // om riktningen är ogiltig
-                    break;
-            }
-        }
-        return new Point(sumX, sumY);
+    public Path createPath1() {
+        Path path = new Path(List.of(
+            new Segment(new Point(50, 0),10, Direction.SOUTH),
+            new Segment(new Point(50, 10), 10, Direction.EAST),
+            new Segment(new Point(60, 10), 60, Direction.SOUTH)
+        ));
+        return path;
     }
-
-    public boolean isCompletePath(List<Segment> waypoints) {
-        int size = waypoints.size();
-        Segment endWaypoint = waypoints.get(size -1);
-        int endWayPointX = endWaypoint.getX();
-        int endWayPointY = endWaypoint.getY();
-
-        Point endPointReference = endPointCoordinate(waypoints);
-        int referenceX = endPointReference.x;
-        int referenceY = endPointReference.y;
-
-        return endWayPointX == referenceX && endWayPointY == referenceY;
-    }
-
-     */
 }

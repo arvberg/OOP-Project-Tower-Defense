@@ -14,6 +14,10 @@ public class Segment {
         this.direction = direction;
     }
 
+    public Point getStartPoint() {
+        return start;
+    }
+
     public Point getEnd() {
         return switch (direction) {
             case NORTH -> new Point(start.x, start.y - length);
@@ -22,4 +26,6 @@ public class Segment {
             case WEST -> new Point(start.x - length, start.y);
         };
     }
+
+
 }

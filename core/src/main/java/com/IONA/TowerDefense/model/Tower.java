@@ -13,7 +13,6 @@ public abstract class Tower extends Unit{
     public Tower(Point position, Dimension size) {
         super(position, size);
         level = 1;
-
     }
 
     public int getAttack(){
