@@ -3,17 +3,17 @@ package com.IONA.TowerDefense.model;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Tower extends Unit{
+public abstract class Tower{
     protected int attack;
     protected int speed;
     protected int cost;
     protected int level;
     protected int rangeRadius;
     protected int direction;
+    protected Point position;
     protected ImageIcon image;
 
-    public Tower(int attack, int speed, int cost, int rangeRadius, Point position, Dimension size) {
-        super(position, size);
+    public Tower(int attack, int speed, int cost, int rangeRadius) {
         this.attack = attack;
         this.speed = speed;
         this.cost = cost;
@@ -46,6 +46,17 @@ public abstract class Tower extends Unit{
 
     public ImageIcon getImage(){
         return image;
+    }
+
+    public Point getPosition(){
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        if (position == null) {
+            throw new NullPointerException();
+        }
+        this.position = position;
     }
 
     public abstract void fire();

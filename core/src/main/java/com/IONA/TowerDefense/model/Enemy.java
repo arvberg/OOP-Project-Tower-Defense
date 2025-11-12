@@ -5,7 +5,7 @@ import com.IONA.TowerDefense.view.GameFrame;
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Enemy extends Unit{
+public abstract class Enemy{
 
     protected int dir = 0;
     protected int hp;
@@ -14,8 +14,7 @@ public abstract class Enemy extends Unit{
     protected Point coor;
     protected Rectangle hitBox;
 
-    public Enemy(Point position, Dimension size, int difficulty) {
-        super(position, size);
+    public Enemy(int difficulty) {
         coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
         setHitBox();
     }
