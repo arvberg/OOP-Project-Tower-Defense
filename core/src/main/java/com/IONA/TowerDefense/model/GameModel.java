@@ -106,6 +106,8 @@ public class GameModel {
     }
 
     public void placeTower (Point selectedPoint) {
+        towers.add(pendingTower);
+
     }
 
     public void buyTower (Tower tower) {
