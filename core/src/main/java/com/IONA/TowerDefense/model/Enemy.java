@@ -6,9 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Enemy extends Unit{
-    public Enemy(Point position, Dimension size) {
-        super(position, size);
-    }
+
     protected int dir = 0;
     protected int hp;
     protected int speed;
@@ -16,7 +14,8 @@ public abstract class Enemy extends Unit{
     protected Point coor;
     protected Rectangle hitBox;
 
-    public Enemy() {
+    public Enemy(Point position, Dimension size, int difficulty) {
+        super(position, size);
         coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
         setHitBox();
     }
