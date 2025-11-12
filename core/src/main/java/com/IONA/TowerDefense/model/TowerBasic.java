@@ -11,8 +11,8 @@ public class TowerBasic extends Tower{
     private static final int range = 100;
     private static final int BaseProjectileSpeed = 0;
 
-    public TowerBasic(Point position, Dimension size) {
-        super(BaseAttack, BaseSpeed, BaseCost, range, position, size);
+    public TowerBasic() {
+        super(BaseAttack, BaseSpeed, BaseCost, range);
         this.attack = BaseAttack;
         this.speed = BaseSpeed;
         this.cost = BaseCost;
