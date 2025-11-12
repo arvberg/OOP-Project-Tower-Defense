@@ -36,32 +36,4 @@ public class GameController {
     private void handleMouseInput() {
     }
 
-    public static void addTower(Tower temp){
-        towers.add(temp);
-    }
-
-    public static void addEnemy(Enemy temp){
-        enemies.add(temp);
-    }
-
-    public static void addProjectile(Projectile temp) {
-        projectiles.add(temp);
-    }
-
-    public static void removeEnemy(Enemy temp){
-        enemies.remove(temp);
-    }
-
-    public static Vector<Tower> getTowers(){
-        return towers;
-    }
-
-    public static Vector<Enemy> getEnemies(){
-        return enemies;
-    }
-
-    public static Vector<Projectile> getProjectiles(){
-        return projectiles;
-    }
-
 }
