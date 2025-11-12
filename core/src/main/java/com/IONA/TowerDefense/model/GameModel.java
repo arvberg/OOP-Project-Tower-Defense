@@ -60,7 +60,7 @@ public class GameModel {
         projectiles.remove(projectile);
     }
 
-    // Getters for lists
+    // Getters for all lists
     public List<Unit> getUnits() {
         return units;
     }
@@ -87,7 +87,7 @@ public class GameModel {
         return score;
     }
 
-    // Placing and selecting a tower
+    // Selecting a tower
     public void selectTower(Point selectedPoint) {
         Tower closestTower = null;
         double closestDistance = Double.MAX_VALUE;
@@ -111,15 +111,22 @@ public class GameModel {
         }
     }
 
+    // Placing a tower
     public void placeTower (Point selectedPoint) {
         if (pendingTower != null) {
-
+            pendingTower.setPosition(selectedPoint);
+            towers.add(pendingTower);
+            pendingTower = null;
         }
     }
 
+    // Buy a tower
     public void buyTower (Tower tower) {
-        pendingTower = tower;
-        resources -= tower.getCost();
+        if (resources >= tower.getCost()) {
+            Tower newTower = TowerFactory.createTower(tower.toString());
+            pendingTower = newTower;
+            resources -= tower.getCost();
+        }
     }
 
 
