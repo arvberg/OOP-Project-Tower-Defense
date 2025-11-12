@@ -9,11 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
-<<<<<<< HEAD
 import java.util.Vector;
-=======
-import java.util.List;
->>>>>>> 376c4326fd935aba2eda774295767edc51eb9c29
+
 
 
 public class GameController {
