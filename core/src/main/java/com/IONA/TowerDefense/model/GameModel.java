@@ -2,12 +2,12 @@ package com.IONA.TowerDefense.model;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
 
-    private List<Unit> units;
     private List<Tower> towers;
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
@@ -23,7 +23,6 @@ public class GameModel {
     private Tower pendingTower = null;
 
     public GameModel (Path path) {
-        this.units = new ArrayList<>();
         this.towers = new ArrayList<>();
         this.projectiles = new ArrayList<>();
         this.path = path;
@@ -31,15 +30,7 @@ public class GameModel {
         this.score = 0;
     }
 
-    // Add and remove towers from list
-    public void addUnit(Unit unit) {
-        units.add(unit);
-    }
-
-    public void removeUnit(Unit unit) {
-        units.remove(unit);
-    }
-
+    // Add and remove from list
     public void addTower(Tower tower) {
         towers.add(tower);
     }
@@ -47,6 +38,10 @@ public class GameModel {
     public void removeTower(Tower tower) {
         towers.remove(tower);
     }
+
+    public void addEnemy(Enemy enemy) { enemies.add(enemy); }
+
+    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 
     public void addProjectile(Projectile projectile) {
         projectiles.add(projectile);
@@ -56,17 +51,31 @@ public class GameModel {
         projectiles.remove(projectile);
     }
 
-    // Getters for lists
-    public List<Unit> getUnits() {
-        return units;
-    }
-
+    // Getters for all lists
     public List<Tower> getTowers() {
         return towers;
     }
 
+    public List<Tower> getTowersToRender() {
+        return Collections.unmodifiableList(towers);
+    }
+
+    public boolean isTowerSelected() {
+        return towerSelected;
+    }
+
+    public List<Enemy> getEnemies() { return enemies; }
+
+    public List<Enemy> getEnemiesToRender() {
+        return Collections.unmodifiableList(enemies);
+    }
+
     public List<Projectile> getProjectiles() {
         return projectiles;
+    }
+
+    public List<Projectile> getProjectilesToRender() {
+        return Collections.unmodifiableList(projectiles);
     }
 
     public int getResources() {
@@ -81,7 +90,7 @@ public class GameModel {
         return score;
     }
 
-    // Placing and selecting a tower
+    // Selecting a tower
     public void selectTower(Point selectedPoint) {
         Tower closestTower = null;
         double closestDistance = Double.MAX_VALUE;
@@ -105,34 +114,27 @@ public class GameModel {
         }
     }
 
+    public void deselectTower () {
+        towerSelected = false;
+        pendingTower = null;
+    }
+
+    // Placing a tower
     public void placeTower (Point selectedPoint) {
+        if (pendingTower != null) {
+            pendingTower.setPosition(selectedPoint);
+            towers.add(pendingTower);
+            pendingTower = null;
+        }
     }
 
+    // Buy a tower
     public void buyTower (Tower tower) {
-        pendingTower = tower;
-        resources -= tower.getCost();
-    }
-
-
-    // INPUT HANDLING
-    // Left-mouse click
-    public void onLeftClick(float x, float y) {
-        if (towerSelected) {
-            // place tower
+        if (resources >= tower.getCost()) {
+            Tower newTower = TowerFactory.createTower(tower.toString());
+            pendingTower = newTower;
+            resources -= tower.getCost();
         }
-        else {
-            // select tower
-        }
-    }
-
-    // Right-mouse click
-    public void onRightClick(float x, float y) {
-        // do something
-    }
-
-    // While dragging mouse
-    public void onMouseDrag(float x, float y) {
-        // do something
     }
 
 }
