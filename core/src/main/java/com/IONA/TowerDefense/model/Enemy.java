@@ -2,19 +2,22 @@ package com.IONA.TowerDefense.model;
 
 import com.IONA.TowerDefense.view.GameFrame;
 
-import javax.swing.*;
 import java.awt.*;
+
+import static com.IONA.TowerDefense.model.Direction.*;
 
 public abstract class Enemy extends Unit{
     public Enemy(Point position, Dimension size) {
         super(position, size);
     }
-    protected int dir = 0;
     protected int hp;
     protected int speed;
     protected int gold;
     protected Point coor;
     protected Rectangle hitBox;
+    protected boolean completedPath;
+    protected Direction dir = SOUTH;
+    protected int segmentIndex = 0;
 
     public Enemy() {
         coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
@@ -25,22 +28,23 @@ public abstract class Enemy extends Unit{
         return hitBox;
     }
 
-    public void move(){
-        switch(dir){
-            case 0:
-                coor.y -= 2;
+    public void move() {
+        switch(dir) {
+            case NORTH:
+                coor.y -= speed;
                 break;
-            case 1:
-                coor.y += 2;
+            case EAST:
+                coor.x += speed;
                 break;
-            case 2:
-                coor.x -= 2;
+            case SOUTH:
+                coor.y += speed;
                 break;
-            case 3:
-                coor.x += 2;
+            case WEST:
+                coor.x -=  speed;
         }
         setHitBox();
     }
+
 
     public void reduceHP(int dmg) {
         hp -= dmg;
@@ -55,8 +59,12 @@ public abstract class Enemy extends Unit{
         hitBox = new Rectangle(coor.x + 9, coor.y + 9, 30, 30);
     }
 
-    public int getDir() {
+    public Direction getDir() {
         return dir;
+    }
+
+    public void setDir(Direction dir) {
+
     }
 
     public int getHp() {
@@ -73,5 +81,40 @@ public abstract class Enemy extends Unit{
 
     public Point getCoor() {
         return coor;
+    }
+    public void setCoor(Point coor) {
+        this.coor = coor;
+    }
+
+    public int getSegmentIndex() {
+        return segmentIndex;
+    }
+
+    public void setSegmentIndex(int segmentIndex) {
+        this.segmentIndex = segmentIndex;
+    }
+
+    public void setToNewSegment(Point newCoor, Direction newDir, int newSegmentIndex) {
+        this.coor = newCoor;
+        this.dir = newDir;
+        this.segmentIndex = newSegmentIndex;
+    }
+
+    public boolean outsideSegment(Point enemyPosition, Point segmentEnd, Direction direction) {
+
+        switch (direction) {
+
+        case NORTH:
+            return enemyPosition.getY() < segmentEnd.getY();
+
+        case EAST:
+            return enemyPosition.getX() > segmentEnd.getX();
+
+        case SOUTH:
+            return enemyPosition.getY() > segmentEnd.getY();
+
+        case WEST:
+            return enemyPosition.getX() < segmentEnd.getX();
+        }
     }
 }

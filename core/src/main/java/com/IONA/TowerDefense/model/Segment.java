@@ -18,6 +18,13 @@ public class Segment {
         return start;
     }
 
+    public int getLength() {
+        return length;
+    }
+    public Direction getDirection() {
+        return direction;
+    }
+
     public Point getEnd() {
         return switch (direction) {
             case NORTH -> new Point(start.x, start.y - length);

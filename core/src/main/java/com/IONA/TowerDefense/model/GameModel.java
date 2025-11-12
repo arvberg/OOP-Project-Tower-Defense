@@ -13,9 +13,13 @@ public class GameModel {
     private List<Projectile> projectiles;
     private Path path;
 
-    private int resources; // Players resources
-    private int lives; // Players health
-    private int score; // Players current score
+    private static int resources; // Players resources
+    private static int lives; // Players health
+    private static int score; // Players current score
+
+    public void loseLife() {
+        lives--;
+    }
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 
@@ -29,6 +33,38 @@ public class GameModel {
         this.path = path;
         this.resources = 100;
         this.score = 0;
+    }
+
+    public void moveEnemies(List<Enemy> enemies) {
+
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            int segmentIdx = enemy.getSegmentIndex();
+            Segment segment = path.getSegment(segmentIdx);
+
+            Direction enemyDirection = segment.getDirection();
+            enemy.move();
+
+            Point segmentEndPoint = segment.getEnd();
+            Point enemyCoor = enemy.getCoor();
+
+            if (enemy.outsideSegment(enemyCoor, segmentEndPoint, enemyDirection)) {
+
+                if (enemy.getSegmentIndex() == path.segmentCount()) {
+                    loseLife();
+                    break;
+                } else {
+                    Segment nextSegment = path.getSegment(segmentIdx + 1);
+
+                    enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), segmentIdx + 1);
+
+                    enemy.setSegmentIndex(segmentIdx + 1);
+                    enemy.setCoor(segmentEndPoint);
+                    enemy.setDir(nextSegment.getDirection());
+
+                }
+            }
+        }
     }
 
     // Add and remove towers from list
