@@ -15,13 +15,13 @@ public class GameView {
         this.model = model;
     }
 
-    // render all towers and update UI
-    public void render() {
+    /* render all towers and update UI
+     public void render() {
         for (Tower tower : model.getTowers()) {
             drawTower(tower.getPosition());
         }
         drawUI(model.getScore(), model.getLives());
-    }
+    } */
 
     // Draw UI
     private void drawUI(Object score, Object lives) {

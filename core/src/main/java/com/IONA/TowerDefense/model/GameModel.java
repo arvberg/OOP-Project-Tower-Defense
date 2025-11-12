@@ -1,16 +1,120 @@
 package com.IONA.TowerDefense.model;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
 
     private List<Unit> units;
+    private List<Tower> towers;
+    private List<Enemy> enemies;
+    private List<Projectile> projectiles;
     private Path path;
-    private int money;
-    private int health;
-    private boolean towerSelected = false;
 
+    private int resources; // Players resources
+    private int lives; // Players health
+    private int score; // Players current score
+
+    private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
+
+    private boolean towerSelected = false;
+    private Tower pendingTower = null;
+
+    public GameModel (Path path) {
+        this.units = new ArrayList<>();
+        this.towers = new ArrayList<>();
+        this.projectiles = new ArrayList<>();
+        this.path = path;
+        this.resources = 100;
+        this.score = 0;
+    }
+
+    // Add and remove towers from list
+    public void addUnit(Unit unit) {
+        units.add(unit);
+    }
+
+    public void removeUnit(Unit unit) {
+        units.remove(unit);
+    }
+
+    public void addTower(Tower tower) {
+        towers.add(tower);
+    }
+
+    public void removeTower(Tower tower) {
+        towers.remove(tower);
+    }
+
+    public void addProjectile(Projectile projectile) {
+        projectiles.add(projectile);
+    }
+
+    public void removeProjectiles(Projectile projectile) {
+        projectiles.remove(projectile);
+    }
+
+    // Getters for lists
+    public List<Unit> getUnits() {
+        return units;
+    }
+
+    public List<Tower> getTowers() {
+        return towers;
+    }
+
+    public List<Projectile> getProjectiles() {
+        return projectiles;
+    }
+
+    public int getResources() {
+        return resources;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    // Placing and selecting a tower
+    public void selectTower(Point selectedPoint) {
+        Tower closestTower = null;
+        double closestDistance = Double.MAX_VALUE;
+
+        for (Tower tower : towers) {
+            Point towerPos = tower.getPosition();
+            double distance = selectedPoint.distance(towerPos);
+
+            if (distance < TOWER_SELECTION_RADIUS && distance < closestDistance) {
+                closestDistance = distance;
+                closestTower = tower;
+            }
+        }
+        if (closestTower != null) {
+            towerSelected = true;
+            pendingTower = closestTower;
+        }
+        else {
+            towerSelected = false;
+            pendingTower = null;
+        }
+    }
+
+    public void placeTower (Point selectedPoint) {
+    }
+
+    public void buyTower (Tower tower) {
+        pendingTower = tower;
+        resources -= tower.getCost();
+    }
+
+
+    // INPUT HANDLING
     // Left-mouse click
     public void onLeftClick(float x, float y) {
         if (towerSelected) {
@@ -31,12 +135,4 @@ public class GameModel {
         // do something
     }
 
-    public Tower[] getTowers() {
-    }
-
-    public Object getLives() {
-    }
-
-    public Object getScore() {
-    }
 }
