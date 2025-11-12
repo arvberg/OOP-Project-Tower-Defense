@@ -3,8 +3,8 @@ package com.IONA.TowerDefense.model;
 import java.awt.*;
 
 public class EnemyBasic extends Enemy{
-    public EnemyBasic(Point position, Dimension size, int difficulty){
-        super(position, size, difficulty);
+    public EnemyBasic(int difficulty){
+        super(difficulty);
         hp = 400 + 200*difficulty;
         speed = 100 + 50*difficulty;
         gold = 5;
