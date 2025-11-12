@@ -31,7 +31,7 @@ public class GameModel {
         this.score = 0;
     }
 
-    // Add and remove towers from list
+    // Add and remove from list
     public void addUnit(Unit unit) {
         units.add(unit);
     }
