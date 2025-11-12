@@ -48,6 +48,10 @@ public class GameModel {
         towers.remove(tower);
     }
 
+    public void addEnemy(Enemy enemy) { enemies.add(enemy); }
+
+    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
+
     public void addProjectile(Projectile projectile) {
         projectiles.add(projectile);
     }
@@ -64,6 +68,8 @@ public class GameModel {
     public List<Tower> getTowers() {
         return towers;
     }
+
+    public List<Enemy> getEnemies() { return enemies; }
 
     public List<Projectile> getProjectiles() {
         return projectiles;
@@ -106,8 +112,9 @@ public class GameModel {
     }
 
     public void placeTower (Point selectedPoint) {
-        towers.add(pendingTower);
+        if (pendingTower != null) {
 
+        }
     }
 
     public void buyTower (Tower tower) {
