@@ -38,7 +38,7 @@ public class WaveGenerator {
                     if (GameDiff.equals("e")) {
 
                         if(e.type.equals("1")){
-                            Enemy enemy = new EnemyBasic();
+                            Enemy enemy = new EnemyBasic((0),1,1);
                             //gm.addEnemy(enemy);
 
                             //RenderEnemy renderEnemy = new RenderEnemy()
