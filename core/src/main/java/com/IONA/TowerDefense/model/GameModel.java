@@ -1,5 +1,10 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.units.towers.TowerFactory;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;

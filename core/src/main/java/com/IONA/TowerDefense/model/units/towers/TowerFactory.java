@@ -1,6 +1,4 @@
-package com.IONA.TowerDefense.model;
-
-import java.awt.*;
+package com.IONA.TowerDefense.model.units.towers;
 
 public class TowerFactory {
 

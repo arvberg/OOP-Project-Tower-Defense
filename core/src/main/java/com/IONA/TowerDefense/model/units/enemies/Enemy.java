@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.enemies;
 
 import com.IONA.TowerDefense.view.GameFrame;
 

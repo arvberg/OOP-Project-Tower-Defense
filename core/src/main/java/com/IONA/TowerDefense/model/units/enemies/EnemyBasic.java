@@ -1,8 +1,6 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.enemies;
 
-import java.awt.*;
-
-public class EnemyBasic extends Enemy{
+public class EnemyBasic extends Enemy {
     public EnemyBasic(int difficulty){
         super(difficulty);
         hp = 400 + 200*difficulty;

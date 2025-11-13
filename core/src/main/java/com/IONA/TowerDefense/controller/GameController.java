@@ -1,12 +1,10 @@
 package com.IONA.TowerDefense.controller;
 
-import com.IONA.TowerDefense.model.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.GameModel;
-import com.IONA.TowerDefense.model.Projectile;
-import com.IONA.TowerDefense.model.Tower;
+import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.GameView;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Vector;
