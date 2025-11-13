@@ -27,7 +27,6 @@ public class WaveGenerator {
 
         for (Waves.Enemy e : waves.waveslist.get(WaveNr).enemies) {
 
-
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {

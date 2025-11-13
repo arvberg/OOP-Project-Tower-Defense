@@ -13,6 +13,10 @@ public class GameUpdater  {
         this.generator = generator;
     }
 
+    public void update(){
+
+    }
+
 
 
 };

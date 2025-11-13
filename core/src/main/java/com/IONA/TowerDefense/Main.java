@@ -31,6 +31,7 @@ public class Main extends ApplicationAdapter {
         path = new Path();
         updater = new GameUpdater();
         model = new GameModel(path);
+        painter = new Draw(model);
         controller = new GameController(model, painter);
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
@@ -49,6 +50,7 @@ public class Main extends ApplicationAdapter {
     @Override
     public void render() {
         controller.update();
+        updater.update();
 
         input();
         logic();

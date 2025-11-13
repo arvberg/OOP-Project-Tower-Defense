@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model;
 
+import com.badlogic.gdx.graphics.Texture;
 import sun.tools.jconsole.Plotter;
 
 import java.awt.*;
@@ -14,6 +15,7 @@ public class GameModel {
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private Path path;
+    Texture background;
 
     private int resources; // Players resources
     private int lives; // Players health
@@ -31,6 +33,7 @@ public class GameModel {
         this.path = path;
         this.resources = 100;
         this.score = 0;
+        this.background = new Texture("ProtBackground.png");
     }
 
     // Add and remove towers from list
