@@ -19,7 +19,6 @@ public abstract class Tower{
         this.cost = cost;
         this.rangeRadius = rangeRadius;
         level = 1;
-
     }
 
     public int getAttack(){

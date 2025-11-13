@@ -4,48 +4,25 @@ import java.awt.*;
 import java.util.List;
 
 public class Path {
-    private List<WayPoint> waypoints;
+    private List<Segment> segments;
 
-    public Path(List<WayPoint> waypoints) {
-        this.waypoints = waypoints;
+    public Path(List<Segment> segments) {
+        this.segments = segments;
     }
 
-    public WayPoint getNextWaypoint() {}
-
-    public void addWaypoint(double x, double y, double direction) {
-        waypoints.add(new WayPoint(x, y, direction));
+    public Segment getSegment(int index) {
+        return segments.get(index);
     }
 
-    public List<WayPoint> getWaypoints() {
-        return waypoints;
+    public Segment getNextSegment(int index) {
+        return segments.get(index + 1);
     }
 
-    public Point endPointCoordinate(List<WayPoint> waypoints) {
-        double sumX = 0;
-        double sumY = 0;
-        for (int w = 0; w < waypoints.size() -1; w++) {
-            double distanceX = waypoints.get(w).getX() - waypoints.get(w + 1).getX();
-            double distanceY = waypoints.get(w).getY() - waypoints.get(w + 1).getY();
-            switch (waypoints.getDirection()) {
-                case 0:
-                    sumY =+ distanceY;
-                    break;
-
-                    case 1:
-                        sumX =+ distanceX;
-                        break;
-
-                        case 2:
-                            sumY =+ distanceY;
-                            break;
-
-                            case 3:
-                                sumY =+ distanceY;
-            }
-        }
+    public int segmentCount() {
+        return segments.size();
     }
 
-    public boolean isComplete() {
-
+    public List<Segment> getSegments() {
+        return getSegments();
     }
 }

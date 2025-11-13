@@ -1,6 +1,12 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.view.GameFrame;
+
+import javax.swing.*;
 import java.awt.*;
+
+import static com.IONA.TowerDefense.model.Direction.SOUTH;
+import static javax.swing.SwingConstants.*;
 
 public abstract class Enemy{
 
@@ -10,6 +16,10 @@ public abstract class Enemy{
     protected int gold;
     protected Point coor;
     protected Rectangle hitBox;
+    protected ImageIcon enemyImage;
+    protected boolean completedPath;
+    protected Direction dir;
+    protected int segmentIndex = 0;
 
     public Enemy(int difficulty) {
         coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
@@ -20,21 +30,32 @@ public abstract class Enemy{
         return hitBox;
     }
 
-    public void move(){
-        switch(dir){
-            case 0:
-                coor.y -= 2;
+    public void move() {
+        switch(dir) {
+            case NORTH:
+                coor.y -= speed;
                 break;
-            case 1:
-                coor.y += 2;
+            case EAST:
+                coor.x += speed;
                 break;
-            case 2:
-                coor.x -= 2;
+            case SOUTH:
+                coor.y += speed;
                 break;
-            case 3:
-                coor.x += 2;
+            case WEST:
+                coor.x -=  speed;
         }
         setHitBox();
+    }
+
+    public boolean outsideSegment(Point enemyPosition, Point segmentEnd, Direction direction) {
+
+        return switch (direction) {
+            case NORTH -> enemyPosition.getY() < segmentEnd.getY();
+            case EAST -> enemyPosition.getX() > segmentEnd.getX();
+            case SOUTH -> enemyPosition.getY() > segmentEnd.getY();
+            case WEST -> enemyPosition.getX() < segmentEnd.getX();
+            default -> false;
+        };
     }
 
     public void reduceHP(int dmg) {
@@ -54,6 +75,10 @@ public abstract class Enemy{
         return dir;
     }
 
+    public void setDir(int dir) {
+        this.dir = dir;
+    }
+
     public int getHp() {
         return hp;
     }
@@ -68,5 +93,27 @@ public abstract class Enemy{
 
     public Point getCoor() {
         return coor;
+    }
+
+    public void setCoor(Point coor) {
+        this.coor = coor;
+    }
+
+    public int getSegmentIndex() {
+        return segmentIndex;
+    }
+
+    public void setSegmentIndex(int segmentIndex) {
+        this.segmentIndex = segmentIndex;
+    }
+
+    public void setToNewSegment(Point newCoor, Direction newDir, int newSegmentIndex) {
+        this.coor = newCoor;
+        this.dir = newDir;
+        this.segmentIndex = newSegmentIndex;
+    }
+
+    public ImageIcon getImage() {
+        return enemyImage;
     }
 }

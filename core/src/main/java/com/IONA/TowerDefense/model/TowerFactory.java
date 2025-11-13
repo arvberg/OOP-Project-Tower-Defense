@@ -4,15 +4,17 @@ import java.awt.*;
 
 public class TowerFactory {
 
-    public static Tower createTower (String type, Point pos, Dimension size) {
+    public static Tower createTower (String type) {
 
         if (type.equalsIgnoreCase("TowerBasic")) {
-            return new TowerBasic(pos, size);
+            return new TowerBasic();
         }
         else if (type.equalsIgnoreCase("TowerFast")) {
-            return new TowerFast(pos, size);
+            return new TowerFast();
         }
-        else if (type.equalsIgnoreCase())
+        else {
+            throw new IllegalArgumentException("Unkown tower");
+        }
 
     }
 }

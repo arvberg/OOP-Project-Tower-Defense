@@ -6,13 +6,12 @@ import com.IONA.TowerDefense.model.GameModel;
 import com.IONA.TowerDefense.model.Path;
 import com.IONA.TowerDefense.model.Projectile;
 import com.IONA.TowerDefense.view.Draw;
+import com.IONA.TowerDefense.model.Waves;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-
-import java.util.Vector;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -28,6 +27,12 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+
+        //Waves waves = Waves.load();
+        //waves.printAll();
+       // batch = new SpriteBatch();
+       // image = new Texture("libgdx.png");
+       // font = new BitmapFont();
         path = new Path();
         updater = new GameUpdater();
         model = new GameModel(path);
