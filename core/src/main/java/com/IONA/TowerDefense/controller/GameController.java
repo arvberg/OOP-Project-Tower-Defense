@@ -11,8 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Vector;
 
-
-
 public class GameController {
 
     private final GameModel model;
@@ -30,10 +28,12 @@ public class GameController {
 
     public void update() {
         handleMouseInput();
+        // mer logik här
     }
 
     // handle all input
     private void handleMouseInput() {
+        // flytta till InputHandler
     }
 
 }
