@@ -9,7 +9,7 @@ public class Map {
     public Map(int height, int width, Path path) {
         this.height = height;
         this.width = width;
-        this.path = path;
+        this.path = PathFactory.examplePath1();
     }
 
     public int getHeight() {

@@ -30,6 +30,38 @@ public class GameModel {
         this.score = 0;
     }
 
+    public void moveEnemies(List<Enemy> enemies) {
+
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            int segmentIdx = enemy.getSegmentIndex();
+            Segment segment = path.getSegment(segmentIdx);
+
+            Direction enemyDirection = segment.getDirection();
+            enemy.move();
+
+            Point segmentEndPoint = segment.getEnd();
+            Point enemyCoor = enemy.getCoor();
+
+            if (enemy.outsideSegment(enemyCoor, segmentEndPoint, enemyDirection)) {
+
+                if (enemy.getSegmentIndex() == path.segmentCount()) {
+                    loseLife();
+                    break;
+                } else {
+                    Segment nextSegment = path.getSegment(segmentIdx + 1);
+
+                    enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), segmentIdx + 1);
+
+                    enemy.setSegmentIndex(segmentIdx + 1);
+                    enemy.setCoor(segmentEndPoint);
+                    enemy.setDir(nextSegment.getDirection());
+
+                }
+            }
+        }
+    }
+
     // Add and remove from list
     public void addTower(Tower tower) {
         towers.add(tower);
@@ -84,6 +116,10 @@ public class GameModel {
 
     public int getLives() {
         return lives;
+    }
+
+    public void loveLife() {
+        lives--;
     }
 
     public int getScore() {

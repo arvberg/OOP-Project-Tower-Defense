@@ -10,7 +10,6 @@ import static javax.swing.SwingConstants.*;
 
 public abstract class Enemy{
 
-    protected int dir = 0;
     protected int hp;
     protected int speed;
     protected int gold;
