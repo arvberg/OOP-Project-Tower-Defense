@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model;
 
 import com.IONA.TowerDefense.Main;
 import com.IONA.TowerDefense.controller.GameController;
+import com.badlogic.gdx.Game;
 
 import java.awt.*;
 
@@ -12,8 +13,10 @@ public class TowerFast extends Tower{
     private static final int range = 100;
     private static final int BaseProjectileSpeed = 0;
 
-    public TowerFast() {
-        super(BaseAttack, BaseSpeed, BaseCost, range);
+    private GameModel model;
+
+    public TowerFast(GameModel model) {
+        super(BaseAttack, BaseSpeed, BaseCost, range, model);
         this.attack = BaseAttack;
         this.speed = BaseSpeed;
         this.cost = BaseCost;
@@ -30,7 +33,7 @@ public class TowerFast extends Tower{
         Point tempPoint = new Point();
         tempPoint.setLocation(this.position.x, this.position.y);
 
-        GameController.addProjectile(
+        model.addProjectile(
             new ProjectileBasic(attack, BaseProjectileSpeed, direction, tempPoint, image)
         );
     }

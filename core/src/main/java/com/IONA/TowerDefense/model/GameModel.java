@@ -119,7 +119,7 @@ public class GameModel {
     // Buy a tower
     public void buyTower (Tower tower) {
         if (resources >= tower.getCost()) {
-            Tower newTower = TowerFactory.createTower(tower.toString());
+            Tower newTower = TowerFactory.createTower(tower.toString(), this);
             pendingTower = newTower;
             resources -= tower.getCost();
         }

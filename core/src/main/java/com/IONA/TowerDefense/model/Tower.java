@@ -12,13 +12,15 @@ public abstract class Tower{
     protected int direction;
     protected Point position;
     protected ImageIcon image;
+    GameModel model;
 
-    public Tower(int attack, int speed, int cost, int rangeRadius) {
+    public Tower(int attack, int speed, int cost, int rangeRadius, GameModel model) {
         this.attack = attack;
         this.speed = speed;
         this.cost = cost;
         this.rangeRadius = rangeRadius;
         level = 1;
+        this.model = model;
     }
 
     public int getAttack(){
