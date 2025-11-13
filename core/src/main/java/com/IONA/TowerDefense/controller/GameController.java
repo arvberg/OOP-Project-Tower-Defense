@@ -11,8 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Vector;
 
-
-
 public class GameController {
 
     private final GameModel model;
@@ -30,38 +28,12 @@ public class GameController {
 
     public void update() {
         handleMouseInput();
+        // mer logik här
     }
 
     // handle all input
     private void handleMouseInput() {
-    }
-
-    public static void addTower(Tower temp){
-        towers.add(temp);
-    }
-
-    public static void addEnemy(Enemy temp){
-        enemies.add(temp);
-    }
-
-    public static void addProjectile(Projectile temp) {
-        projectiles.add(temp);
-    }
-
-    public static void removeEnemy(Enemy temp){
-        enemies.remove(temp);
-    }
-
-    public static Vector<Tower> getTowers(){
-        return towers;
-    }
-
-    public static Vector<Enemy> getEnemies(){
-        return enemies;
-    }
-
-    public static Vector<Projectile> getProjectiles(){
-        return projectiles;
+        // flytta till InputHandler
     }
 
 }
