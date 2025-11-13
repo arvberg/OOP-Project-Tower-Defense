@@ -20,10 +20,12 @@ public abstract class Enemy{
     protected boolean completedPath;
     protected Direction dir;
     protected int segmentIndex = 0;
+    GameModel model;
 
-    public Enemy(int difficulty) {
+    public Enemy(int difficulty, GameModel model) {
         coor = new Point(GameFrame.BORDERSIZE, 7*GameFrame.TILESIZE + GameFrame.BORDERSIZE);
         setHitBox();
+        this.model = model;
     }
 
     public Rectangle  getHitBox() {
