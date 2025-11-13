@@ -12,4 +12,14 @@ public class Map {
         this.path = path;
     }
 
+    public int getHeight() {
+        return height;
+    }
+    public int getWidth() {
+        return width;
+    }
+    public Path getPath() {
+        return path;
+    }
+
 }

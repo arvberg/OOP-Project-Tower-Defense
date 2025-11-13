@@ -25,6 +25,8 @@ public class Segment {
         return direction;
     }
 
+
+
     public Point getEnd() {
         return switch (direction) {
             case NORTH -> new Point(start.x, start.y - length);
