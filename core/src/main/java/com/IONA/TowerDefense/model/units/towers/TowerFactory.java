@@ -1,8 +1,6 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.towers;
 
-import com.badlogic.gdx.Game;
-
-import java.awt.*;
+import com.IONA.TowerDefense.model.GameModel;
 
 public class TowerFactory {
 

@@ -1,4 +1,6 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.interfaces;
+
+import com.IONA.TowerDefense.model.Targetable;
 
 public interface Attacker {
     boolean canAttack();

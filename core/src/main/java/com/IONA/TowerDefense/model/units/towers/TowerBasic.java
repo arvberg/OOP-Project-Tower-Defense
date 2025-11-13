@@ -1,21 +1,21 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.Main;
-import com.IONA.TowerDefense.controller.GameController;
-import com.badlogic.gdx.Game;
+import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.units.towers.projectiles.ProjectileBasic;
+import com.IONA.TowerDefense.model.Targetable;
 
 import java.awt.*;
 
-public class TowerFast extends Tower{
-    private static final int BaseAttack = 25;
-    private static final int BaseSpeed = 100;
+public class TowerBasic extends Tower{
+    private static final int BaseAttack = 50;
+    private static final int BaseSpeed = 50;
     private static final int BaseCost = 50;
     private static final int range = 100;
     private static final int BaseProjectileSpeed = 0;
 
     private GameModel model;
 
-    public TowerFast(GameModel model) {
+    public TowerBasic(GameModel model) {
         super(BaseAttack, BaseSpeed, BaseCost, range, model);
         this.attack = BaseAttack;
         this.speed = BaseSpeed;

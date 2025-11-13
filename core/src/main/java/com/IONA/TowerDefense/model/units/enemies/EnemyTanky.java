@@ -1,6 +1,6 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.enemies;
 
-import java.awt.*;
+import com.IONA.TowerDefense.model.GameModel;
 
 public class EnemyTanky extends Enemy{
     public EnemyTanky(int difficulty, GameModel model){

@@ -1,4 +1,7 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.towers;
+
+import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.Targetable;
 
 import javax.swing.*;
 import java.awt.*;
