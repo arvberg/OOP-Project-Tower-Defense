@@ -12,11 +12,11 @@ public class WaveGenerator {
     GameModel model;
     Waves waves;
     int WaveNr;
-    String GameDiff;
+    int GameDiff;
 
 
 
-    public WaveGenerator(String difficulty, GameModel model) {
+    public WaveGenerator(int difficulty, GameModel model) {
         //this.controller = new GameController();
         this.waves = Waves.load();
         this.WaveNr = 0;
@@ -32,31 +32,23 @@ public class WaveGenerator {
                 @Override
                 public void run() {
 
-                    if (GameDiff.equals("e")) {
 
-                        if(e.type.equals("1")){
-                            Enemy enemy = new EnemyBasic(1, model);
-                            model.addEnemy(enemy);
+                            if (e.type.equals("1")) {
+                                Enemy enemy = new EnemyBasic(GameDiff, model);
+                                model.addEnemy(enemy);
 
-                            //RenderEnemy renderEnemy = new RenderEnemy()
-                            //RenderEnemy renderEnemy = new RenderEnemy(enemy.getX(),enemy.getY(),getTexture(e));
-                            //DrawClass.liveEnemies.add(enemy)
-                            //
+                                //RenderEnemy renderEnemy = new RenderEnemy()
+                                //RenderEnemy renderEnemy = new RenderEnemy(enemy.getX(),enemy.getY(),getTexture(e));
+                                //DrawClass.liveEnemies.add(enemy)
+                                //
+                            }
+
+                            // Här tänker jag att vi lägger till fienden i en "liveEnemies" array som våran
+                            // draw() metod hela tiden kommer kolla på, där fiendernas state finns.
+                            // enemy = new enemy("e",) där strängen bestämmer attribut som hastighet, hp och delay.
+                            // DrawClass.liveEnemies.add(enemy)
                         }
 
-                        // Här tänker jag att vi lägger till fienden i en "liveEnemies" array som våran
-                        // draw() metod hela tiden kommer kolla på, där fiendernas state finns.
-                        // enemy = new enemy("e",) där strängen bestämmer attribut som hastighet, hp och delay.
-                        // DrawClass.liveEnemies.add(enemy)
-
-                    } else if (GameDiff.equals("m")) {
-
-                    } else if (GameDiff.equals("h")) {
-
-                    }
-
-
-                }
             }, e.delay);
 
 
