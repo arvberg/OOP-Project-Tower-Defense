@@ -6,7 +6,7 @@ import java.awt.*;
 public class Projectile {
     protected int attack;
     protected int speed;
-    protected Point direction; //x,y 0-1]
+    protected Point direction; //x,y 0-1
     protected Point position;
     protected Point target;
     protected ImageIcon projectileIcon;
