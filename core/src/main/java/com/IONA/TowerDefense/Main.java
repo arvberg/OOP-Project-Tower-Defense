@@ -43,5 +43,6 @@ public class Main extends ApplicationAdapter {
     private void input() { controller.update(); }
     private void logic() { updater.update(); }
     private void draw() {  painter.draw(); }
+
 }
 
