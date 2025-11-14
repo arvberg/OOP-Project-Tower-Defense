@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model.units.enemies;
 //import com.IONA.TowerDefense.view.GameFrame;
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.GameModel;
+import com.badlogic.gdx.graphics.Texture;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,15 +20,16 @@ public abstract class Enemy{
     protected Point coor;
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
-    protected boolean completedPath;
+    protected boolean completedPath; // maybe redundant
     protected int segmentIndex = 0;
     GameModel model;
-
-
+    public Texture texture;
 
     public Enemy(int difficulty, GameModel model) {
         setHitBox();
         this.model = model;
+        this.texture = new Texture("ProtTower.png");
+
     }
 
     public Rectangle  getHitBox() {
@@ -46,7 +48,7 @@ public abstract class Enemy{
                 coor.y += speed;
                 break;
             case WEST:
-                coor.x -=  speed;
+                coor.x -= speed;
         }
         setHitBox();
     }
@@ -67,7 +69,7 @@ public abstract class Enemy{
     }
 
     public boolean isDead() {
-        if(hp < 0 ) return true;
+        if(hp <= 0 ) return true;
         return false;
     }
 
@@ -77,6 +79,10 @@ public abstract class Enemy{
 
     public Direction getDir() {
         return dir;
+    }
+
+    public void takeDamage(int damage) {
+        hp -= damage;
     }
 
     public void setDir(Direction dir) {

@@ -4,19 +4,20 @@ import com.IONA.TowerDefense.controller.GameController;
 import com.IONA.TowerDefense.controller.GameUpdater;
 import com.IONA.TowerDefense.model.GameModel;
 import com.IONA.TowerDefense.model.Path;
+import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.ApplicationAdapter;
 
 public class Main extends ApplicationAdapter {
     public GameController controller;
     public GameUpdater updater;
-    public GameModel model;
+    public static GameModel model;
     public Draw painter; // view
 
     @Override
     public void create() {
         model = new GameModel();
-        updater = new GameUpdater();
+        updater = new GameUpdater(model);
         painter = new Draw(model);
         painter.create();
         controller = new GameController(model, painter);

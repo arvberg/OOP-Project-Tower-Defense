@@ -1,4 +1,5 @@
 package com.IONA.TowerDefense.controller;
+import com.IONA.TowerDefense.model.GameModel;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Arrays;
@@ -7,14 +8,17 @@ import java.util.Collections;
 
 public class GameUpdater  {
 
-    WaveGenerator generator;
+    private GameModel model;
 
-    public GameUpdater(){
-        this.generator = generator;
+    public GameUpdater(GameModel model){
+       this.model = model;
     }
 
     public void update(){
-
+        if (model.paused){
+            return;
+        }
+        model.moveEnemies();
     }
 
 

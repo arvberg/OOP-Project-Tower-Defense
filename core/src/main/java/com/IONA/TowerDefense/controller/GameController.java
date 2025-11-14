@@ -1,5 +1,7 @@
 package com.IONA.TowerDefense.controller;
 
+import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.controller.WaveGenerator;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.GameModel;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
@@ -15,24 +17,27 @@ public class GameController {
     private final Draw view;
     private final Vector2 mousePos = new Vector2();
 
-
-    private static final Vector<Tower> towers = new Vector<>();
-    private static final Vector<Projectile> projectiles = new Vector<>();
-    private static final Vector<Enemy> enemies = new  Vector<>();
+    private WaveGenerator waveGenerator;
+    private InputHandler inputHandler;
 
     public GameController (GameModel model, Draw view) {
         this.model = model;
         this.view = view;
+        this.inputHandler = new InputHandler(model);
     }
 
     public void update() {
-        handleMouseInput();
+       inputHandler.checkInput();
         // mer logik här
     }
 
     // handle all input
     private void handleMouseInput() {
-        // flytta till InputHandler
+        inputHandler.checkInput();
+    }
+
+    public void startWave() {
+        waveGenerator.SpawnNextWave();
     }
 
 }

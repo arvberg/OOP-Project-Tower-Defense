@@ -1,27 +1,37 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.ui.pauseButton;
+import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.badlogic.gdx.graphics.Texture;
 
+import javax.xml.xpath.XPathFactory;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
+    public boolean paused = false;
 
     private List<Tower> towers;
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
+    private List<Button> buttons;
     private Path path;
-
+    private Background background;
+    public playButton playbutton;
+    public pauseButton pausebutton;
 
     private int resources; // Players resources
     private int lives; // Players health
     private int score; // Players current score
+    public static int difficulty;
+    private PathFactory pathFactory = new PathFactory();
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 
@@ -31,9 +41,50 @@ public class GameModel {
     public GameModel () {
         this.towers = new ArrayList<>();
         this.projectiles = new ArrayList<>();
+        this.enemies = new ArrayList<>();
         this.resources = 100;
         this.score = 0;
+        this.buttons = new ArrayList<>();
+        this.background = new Background();
+        this.difficulty = 0;
+        this.playbutton = new playButton(0,0);
+        this.pausebutton = new pauseButton(10,0);
+        buttons.add(playbutton);
+        this.path = pathFactory.examplePath1();
+    }
 
+    public void moveEnemies() {
+
+        if (!enemies.isEmpty() && enemies != null) {
+
+            for (int i = 0; i < enemies.size(); i++) {
+                Enemy enemy = enemies.get(i);
+                int segmentIdx = enemy.getSegmentIndex();
+                Segment segment = path.getSegment(segmentIdx);
+
+                Direction enemyDirection = segment.getDirection();
+                enemy.move();
+
+                Point segmentEndPoint = segment.getEnd();
+                Point enemyCoor = enemy.getCoor();
+
+                if (enemy.outsideSegment(enemyCoor, segmentEndPoint, enemyDirection)) {
+
+                    if (enemy.getSegmentIndex() == path.segmentCount() - 1) {
+                        loseLife();
+                        removeEnemy(enemy);
+                        break;
+                        //perhaps later decrease enemy life
+                    } else {
+                        int nextIdx = segmentIdx + 1;
+                        Segment nextSegment = path.getSegment(nextIdx);
+
+                        enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), nextIdx);
+
+                    }
+                }
+            }
+        }
     }
 
     // Add and remove from list
@@ -45,7 +96,11 @@ public class GameModel {
         towers.remove(tower);
     }
 
-    public void addEnemy(Enemy enemy) { enemies.add(enemy); }
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+        Segment first = path.getSegment(0);
+        enemy.setToNewSegment(first.getStartPoint(), first.getDirection(), 0);
+    }
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 
@@ -56,6 +111,10 @@ public class GameModel {
     public void removeProjectiles(Projectile projectile) {
         projectiles.remove(projectile);
     }
+
+    public void addButton(Button button) { buttons.add(button);}
+
+    public void removeButton(Button button) { buttons.remove(button); }
 
     // Getters for all lists
     public List<Tower> getTowers() {
@@ -80,9 +139,15 @@ public class GameModel {
         return lives;
     }
 
+    public void loseLife() {
+        lives--;
+    }
+
     public int getScore() {
         return score;
     }
+
+    public List<Button> getButtons() { return buttons;}
 
     // Selecting a tower
     public void selectTower(Point selectedPoint) {
@@ -123,12 +188,29 @@ public class GameModel {
     }
 
     // Buy a tower
-    public void buyTower (Tower tower) {
+    /*public void buyTower (Tower tower) {
         if (resources >= tower.getCost()) {
-            Tower newTower = TowerFactory.createTower(tower.toString(), this);
+            Tower new Tower = TowerFactory.createTower(tower.toString(), this);
             pendingTower = newTower;
             resources -= tower.getCost();
         }
     }
+*/
+    public Texture getBackground(){
+        return background.BackgroundTexture;
+    }
+
+    /*public void setDiff(int diff){
+        this.difficulty = diff;
+    }
+*/
+    public playButton getPlayButton(){
+        return playbutton;
+    };
+
+    public pauseButton getPauseButton(){
+        return pausebutton;
+    }
+
 
 }

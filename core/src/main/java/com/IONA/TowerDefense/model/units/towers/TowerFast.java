@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
 import com.IONA.TowerDefense.model.GameModel;
-import com.IONA.TowerDefense.model.units.towers.projectiles.ProjectileBasic;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 
 import java.awt.*;
@@ -32,9 +31,5 @@ public class TowerFast extends Tower{
     public void fire() {
         Point tempPoint = new Point();
         tempPoint.setLocation(this.position.x, this.position.y);
-
-        model.addProjectile(
-            new ProjectileBasic(attack, BaseProjectileSpeed, direction, tempPoint, image)
-        );
     }
 }
