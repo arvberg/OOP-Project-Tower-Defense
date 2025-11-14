@@ -49,8 +49,13 @@ public class AttackHandler {
         double enemyX = enemy.getCoor().getX();
         double enemyY = enemy.getCoor().getY();
 
-        double dirX =  tower.getPosition().getX() - towerX;
-        double dirY =  tower.getPosition().getY() - towerY;
+        double vx = enemyX - towerX;
+        double vy = enemyY - towerY;
+
+        double length =  Math.sqrt(vx * vx + vy * vy);
+
+        double dirX =  vx / length;
+        double dirY =  vy / length;
 
         projectiles.add(new Projectile(damage, speed, towerX, towerY, dirX, dirY));
     }
