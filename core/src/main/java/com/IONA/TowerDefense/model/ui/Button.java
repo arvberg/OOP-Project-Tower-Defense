@@ -21,22 +21,20 @@ public abstract class Button {
         this.bounds = new Rectangle(x, y, width, height);
     }
 
-    public void render(SpriteBatch batch){
-        batch.draw(texture, buttonPosition.x, buttonPosition.y, width, height);
-    }
-
-    public boolean isClicked(){
+    public boolean isClicked(float x, float y){
         if (Gdx.input.justTouched()){
-            float touchX = Gdx.input.getX();
-            float touchY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            return bounds.contains(touchX, touchY);
+            return bounds.contains(x, y);
         }
         return false;
     }
 
-    public void setPosition(float x, float y) {
+    public void setButtonPosition(float x, float y) {
         buttonPosition.set(x, y);
         bounds.setPosition(x, y);
+    }
+
+    public Vector2 getButtonPosition(){
+        return buttonPosition;
     }
 
     public abstract void onClick();

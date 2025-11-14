@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model;
 
 import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
@@ -15,6 +16,7 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
+    public boolean paused = false;
 
     private List<Tower> towers;
     private List<Enemy> enemies;

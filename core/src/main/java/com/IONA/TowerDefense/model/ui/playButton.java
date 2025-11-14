@@ -6,7 +6,8 @@ import com.IONA.TowerDefense.model.GameModel;
 
 public class playButton extends Button{
     public playButton(float x, float y){
-        super("ProtTower.png", 1, 1, 128, 128);
+        super("ProtTower.png", x, y, 1, 1);
+        this.generator = new WaveGenerator(GameModel.difficulty, Main.model);
     }
 
     @Override

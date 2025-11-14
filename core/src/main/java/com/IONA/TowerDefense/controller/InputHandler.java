@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.controller;
 
 import com.IONA.TowerDefense.Main;
 import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.badlogic.gdx.Gdx;
 
@@ -18,6 +19,7 @@ public class InputHandler {
     }
 
     GameModel model;
+    pauseButton pauseButton;
     playButton playButton;
     private InputState state = InputState.SELECTION_STATE;
 

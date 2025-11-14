@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.units.towers.projectiles;
 
 import com.IONA.TowerDefense.model.GameModel;
+import com.badlogic.gdx.graphics.Texture;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ public class Projectile {
     protected double y;
     protected double dx;
     protected double dy;
-    protected ImageIcon projectileIcon;
+    protected Texture projectileIcon;
 
     public Projectile(int damage, double speed, double x, double y, double dx, double dy) {
         this.damage = damage;
@@ -43,7 +44,7 @@ public class Projectile {
         this.damage = damage;
     }
 
-    public int getSpeed() {
+    public double getSpeed() {
         return speed;
     }
 
@@ -67,7 +68,7 @@ public class Projectile {
         return y;
     }
 
-    public ImageIcon getIcon() {
+    public Texture getIcon() {
         return projectileIcon;
     }
 }
