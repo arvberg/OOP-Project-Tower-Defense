@@ -37,10 +37,7 @@ public class WaveGenerator {
                                 Enemy enemy = new EnemyBasic(GameDiff, model);
                                 model.addEnemy(enemy);
 
-                                //RenderEnemy renderEnemy = new RenderEnemy()
-                                //RenderEnemy renderEnemy = new RenderEnemy(enemy.getX(),enemy.getY(),getTexture(e));
-                                //DrawClass.liveEnemies.add(enemy)
-                                //
+
                             }
 
                             // Här tänker jag att vi lägger till fienden i en "liveEnemies" array som våran

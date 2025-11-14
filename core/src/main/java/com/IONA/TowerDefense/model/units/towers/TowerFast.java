@@ -32,9 +32,5 @@ public class TowerFast extends Tower{
     public void fire() {
         Point tempPoint = new Point();
         tempPoint.setLocation(this.position.x, this.position.y);
-
-        model.addProjectile(
-            new ProjectileBasic(attack, BaseProjectileSpeed, direction, tempPoint, image)
-        );
     }
 }

@@ -2,46 +2,63 @@ package com.IONA.TowerDefense.model.units.towers.projectiles;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Vector;
 
 public class Projectile {
-    protected int attack;
-    protected int speed;
-    protected Point direction; //x,y 0-1
-    protected Point position;
-    protected Point target;
+    protected int damage;
+    protected double speed;
+    protected double x;
+    protected double y;
+    protected double dx;
+    protected double dy;
     protected ImageIcon projectileIcon;
 
     public Projectile(int attack, int speed, Point direction, Point position, Point target, ImageIcon projectileIcon) {
         this.attack = attack;
         this.speed = speed;
-        this.direction = direction;
-        this.position = position;
-        this.target = target;
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
         this.projectileIcon = projectileIcon;
     }
 
-    public void move(Point start, Point target, int speed) {
-        int dx = start.x - target.x;
-        int dy = start.y - target.y;
-        int angle = dy / dx;
-        int newY = dx + speed * angle;
-        int newX = dx + speed / angle; //doublecheck the math here
+    public void setPosition(double newX, double newY) {
+        this.x = newX;
+        this.y = newY;
     }
 
-    public int getAttack() {
-        return attack;
+    public void move(Point direction, int speed) {
+        x += dx * speed;
+        y += dy * speed;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public int getSpeed() {
         return speed;
     }
 
-    public Point getDir(){
-        return direction;
+    public double getDx(){
+        return dx;
     }
 
-    public Point getPosition() {
-        return position;
+    public double getDy(){
+        return dy;
+    }
+
+    public void setDir(double newDx, double newDy) {
+        this.dx = newDx;
+        this.dy = newDy;
+    }
+
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
     }
 
     public ImageIcon getIcon() {
