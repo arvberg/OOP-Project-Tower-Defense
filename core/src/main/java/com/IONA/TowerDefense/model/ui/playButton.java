@@ -14,6 +14,7 @@ public class playButton extends Button{
         this.bounds = new Rectangle(x,y,1,1);
     }
 
+    @Override
     public void isClicked(float x, float y){
         if(bounds.contains(x,y)){
             onClick();
