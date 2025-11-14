@@ -1,27 +1,32 @@
 package com.IONA.TowerDefense.controller;
 
+
 import com.IONA.TowerDefense.model.*;
-import com.badlogic.gdx.controllers.Controller;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.badlogic.gdx.utils.Timer;
 
 public class WaveGenerator {
 
     GameController controller;
+    GameModel model;
     Waves waves;
     int WaveNr;
     String GameDiff;
 
-    public WaveGenerator(String difficulty) {
+
+
+    public WaveGenerator(String difficulty, GameModel model) {
         //this.controller = new GameController();
         this.waves = Waves.load();
         this.WaveNr = 0;
         this.GameDiff = difficulty;
+        this.model = model;
     }
 
     public void SpawnNextWave() {
 
         for (Waves.Enemy e : waves.waveslist.get(WaveNr).enemies) {
-
 
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -30,8 +35,13 @@ public class WaveGenerator {
                     if (GameDiff.equals("e")) {
 
                         if(e.type.equals("1")){
-                            //enemy = newType1Enemy("e")
+                            Enemy enemy = new EnemyBasic(1, model);
+                            model.addEnemy(enemy);
+
+                            //RenderEnemy renderEnemy = new RenderEnemy()
+                            //RenderEnemy renderEnemy = new RenderEnemy(enemy.getX(),enemy.getY(),getTexture(e));
                             //DrawClass.liveEnemies.add(enemy)
+                            //
                         }
 
                         // Här tänker jag att vi lägger till fienden i en "liveEnemies" array som våran
@@ -49,8 +59,10 @@ public class WaveGenerator {
                 }
             }, e.delay);
 
-            WaveNr++;
+
         }
+
+        WaveNr++;
 
     }
 
