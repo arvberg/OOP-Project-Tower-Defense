@@ -20,10 +20,13 @@ public class GameModel {
     private List<Projectile> projectiles;
     private List<Button> buttons;
     private Path path;
+    private Background background;
+    //private playButton playbutton;
 
     private int resources; // Players resources
     private int lives; // Players health
     private int score; // Players current score
+    public static int difficulty;
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 

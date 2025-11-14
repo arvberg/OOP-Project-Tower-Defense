@@ -23,6 +23,7 @@ public class GameController {
     public GameController (GameModel model, Draw view) {
         this.model = model;
         this.view = view;
+        this.inputHandler = new InputHandler(model);
     }
 
     public void update() {
@@ -32,7 +33,7 @@ public class GameController {
 
     // handle all input
     private void handleMouseInput() {
-        // flytta till InputHandler
+        inputHandler.checkInput();
     }
 
     public void startWave() {
