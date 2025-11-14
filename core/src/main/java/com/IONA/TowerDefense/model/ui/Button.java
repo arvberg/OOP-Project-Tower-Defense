@@ -21,11 +21,13 @@ public abstract class Button {
         this.bounds = new Rectangle(x, y, width, height);
     }
 
-    public boolean isClicked(float x, float y){
-        if (Gdx.input.justTouched()){
+    public void isClicked(float x, float y){
+        /*if (Gdx.input.justTouched()){
             return bounds.contains(x, y);
         }
         return false;
+        */
+
     }
 
     public void setButtonPosition(float x, float y) {
