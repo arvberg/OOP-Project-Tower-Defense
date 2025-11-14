@@ -15,11 +15,6 @@ public class GameController {
     private final Draw view;
     private final Vector2 mousePos = new Vector2();
 
-
-    private static final Vector<Tower> towers = new Vector<>();
-    private static final Vector<Projectile> projectiles = new Vector<>();
-    private static final Vector<Enemy> enemies = new  Vector<>();
-
     public GameController (GameModel model, Draw view) {
         this.model = model;
         this.view = view;

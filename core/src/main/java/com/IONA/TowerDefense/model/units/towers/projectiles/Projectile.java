@@ -36,7 +36,7 @@ public class Projectile {
         return speed;
     }
 
-    public int getDir(){
+    public Point getDir(){
         return direction;
     }
 

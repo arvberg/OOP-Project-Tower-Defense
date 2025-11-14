@@ -112,7 +112,7 @@ public class GameModel {
         return lives;
     }
 
-    public void loveLife() {
+    public void loseLife() {
         lives--;
     }
 
