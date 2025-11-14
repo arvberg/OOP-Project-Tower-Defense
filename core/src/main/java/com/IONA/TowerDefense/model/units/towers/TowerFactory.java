@@ -1,16 +1,16 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.towers;
 
-import java.awt.*;
+import com.IONA.TowerDefense.model.GameModel;
 
 public class TowerFactory {
 
-    public static Tower createTower (String type) {
+    public static Tower createTower (String type, GameModel model) {
 
         if (type.equalsIgnoreCase("TowerBasic")) {
-            return new TowerBasic();
+            return new TowerBasic(model);
         }
         else if (type.equalsIgnoreCase("TowerFast")) {
-            return new TowerFast();
+            return new TowerFast(model);
         }
         else {
             throw new IllegalArgumentException("Unkown tower");

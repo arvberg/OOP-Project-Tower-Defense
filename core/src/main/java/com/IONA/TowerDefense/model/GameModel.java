@@ -1,8 +1,13 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.units.towers.TowerFactory;
+import com.badlogic.gdx.graphics.Texture;
+
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 // Main model class to for communication with controller
@@ -13,6 +18,7 @@ public class GameModel {
     private List<Projectile> projectiles;
     private Path path;
 
+
     private int resources; // Players resources
     private int lives; // Players health
     private int score; // Players current score
@@ -22,12 +28,12 @@ public class GameModel {
     private boolean towerSelected = false;
     private Tower pendingTower = null;
 
-    public GameModel (Path path) {
+    public GameModel () {
         this.towers = new ArrayList<>();
         this.projectiles = new ArrayList<>();
-        this.path = path;
         this.resources = 100;
         this.score = 0;
+
     }
 
     public void moveEnemies(List<Enemy> enemies) {
@@ -88,26 +94,14 @@ public class GameModel {
         return towers;
     }
 
-    public List<Tower> getTowersToRender() {
-        return Collections.unmodifiableList(towers);
-    }
-
     public boolean isTowerSelected() {
         return towerSelected;
     }
 
     public List<Enemy> getEnemies() { return enemies; }
 
-    public List<Enemy> getEnemiesToRender() {
-        return Collections.unmodifiableList(enemies);
-    }
-
     public List<Projectile> getProjectiles() {
         return projectiles;
-    }
-
-    public List<Projectile> getProjectilesToRender() {
-        return Collections.unmodifiableList(projectiles);
     }
 
     public int getResources() {
@@ -167,7 +161,7 @@ public class GameModel {
     // Buy a tower
     public void buyTower (Tower tower) {
         if (resources >= tower.getCost()) {
-            Tower newTower = TowerFactory.createTower(tower.toString());
+            Tower newTower = TowerFactory.createTower(tower.toString(), this);
             pendingTower = newTower;
             resources -= tower.getCost();
         }

@@ -1,73 +1,47 @@
 package com.IONA.TowerDefense;
 
-import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.controller.GameController;
+import com.IONA.TowerDefense.controller.GameUpdater;
+import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.Path;
+import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-/** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
-    private SpriteBatch batch;
-    private Texture image;
-    private BitmapFont font;
+    public GameController controller;
+    public GameUpdater updater;
+    public GameModel model;
+    public Draw painter; // view
 
     @Override
     public void create() {
-
-        //Waves waves = Waves.load();
-        //waves.printAll();
-       // batch = new SpriteBatch();
-       // image = new Texture("libgdx.png");
-       // font = new BitmapFont();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        // If the window is minimized on a desktop (LWJGL3) platform, width and height are 0, which causes problems.
-        // In that case, we don't resize anything, and wait for the window to be a normal size before updating.
-        if(width <= 0 || height <= 0) return;
-
-        // Resize your application here. The parameters represent the new window size.
+        model = new GameModel();
+        updater = new GameUpdater();
+        painter = new Draw(model);
+        painter.create();
+        controller = new GameController(model, painter);
     }
 
     @Override
     public void render() {
-        input();
-        logic();
-        draw();
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
-        batch.begin();
-        font.draw(batch,"Tower Defense", 140, 210);
-        batch.end();
-    }
-
-    private void input() {
-
-    }
-
-    private void logic() {
-
-    }
-
-    private void draw() {
-
+        input();    // All input endast
+        logic();    // Uppdatera spelvärlden
+        draw();     // Måla
     }
 
     @Override
-    public void pause() {
-        // Invoked when your application is paused.
-    }
-
-    @Override
-    public void resume() {
-        // Invoked when your application is resumed after pause.
+    public void resize(int w, int h) {
+        if (w <= 0 || h <= 0) return;
+        painter.resize(w, h);
     }
 
     @Override
     public void dispose() {
-        batch.dispose();
-        image.dispose();
+        painter.dispose();
     }
+
+    private void input() { controller.update(); }
+    private void logic() { updater.update(); }
+    private void draw() {  painter.draw(); }
 }
+

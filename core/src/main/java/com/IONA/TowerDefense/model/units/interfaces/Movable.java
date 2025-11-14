@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.interfaces;
 
 import java.awt.*;
 

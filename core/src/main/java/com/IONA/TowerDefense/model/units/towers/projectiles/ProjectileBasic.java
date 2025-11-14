@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.towers.projectiles;
 
 import javax.swing.*;
 import java.awt.*;
