@@ -21,6 +21,7 @@ public class Path {
         } return segmentsLength;
     }
 
+    /*
     public Segment segmentFromPathLength(int length, Path path) {
         int pathLength = path.getSegmentsLength(path.getSegments());
         int currentSegmentLength = 0;
@@ -33,6 +34,7 @@ public class Path {
             }
         }
     }
+     */
 
     public Segment getNextSegment(int index) {
         return segments.get(index + 1);
