@@ -11,7 +11,7 @@ public class InputHandler implements MouseListener, MouseMotionListener {
 
     public enum InputState {
         SELECTION_STATE,
-        BUYING_STATE
+        BUYING_STATE,
     }
 
     GameModel model;
@@ -52,10 +52,6 @@ public class InputHandler implements MouseListener, MouseMotionListener {
 
     }
 
-    @Override
-    public void mouseDragged(MouseEvent mouseEvent) {
-
-    }
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {

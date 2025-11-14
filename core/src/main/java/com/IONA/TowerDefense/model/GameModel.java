@@ -1,5 +1,7 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -16,8 +18,8 @@ public class GameModel {
     private List<Tower> towers;
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
+    private List<Button> buttons;
     private Path path;
-
 
     private int resources; // Players resources
     private int lives; // Players health
@@ -33,6 +35,10 @@ public class GameModel {
         this.projectiles = new ArrayList<>();
         this.resources = 100;
         this.score = 0;
+        this.buttons = new ArrayList<>();
+        this.background = new Background();
+        this.difficulty = 0;
+        //this.playbutton = new playButton();
 
     }
 
@@ -89,6 +95,10 @@ public class GameModel {
         projectiles.remove(projectile);
     }
 
+    public void addButton(Button button) { buttons.add(button);}
+
+    public void removeButton(Button button) { buttons.remove(button); }
+
     // Getters for all lists
     public List<Tower> getTowers() {
         return towers;
@@ -119,6 +129,8 @@ public class GameModel {
     public int getScore() {
         return score;
     }
+
+    public List<Button> getButtons() { return buttons;}
 
     // Selecting a tower
     public void selectTower(Point selectedPoint) {
@@ -166,5 +178,18 @@ public class GameModel {
             resources -= tower.getCost();
         }
     }
+
+    public Texture getBackground(){
+        return background.BackgroundTexture;
+    }
+
+    /*public void setDiff(int diff){
+        this.difficulty = diff;
+    }
+
+    /*public Button getPlayButton(){
+        return playbutton;
+    };
+    */
 
 }

@@ -1,5 +1,7 @@
 package com.IONA.TowerDefense.model.units.towers.projectiles;
 
+import com.IONA.TowerDefense.model.GameModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Vector;
@@ -13,14 +15,17 @@ public class Projectile {
     protected double dy;
     protected ImageIcon projectileIcon;
 
-    public Projectile(int attack, int speed, Point direction, Point position, Point target, ImageIcon projectileIcon) {
-        this.attack = attack;
+    protected GameModel model;
+
+    public Projectile(int damage, double speed, double x, double y, double dx, double dy, ImageIcon projectileIcon, GameModel model) {
+        this.damage = damage;
         this.speed = speed;
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
         this.projectileIcon = projectileIcon;
+        this.model = model;
     }
 
     public void setPosition(double newX, double newY) {
