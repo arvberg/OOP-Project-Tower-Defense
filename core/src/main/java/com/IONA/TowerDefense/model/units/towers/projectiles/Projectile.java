@@ -15,17 +15,14 @@ public class Projectile {
     protected double dy;
     protected ImageIcon projectileIcon;
 
-    protected GameModel model;
-
-    public Projectile(int damage, double speed, double x, double y, double dx, double dy, ImageIcon projectileIcon, GameModel model) {
+    public Projectile(int damage, double speed, double x, double y, double dx, double dy) {
         this.damage = damage;
         this.speed = speed;
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
-        this.projectileIcon = projectileIcon;
-        this.model = model;
+        this.projectileIcon = new Texture("ProtTower.png");
     }
 
     public void setPosition(double newX, double newY) {
@@ -40,6 +37,10 @@ public class Projectile {
 
     public int getDamage() {
         return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public int getSpeed() {

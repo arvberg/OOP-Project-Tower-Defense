@@ -4,6 +4,7 @@ import java.awt.*;
 import java.util.List;
 
 public class Path {
+
     private List<Segment> segments;
 
     public Path(List<Segment> segments) {
@@ -45,6 +46,6 @@ public class Path {
     }
 
     public List<Segment> getSegments() {
-        return getSegments();
+        return segments;
     }
 }

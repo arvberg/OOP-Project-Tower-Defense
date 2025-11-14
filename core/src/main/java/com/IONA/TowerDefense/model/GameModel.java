@@ -3,11 +3,12 @@ package com.IONA.TowerDefense.model;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.badlogic.gdx.graphics.Texture;
 
+import javax.xml.xpath.XPathFactory;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class GameModel {
     private int lives; // Players health
     private int score; // Players current score
     public static int difficulty;
+    private PathFactory pathFactory = new PathFactory();
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 
@@ -36,6 +38,7 @@ public class GameModel {
     public GameModel () {
         this.towers = new ArrayList<>();
         this.projectiles = new ArrayList<>();
+        this.enemies = new ArrayList<>();
         this.resources = 100;
         this.score = 0;
         this.buttons = new ArrayList<>();
@@ -45,33 +48,35 @@ public class GameModel {
 
     }
 
-    public void moveEnemies(List<Enemy> enemies) {
+    public void moveEnemies() {
 
-        for (int i = 0; i < enemies.size(); i++) {
-            Enemy enemy = enemies.get(i);
-            int segmentIdx = enemy.getSegmentIndex();
-            Segment segment = path.getSegment(segmentIdx);
+        if (!enemies.isEmpty() && enemies != null) {
 
-            Direction enemyDirection = segment.getDirection();
-            enemy.move();
+            for (int i = 0; i < enemies.size(); i++) {
+                Enemy enemy = enemies.get(i);
+                int segmentIdx = enemy.getSegmentIndex();
+                Segment segment = path.getSegment(segmentIdx);
 
-            Point segmentEndPoint = segment.getEnd();
-            Point enemyCoor = enemy.getCoor();
+                Direction enemyDirection = segment.getDirection();
+                enemy.move();
 
-            if (enemy.outsideSegment(enemyCoor, segmentEndPoint, enemyDirection)) {
+                Point segmentEndPoint = segment.getEnd();
+                Point enemyCoor = enemy.getCoor();
 
-                if (enemy.getSegmentIndex() == path.segmentCount()) {
-                    loseLife();
-                    break;
-                } else {
-                    Segment nextSegment = path.getSegment(segmentIdx + 1);
+                if (enemy.outsideSegment(enemyCoor, segmentEndPoint, enemyDirection)) {
 
-                    enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), segmentIdx + 1);
+                    if (enemy.getSegmentIndex() == path.segmentCount() - 1) {
+                        loseLife();
+                        removeEnemy(enemy);
+                        break;
+                        //perhaps later decrease enemy life
+                    } else {
+                        int nextIdx = segmentIdx + 1;
+                        Segment nextSegment = path.getSegment(nextIdx);
 
-                    enemy.setSegmentIndex(segmentIdx + 1);
-                    enemy.setCoor(segmentEndPoint);
-                    enemy.setDir(nextSegment.getDirection());
+                        enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), nextIdx);
 
+                    }
                 }
             }
         }
@@ -86,7 +91,11 @@ public class GameModel {
         towers.remove(tower);
     }
 
-    public void addEnemy(Enemy enemy) { enemies.add(enemy); }
+    public void addEnemy(Enemy enemy) {
+        enemies.add(enemy);
+        Segment first = path.getSegment(0);
+        enemy.setToNewSegment(first.getStartPoint(), first.getDirection(), 0);
+    }
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 
