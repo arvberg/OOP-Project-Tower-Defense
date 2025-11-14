@@ -1,6 +1,8 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.enemies;
 
 //import com.IONA.TowerDefense.view.GameFrame;
+import com.IONA.TowerDefense.model.Direction;
+import com.IONA.TowerDefense.model.GameModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,7 @@ import static javax.swing.SwingConstants.*;
 
 public abstract class Enemy{
 
+    protected Direction dir;
     protected int hp;
     protected int speed;
     protected int gold;
@@ -17,14 +20,14 @@ public abstract class Enemy{
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
     protected boolean completedPath;
-    protected Direction dir;
     protected int segmentIndex = 0;
+    GameModel model;
 
 
-    public Enemy(int difficulty) {
 
+    public Enemy(int difficulty, GameModel model) {
         setHitBox();
-
+        this.model = model;
     }
 
     public Rectangle  getHitBox() {

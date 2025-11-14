@@ -2,7 +2,8 @@ package com.IONA.TowerDefense.controller;
 
 
 import com.IONA.TowerDefense.model.*;
-import com.badlogic.gdx.utils.Array;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.badlogic.gdx.utils.Timer;
 
 public class WaveGenerator {
@@ -34,7 +35,7 @@ public class WaveGenerator {
                     if (GameDiff.equals("e")) {
 
                         if(e.type.equals("1")){
-                            Enemy enemy = new EnemyBasic(0);
+                            Enemy enemy = new EnemyBasic(1, model);
                             model.addEnemy(enemy);
 
                             //RenderEnemy renderEnemy = new RenderEnemy()

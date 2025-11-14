@@ -1,11 +1,13 @@
 package com.IONA.TowerDefense.model;
 
-
-//import sun.tools.jconsole.Plotter;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.units.towers.TowerFactory;
+import com.badlogic.gdx.graphics.Texture;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 // Main model class to for communication with controller

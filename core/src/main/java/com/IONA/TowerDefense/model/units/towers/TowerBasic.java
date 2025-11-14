@@ -1,7 +1,8 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.Main;
-import com.IONA.TowerDefense.controller.GameController;
+import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.units.towers.projectiles.ProjectileBasic;
+import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 
 import java.awt.*;
 
