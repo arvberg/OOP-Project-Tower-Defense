@@ -10,7 +10,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 public class Main extends ApplicationAdapter {
     public GameController controller;
     public GameUpdater updater;
-    public GameModel model;
+    public static GameModel model;
     public Draw painter; // view
 
     @Override
