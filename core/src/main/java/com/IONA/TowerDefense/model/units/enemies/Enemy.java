@@ -23,6 +23,7 @@ public abstract class Enemy{
     protected boolean completedPath; // maybe redundant
     protected int segmentIndex = 0;
     GameModel model;
+    public Texture texture;
 
     public Enemy(int difficulty, GameModel model) {
         setHitBox();
@@ -47,7 +48,7 @@ public abstract class Enemy{
                 coor.y += speed;
                 break;
             case WEST:
-                coor.x -=  speed;
+                coor.x -= speed;
         }
         setHitBox();
     }

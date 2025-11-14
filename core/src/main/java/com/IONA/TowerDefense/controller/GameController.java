@@ -27,7 +27,7 @@ public class GameController {
     }
 
     public void update() {
-        handleMouseInput();
+       inputHandler.checkInput();
         // mer logik här
     }
 

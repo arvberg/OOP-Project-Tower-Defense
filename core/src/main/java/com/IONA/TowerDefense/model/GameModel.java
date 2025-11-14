@@ -24,7 +24,8 @@ public class GameModel {
     private List<Button> buttons;
     private Path path;
     private Background background;
-    //private playButton playbutton;
+    public playButton playbutton;
+    public pauseButton pausebutton;
 
     private int resources; // Players resources
     private int lives; // Players health
@@ -46,8 +47,10 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.background = new Background();
         this.difficulty = 0;
-        //this.playbutton = new playButton();
-
+        this.playbutton = new playButton(0,0);
+        this.pausebutton = new pauseButton(10,0);
+        buttons.add(playbutton);
+        this.path = pathFactory.examplePath1();
     }
 
     public void moveEnemies() {
@@ -185,14 +188,14 @@ public class GameModel {
     }
 
     // Buy a tower
-    public void buyTower (Tower tower) {
+    /*public void buyTower (Tower tower) {
         if (resources >= tower.getCost()) {
-            Tower newTower = TowerFactory.createTower(tower.toString(), this);
+            Tower new Tower = TowerFactory.createTower(tower.toString(), this);
             pendingTower = newTower;
             resources -= tower.getCost();
         }
     }
-
+*/
     public Texture getBackground(){
         return background.BackgroundTexture;
     }
@@ -200,10 +203,14 @@ public class GameModel {
     /*public void setDiff(int diff){
         this.difficulty = diff;
     }
-
-    /*public Button getPlayButton(){
+*/
+    public playButton getPlayButton(){
         return playbutton;
     };
-    */
+
+    public pauseButton getPauseButton(){
+        return pausebutton;
+    }
+
 
 }

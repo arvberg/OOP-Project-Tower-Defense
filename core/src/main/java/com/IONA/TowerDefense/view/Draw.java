@@ -2,9 +2,11 @@ package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -17,7 +19,7 @@ public class Draw {
     private BitmapFont font;
     //private Texture BackgroundTexture;
     private FitViewport viewport;
-    private Texture PlayButtonTexture;
+
 
     public Draw(GameModel model) {
         this.model = model;
@@ -28,7 +30,6 @@ public class Draw {
         batch = new SpriteBatch();
         image = new Texture("libgdx.png");
         font = new BitmapFont();
-        PlayButtonTexture = new Texture("PlayButton.png");
         //this.BackgroundTexture = new Texture("ProtBackground.png");
         viewport = new FitViewport(8,5);
         // init camera/viewport här om du använder det
@@ -46,10 +47,16 @@ public class Draw {
         batch.begin();
 
         batch.draw(model.getBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        //batch.draw(image, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
         List<Button> buttons = model.getButtons();
         for (Button b: buttons){
-            batch.draw(b.texture, b.position.x, b.position.y, b.width, b.height);
+            batch.draw(b.texture, b.getButtonPosition().x, b.getButtonPosition().y, b.width, b.height);
         }
+        List<Enemy> enemies = model.getEnemies();
+        for (Enemy e : enemies){
+            batch.draw(e.texture, e.getCoor().x, e.getCoor().y, e.getHitBox().x,e.getHitBox().y);
+        }
+
 
         // rita saker från modellen: enemies, towers, projektiler, UI ...
         // for (Enemy e : model.getEnemies()) { batch.draw(enemyTex, e.x, e.y); }

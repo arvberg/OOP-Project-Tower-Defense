@@ -26,22 +26,21 @@ public class InputHandler {
     public InputHandler (GameModel model) {
 
         this.model = model;
-        this.playButton = Main.model.ui.playButton();
+        this.playButton = model.getPlayButton();
+        this.pauseButton = model.getPauseButton();
 
     }
 
-    @Override
+
     public void checkInput(){
         if (Gdx.input.justTouched()){
             float mouseX = Gdx.input.getX();
             float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
+            playButton.isClicked(mouseX,mouseY);
         }
-
-
-
     }
 
-    @Override
+
     public void mouseClicked(MouseEvent mouseEvent) {
         Point clickedPoint = mouseEvent.getPoint();
         if (state == InputState.SELECTION_STATE) {
@@ -49,11 +48,11 @@ public class InputHandler {
         }
     }
 
-    @Override
+
     public void mousePressed(MouseEvent mouseEvent) {
     }
 
-    @Override
+
     public void mouseReleased(MouseEvent mouseEvent) {
         Point releasePoint = mouseEvent.getPoint();
         if (state == InputState.BUYING_STATE) {
@@ -62,18 +61,18 @@ public class InputHandler {
         }
     }
 
-    @Override
+
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
 
-    @Override
+
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
 
 
-    @Override
+
     public void mouseMoved(MouseEvent mouseEvent) {
     }
 
