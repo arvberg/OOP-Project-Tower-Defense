@@ -8,6 +8,7 @@ import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 import javax.xml.xpath.XPathFactory;
 import java.awt.*;
@@ -47,7 +48,7 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.background = new Background();
         this.difficulty = 0;
-        this.playbutton = new playButton(0,0);
+        this.playbutton = new playButton(0,0, this);
         this.pausebutton = new pauseButton(10,0);
         buttons.add(playbutton);
         this.path = pathFactory.examplePath1();
@@ -56,19 +57,22 @@ public class GameModel {
     public void moveEnemies() {
 
         if (!enemies.isEmpty() && enemies != null) {
-
+            System.out.println("moveEnemies körs, antal enemies: " + enemies.size());
             for (int i = 0; i < enemies.size(); i++) {
                 Enemy enemy = enemies.get(i);
                 int segmentIdx = enemy.getSegmentIndex();
                 Segment segment = path.getSegment(segmentIdx);
 
                 Direction enemyDirection = segment.getDirection();
+                System.out.println("Enemy " + i + " innan move: " + enemy.getCoor().x + "," + enemy.getCoor().y + " dir=" + enemyDirection);
                 enemy.move();
-
+                System.out.println("Enemy " + i + " efter move: " + enemy.getCoor().x + "," + enemy.getCoor().y);
                 Point segmentEndPoint = segment.getEnd();
-                Point enemyCoor = enemy.getCoor();
+                Vector2 enemyCoor = enemy.getCoor();
+                Point enemyCoorPoint = new Point((int)enemy.getCoor().x, (int)enemy.getCoor().y);
 
-                if (enemy.outsideSegment(enemyCoor, segmentEndPoint, enemyDirection)) {
+
+                if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
 
                     if (enemy.getSegmentIndex() == path.segmentCount() - 1) {
                         loseLife();
@@ -100,6 +104,9 @@ public class GameModel {
         enemies.add(enemy);
         Segment first = path.getSegment(0);
         enemy.setToNewSegment(first.getStartPoint(), first.getDirection(), 0);
+        System.out.println("Enemies: " + getEnemies().size());
+        enemy.setHitBox();
+        System.out.println("Enemy added, total: " + enemies.size());
     }
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }

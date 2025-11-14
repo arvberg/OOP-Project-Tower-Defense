@@ -4,6 +4,10 @@ package com.IONA.TowerDefense.model.units.enemies;
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.GameModel;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.Gdx;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,9 +19,9 @@ public abstract class Enemy{
 
     protected Direction dir;
     protected int hp;
-    protected int speed;
+    protected float speed;
     protected int gold;
-    protected Point coor;
+    protected Vector2 coor;
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
     protected boolean completedPath; // maybe redundant
@@ -26,7 +30,7 @@ public abstract class Enemy{
     public Texture texture;
 
     public Enemy(int difficulty, GameModel model) {
-        setHitBox();
+
         this.model = model;
         this.texture = new Texture("ProtTower.png");
 
@@ -37,6 +41,12 @@ public abstract class Enemy{
     }
 
     public void move() {
+
+        if (coor == null) {
+            coor = new Vector2(0, 2);
+        }
+        float delta = Gdx.graphics.getDeltaTime();  // sekunder per frame
+        float step = speed * delta;                 // speed = units per sekund
         switch(dir) {
             case NORTH:
                 coor.y -= speed;
@@ -74,8 +84,13 @@ public abstract class Enemy{
     }
 
     public void setHitBox() {
-        hitBox = new Rectangle(coor.x + 9, coor.y + 9, 30, 30);
+        if (hitBox == null) {
+            hitBox = new Rectangle(coor.x, coor.y, 0.5f, 0.5f);
+        } else {
+            hitBox.set(coor.x, coor.y, 0.5f, 0.5f);
+        }
     }
+
 
     public Direction getDir() {
         return dir;
@@ -93,7 +108,7 @@ public abstract class Enemy{
         return hp;
     }
 
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
@@ -101,11 +116,11 @@ public abstract class Enemy{
         return gold;
     }
 
-    public Point getCoor() {
+    public Vector2 getCoor() {
         return coor;
     }
 
-    public void setCoor(Point coor) {
+    public void setCoor(Vector2 coor) {
         this.coor = coor;
     }
 
@@ -118,7 +133,10 @@ public abstract class Enemy{
     }
 
     public void setToNewSegment(Point newCoor, Direction newDir, int newSegmentIndex) {
-        this.coor = newCoor;
+        if (this.coor == null) {
+            this.coor = new Vector2();
+        }
+        this.coor.set(newCoor.x, newCoor.y);
         this.dir = newDir;
         this.segmentIndex = newSegmentIndex;
     }

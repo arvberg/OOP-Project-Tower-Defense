@@ -6,10 +6,12 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.awt.*;
 import java.util.List;
 
 public class Draw {
@@ -54,7 +56,8 @@ public class Draw {
         }
         List<Enemy> enemies = model.getEnemies();
         for (Enemy e : enemies){
-            batch.draw(e.texture, e.getCoor().x, e.getCoor().y, e.getHitBox().x,e.getHitBox().y);
+            Rectangle hb = e.getHitBox();
+            batch.draw(e.texture, e.getCoor().x, e.getCoor().y, hb.width,hb.height);
         }
 
 

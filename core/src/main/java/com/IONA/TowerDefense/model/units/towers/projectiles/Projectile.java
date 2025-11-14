@@ -1,11 +1,8 @@
 package com.IONA.TowerDefense.model.units.towers.projectiles;
 
-import com.IONA.TowerDefense.model.GameModel;
 import com.badlogic.gdx.graphics.Texture;
 
-import javax.swing.*;
 import java.awt.*;
-import java.util.Vector;
 
 public class Projectile {
     protected int damage;
@@ -61,11 +58,11 @@ public class Projectile {
         this.dy = newDy;
     }
 
-    public double getX() {
-        return x;
+    public float getX() {
+        return (float) x;
     }
-    public double getY() {
-        return y;
+    public float getY() {
+        return (float) y;
     }
 
     public Texture getIcon() {

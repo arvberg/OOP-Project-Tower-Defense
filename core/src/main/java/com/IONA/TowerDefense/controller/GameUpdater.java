@@ -18,6 +18,7 @@ public class GameUpdater  {
         if (model.paused){
             return;
         }
+        //System.out.println("updating!");
         model.moveEnemies();
     }
 

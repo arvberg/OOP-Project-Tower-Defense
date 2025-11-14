@@ -25,9 +25,11 @@ public class WaveGenerator {
     }
 
     public void SpawnNextWave() {
-
+        float cumulativeDelay = 0;
         for (Waves.Enemy e : waves.waveslist.get(WaveNr).enemies) {
+            cumulativeDelay += e.delay;  // 1, 2, 3, 4, ...
 
+            float spawnTime = cumulativeDelay;
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -46,7 +48,7 @@ public class WaveGenerator {
                             // DrawClass.liveEnemies.add(enemy)
                         }
 
-            }, e.delay);
+            }, spawnTime);
 
 
         }

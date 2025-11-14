@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.Rectangle;
 public class playButton extends Button{
     WaveGenerator generator;
     Rectangle bounds;
-    public playButton(float x, float y){
+    public playButton(float x, float y, GameModel model){
         super("ProtTower.png", x, y, 1, 1);
-        this.generator = new WaveGenerator(GameModel.difficulty, Main.model);
+        this.generator = new WaveGenerator(GameModel.difficulty, model);
         this.bounds = new Rectangle(x,y,1,1);
     }
 

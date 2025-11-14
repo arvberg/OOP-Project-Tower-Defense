@@ -35,8 +35,16 @@ public class InputHandler {
     public void checkInput(){
         if (Gdx.input.justTouched()){
             float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.graphics.getHeight() - Gdx.input.getY();
-            playButton.isClicked(mouseX,mouseY);
+            float mouseY = Gdx.input.getY();
+
+            float screenWidth = Gdx.graphics.getWidth();
+            float screenHeight = Gdx.graphics.getHeight();
+
+            // Gör om till våra libGDX koordinater (0-8, 0-5)
+            float worldX = mouseX * (8f / screenWidth);
+            float worldY = (screenHeight - mouseY) * (5f / screenHeight);
+
+            playButton.isClicked(worldX,worldY);
         }
     }
 

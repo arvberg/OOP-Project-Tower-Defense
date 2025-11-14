@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
+import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.*;
 import java.util.List;
@@ -46,8 +47,9 @@ public class AttackHandler {
 
         double towerX = tower.getPosition().getX();
         double towerY = tower.getPosition().getY();
-        double enemyX = enemy.getCoor().getX();
-        double enemyY = enemy.getCoor().getY();
+        float enemyX = enemy.getCoor().x;
+        float enemyY = enemy.getCoor().y;
+
 
         double vx = enemyX - towerX;
         double vy = enemyY - towerY;
@@ -87,8 +89,8 @@ public class AttackHandler {
         double posX = projectile.getY();
         double posY = projectile.getY();
 
-        double targetX = target.getCoor().getX();
-        double targetY = target.getCoor().getY();
+        float targetX = target.getCoor().x;
+        float targetY = target.getCoor().x;
 
         double dx = posX - targetX;
         double dy = posY - targetY;
