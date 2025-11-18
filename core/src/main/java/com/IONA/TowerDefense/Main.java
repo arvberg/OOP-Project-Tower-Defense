@@ -1,10 +1,8 @@
 package com.IONA.TowerDefense;
 
 import com.IONA.TowerDefense.controller.GameController;
-import com.IONA.TowerDefense.controller.GameUpdater;
+import com.IONA.TowerDefense.model.GameUpdater;
 import com.IONA.TowerDefense.model.GameModel;
-import com.IONA.TowerDefense.model.Path;
-import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.ApplicationAdapter;
 

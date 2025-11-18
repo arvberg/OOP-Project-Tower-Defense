@@ -1,10 +1,4 @@
-package com.IONA.TowerDefense.controller;
-import com.IONA.TowerDefense.model.GameModel;
-import com.badlogic.gdx.utils.Array;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Collections;
+package com.IONA.TowerDefense.model;
 
 public class GameUpdater  {
 

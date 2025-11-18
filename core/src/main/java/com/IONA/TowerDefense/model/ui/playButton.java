@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.model.ui;
 
-import com.IONA.TowerDefense.Main;
-import com.IONA.TowerDefense.controller.WaveGenerator;
+import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.GameModel;
 import com.badlogic.gdx.math.Rectangle;
 

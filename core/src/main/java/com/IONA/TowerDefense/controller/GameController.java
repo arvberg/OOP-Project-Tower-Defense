@@ -1,15 +1,9 @@
 package com.IONA.TowerDefense.controller;
 
-import com.IONA.TowerDefense.model.Waves;
-import com.IONA.TowerDefense.controller.WaveGenerator;
-import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.GameModel;
-import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
-import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.Vector;
 
 public class GameController {
 
