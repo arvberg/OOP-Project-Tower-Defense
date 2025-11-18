@@ -26,12 +26,6 @@ public class GameController {
     }
 
     // handle all input
-    private void handleMouseInput() {
-        inputHandler.checkInput();
-    }
 
-    public void startWave() {
-        waveGenerator.SpawnNextWave();
-    }
 
 }
