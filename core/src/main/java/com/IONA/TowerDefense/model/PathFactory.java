@@ -1,21 +1,18 @@
 package com.IONA.TowerDefense.model;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.awt.*;
 import java.util.List;
+import java.util.Vector;
 
 public class PathFactory {
 
     public static Path examplePath1() {
-        Path path = new Path(List.of(
-            // Segment 0: från (0,2) → (4,2) (EAST)
-            new Segment(new Point(2, 5), 2, Direction.SOUTH),
-
-            // Segment 1: från (4,2) → (4,4) (NORTH)
-            new Segment(new Point(2, 3), 3, Direction.EAST),
-
-            // Segment 2: från (4,4) → (8,4) (EAST)
-            new Segment(new Point(5, 3), 6, Direction.SOUTH)
+        return new Path(List.of(
+            new Segment(new Vector2(1, 6), 2, Direction.SOUTH), // (2,6) -> (2,4) ner
+            new Segment(new Vector2(2, 4), 3, Direction.EAST),  // (2,4) -> (5,4) höger
+            new Segment(new Vector2(5, 4), 6, Direction.SOUTH)  // (5,4) -> (5,-2) ner
         ));
-        return path;
     }
 }

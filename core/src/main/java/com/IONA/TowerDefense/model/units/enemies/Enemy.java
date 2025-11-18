@@ -24,7 +24,6 @@ public abstract class Enemy{
     protected Vector2 coor;
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
-    protected boolean completedPath; // maybe redundant
     protected int segmentIndex = 0;
     GameModel model;
     public Texture texture;
@@ -47,30 +46,22 @@ public abstract class Enemy{
         }
         float delta = Gdx.graphics.getDeltaTime();  // sekunder per frame
         float step = speed * delta;                 // speed = units per sekund
-        switch(dir) {
-            case NORTH:
-                coor.y += speed;
-                break;
-            case EAST:
-                coor.x += speed;
-                break;
-            case SOUTH:
-                coor.y -= speed;
-                break;
-            case WEST:
-                coor.x -= speed;
+        switch (dir) {
+            case NORTH -> coor.y += speed;
+            case SOUTH -> coor.y -= speed;
+            case EAST -> coor.x += speed;
+            case WEST -> coor.x -= speed;
         }
         setHitBox();
     }
 
-    public boolean outsideSegment(Point enemyPosition, Point segmentEnd, Direction direction) {
+    public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
 
         return switch (direction) {
-            case NORTH -> enemyPosition.getY() <= segmentEnd.getY();
-            case EAST -> enemyPosition.getX() >= segmentEnd.getX();
-            case SOUTH -> enemyPosition.getY() >= segmentEnd.getY();
-            case WEST -> enemyPosition.getX() <= segmentEnd.getX();
-            default -> false;
+            case NORTH -> enemyPosition.y <= segmentEnd.y;
+            case SOUTH -> enemyPosition.y >= segmentEnd.y;
+            case EAST -> enemyPosition.x >= segmentEnd.x;
+            case WEST -> enemyPosition.x <= segmentEnd.x;
         };
     }
 
@@ -79,8 +70,7 @@ public abstract class Enemy{
     }
 
     public boolean isDead() {
-        if(hp <= 0 ) return true;
-        return false;
+        return hp <= 0;
     }
 
     public void setHitBox() {
@@ -132,7 +122,7 @@ public abstract class Enemy{
         this.segmentIndex = segmentIndex;
     }
 
-    public void setToNewSegment(Point newCoor, Direction newDir, int newSegmentIndex) {
+    public void setToNewSegment(Vector2 newCoor, Direction newDir, int newSegmentIndex) {
         if (this.coor == null) {
             this.coor = new Vector2();
         }

@@ -12,4 +12,5 @@ public class pauseButton extends Button{
         Main.model.paused = !Main.model.paused;
         System.out.println("Paused: "+Main.model.paused);
     }
+
 }

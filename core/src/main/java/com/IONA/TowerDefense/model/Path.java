@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model;
 
-import java.awt.*;
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.List;
 
 public class Path {
@@ -24,6 +25,10 @@ public class Path {
 
     public Segment getNextSegment(int index) {
         return segments.get(index + 1);
+    }
+
+    public Vector2 getStart() {
+        return segments.get(0).getStartPosition();
     }
 
     public int segmentCount() {

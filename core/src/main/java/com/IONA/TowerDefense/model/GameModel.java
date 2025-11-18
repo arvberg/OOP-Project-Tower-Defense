@@ -54,13 +54,12 @@ public class GameModel {
         this.playbutton = new playButton(0,0, this);
         this.pausebutton = new pauseButton(10,0);
         buttons.add(playbutton);
-        this.path = pathFactory.examplePath1();
-
+        this.path = PathFactory.examplePath1();
     }
 
     public void moveEnemies() {
 
-        if (!enemies.isEmpty() && enemies != null) {
+        if (!enemies.isEmpty()) {
             System.out.println("moveEnemies körs, antal enemies: " + enemies.size());
             for (int i = 0; i < enemies.size(); i++) {
                 Enemy enemy = enemies.get(i);
@@ -71,9 +70,10 @@ public class GameModel {
                 System.out.println("Enemy " + i + " innan move: " + enemy.getCoor().x + "," + enemy.getCoor().y + " dir=" + enemyDirection);
                 enemy.move();
                 System.out.println("Enemy " + i + " efter move: " + enemy.getCoor().x + "," + enemy.getCoor().y);
-                Point segmentEndPoint = segment.getEnd();
+
+                Vector2 segmentEndPoint = segment.getEnd();
                 Vector2 enemyCoor = enemy.getCoor();
-                Point enemyCoorPoint = new Point((int)enemy.getCoor().x, (int)enemy.getCoor().y);
+                Vector2  enemyCoorPoint = new Vector2 (enemy.getCoor().x, enemy.getCoor().y);
 
 
                 if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
@@ -87,7 +87,7 @@ public class GameModel {
                         int nextIdx = segmentIdx + 1;
                         Segment nextSegment = path.getSegment(nextIdx);
 
-                        enemy.setToNewSegment(nextSegment.getStartPoint(), nextSegment.getDirection(), nextIdx);
+                        enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
 
                     }
                 }
@@ -106,8 +106,9 @@ public class GameModel {
 
     public void addEnemy(Enemy enemy) {
         enemies.add(enemy);
+
         Segment first = path.getSegment(0);
-        enemy.setToNewSegment(first.getStartPoint(), first.getDirection(), 0);
+        enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
         System.out.println("Enemies: " + getEnemies().size());
         enemy.setHitBox();
         System.out.println("Enemy added, total: " + enemies.size());
