@@ -207,7 +207,7 @@ public class GameModel {
             resources -= newTower.getCost();
         }
         else {
-            System.out.println("Inte tillräckligt med resurse för att köpa " + tower);
+            System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
         }
     }
 
