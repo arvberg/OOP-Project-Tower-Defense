@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -28,6 +29,7 @@ public class GameModel {
     public playButton playbutton;
     public pauseButton pausebutton;
 
+
     private int resources; // Players resources
     private int lives; // Players health
     private int score; // Players current score
@@ -35,11 +37,13 @@ public class GameModel {
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 
+    private TowerFactory towerFactory;
     private boolean towerSelected = false;
     private Tower pendingTower = null;
 
     public GameModel () {
         this.towers = new ArrayList<>();
+        this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.resources = 100;
@@ -51,6 +55,7 @@ public class GameModel {
         this.pausebutton = new pauseButton(10,0);
         buttons.add(playbutton);
         this.path = pathFactory.examplePath1();
+
     }
 
     public void moveEnemies() {
@@ -194,14 +199,18 @@ public class GameModel {
     }
 
     // Buy a tower
-    /*public void buyTower (Tower tower) {
-        if (resources >= tower.getCost()) {
-            Tower new Tower = TowerFactory.createTower(tower.toString(), this);
+    public void buyTower (String tower) {
+        Tower newTower = towerFactory.createTower(tower.toString(), this);
+
+        if (resources >= newTower.getCost()) {
             pendingTower = newTower;
-            resources -= tower.getCost();
+            resources -= newTower.getCost();
+        }
+        else {
+            System.out.println("Inte tillräckligt med resurse för att köpa " + tower);
         }
     }
-*/
+
     public Texture getBackground(){
         return background.BackgroundTexture;
     }
