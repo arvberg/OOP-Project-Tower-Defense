@@ -49,13 +49,13 @@ public abstract class Enemy{
         float step = speed * delta;                 // speed = units per sekund
         switch(dir) {
             case NORTH:
-                coor.y -= speed;
+                coor.y += speed;
                 break;
             case EAST:
                 coor.x += speed;
                 break;
             case SOUTH:
-                coor.y += speed;
+                coor.y -= speed;
                 break;
             case WEST:
                 coor.x -= speed;
@@ -66,10 +66,10 @@ public abstract class Enemy{
     public boolean outsideSegment(Point enemyPosition, Point segmentEnd, Direction direction) {
 
         return switch (direction) {
-            case NORTH -> enemyPosition.getY() < segmentEnd.getY();
-            case EAST -> enemyPosition.getX() > segmentEnd.getX();
-            case SOUTH -> enemyPosition.getY() > segmentEnd.getY();
-            case WEST -> enemyPosition.getX() < segmentEnd.getX();
+            case NORTH -> enemyPosition.getY() <= segmentEnd.getY();
+            case EAST -> enemyPosition.getX() >= segmentEnd.getX();
+            case SOUTH -> enemyPosition.getY() >= segmentEnd.getY();
+            case WEST -> enemyPosition.getX() <= segmentEnd.getX();
             default -> false;
         };
     }

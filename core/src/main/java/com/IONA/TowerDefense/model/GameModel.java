@@ -4,13 +4,12 @@ import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
+import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-import javax.xml.xpath.XPathFactory;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +23,7 @@ public class GameModel {
     private List<Projectile> projectiles;
     private List<Button> buttons;
     private Path path;
+    private PathFactory pathFactory = new PathFactory();
     private Background background;
     public playButton playbutton;
     public pauseButton pausebutton;
@@ -32,7 +32,6 @@ public class GameModel {
     private int lives; // Players health
     private int score; // Players current score
     public static int difficulty;
-    private PathFactory pathFactory = new PathFactory();
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
 

@@ -22,21 +22,6 @@ public class Path {
         } return segmentsLength;
     }
 
-    /*
-    public Segment segmentFromPathLength(int length, Path path) {
-        int pathLength = path.getSegmentsLength(path.getSegments());
-        int currentSegmentLength = 0;
-        int index = 0;
-        for (Segment segment : path.getSegments()) {
-            currentSegmentLength += segment.getLength();
-            index++;
-            if (currentSegmentLength > pathLength) {
-                return path.getSegment(index);
-            }
-        }
-    }
-     */
-
     public Segment getNextSegment(int index) {
         return segments.get(index + 1);
     }
