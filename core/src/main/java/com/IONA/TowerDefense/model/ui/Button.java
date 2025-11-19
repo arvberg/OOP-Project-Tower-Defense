@@ -1,12 +1,14 @@
 package com.IONA.TowerDefense.model.ui;
 
+import com.IONA.TowerDefense.model.RenderData;
+import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Button {
+public abstract class Button implements Renderable {
     public Vector2 buttonPosition;
     public float width;
     public float height;
@@ -19,6 +21,11 @@ public abstract class Button {
         this.width = width;
         this.height = height;
         this.bounds = new Rectangle(x, y, width, height);
+    }
+
+    @Override
+    public RenderData getRenderData() {
+        return new RenderData(texture, buttonPosition.x, buttonPosition.y, width, height);
     }
 
     public void isClicked(float x, float y){

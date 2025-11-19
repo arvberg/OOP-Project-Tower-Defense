@@ -22,12 +22,17 @@ public abstract class Enemy extends Unit implements Renderable {
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
     protected int segmentIndex = 0;
-    GameModel model;
     public Texture texture;
 
     public Enemy(int difficulty) {
 
         this.texture = new Texture("Enemy_temp_01.png");
+    }
+
+
+    @Override
+    public RenderData getRenderData() {
+        return new RenderData(texture, coor.x, coor.y, hitBox.width, hitBox.height);
     }
 
     public Rectangle  getHitBox() {

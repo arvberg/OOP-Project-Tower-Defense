@@ -33,7 +33,6 @@ public class GameModel {
     public playButton playbutton;
     public pauseButton pausebutton;
 
-
     private int resources; // Players resources
     private int lives; // Players health
     private int score; // Players current score
@@ -97,6 +96,16 @@ public class GameModel {
                 }
             }
         }
+    }
+
+    public List<Renderable> getRenderables() {
+        List<Renderable> renderables = new ArrayList<>();
+        renderables.addAll(towers);
+        renderables.addAll(projectiles);
+        renderables.addAll(buttons);
+        renderables.addAll(enemies);
+
+        return renderables;
     }
 
     public Path getPath(){return this.path;}
@@ -167,8 +176,8 @@ public class GameModel {
         float closestDistance = MAX_VALUE;
 
         for (Tower tower : towers) {
-            Point towerPos = tower.getPosition();
-            double distance = selectedPoint.distance(towerPos);
+            Vector2 towerPos = tower.getPosition();
+            float distance = selectedPoint.dst(towerPos);
 
             if (distance < TOWER_SELECTION_RADIUS && distance < closestDistance) {
                 closestDistance = distance;

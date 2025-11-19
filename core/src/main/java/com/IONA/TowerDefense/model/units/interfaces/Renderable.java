@@ -1,7 +1,7 @@
 package com.IONA.TowerDefense.model.units.interfaces;
 
-import java.awt.*;
+import com.IONA.TowerDefense.model.RenderData;
 
 public interface Renderable {
-    void render(Graphics2D g2d);
+    RenderData getRenderData();
 }
