@@ -55,6 +55,7 @@ public class GameModel {
         this.background = new Background();
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
+        AttackHandler attackHandler = new AttackHandler(this);
 
         this.buttons = new ArrayList<>();
         this.playbutton = new playButton(0, 0, this);
@@ -68,8 +69,7 @@ public class GameModel {
 
         if (!enemies.isEmpty()) {
 
-            for (int i = 0; i < enemies.size(); i++) {
-                Enemy enemy = enemies.get(i);
+            for (Enemy enemy : enemies) {
                 int segmentIdx = enemy.getSegmentIndex();
                 Segment segment = path.getSegment(segmentIdx);
 
@@ -77,8 +77,8 @@ public class GameModel {
                 enemy.move();
 
                 Vector2 segmentEndPoint = segment.getEnd();
-                Vector2 enemyCoor = enemy.getCoor();
-                Vector2  enemyCoorPoint = new Vector2 (enemy.getCoor().x, enemy.getCoor().y);
+                Vector2 enemyCoor = enemy.getPosition();
+                Vector2 enemyCoorPoint = new Vector2(enemy.getPosition().x, enemy.getPosition().y);
 
 
                 if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
@@ -213,7 +213,7 @@ public class GameModel {
 
     // Buy a tower
     public void buyTower (String tower) {
-        Tower newTower = towerFactory.createTower(tower.toString(), this);
+        Tower newTower = towerFactory.createTower(tower);
 
         if (resources >= newTower.getCost()) {
             pendingTower = newTower;
@@ -228,20 +228,12 @@ public class GameModel {
         return background.BackgroundTexture;
     }
 
-    /*public void setDiff(int diff){
-        this.difficulty = diff;
-    }
-*/
 
     public List<Button> getButtons() { return buttons;}
 
-    public void addButton(Button button) { buttons.add(button);}
-
-    public void removeButton(Button button) { buttons.remove(button); }
-
     public playButton getPlayButton(){
         return playbutton;
-    };
+    }
 
     public pauseButton getPauseButton(){
         return pausebutton;

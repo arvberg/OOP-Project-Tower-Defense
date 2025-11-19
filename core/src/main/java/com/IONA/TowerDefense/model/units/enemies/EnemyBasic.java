@@ -13,4 +13,5 @@ public class EnemyBasic extends Enemy{
         this.texture = new Texture("Enemy_temp_01.png");
         setHitBox(0.5f,0.5f);
     }
+
 }

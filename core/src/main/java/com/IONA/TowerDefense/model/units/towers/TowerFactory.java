@@ -15,7 +15,7 @@ public class TowerFactory {
             return new TowerFast();
         }
         else {
-            throw new IllegalArgumentException("Unkown tower");
+            throw new IllegalArgumentException("Unknown tower");
         }
     }
 }

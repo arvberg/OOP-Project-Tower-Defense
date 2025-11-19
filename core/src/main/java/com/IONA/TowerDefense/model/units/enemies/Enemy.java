@@ -1,9 +1,7 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
-//import com.IONA.TowerDefense.view.GameFrame;
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.units.Unit;
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
@@ -17,7 +15,7 @@ public abstract class Enemy extends Unit implements Renderable {
     protected int hp;
     protected float speed;
     protected int gold;
-    protected Vector2 coor;
+    protected Vector2 position;
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
     protected int segmentIndex = 0;
@@ -40,18 +38,18 @@ public abstract class Enemy extends Unit implements Renderable {
 
     public void move() {
 
-        if (coor == null) {
-            coor = new Vector2(0, 2);
+        if (position == null) {
+            position = new Vector2(0, 2);
         }
         float delta = Gdx.graphics.getDeltaTime();  // sekunder per frame
         float step = speed * delta;                 // speed = units per sekund
         switch (dir) {
-            case NORTH -> coor.y += speed;
-            case SOUTH -> coor.y -= speed;
-            case EAST -> coor.x += speed;
-            case WEST -> coor.x -= speed;
+            case NORTH -> position.y += speed;
+            case SOUTH -> position.y -= speed;
+            case EAST -> position.x += speed;
+            case WEST -> position.x -= speed;
         }
-        setHitBox();
+        setHitBox(getHitBox().width, getHitBox().height);
     }
 
     public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
@@ -72,12 +70,17 @@ public abstract class Enemy extends Unit implements Renderable {
         return hp <= 0;
     }
 
-    public void setHitBox() {
+    public void setHitBox(float width, float height) {
+
+
+        float newX = (position.x - width/2);
+        float newY = (position.y - height/2);
+
 
         if (hitBox == null) {
-            hitBox = new Rectangle(coor.x, coor.y, 0.5f, 0.5f);
+            hitBox = new Rectangle(newX, newY, width, height);
         } else {
-            hitBox.set(coor.x, coor.y, 0.5f, 0.5f);
+            hitBox.set(newX, newY, width, height);
         }
     }
 
@@ -106,12 +109,12 @@ public abstract class Enemy extends Unit implements Renderable {
         return gold;
     }
 
-    public Vector2 getCoor() {
-        return coor;
+    public Vector2 getPosition() {
+        return position;
     }
 
-    public void setCoor(Vector2 coor) {
-        this.coor = coor;
+    public void setPosition(Vector2 position) {
+        this.position = position;
     }
 
     public int getSegmentIndex() {
@@ -122,11 +125,11 @@ public abstract class Enemy extends Unit implements Renderable {
         this.segmentIndex = segmentIndex;
     }
 
-    public void setToNewSegment(Vector2 newCoor, Direction newDir, int newSegmentIndex) {
-        if (this.coor == null) {
-            this.coor = new Vector2();
+    public void setToNewSegment(Vector2 newPosition, Direction newDir, int newSegmentIndex) {
+        if (this.position == null) {
+            this.position = new Vector2();
         }
-        this.coor.set(newCoor.x, newCoor.y);
+        this.position.set(newPosition.x, newPosition.y);
         this.dir = newDir;
         this.segmentIndex = newSegmentIndex;
     }

@@ -18,8 +18,7 @@ public abstract class Tower extends Unit implements Renderable {
     protected int level;
     protected int rangeRadius;
     protected int direction;
-    protected ImageIcon image;
-    private Texture texture;
+    public Texture texture;
     private Vector2 dimension;
 
 
@@ -52,10 +51,6 @@ public abstract class Tower extends Unit implements Renderable {
 
     public int getRange(){
         return rangeRadius;
-    }
-
-    public ImageIcon getImage(){
-        return image;
     }
 
     public abstract void fire();

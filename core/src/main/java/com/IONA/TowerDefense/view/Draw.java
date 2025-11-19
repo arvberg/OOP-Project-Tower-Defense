@@ -68,7 +68,9 @@ public class Draw {
         List<Enemy> enemies = model.getEnemies();
         for (Enemy e : enemies){
             Rectangle hb = e.getHitBox();
-            batch.draw(e.texture, e.getCoor().x, e.getCoor().y, hb.width,hb.height);
+            float w2 = e.getHitBox().width / 2;
+            float h2 = e.getHitBox().height / 2;
+            batch.draw(e.texture, e.getPosition().x-w2, e.getPosition().y-h2, hb.width,hb.height);
         }
 
         batch.end();
