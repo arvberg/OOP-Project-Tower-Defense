@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import javax.swing.*;
 
-public abstract class Tower extends Unit implements Renderable {
+public abstract class Tower extends Unit {
     protected  int damage;
     protected int attack;
     protected int projectileSpeed;
@@ -28,11 +28,6 @@ public abstract class Tower extends Unit implements Renderable {
         this.cost = cost;
         this.rangeRadius = rangeRadius;
         level = 1;
-    }
-
-    @Override
-    public RenderData getRenderData() {
-        return new RenderData(texture, getX(), getY(), dimension.x, dimension.y);
     }
 
     public int getAttack(){

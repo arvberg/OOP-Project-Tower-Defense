@@ -6,7 +6,7 @@ public class TowerFactory {
 
     GameModel model;
 
-    public Tower createTower (String type, GameModel model) {
+    public Tower createTower (String type) {
 
         if (type.equalsIgnoreCase("TowerBasic")) {
             return new TowerBasic();

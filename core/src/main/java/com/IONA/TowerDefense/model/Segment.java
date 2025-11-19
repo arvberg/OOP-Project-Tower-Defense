@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Button implements Renderable {
+public abstract class Button {
     public Vector2 buttonPosition;
     public float width;
     public float height;
@@ -22,10 +22,6 @@ public abstract class Button implements Renderable {
         this.bounds = new Rectangle(x, y, width, height);
     }
 
-    @Override
-    public RenderData getRenderData() {
-        return new RenderData(texture, buttonPosition.x, buttonPosition.y, width, height);
-    }
 
     public void isClicked(float x, float y){
         /*if (Gdx.input.justTouched()){

@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 
 import javax.swing.*;
 
-public abstract class Enemy extends Unit implements Renderable {
+public abstract class Enemy extends Unit {
 
     protected Direction dir;
     protected int hp;
@@ -24,12 +24,6 @@ public abstract class Enemy extends Unit implements Renderable {
     public Enemy(int difficulty) {
         this.texture = new Texture("Enemy_temp_01.png");
         this.position = new Vector2(0, 0); // placeholder
-    }
-
-
-    @Override
-    public RenderData getRenderData() {
-        return new RenderData(texture, coor.x, coor.y, hitBox.width, hitBox.height);
     }
 
     public Rectangle getHitBox() {

@@ -104,15 +104,6 @@ public class GameModel {
         attackHandler.update();
     }
 
-    public List<Renderable> getRenderables() {
-        List<Renderable> renderables = new ArrayList<>();
-        renderables.addAll(towers);
-        renderables.addAll(projectiles);
-        renderables.addAll(buttons);
-        renderables.addAll(enemies);
-
-        return renderables;
-    }
 
     public Path getPath(){return this.path;}
     // Add and remove from list

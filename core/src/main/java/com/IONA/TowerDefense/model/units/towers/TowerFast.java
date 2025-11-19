@@ -13,7 +13,7 @@ public class TowerFast extends Tower{
     private static final int BaseProjectileSpeed = 0;
 
 
-    public TowerFast(GameModel model) {
+    public TowerFast() {
         super(BaseAttack, BaseSpeed, BaseCost, range);
         this.attack = BaseAttack;
         this.projectileSpeed = BaseSpeed;

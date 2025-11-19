@@ -72,6 +72,23 @@ public class Draw {
             float h2 = e.getHitBox().height / 2;
             batch.draw(e.texture, e.getPosition().x-w2, e.getPosition().y-h2, hb.width,hb.height);
         }
+/*
+        List<Tower> towers = model.getTowers();
+        for (Tower t : towers){
+            Vector2 p = t.getPosition();
+            batch.draw(t.texture, p.x, p.y, 0.5f, 0.5f);
+        }
+
+        List<Projectile> projectiles = model.getProjectiles();
+        for (Projectile p : projectiles){
+            Vector2 proj = p.getPosition();
+            batch.draw(p.projectileIcon, proj.x, proj.y, 0.5f, 0.5f);
+        }
+ */
+
+
+
+
 
         batch.end();
 

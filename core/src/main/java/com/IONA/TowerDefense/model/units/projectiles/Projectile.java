@@ -29,10 +29,6 @@ public class Projectile extends Unit implements Movable {
         this.target = target;
         this.projectileIcon = new Texture("Projectile_temp_01.png");
     }
-    @Override
-    public RenderData getRenderData() {
-        return new RenderData(projectileIcon, getX(), getY(), dimension.x, dimension.y);
-    }
 
     public void setPosition(float newX, float newY) {
         this.x = newX;
