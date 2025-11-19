@@ -1,14 +1,16 @@
 package com.IONA.TowerDefense.model.units.interfaces;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.awt.*;
 
 public interface Movable {
 
-    Point getPosition();
+    Vector2 getPosition();
 
-    int getSpeed();
+    float getSpeed();
 
-    void setPosition(Point position);
+    void setPosition(Vector2 position);
 
     void move();
 }

@@ -2,7 +2,6 @@ package com.IONA.TowerDefense.model.units.enemies;
 
 //import com.IONA.TowerDefense.view.GameFrame;
 import com.IONA.TowerDefense.model.Direction;
-import com.IONA.TowerDefense.model.RenderData;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,8 +24,8 @@ public abstract class Enemy extends Unit implements Renderable {
     public Texture texture;
 
     public Enemy(int difficulty) {
-
         this.texture = new Texture("Enemy_temp_01.png");
+        this.position = new Vector2(0, 0); // placeholder
     }
 
 
@@ -35,7 +34,7 @@ public abstract class Enemy extends Unit implements Renderable {
         return new RenderData(texture, coor.x, coor.y, hitBox.width, hitBox.height);
     }
 
-    public Rectangle  getHitBox() {
+    public Rectangle getHitBox() {
         return hitBox;
     }
 

@@ -1,7 +1,7 @@
 package com.IONA.TowerDefense.model.units.interfaces;
 
-import com.IONA.TowerDefense.model.RenderData;
+import com.IONA.TowerDefense.model.models.RenderData;
 
 public interface Renderable {
-    RenderData getRenderData();
+    public RenderData getRenderData();
 }

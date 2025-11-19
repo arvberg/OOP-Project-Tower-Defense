@@ -4,13 +4,15 @@ import com.IONA.TowerDefense.model.models.GameModel;
 
 public class TowerFactory {
 
+    GameModel model;
+
     public Tower createTower (String type, GameModel model) {
 
         if (type.equalsIgnoreCase("TowerBasic")) {
-            return new TowerBasic(model);
+            return new TowerBasic();
         }
         else if (type.equalsIgnoreCase("TowerFast")) {
-            return new TowerFast(model);
+            return new TowerFast();
         }
         else {
             throw new IllegalArgumentException("Unkown tower");

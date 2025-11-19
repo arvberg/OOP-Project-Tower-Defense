@@ -5,7 +5,7 @@ import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
+import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -13,7 +13,6 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,11 +26,12 @@ public class GameModel {
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private List<Button> buttons;
-    private Path path;
-    private PathFactory pathFactory = new PathFactory();
-    private Background background;
+    private final Path path;
+    private PathFactory pathFactory;
+    private final Background background;
     public playButton playbutton;
     public pauseButton pausebutton;
+    private AttackHandler attackHandler;
 
     private int resources; // Players resources
     private int lives; // Players health
@@ -60,6 +60,8 @@ public class GameModel {
         this.playbutton = new playButton(0, 0, this);
         this.pausebutton = new pauseButton(10, 0);
         buttons.add(playbutton);
+
+        towers.add(new TowerBasic());
     }
 
     public void moveEnemies() {
@@ -85,7 +87,7 @@ public class GameModel {
                         loseLife();
                         removeEnemy(enemy);
                         break;
-                        //perhaps later decrease enemy life
+                        //should later also decrement enemies so that the for loop gets shorter when an enemy leaves
                     } else {
                         int nextIdx = segmentIdx + 1;
                         Segment nextSegment = path.getSegment(nextIdx);
@@ -96,6 +98,10 @@ public class GameModel {
                 }
             }
         }
+    }
+
+    public void updateAttackHandler() {
+        attackHandler.update();
     }
 
     public List<Renderable> getRenderables() {
@@ -119,14 +125,11 @@ public class GameModel {
     }
 
     public void addEnemy(Enemy enemy) {
-        enemies.add(enemy);
-
         Segment first = path.getSegment(0);
         enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
 
-        enemy.setHitBox();
-
-    }
+        enemies.add(enemy);
+        }
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 

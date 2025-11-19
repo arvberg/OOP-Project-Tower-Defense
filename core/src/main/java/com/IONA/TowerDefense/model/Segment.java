@@ -24,6 +24,7 @@ public class Segment {
     public int getLength() {
         return length;
     }
+
     public Direction getDirection() {
         return direction;
     }

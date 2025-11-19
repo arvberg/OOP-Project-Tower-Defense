@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.model.RenderData;
+import com.IONA.TowerDefense.model.models.RenderData;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 import javax.swing.*;
-import java.awt.*;
 
 public abstract class Tower extends Unit implements Renderable {
     protected  int damage;

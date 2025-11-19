@@ -4,10 +4,16 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.Segment;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.Renderable;
+import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -17,12 +23,14 @@ public class Draw {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
+    private ShapeRenderer shapeRenderer;
 
     public Draw(GameModel model) {this.model = model;}
 
     public void create() {
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
+        shapeRenderer = new ShapeRenderer();
     }
 
     public void resize(int w, int h) {
@@ -33,14 +41,28 @@ public class Draw {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
+        shapeRenderer.setProjectionMatrix(viewport.getCamera().combined);
+
+
+
         batch.begin();
 
         batch.draw(model.getBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
 
-        for (Segment s: model.getPath().getSegments()){
-            batch.draw(s.texture, s.getStartPosition().x, s.getStartPosition().y, 1, 1);
-        }
+        batch.end();
 
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLACK);
+        float width = 0.6f;
+        for (int i = 0; i < model.getPath().getSegments().size() - 1; i++) {
+            Vector2 a = model.getPath().getSegment(i).getStartPosition();
+            Vector2 b = model.getPath().getSegment(i).getEndForDraw(width);
+            shapeRenderer.rectLine((a.x), (a.y), (b.x), (b.y),width);
+
+        }
+        shapeRenderer.end();
+
+        batch.begin();
         List<Button> buttons = model.getButtons();
         for (Button b: buttons){
             batch.draw(b.texture, b.getButtonPosition().x, b.getButtonPosition().y, b.width, b.height);
@@ -52,10 +74,16 @@ public class Draw {
         }
 
         batch.end();
+
+
+
+
+
     }
 
     public void dispose() {
         if (batch != null) batch.dispose();
+        if (shapeRenderer != null) shapeRenderer.dispose();
 
     }
 }

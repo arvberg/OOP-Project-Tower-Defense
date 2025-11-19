@@ -1,13 +1,14 @@
 package com.IONA.TowerDefense.model.units.projectiles;
 
-import com.IONA.TowerDefense.model.RenderData;
+import com.IONA.TowerDefense.model.models.RenderData;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.Movable;
 import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class Projectile extends Unit implements Renderable {
+public class Projectile extends Unit implements Movable {
     protected int damage;
     protected float speed;
     protected float x;
@@ -57,6 +58,12 @@ public class Projectile extends Unit implements Renderable {
 
     public float getSpeed() {
         return speed;
+    }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        this.x = position.x;
+        this.y = position.y;
     }
 
     public float getDx(){

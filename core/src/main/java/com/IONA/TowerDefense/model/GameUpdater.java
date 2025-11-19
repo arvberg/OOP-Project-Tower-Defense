@@ -16,5 +16,6 @@ public class GameUpdater  {
         }
         //System.out.println("updating!");
         model.moveEnemies();
+
     }
 };

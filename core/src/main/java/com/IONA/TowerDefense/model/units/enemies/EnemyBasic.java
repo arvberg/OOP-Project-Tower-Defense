@@ -10,8 +10,7 @@ public class EnemyBasic extends Enemy{
         hp = 400 + 200*difficulty;
         speed = 0.03f;
         gold = 5;
-        this.texture = new Texture("ProtTower.png");
-
-        //img
+        this.texture = new Texture("Enemy_temp_01.png");
+        setHitBox(0.5f,0.5f);
     }
 }

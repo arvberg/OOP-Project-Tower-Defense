@@ -1,6 +1,5 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.models;
 
-import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -11,16 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.List;
 
 public class AttackHandler {
-    private int width;
-    private int height;
     private GameModel model;
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private List<Tower> towers;
 
-    public AttackHandler(int width, int height, GameModel model) {
-        this.width = width;
-        this.height = height;
+    public AttackHandler(GameModel model) {
         this.model = model;
         this.enemies = model.getEnemies();
         this.projectiles = model.getProjectiles();
@@ -51,7 +46,7 @@ public class AttackHandler {
         float projectileSpeed = tower.getProjectileSpeed();
         float towerX = tower.getPosition().x;
         float towerY = tower.getPosition().y;
-        float length = getLength(target, tower);
+        float length = getDistance(target, tower);
         float dirX = getDir(target, tower).x;
         float dirY = getDir(target, tower).y;
 
@@ -61,9 +56,7 @@ public class AttackHandler {
         }
     }
 
-    public void removeProjectile(Projectile projectile) {
-        projectiles.remove(projectile);
-    }
+
 
     public void projectileHit(Projectile projectile, Enemy enemy) {
         Rectangle hitbox = enemy.getHitBox();
@@ -82,19 +75,6 @@ public class AttackHandler {
         float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
         return new Vector2(deltaX/length, deltaY/length);
-    }
-
-    public float getLength(Enemy enemy, Tower tower) {
-
-        float towerX = (float) tower.getPosition().x;
-        float towerY = (float) tower.getPosition().y;
-        float enemyX = enemy.getCoor().x;
-        float enemyY = enemy.getCoor().y;
-
-        float vx = enemyX - towerX;
-        float vy = enemyY - towerY;
-
-        return (float) Math.sqrt(vx * vx + vy * vy); // length
     }
 
     public void setProjectileDir(Projectile projectile) {
@@ -124,6 +104,10 @@ public class AttackHandler {
         float deltaY = getDeltaY(from, to);
 
         return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
+    }
+
+    public void removeProjectile(Projectile projectile) {
+        projectiles.remove(projectile);
     }
 
 }
