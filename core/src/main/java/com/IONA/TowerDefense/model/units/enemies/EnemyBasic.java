@@ -8,7 +8,7 @@ public class EnemyBasic extends Enemy{
     public EnemyBasic(int difficulty){
         super(difficulty);
         hp = 400 + 200*difficulty;
-        speed = 0.03f;
+        speed = 0.1f;
         gold = 5;
         this.texture = new Texture("ProtTower.png");
 

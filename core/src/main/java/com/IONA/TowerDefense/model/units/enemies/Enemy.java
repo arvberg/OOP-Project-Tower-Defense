@@ -74,6 +74,7 @@ public abstract class Enemy extends Unit implements Renderable {
     }
 
     public void setHitBox() {
+
         if (hitBox == null) {
             hitBox = new Rectangle(coor.x, coor.y, 0.5f, 0.5f);
         } else {
