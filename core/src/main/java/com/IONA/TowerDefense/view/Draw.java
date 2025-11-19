@@ -4,9 +4,6 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.Segment;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
-import com.IONA.TowerDefense.model.units.projectiles.Projectile;
-import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -53,11 +50,12 @@ public class Draw {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
-        float width = 0.6f;
         for (int i = 0; i < model.getPath().getSegments().size() - 1; i++) {
             Vector2 a = model.getPath().getSegment(i).getStartPosition();
-            Vector2 b = model.getPath().getSegment(i).getEndForDraw(width);
-            shapeRenderer.rectLine((a.x), (a.y), (b.x), (b.y),width);
+            Vector2 b = model.getPath().getSegment(i).getEnd();
+
+
+            shapeRenderer.rectLine((a.x+.25f), (a.y+.25f), (b.x+.25f), (b.y+.25f),.6f);
 
         }
         shapeRenderer.end();
