@@ -2,20 +2,17 @@ package com.IONA.TowerDefense.model.units.enemies;
 
 //import com.IONA.TowerDefense.view.GameFrame;
 import com.IONA.TowerDefense.model.Direction;
-import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.RenderData;
+import com.IONA.TowerDefense.model.units.Unit;
+import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.Gdx;
 
-
 import javax.swing.*;
-import java.awt.*;
 
-import static com.IONA.TowerDefense.model.Direction.SOUTH;
-import static javax.swing.SwingConstants.*;
-
-public abstract class Enemy{
+public abstract class Enemy extends Unit implements Renderable {
 
     protected Direction dir;
     protected int hp;
@@ -28,11 +25,9 @@ public abstract class Enemy{
     GameModel model;
     public Texture texture;
 
-    public Enemy(int difficulty, GameModel model) {
+    public Enemy(int difficulty) {
 
-        this.model = model;
-        this.texture = new Texture("ProtTower.png");
-
+        this.texture = new Texture("Enemy_temp_01.png");
     }
 
     public Rectangle  getHitBox() {

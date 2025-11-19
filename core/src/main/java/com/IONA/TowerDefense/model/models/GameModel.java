@@ -1,11 +1,13 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.model.*;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
-import com.IONA.TowerDefense.model.units.towers.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
@@ -14,6 +16,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.Long.MAX_VALUE;
 
 // Main model class to for communication with controller
 public class GameModel {
@@ -51,10 +55,12 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.background = new Background();
         this.difficulty = 0;
-        this.playbutton = new playButton(0,0, this);
-        this.pausebutton = new pauseButton(10,0);
+        this.path = PathFactory.examplePath2();
+
+        this.buttons = new ArrayList<>();
+        this.playbutton = new playButton(0, 0, this);
+        this.pausebutton = new pauseButton(10, 0);
         buttons.add(playbutton);
-        this.path = PathFactory.examplePath1();
     }
 
     public void moveEnemies() {
@@ -93,6 +99,7 @@ public class GameModel {
         }
     }
 
+    public Path getPath(){return this.path;}
     // Add and remove from list
     public void addTower(Tower tower) {
         towers.add(tower);
@@ -121,10 +128,6 @@ public class GameModel {
     public void removeProjectiles(Projectile projectile) {
         projectiles.remove(projectile);
     }
-
-    public void addButton(Button button) { buttons.add(button);}
-
-    public void removeButton(Button button) { buttons.remove(button); }
 
     // Getters for all lists
     public List<Tower> getTowers() {
@@ -157,12 +160,11 @@ public class GameModel {
         return score;
     }
 
-    public List<Button> getButtons() { return buttons;}
-
     // Selecting a tower
-    public void selectTower(Point selectedPoint) {
+    public void selectTower(Vector2 selectedPoint) {
+
         Tower closestTower = null;
-        double closestDistance = Double.MAX_VALUE;
+        float closestDistance = MAX_VALUE;
 
         for (Tower tower : towers) {
             Point towerPos = tower.getPosition();
@@ -189,7 +191,7 @@ public class GameModel {
     }
 
     // Placing a tower
-    public void placeTower (Point selectedPoint) {
+    public void placeTower (Vector2 selectedPoint) {
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
             towers.add(pendingTower);
@@ -218,6 +220,13 @@ public class GameModel {
         this.difficulty = diff;
     }
 */
+
+    public List<Button> getButtons() { return buttons;}
+
+    public void addButton(Button button) { buttons.add(button);}
+
+    public void removeButton(Button button) { buttons.remove(button); }
+
     public playButton getPlayButton(){
         return playbutton;
     };

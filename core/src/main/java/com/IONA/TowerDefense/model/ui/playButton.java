@@ -1,14 +1,14 @@
 package com.IONA.TowerDefense.model.ui;
 
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.models.GameModel;
 import com.badlogic.gdx.math.Rectangle;
 
 public class playButton extends Button{
     WaveGenerator generator;
     Rectangle bounds;
     public playButton(float x, float y, GameModel model){
-        super("ProtTower.png", x, y, 1, 1);
+        super("Playbutton_temp_01@2x.png", x, y, 1, 1);
         this.generator = new WaveGenerator(GameModel.difficulty, model);
         this.bounds = new Rectangle(x,y,1,1);
     }

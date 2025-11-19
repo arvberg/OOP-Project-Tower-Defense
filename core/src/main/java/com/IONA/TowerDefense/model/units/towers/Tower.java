@@ -1,37 +1,44 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.RenderData;
+import com.IONA.TowerDefense.model.units.Unit;
+import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class Tower{
+public abstract class Tower extends Unit implements Renderable {
+    protected  int damage;
     protected int attack;
-    protected int speed;
+    protected int projectileSpeed;
+    protected int fireFrequency;
     protected int cost;
     protected int level;
     protected int rangeRadius;
     protected int direction;
-    protected Point position;
     protected ImageIcon image;
-    GameModel model;
+    private Texture texture;
+    private Vector2 dimension;
 
-    public Tower(int attack, int speed, int cost, int rangeRadius, GameModel model) {
+
+    public Tower(int attack, int projectileSpeed, int cost, int rangeRadius) {
         this.attack = attack;
-        this.speed = speed;
+        this.projectileSpeed = projectileSpeed;
         this.cost = cost;
         this.rangeRadius = rangeRadius;
         level = 1;
-        this.model = model;
+    }
+
+    @Override
+    public RenderData getRenderData() {
+        return new RenderData(texture, getX(), getY(), dimension.x, dimension.y);
     }
 
     public int getAttack(){
         return attack;
-    }
-
-    public int getSpeed(){
-        return speed;
     }
 
     public int getDir(){
@@ -52,17 +59,14 @@ public abstract class Tower{
         return image;
     }
 
-    public Point getPosition(){
-        return position;
-    }
-
-    public void setPosition(Point position) {
-        if (position == null) {
-            throw new NullPointerException();
-        }
-        this.position = position;
-    }
-
     public abstract void fire();
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public float getProjectileSpeed() {
+        return projectileSpeed;
+    }
 }
 

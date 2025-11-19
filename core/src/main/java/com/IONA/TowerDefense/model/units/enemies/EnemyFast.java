@@ -1,7 +1,5 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
-import com.IONA.TowerDefense.model.GameModel;
-
 public class EnemyFast extends Enemy{
     public EnemyFast(int difficulty, GameModel model){
         super(difficulty, model);

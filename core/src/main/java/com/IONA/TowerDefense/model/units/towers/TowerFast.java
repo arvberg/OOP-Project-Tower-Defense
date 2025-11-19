@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 
 import java.awt.*;
@@ -17,7 +17,7 @@ public class TowerFast extends Tower{
     public TowerFast(GameModel model) {
         super(BaseAttack, BaseSpeed, BaseCost, range, model);
         this.attack = BaseAttack;
-        this.speed = BaseSpeed;
+        this.projectileSpeed = BaseSpeed;
         this.cost = BaseCost;
         this.level = 1;
         this.rangeRadius = 100;
@@ -30,6 +30,6 @@ public class TowerFast extends Tower{
     @Override
     public void fire() {
         Point tempPoint = new Point();
-        tempPoint.setLocation(this.position.x, this.position.y);
+        tempPoint.setLocation(this.getPosition().x, this.getPosition().y);
     }
 }

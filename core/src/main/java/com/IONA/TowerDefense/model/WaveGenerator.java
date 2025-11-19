@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model;
 
 
 import com.IONA.TowerDefense.controller.GameController;
+import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.badlogic.gdx.utils.Timer;

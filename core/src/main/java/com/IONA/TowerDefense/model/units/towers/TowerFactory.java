@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.models.GameModel;
 
 public class TowerFactory {
 

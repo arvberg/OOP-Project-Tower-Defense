@@ -1,5 +1,7 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.model.models.GameModel;
+
 public class GameUpdater  {
 
     private GameModel model;
@@ -15,8 +17,4 @@ public class GameUpdater  {
         //System.out.println("updating!");
         model.moveEnemies();
     }
-
-
-
 };
-

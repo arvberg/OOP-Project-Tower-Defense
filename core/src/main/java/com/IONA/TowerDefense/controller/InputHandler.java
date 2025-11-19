@@ -1,15 +1,13 @@
 package com.IONA.TowerDefense.controller;
 
-import com.IONA.TowerDefense.Main;
-import com.IONA.TowerDefense.model.GameModel;
+import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 public class InputHandler {
 
@@ -18,9 +16,9 @@ public class InputHandler {
         BUYING_STATE,
     }
 
-    GameModel model;
-    pauseButton pauseButton;
-    playButton playButton;
+    private GameModel model;
+    private pauseButton pauseButton;
+    private playButton playButton;
     private InputState state = InputState.SELECTION_STATE;
 
     public InputHandler (GameModel model) {
@@ -51,8 +49,9 @@ public class InputHandler {
 
     public void mouseClicked(MouseEvent mouseEvent) {
         Point clickedPoint = mouseEvent.getPoint();
+        Vector2 cp = (new Vector2(clickedPoint.x, clickedPoint.y));
         if (state == InputState.SELECTION_STATE) {
-            model.selectTower(clickedPoint);
+            model.selectTower(cp);
         }
     }
 
@@ -60,23 +59,22 @@ public class InputHandler {
     public void mousePressed(MouseEvent mouseEvent) {
     }
 
-
+    // Maybe not point and vector
     public void mouseReleased(MouseEvent mouseEvent) {
         Point releasePoint = mouseEvent.getPoint();
+        Vector2 rp = (new Vector2(releasePoint.x, releasePoint.y));
         if (state == InputState.BUYING_STATE) {
-            model.placeTower(releasePoint);
+            model.placeTower(rp);
             setState(InputState.SELECTION_STATE);
         }
     }
 
 
     public void mouseEntered(MouseEvent mouseEvent) {
-
     }
 
 
     public void mouseExited(MouseEvent mouseEvent) {
-
     }
 
 
