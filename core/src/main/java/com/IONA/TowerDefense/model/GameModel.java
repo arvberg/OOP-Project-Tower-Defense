@@ -60,16 +60,14 @@ public class GameModel {
     public void moveEnemies() {
 
         if (!enemies.isEmpty()) {
-            System.out.println("moveEnemies körs, antal enemies: " + enemies.size());
+
             for (int i = 0; i < enemies.size(); i++) {
                 Enemy enemy = enemies.get(i);
                 int segmentIdx = enemy.getSegmentIndex();
                 Segment segment = path.getSegment(segmentIdx);
 
                 Direction enemyDirection = segment.getDirection();
-                System.out.println("Enemy " + i + " innan move: " + enemy.getCoor().x + "," + enemy.getCoor().y + " dir=" + enemyDirection);
                 enemy.move();
-                System.out.println("Enemy " + i + " efter move: " + enemy.getCoor().x + "," + enemy.getCoor().y);
 
                 Vector2 segmentEndPoint = segment.getEnd();
                 Vector2 enemyCoor = enemy.getCoor();
@@ -109,9 +107,9 @@ public class GameModel {
 
         Segment first = path.getSegment(0);
         enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
-        System.out.println("Enemies: " + getEnemies().size());
+
         enemy.setHitBox();
-        System.out.println("Enemy added, total: " + enemies.size());
+
     }
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }

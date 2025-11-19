@@ -33,7 +33,7 @@ public class Draw {
         image = new Texture("libgdx.png");
         font = new BitmapFont();
         //this.BackgroundTexture = new Texture("ProtBackground.png");
-        viewport = new FitViewport(8,5);
+        viewport = new FitViewport(16,9);
         // init camera/viewport här om du använder det
     }
 
