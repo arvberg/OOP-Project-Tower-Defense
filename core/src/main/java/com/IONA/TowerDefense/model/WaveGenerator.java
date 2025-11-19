@@ -9,13 +9,10 @@ import com.badlogic.gdx.utils.Timer;
 
 public class WaveGenerator {
 
-    GameController controller;
     GameModel model;
     Waves waves;
     int WaveNr;
     int GameDiff;
-
-
 
     public WaveGenerator(int difficulty, GameModel model) {
         //this.controller = new GameController();

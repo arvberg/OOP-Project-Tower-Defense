@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class Segment {
@@ -7,11 +8,13 @@ public class Segment {
     public final Vector2 start;
     public final int length;
     public final Direction direction;
+    public final Texture texture;
 
     public Segment(Vector2 start, int length, Direction direction) {
         this.start = start;
         this.length = length;
         this.direction = direction;
+        this.texture = new Texture("Path_temp_brush_01.png");
     }
 
     public Vector2 getStartPosition() {
