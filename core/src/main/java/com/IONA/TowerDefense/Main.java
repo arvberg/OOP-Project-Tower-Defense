@@ -5,12 +5,14 @@ import com.IONA.TowerDefense.model.GameUpdater;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 
 public class Main extends ApplicationAdapter {
     public GameController controller;
     public GameUpdater updater;
     public static GameModel model;
     public Draw painter; // view
+
 
     @Override
     public void create() {
@@ -23,6 +25,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
+        HeartBeat.delta = Gdx.graphics.getDeltaTime();
         input();    // All input endast
         logic();    // Uppdatera spelvärlden
         draw();     // Måla

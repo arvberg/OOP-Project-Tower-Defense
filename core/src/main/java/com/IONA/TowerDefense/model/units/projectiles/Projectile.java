@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.units.projectiles;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.RenderData;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
@@ -36,8 +37,9 @@ public class Projectile extends Unit implements Movable {
     }
 
     public void move() {
-        x += dx * speed;
-        y += dy * speed;
+        float delta = HeartBeat.delta;
+        x += dx * speed * delta;
+        y += dy * speed * delta;
     }
 
     public Vector2 getPosition() {

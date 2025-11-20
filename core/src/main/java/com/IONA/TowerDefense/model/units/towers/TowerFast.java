@@ -12,9 +12,11 @@ public class TowerFast extends Tower{
     private static final int range = 100;
     private static final int BaseProjectileSpeed = 0;
 
+    private static final long BaseFireRate = 1000;
+
 
     public TowerFast() {
-        super(BaseAttack, BaseSpeed, BaseCost, range);
+        super(BaseAttack, BaseSpeed, BaseCost, range, BaseFireRate);
         this.attack = BaseAttack;
         this.projectileSpeed = BaseSpeed;
         this.cost = BaseCost;

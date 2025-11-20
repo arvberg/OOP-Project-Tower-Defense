@@ -39,7 +39,6 @@ public class GameModel {
     public static int difficulty;
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
-
     private TowerFactory towerFactory;
     private boolean towerSelected = false;
     private Tower pendingTower = null;
@@ -55,14 +54,17 @@ public class GameModel {
         this.background = new Background();
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
-        AttackHandler attackHandler = new AttackHandler(this);
+        this.attackHandler = new AttackHandler(this);
 
         this.buttons = new ArrayList<>();
         this.playbutton = new playButton(0, 0, this);
         this.pausebutton = new pauseButton(10, 0);
         buttons.add(playbutton);
 
-        towers.add(new TowerBasic());
+        Tower tower = new TowerBasic();
+        tower.setPosition(new Vector2(3, 2.7f));
+        tower.setRangeRadius(1000);
+        towers.add(tower);
     }
 
     public void moveEnemies() {
@@ -99,7 +101,6 @@ public class GameModel {
             }
         }
     }
-
     public void updateAttackHandler() {
         attackHandler.update();
     }
@@ -181,6 +182,7 @@ public class GameModel {
         if (closestTower != null) {
             towerSelected = true;
             pendingTower = closestTower;
+            System.out.println("Tower selected!");
         }
         else {
             towerSelected = false;
@@ -231,4 +233,7 @@ public class GameModel {
     }
 
 
+    public AttackHandler getAttackHandler() {
+        return attackHandler;
+    }
 }

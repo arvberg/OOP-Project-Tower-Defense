@@ -1,33 +1,39 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.model.models.RenderData;
 import com.IONA.TowerDefense.model.units.Unit;
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-import javax.swing.*;
-
 public abstract class Tower extends Unit {
     protected  int damage;
     protected int attack;
-    protected int projectileSpeed;
-    protected int fireFrequency;
+    protected float projectileSpeed;
+    protected float fireRate;
     protected int cost;
     protected int level;
     protected int rangeRadius;
     protected int direction;
+
     public Texture texture;
     private Vector2 dimension;
 
 
-    public Tower(int attack, int projectileSpeed, int cost, int rangeRadius) {
+    public Tower(int attack, float projectileSpeed, int cost, int rangeRadius, float fireRate) {
         this.attack = attack;
         this.projectileSpeed = projectileSpeed;
         this.cost = cost;
         this.rangeRadius = rangeRadius;
+        this.fireRate = fireRate;
+        this.texture = new Texture("Tower_temp_02.png");    //PLACEHOLDER
         level = 1;
+    }
+
+    public void update() {
+    }
+
+    public void setRangeRadius(int rangeRadius) {
+        this.rangeRadius = rangeRadius;
     }
 
     public int getAttack(){
@@ -48,6 +54,10 @@ public abstract class Tower extends Unit {
         return rangeRadius;
     }
 
+    public float getFireRate(){
+        return fireRate;
+    }
+
     public abstract void fire();
 
     public int getDamage() {
@@ -56,6 +66,13 @@ public abstract class Tower extends Unit {
 
     public float getProjectileSpeed() {
         return projectileSpeed;
+    }
+
+    public boolean canShoot() {
+        return false;
+    }
+
+    public void resetCooldown() {
     }
 }
 

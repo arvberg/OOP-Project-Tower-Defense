@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,7 +16,6 @@ public abstract class Enemy extends Unit {
     protected int hp;
     protected float speed;
     protected int gold;
-    protected Vector2 position;
     protected Rectangle hitBox;
     protected ImageIcon enemyImage;
     protected int segmentIndex = 0;
@@ -23,7 +23,6 @@ public abstract class Enemy extends Unit {
 
     public Enemy(int difficulty) {
         this.texture = new Texture("Enemy_temp_01.png");
-        this.position = new Vector2(0, 0); // placeholder
     }
 
     public Rectangle getHitBox() {
@@ -35,7 +34,7 @@ public abstract class Enemy extends Unit {
         if (position == null) {
             position = new Vector2(0, 2);
         }
-        float delta = Gdx.graphics.getDeltaTime();  // sekunder per frame
+        float delta = HeartBeat.delta; // sekunder per frame
         float step = speed * delta;                 // speed = units per sekund
         switch (dir) {
             case NORTH -> position.y += speed;

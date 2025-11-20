@@ -2,21 +2,21 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Timer;
 
 import java.util.List;
 
 public class AttackHandler {
-    private GameModel model;
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private List<Tower> towers;
 
     public AttackHandler(GameModel model) {
-        this.model = model;
         this.enemies = model.getEnemies();
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
@@ -24,16 +24,25 @@ public class AttackHandler {
 
     public void update() {
         for (Tower tower : towers) {
-            // tower.addTimeSinceLastShot(delta);
-            for (Enemy enemy : enemies) {
-                if (withinRadius(enemy, tower)) {
-                    fireProjectile(enemy, tower);
+
+            tower.update();
+
+
+                // tower.addTimeSinceLastShot(delta);
+                for (Enemy enemy : enemies) {
+                    if (withinRadius(enemy, tower) && tower.canShoot()) {
+
+                        fireProjectile(enemy, tower);
+                        tower.resetCooldown();
+                        break;
+
+                    }
                 }
             }
-        }
-        for (Projectile projectile : projectiles) {
-            projectile.move();
-        }
+            for (Projectile projectile : projectiles) {
+                projectile.move();
+            }
+
     }
 
     public boolean withinRadius(Enemy enemy, Tower tower) {
@@ -44,19 +53,17 @@ public class AttackHandler {
     public void fireProjectile(Enemy target, Tower tower) {
         int damage = tower.getDamage();
         float projectileSpeed = tower.getProjectileSpeed();
+        float fireRate = tower.getFireRate();
         float towerX = tower.getPosition().x;
         float towerY = tower.getPosition().y;
         float length = getDistance(target, tower);
-        float dirX = getDir(target, tower).x;
-        float dirY = getDir(target, tower).y;
+        // temporary target for demo, change to target later
+        float dirX = getDir(enemies.get(0), tower).x;
+        float dirY = getDir(enemies.get(0), tower).y;
 
-        int random = (int) (Math.random() * 200);
-        if (random < 5) {
-            projectiles.add(new Projectile(damage, projectileSpeed, towerX, towerY, dirX, dirY, target));
-        }
+        //float spawnTime = cumulativeDelay;
+        projectiles.add(new Projectile(damage, projectileSpeed, towerX, towerY, dirX, dirY, enemies.get(0)));
     }
-
-
 
     public void projectileHit(Projectile projectile, Enemy enemy) {
         Rectangle hitbox = enemy.getHitBox();
