@@ -4,6 +4,8 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.Segment;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -50,12 +52,13 @@ public class Draw {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
+        float width = 0.6f;
         for (int i = 0; i < model.getPath().getSegments().size() - 1; i++) {
             Vector2 a = model.getPath().getSegment(i).getStartPosition();
-            Vector2 b = model.getPath().getSegment(i).getEnd();
+            Vector2 b = model.getPath().getSegment(i).getEndForDraw(width);
 
 
-            shapeRenderer.rectLine((a.x+.25f), (a.y+.25f), (b.x+.25f), (b.y+.25f),.6f);
+            shapeRenderer.rectLine((a.x), (a.y), (b.x), (b.y),width);
 
         }
         shapeRenderer.end();
@@ -68,9 +71,8 @@ public class Draw {
         List<Enemy> enemies = model.getEnemies();
         for (Enemy e : enemies){
             Rectangle hb = e.getHitBox();
-            float w2 = e.getHitBox().width / 2;
-            float h2 = e.getHitBox().height / 2;
-            batch.draw(e.texture, e.getPosition().x-w2, e.getPosition().y-h2, hb.width,hb.height);
+            batch.draw(e.texture, hb.x, hb.y, hb.width, hb.height);
+
         }
 /*
         List<Tower> towers = model.getTowers();
@@ -84,7 +86,7 @@ public class Draw {
             Vector2 proj = p.getPosition();
             batch.draw(p.projectileIcon, proj.x, proj.y, 0.5f, 0.5f);
         }
- */
+*/
 
 
 
