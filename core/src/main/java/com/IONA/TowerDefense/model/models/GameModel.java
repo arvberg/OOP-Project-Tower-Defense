@@ -55,7 +55,7 @@ public class GameModel {
         this.background = new Background();
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
-        AttackHandler attackHandler = new AttackHandler(this);
+        this.attackHandler = new AttackHandler(this);
 
         this.buttons = new ArrayList<>();
         this.playbutton = new playButton(0, 0, this);

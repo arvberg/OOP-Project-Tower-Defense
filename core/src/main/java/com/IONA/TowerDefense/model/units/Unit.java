@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Unit {
 
-    private Vector2 position;
+    protected Vector2 position;
 
     public Vector2 getPosition() {
         return position;

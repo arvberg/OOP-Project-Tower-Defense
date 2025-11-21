@@ -10,10 +10,10 @@ import com.badlogic.gdx.math.Vector2;
 import javax.swing.*;
 
 public abstract class Tower extends Unit {
-    protected  int damage;
-    protected int attack;
+    protected int damage;
     protected int projectileSpeed;
     protected int fireFrequency;
+    private float timeSinceLastShot = 0;
     protected int cost;
     protected int level;
     protected int rangeRadius;
@@ -22,16 +22,33 @@ public abstract class Tower extends Unit {
     private Vector2 dimension;
 
 
-    public Tower(int attack, int projectileSpeed, int cost, int rangeRadius) {
-        this.attack = attack;
+    public Tower(int damage, int projectileSpeed, int fireFrequency, int cost, int rangeRadius) {
+        this.damage = damage;
+        this.fireFrequency = fireFrequency;
         this.projectileSpeed = projectileSpeed;
         this.cost = cost;
         this.rangeRadius = rangeRadius;
         level = 1;
     }
 
-    public int getAttack(){
-        return attack;
+    public int getFireFrequency() {
+        return fireFrequency;
+    }
+
+    public float getProjectileSpeed() {
+        return projectileSpeed;
+    }
+
+    public float getTimeSinceLastShot() {
+        return timeSinceLastShot;
+    }
+
+    public void addTimeSinceLastShot(float delta) {
+        this.timeSinceLastShot += delta;
+    }
+
+    public void resetTimeSinceLastShot() {
+        this.timeSinceLastShot = 0;
     }
 
     public int getDir(){
@@ -54,8 +71,5 @@ public abstract class Tower extends Unit {
         return damage;
     }
 
-    public float getProjectileSpeed() {
-        return projectileSpeed;
-    }
 }
 
