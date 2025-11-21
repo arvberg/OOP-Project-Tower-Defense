@@ -11,7 +11,7 @@ public class TowerDrawer {
     public static void drawTowers(List<Tower> towers, SpriteBatch batch){
         for (Tower t : towers){
             Vector2 p = t.getPosition();
-            batch.draw(t.texture, p.x, p.y, 0.5f, 0.5f);
+            batch.draw(t.texture, p.x, p.y, 0.68f, 0.9f);
         }
     }
 

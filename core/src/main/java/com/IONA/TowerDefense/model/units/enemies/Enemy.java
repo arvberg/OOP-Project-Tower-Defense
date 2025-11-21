@@ -22,7 +22,7 @@ public abstract class Enemy extends Unit {
     public Texture texture;
 
     public Enemy(int difficulty) {
-        this.texture = new Texture("Enemy_temp_01.png");
+        this.texture = new Texture("Enemy_temp_02.png");
     }
 
     public Rectangle getHitBox() {

@@ -16,7 +16,7 @@ public class TowerBasic extends Tower {
 
     private float cooldown = 0f;
 
-    public Texture texture = new Texture("Tower_temp_02.png");
+    public Texture texture = new Texture("Tower_temp_03.png");
 
 
     public TowerBasic() {

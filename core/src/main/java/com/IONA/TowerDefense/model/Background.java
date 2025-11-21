@@ -7,6 +7,6 @@ public class Background {
     public Texture BackgroundTexture;
 
     public Background() {
-        this.BackgroundTexture = new Texture("Background_temp_01.png");
+        this.BackgroundTexture = new Texture("Background_temp_02.png");
     }
 }

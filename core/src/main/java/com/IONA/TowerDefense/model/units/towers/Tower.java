@@ -25,7 +25,7 @@ public abstract class Tower extends Unit {
         this.cost = cost;
         this.rangeRadius = rangeRadius;
         this.fireRate = fireRate;
-        this.texture = new Texture("Tower_temp_02.png");    //PLACEHOLDER
+        this.texture = new Texture("Tower_temp_03.png");    //PLACEHOLDER
         level = 1;
     }
 
