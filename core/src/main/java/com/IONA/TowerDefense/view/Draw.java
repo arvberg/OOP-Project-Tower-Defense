@@ -1,17 +1,18 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.Segment;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.view.model.PathDrawer;
+import com.IONA.TowerDefense.view.ui.ButtonDrawer;
+import com.IONA.TowerDefense.view.units.EnemyDrawer;
+import com.IONA.TowerDefense.view.units.ProjectileDrawer;
+import com.IONA.TowerDefense.view.units.TowerDrawer;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -49,46 +50,24 @@ public class Draw {
 
         // Draw Path
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
-        float width = 0.6f;
-        for (int i = 0; i < model.getPath().getSegments().size() - 1; i++) {
-            Vector2 a = model.getPath().getSegment(i).getStartPosition();
-            Vector2 b = model.getPath().getSegment(i).getEndForDraw(width);
-            shapeRenderer.rectLine((a.x), (a.y), (b.x), (b.y),width);
-        }
+        PathDrawer.drawPath(shapeRenderer);
         shapeRenderer.end();
 
-        // Draw everything else: buttons, enemies, ...
         batch.begin();
+
         List<Button> buttons = model.getButtons();
-        for (Button b: buttons){
-            batch.draw(b.texture, b.getButtonPosition().x, b.getButtonPosition().y, b.width, b.height);
-        }
+        ButtonDrawer.drawButtons(buttons,batch);
+
         List<Enemy> enemies = model.getEnemies();
-        for (Enemy e : enemies) {
-            Rectangle hb = e.getHitBox();
-            batch.draw(e.texture, hb.x, hb.y, hb.width, hb.height);
-        }
+        EnemyDrawer.drawEnemies(enemies,batch);
 
         List<Tower> towers = model.getTowers();
-        for (Tower t : towers){
-            Vector2 p = t.getPosition();
-            batch.draw(t.texture, p.x, p.y, 0.5f, 0.5f);
-        }
-
+        TowerDrawer.drawTowers(towers, batch);
 
         List<Projectile> projectiles = model.getProjectiles();
-        for (Projectile p : projectiles){
-            Vector2 proj = p.getPosition();
-            batch.draw(p.projectileIcon, proj.x, proj.y, 0.5f, 0.5f);
-
-        }
-
+        ProjectileDrawer.drawProjectiles(projectiles,batch);
 
         batch.end();
-
-
-
 
 
     }
