@@ -1,6 +1,6 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.map;
 
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
+import com.IONA.TowerDefense.model.Direction;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 

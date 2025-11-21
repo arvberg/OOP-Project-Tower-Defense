@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.map;
 
 import com.badlogic.gdx.graphics.Texture;
 

@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.map;
 
 public class Map {
 

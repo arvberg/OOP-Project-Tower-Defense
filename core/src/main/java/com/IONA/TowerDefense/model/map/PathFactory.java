@@ -1,10 +1,9 @@
-package com.IONA.TowerDefense.model;
+package com.IONA.TowerDefense.model.map;
 
+import com.IONA.TowerDefense.model.Direction;
 import com.badlogic.gdx.math.Vector2;
 
-import java.awt.*;
 import java.util.List;
-import java.util.Vector;
 
 public class PathFactory {
 

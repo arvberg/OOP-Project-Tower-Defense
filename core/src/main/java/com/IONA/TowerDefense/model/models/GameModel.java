@@ -1,6 +1,10 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.*;
+import com.IONA.TowerDefense.model.map.Background;
+import com.IONA.TowerDefense.model.map.Path;
+import com.IONA.TowerDefense.model.map.PathFactory;
+import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
