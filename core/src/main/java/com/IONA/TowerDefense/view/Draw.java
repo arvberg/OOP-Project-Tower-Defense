@@ -2,19 +2,22 @@ package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.ui.towerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
-import com.IONA.TowerDefense.view.ui.ButtonDrawer;
+import com.IONA.TowerDefense.view.ui.ButtonGroupOneDrawer;
+import com.IONA.TowerDefense.view.ui.TowerMenuDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.List;
@@ -23,6 +26,7 @@ public class Draw {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
+    private ExtendViewport vievport;
     private ShapeRenderer shapeRenderer;
 
     public Draw(GameModel model) {this.model = model;}
@@ -35,6 +39,12 @@ public class Draw {
 
     public void resize(int w, int h) {
         viewport.update(w, h, true);
+    }
+
+    public Vector2 toWorld(float screenX, float screenY) {
+        Vector3 v = new Vector3(screenX, screenY, 0);
+        viewport.unproject(v);
+        return new Vector2(v.x, v.y);
     }
 
     public void draw() {
@@ -55,8 +65,11 @@ public class Draw {
 
         batch.begin();
 
+        towerMenu towerMenu = model.getTowerMenu();
+        TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
+
         List<Button> buttons = model.getButtons();
-        ButtonDrawer.drawButtons(buttons,batch);
+        ButtonGroupOneDrawer.drawButtons(buttons,batch);
 
         List<Enemy> enemies = model.getEnemies();
         EnemyDrawer.drawEnemies(enemies,batch);

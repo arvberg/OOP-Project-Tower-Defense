@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.List;
 
 
-public class ButtonDrawer {
+public class ButtonGroupOneDrawer {
 
     public static void drawButtons(List<Button> buttons, SpriteBatch batch){
         for (Button b: buttons){
