@@ -20,11 +20,11 @@ public class Decoration extends Unit {
         return position;
     }
 
-    public float getX() {
-        return position.x;
+    public float getWidth() {
+        return texture.getWidth();
     }
 
-    public float getY() {
-        return position.y;
+    public float getHeight() {
+        return texture.getHeight();
     }
 }

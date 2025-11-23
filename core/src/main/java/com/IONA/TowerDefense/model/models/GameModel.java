@@ -76,6 +76,13 @@ public class GameModel {
 
         Decoration core = new Core();
         Segment last = path.getSegment(path.segmentCount() - 2);
+        Vector2 end = last.getEnd();
+
+        //TODO: Figure this out
+        /*core.setPosition(new Vector2(
+            end.x - (core.getWidth() / 2f),
+            end.y - (core.getHeight() / 2f)
+        ));*/
         core.setPosition(last.getStartPosition());
         decorations.add(core);
     }
