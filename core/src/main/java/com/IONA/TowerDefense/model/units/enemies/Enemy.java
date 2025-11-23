@@ -17,7 +17,6 @@ public abstract class Enemy extends Unit {
     protected float speed;
     protected int gold;
     protected Rectangle hitBox;
-    protected ImageIcon enemyImage;
     protected int segmentIndex = 0;
     public Texture texture;
 
@@ -127,7 +126,4 @@ public abstract class Enemy extends Unit {
         this.segmentIndex = newSegmentIndex;
     }
 
-    public ImageIcon getImage() {
-        return enemyImage;
-    }
 }

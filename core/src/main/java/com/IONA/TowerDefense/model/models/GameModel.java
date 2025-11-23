@@ -5,6 +5,8 @@ import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.units.decorations.Core;
+import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
@@ -30,6 +32,7 @@ public class GameModel {
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private List<Button> buttons;
+    private List<Decoration> decorations;
     private final Path path;
     private PathFactory pathFactory;
     private final Background background;
@@ -52,6 +55,7 @@ public class GameModel {
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
+        this.decorations = new ArrayList<>();
         this.resources = 100;
         this.score = 0;
         this.buttons = new ArrayList<>();
@@ -69,6 +73,11 @@ public class GameModel {
         tower.setPosition(new Vector2(3, 2.7f));
         tower.setRangeRadius(1000);
         towers.add(tower);
+
+        Decoration core = new Core();
+        Segment last = path.getSegment(path.segmentCount() - 2);
+        core.setPosition(last.getStartPosition());
+        decorations.add(core);
     }
 
     public void moveEnemies() {
@@ -151,6 +160,8 @@ public class GameModel {
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
+
+    public List<Decoration> getDecor(){return decorations;}
 
     public int getResources() {
         return resources;
