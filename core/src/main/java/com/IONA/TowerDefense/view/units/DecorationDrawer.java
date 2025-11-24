@@ -11,7 +11,13 @@ public class DecorationDrawer {
     public static void drawDecorations(List<Decoration> decorations, SpriteBatch batch){
         for (Decoration d: decorations){
             Vector2 p = d.getPosition();
-            batch.draw(d.texture, p.x, p.y, 2f, 1f);
+
+            batch.draw(
+                d.texture,
+                p.x,
+                p.y,
+                d.getWidth(),
+                d.getHeight());
         }
 
     }

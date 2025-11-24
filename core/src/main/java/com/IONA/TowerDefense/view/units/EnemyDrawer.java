@@ -14,6 +14,5 @@ public class EnemyDrawer {
             Rectangle hb = e.getHitBox();
             batch.draw(e.texture, hb.x, hb.y, hb.width, hb.height);
         }
-
     }
 }

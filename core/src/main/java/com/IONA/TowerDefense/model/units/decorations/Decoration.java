@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 public class Decoration extends Unit {
     protected Vector2 position = new Vector2();
     public Texture texture;
+    public float width;
+    public float height;
 
     public Decoration(){
         this.texture = new Texture("libgdx.png");
@@ -21,10 +23,10 @@ public class Decoration extends Unit {
     }
 
     public float getWidth() {
-        return texture.getWidth();
+        return width;
     }
 
     public float getHeight() {
-        return texture.getHeight();
+        return height;
     }
 }
