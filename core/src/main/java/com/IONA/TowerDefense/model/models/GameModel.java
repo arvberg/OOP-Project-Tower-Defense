@@ -74,21 +74,30 @@ public class GameModel {
         tower.setRangeRadius(1000);
         towers.add(tower);
 
+        placeCore();
+    }
+
+    public void placeCore(){
         Decoration core = new Core();
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
-
-        //TODO: Figure this out
 
         core.setPosition(new Vector2(
             end.x - core.getWidth()/2f,
             end.y - core.getHeight()/2f)
         );
-        //core.setPosition(last.getStartPosition());
-        decorations.add(core);
 
-        System.out.println("Core pos: " + core.getPosition());
-        System.out.println("Core size: " + core.getWidth() + ", " + core.getHeight());
+        decorations.add(core);
+    }
+
+    public void coreDamaged(){
+        for (Enemy e : enemies){
+            //TODO: replace with a core Hitbox instead?
+            if (e.getPosition() == decorations.get(0).getPosition()){
+                enemies.remove(e);
+                System.out.println("Enemy removed");
+            }
+        }
     }
 
     public void moveEnemies() {

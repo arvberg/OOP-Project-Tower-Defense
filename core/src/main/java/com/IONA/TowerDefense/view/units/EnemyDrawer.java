@@ -8,11 +8,11 @@ import java.util.List;
 
 public class EnemyDrawer {
 
-    public static void drawEnemies(List<Enemy> enemies, SpriteBatch batch){
-
+    public static void drawEnemies(List<Enemy> enemies, SpriteBatch batch) {
         for (Enemy e : enemies) {
             Rectangle hb = e.getHitBox();
             batch.draw(e.texture, hb.x, hb.y, hb.width, hb.height);
+
         }
     }
 }
