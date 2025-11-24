@@ -67,7 +67,7 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.playbutton = new playButton(0, 0, this);
         this.pausebutton = new pauseButton(10, 0);
-        this.towermenutogglebutton = new towerMenuToggleButton(0,8,this, towerMenu);
+        this.towermenutogglebutton = new towerMenuToggleButton(0,8, towerMenu);
 
         buttons.add(towermenutogglebutton);
         buttons.add(playbutton);
