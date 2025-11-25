@@ -29,9 +29,7 @@ public class PathFactory {
             new Segment(new Vector2(7, 4), 2, Direction.NORTH),
             new Segment(new Vector2(7, 6), 4, Direction.EAST),
             new Segment(new Vector2(11, 6), 2, Direction.NORTH),
-            new Segment(new Vector2(11, 8), 4, Direction.WEST),
-            new Segment(new Vector2(7, 8), 2, Direction.NORTH),
-            new Segment(new Vector2(7, 10), 0, Direction.NORTH)
+            new Segment(new Vector2(11, 8), 4, Direction.NORTH)
 
 
         ));

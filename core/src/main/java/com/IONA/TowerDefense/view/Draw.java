@@ -2,18 +2,18 @@ package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
 import com.IONA.TowerDefense.view.ui.ButtonDrawer;
+import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -57,6 +57,9 @@ public class Draw {
 
         List<Button> buttons = model.getButtons();
         ButtonDrawer.drawButtons(buttons,batch);
+
+        List<Decoration> decorations = model.getDecor();
+        DecorationDrawer.drawDecorations(decorations,batch);
 
         List<Enemy> enemies = model.getEnemies();
         EnemyDrawer.drawEnemies(enemies,batch);

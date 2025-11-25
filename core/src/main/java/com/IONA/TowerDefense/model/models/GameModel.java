@@ -5,6 +5,8 @@ import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.units.decorations.Core;
+import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
@@ -15,6 +17,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class GameModel {
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private List<Button> buttons;
+    private List<Decoration> decorations;
     private final Path path;
     private PathFactory pathFactory;
     private final Background background;
@@ -52,6 +56,7 @@ public class GameModel {
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
+        this.decorations = new ArrayList<>();
         this.resources = 100;
         this.score = 0;
         this.buttons = new ArrayList<>();
@@ -69,6 +74,36 @@ public class GameModel {
         tower.setPosition(new Vector2(3, 2.7f));
         tower.setRangeRadius(1000);
         towers.add(tower);
+
+        placeCore();
+    }
+
+    public void placeCore(){
+        Decoration core = new Core();
+        Segment last = path.getSegment(path.segmentCount()-2);
+        Vector2 end = last.getEnd();
+
+        core.setPosition(new Vector2(
+            end.x - core.getWidth()/2f,
+            end.y - core.getHeight()/2f)
+        );
+
+        decorations.add(core);
+    }
+
+    public void coreDamaged(){
+        if (decorations.isEmpty()) return;
+        Rectangle coreHitbox = decorations.get(0).getHitBox();
+
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            Enemy e = enemies.get(i);
+
+            if (coreHitbox.overlaps(e.getHitBox())) {
+                removeEnemy(e);
+                loseLife();
+                System.out.println("Enemy reached core");
+            }
+        }
     }
 
     public void moveEnemies() {
@@ -88,19 +123,10 @@ public class GameModel {
 
 
                 if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
-
-                    if (enemy.getSegmentIndex() == path.segmentCount() - 1) {
-                        loseLife();
-                        removeEnemy(enemy);
-                        break;
-                        //should later also decrement enemies so that the for loop gets shorter when an enemy leaves
-                    } else {
                         int nextIdx = segmentIdx + 1;
                         Segment nextSegment = path.getSegment(nextIdx);
 
                         enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
-
-                    }
                 }
             }
         }
@@ -151,6 +177,8 @@ public class GameModel {
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
+
+    public List<Decoration> getDecor(){return decorations;}
 
     public int getResources() {
         return resources;
