@@ -1,20 +1,34 @@
 package com.IONA.TowerDefense.model.ui;
 
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.badlogic.gdx.math.Vector2;
 
 public class TowerMenuItem extends Button {
 
     private final String towerType; //
+    private final TowerMenu towermenu;
+    private GameModel model;
 
-    public TowerMenuItem(String texture, float x, float y, String towerType) {
+    public TowerMenuItem(String texture, float x, float y, String towerType, TowerMenu menu, GameModel model) {
         super(texture, x, y, 1f, 1f);  // 1x1 world units
         this.towerType = towerType;
+        this.towermenu = menu;
+        this.model = model;
+    }
+
+    @Override
+    public void isClicked(Vector2 pos) {
+        if(bounds.contains(pos)) {
+            onClick();
+        }
     }
 
     @Override
     public void onClick() {
         System.out.println("Clicked tower: " + towerType);
-        // Här kommer vi senare kalla model.startBuying(towerType);
+        model.buyTower(towerType);
     }
+
+
 }
 

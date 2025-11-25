@@ -15,4 +15,9 @@ public class TowerDrawer {
         }
     }
 
+    public static void drawTower(Tower tower, SpriteBatch batch) {
+        Vector2 p = tower.getPosition();
+        batch.draw(tower.texture, p.x, p.y, 0.68f, 0.9f);
+    }
+
 }

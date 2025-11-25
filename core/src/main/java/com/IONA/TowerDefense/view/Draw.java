@@ -80,6 +80,10 @@ public class Draw {
         List<Tower> towers = model.getTowers();
         TowerDrawer.drawTowers(towers, batch);
 
+        if (model.isBuyingState() && model.getPendingTower() != null) {
+            TowerDrawer.drawTower(model.getPendingTower(), batch);
+        }
+
         List<Projectile> projectiles = model.getProjectiles();
         ProjectileDrawer.drawProjectiles(projectiles,batch);
 

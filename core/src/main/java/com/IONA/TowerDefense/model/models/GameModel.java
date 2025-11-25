@@ -18,6 +18,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -50,6 +51,8 @@ public class GameModel {
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
+    private boolean buyingState = false;
+
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
@@ -64,6 +67,7 @@ public class GameModel {
         this.enemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
         this.resources = 100;
+        this.lives = 100;
         this.score = 0;
         this.buttons = new ArrayList<>();
         this.background = new Background();
@@ -77,8 +81,11 @@ public class GameModel {
         this.pausebutton = new PauseButton(10, 0);
         this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu);
 
-        buttons.add(towermenutogglebutton);
-        buttons.add(playbutton);
+        addButtons(towermenutogglebutton);
+        addButtons(playbutton);
+        towerMenu.createGridItems(buttons);
+        //buttons.add(towermenutogglebutton);
+        //buttons.add(playbutton);
 
         Tower tower = new TowerBasic();
         tower.setPosition(new Vector2(3, 2.7f));
@@ -111,8 +118,9 @@ public class GameModel {
             Enemy e = enemies.get(i);
 
             if (coreHitbox.overlaps(e.getHitBox())) {
+                this.lives =- e.getDamageNumber();
                 removeEnemy(e);
-                loseLife();
+
                 System.out.println("Enemy reached core");
             }
         }
@@ -179,10 +187,6 @@ public class GameModel {
 
     public List<Decoration> getDecor(){return decorations;}
 
-    public void loseLife() {
-        lives--;
-    }
-
     public int getDifficulty() {
         return difficulty;
     }
@@ -222,8 +226,10 @@ public class GameModel {
     public void placeTower (Vector2 selectedPoint) {
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
-
+            resources -= pendingTower.getCost();
+            towers.add(pendingTower);
             pendingTower = null;
+            System.out.println("tower placed");
         }
     }
 
@@ -232,9 +238,8 @@ public class GameModel {
         Tower newTower = towerFactory.createTower(tower);
 
         if (resources >= newTower.getCost()) {
+            buyingState = true;
             pendingTower = newTower;
-            resources -= newTower.getCost();
-            towers.add(newTower);
         }
         else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
@@ -247,6 +252,14 @@ public class GameModel {
 
     public List<Button> getButtons() { return buttons;}
 
+    public void addButtons(Button button) {
+        buttons.add(button);
+    }
+
+    public void removeButton(Button button) {
+        buttons.remove(button);
+    }
+
     public PlayButton getPlayButton(){
         return playbutton;
     }
@@ -256,4 +269,16 @@ public class GameModel {
     }
 
     public TowerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
+
+    public List<TowerMenuItem> getTowerMenuItems() {
+        return towerMenu.items;
+    }
+
+    public boolean isBuyingState() {
+        return buyingState;
+    }
+
+    public Tower getPendingTower() {
+        return pendingTower;
+    }
 }

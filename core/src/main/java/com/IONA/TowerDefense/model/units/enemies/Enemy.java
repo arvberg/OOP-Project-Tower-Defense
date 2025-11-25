@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 import javax.swing.*;
 
+import static com.IONA.TowerDefense.HeartBeat.delta;
+
 public abstract class Enemy extends Unit {
 
     protected Direction dir;
@@ -19,6 +21,7 @@ public abstract class Enemy extends Unit {
     protected float width;
     protected float height;
     protected int segmentIndex = 0;
+    protected int damage;
     public Texture texture;
 
     public Enemy(int difficulty) {
@@ -34,13 +37,13 @@ public abstract class Enemy extends Unit {
         if (position == null) {
             position = new Vector2(0, 2);
         }
-        float delta = HeartBeat.delta; // sekunder per frame
-        float step = speed * delta;    // speed = units per sekund
+         // sekunder per frame
+    // speed = units per sekund
         switch (dir) {
-            case NORTH -> position.y += step;
-            case SOUTH -> position.y -= step;
-            case EAST -> position.x += step;
-            case WEST -> position.x -= step;
+            case NORTH -> position.y += speed*delta;
+            case SOUTH -> position.y -= speed*delta;
+            case EAST -> position.x += speed*delta;
+            case WEST -> position.x -= speed*delta;
         }
         setHitBox(width, height);
     }
@@ -84,6 +87,10 @@ public abstract class Enemy extends Unit {
         this.position.set(newPosition.x, newPosition.y);
         this.dir = newDir;
         this.segmentIndex = newSegmentIndex;
+    }
+
+    public int getDamageNumber(){
+        return damage;
     }
 
 }

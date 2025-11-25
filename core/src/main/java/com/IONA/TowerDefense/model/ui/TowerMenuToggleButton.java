@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.ui;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 public class TowerMenuToggleButton extends Button {
 
@@ -21,8 +22,8 @@ public class TowerMenuToggleButton extends Button {
     }
 
     @Override
-    public void isClicked(float x, float y){
-        if(bounds.contains(x,y)){
+    public void isClicked(Vector2 pos){
+        if(bounds.contains(pos)){
             onClick();
         }
     }

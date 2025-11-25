@@ -24,7 +24,7 @@ public class GameController {
             // View konverterar till world-space
             Vector2 world = view.toWorld(mouseX, mouseY);
 
-            inputHandler.checkInput(world.x, world.y);
+            inputHandler.checkInput(world);
 
         }
 

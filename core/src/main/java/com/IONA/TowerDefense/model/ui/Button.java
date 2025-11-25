@@ -21,7 +21,10 @@ public abstract class Button {
     }
 
 
-    public void isClicked(float x, float y){
+    public void isClicked(Vector2 pos){
+        if(bounds.contains(pos)){
+            onClick();
+        }
     }
 
     public void setButtonPosition(float x, float y) {
@@ -34,4 +37,8 @@ public abstract class Button {
     }
 
     public abstract void onClick();
+
+    public boolean contains(float x, float y) {
+        return bounds.contains(x, y);
+    }
 }
