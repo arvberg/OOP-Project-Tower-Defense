@@ -9,7 +9,7 @@ public class PauseButton extends Button{
 
     @Override
     public void onClick(){
-        Main.model.paused = !Main.model.paused;
+        //Main.model.paused = !Main.model.paused;
         System.out.println("Paused: "+Main.model.paused);
     }
 

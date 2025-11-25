@@ -38,10 +38,6 @@ public class WaveGenerator {
 
                             }
 
-                            // Här tänker jag att vi lägger till fienden i en "liveEnemies" array som våran
-                            // draw() metod hela tiden kommer kolla på, där fiendernas state finns.
-                            // enemy = new enemy("e",) där strängen bestämmer attribut som hastighet, hp och delay.
-                            // DrawClass.liveEnemies.add(enemy)
                         }
 
             }, spawnTime);

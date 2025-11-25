@@ -55,4 +55,36 @@ public class TowerMenu extends Menu{
     public void onClick(){
         //TODO
     }
+
+    public void createGridItems() {
+
+        float startX = menuPosition.x + 0.2f;        // lite padding
+        float startY = menuPosition.y + height - 1f; // börja vid toppen
+
+        float itemSize = 1f;
+        float spacing = 0.1f;
+
+        int rows = 8;
+        int cols = 2;
+
+        int index = 0;
+
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+
+                float x = startX + c * (itemSize + spacing);
+                float y = startY - r * (itemSize + spacing);
+
+                TowerMenuItem item = new TowerMenuItem(
+                    "Tower_temp_03.png",
+                    x,
+                    y,
+                    "BASIC"
+                );
+
+                // items.add(item);
+            }
+        }
+    }
+
 }

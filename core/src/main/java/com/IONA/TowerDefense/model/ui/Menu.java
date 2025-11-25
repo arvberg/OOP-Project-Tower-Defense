@@ -9,12 +9,15 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Menu {
     public Vector2 menuPosition;
-    public float width;
-    public float height;
+    protected float width;
+    protected float height;
     protected Rectangle bounds;
     public Texture texture;
 
     public Menu(String texturePath, float x, float y, float width, float height){
+        if (texturePath == null) {
+            texturePath = "ProtTower.png";
+        }
         this.texture = new Texture(Gdx.files.internal(texturePath));
         this.menuPosition = new Vector2(x, y);
         this.width = width;
