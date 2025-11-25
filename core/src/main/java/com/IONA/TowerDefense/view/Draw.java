@@ -8,7 +8,6 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
-import com.IONA.TowerDefense.view.ui.ButtonDrawer;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.ui.ButtonGroupOneDrawer;
 import com.IONA.TowerDefense.view.ui.TowerMenuDrawer;
