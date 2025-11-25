@@ -10,6 +10,7 @@ import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.pauseButton;
 import com.IONA.TowerDefense.model.ui.playButton;
+import com.IONA.TowerDefense.model.ui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
@@ -39,6 +40,7 @@ public class GameModel {
     private final Background background;
     public playButton playbutton;
     public pauseButton pausebutton;
+    public towerMenuToggleButton towermenutogglebutton;
     private AttackHandler attackHandler;
 
     private int resources; // Players resources
@@ -51,7 +53,11 @@ public class GameModel {
     private boolean towerSelected = false;
     private Tower pendingTower = null;
 
+    private com.IONA.TowerDefense.model.ui.towerMenu towerMenu;
+
     public GameModel () {
+
+        this.towerMenu = new towerMenu(13,0,this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -65,15 +71,21 @@ public class GameModel {
         this.path = PathFactory.examplePath2();
         this.attackHandler = new AttackHandler(this);
 
+
         this.buttons = new ArrayList<>();
         this.playbutton = new playButton(0, 0, this);
         this.pausebutton = new pauseButton(10, 0);
+        this.towermenutogglebutton = new towerMenuToggleButton(0,8, towerMenu);
+
+        buttons.add(towermenutogglebutton);
         buttons.add(playbutton);
 
         Tower tower = new TowerBasic();
         tower.setPosition(new Vector2(3, 2.7f));
         tower.setRangeRadius(1000);
         towers.add(tower);
+
+
 
         placeCore();
     }
@@ -135,6 +147,7 @@ public class GameModel {
         attackHandler.update();
     }
 
+    public com.IONA.TowerDefense.model.ui.towerMenu getTowerMenu(){return this.towerMenu; }
 
     public Path getPath(){return this.path;}
     // Add and remove from list
@@ -268,4 +281,6 @@ public class GameModel {
     public AttackHandler getAttackHandler() {
         return attackHandler;
     }
+
+    public towerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
 }

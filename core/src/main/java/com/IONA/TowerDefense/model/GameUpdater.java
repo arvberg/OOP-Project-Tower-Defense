@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.AttackHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
 
@@ -22,5 +23,7 @@ public class GameUpdater  {
         model.moveEnemies();
         model.coreDamaged();
         attackHandler.update();
+        model.getTowerMenu().update(HeartBeat.delta);
+        model.getTowerMenuToggleButton().updatePosition();
     }
 };
