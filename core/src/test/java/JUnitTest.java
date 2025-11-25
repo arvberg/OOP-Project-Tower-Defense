@@ -8,7 +8,11 @@ import com.IONA.TowerDefense.*;
 public class JUnitTest {
 
     @Test
-    public void test() {
-        assertTrue(true || false);
+    public void enemyTest() {
+        GameModel model = new GameModel();
+        Enemy enemy = new EnemyBasic(1);
+        model.addEnemy(enemy);
+        model.removeEnemy(enemy);
+        assertEquals(0, model.getEnemies().size());
     }
 }

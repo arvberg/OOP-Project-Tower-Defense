@@ -39,45 +39,4 @@ public class InputHandler {
             playButton.isClicked(worldX,worldY);
 
     }
-
-
-    public void mouseClicked(MouseEvent mouseEvent) {
-        Point clickedPoint = mouseEvent.getPoint();
-        Vector2 cp = (new Vector2(clickedPoint.x, clickedPoint.y));
-        if (state == InputState.SELECTION_STATE) {
-            model.selectTower(cp);
-        }
-    }
-
-
-    public void mousePressed(MouseEvent mouseEvent) {
-    }
-
-    // Maybe not point and vector
-    public void mouseReleased(MouseEvent mouseEvent) {
-        Point releasePoint = mouseEvent.getPoint();
-        Vector2 rp = (new Vector2(releasePoint.x, releasePoint.y));
-        if (state == InputState.BUYING_STATE) {
-            model.placeTower(rp);
-            setState(InputState.SELECTION_STATE);
-        }
-    }
-
-
-    public void mouseEntered(MouseEvent mouseEvent) {
-    }
-
-
-    public void mouseExited(MouseEvent mouseEvent) {
-    }
-
-
-
-    public void mouseMoved(MouseEvent mouseEvent) {
-    }
-
-    public void setState(InputState state) {
-        this.state = state;
-    }
-
 }

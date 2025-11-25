@@ -1,17 +1,16 @@
 package com.IONA.TowerDefense.model.ui;
 
-import com.IONA.TowerDefense.model.models.GameModel;
 import com.badlogic.gdx.graphics.Texture;
 
-public class towerMenuToggleButton extends Button {
+public class TowerMenuToggleButton extends Button {
 
-    private final towerMenu towermenu;
-    private final Texture texture1;
-    private final Texture texture2;
+    private final TowerMenu towermenu;
+    public final Texture texture1;
+    public final Texture texture2;
     private Boolean isOpen;
 
 
-    public towerMenuToggleButton(float x, float y, towerMenu menu) {
+    public TowerMenuToggleButton(float x, float y, TowerMenu menu) {
 
         super("Playbutton_temp_02.png", x, y, 0.5f, 0.5f);
         this.towermenu = menu;

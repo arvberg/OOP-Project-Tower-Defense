@@ -2,8 +2,6 @@ package com.IONA.TowerDefense.model.ui;
 
 
 
-import com.IONA.TowerDefense.model.models.RenderData;
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;

@@ -1,46 +1,43 @@
 package com.IONA.TowerDefense.model.units.projectiles;
 
 import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.models.RenderData;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Movable;
-import com.IONA.TowerDefense.model.units.interfaces.Renderable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class Projectile extends Unit implements Movable {
     protected int damage;
     protected float speed;
+    protected Vector2 position;
+    protected Vector2 dxdy;
     protected float x;
     protected float y;
     protected float dx;
     protected float dy;
-    protected Enemy target;
+    protected Enemy enemyTarget;
     protected boolean hit;
     private Vector2 dimension;
     public Texture projectileIcon;
 
-    public Projectile(int damage, float speed, float x, float y, float dx, float dy, Enemy target) {
+    public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         this.damage = damage;
         this.speed = speed;
-        this.x = x;
-        this.y = y;
-        this.dx = dx;
-        this.dy = dy;
-        this.target = target;
+        this.position = position;
+        this.dxdy = dxdy;
         this.projectileIcon = new Texture("Projectile_temp_02.png");
     }
 
     public void setPosition(float newX, float newY) {
-        this.x = newX;
-        this.y = newY;
+        this.position.x = newX;
+        this.position.y = newY;
     }
 
     public void move() {
         float delta = HeartBeat.delta;
-        x += dx * speed * delta;
-        y += dy * speed * delta;
+        x += dxdy.x * speed * delta;
+        y += dxdy.y * speed * delta;
     }
 
     public void hoamingMove(float dirX, float dirY) {
@@ -67,41 +64,33 @@ public class Projectile extends Unit implements Movable {
 
     @Override
     public void setPosition(Vector2 position) {
-        this.x = position.x;
-        this.y = position.y;
-    }
-
-    public float getDx(){
-        return dx;
-    }
-
-    public float getDy(){
-        return dy;
+        this.position.x = position.x;
+        this.position.y = position.y;
     }
 
     public void setDir(float newDx, float newDy) {
-        this.dx = newDx;
-        this.dy = newDy;
+        this.dxdy.x = newDx;
+        this.dxdy.y = newDy;
     }
 
     public float getX() {
-        return x;
+        return position.x;
     }
 
     public float getY() {
-        return y;
+        return position.y;
     }
 
     public Texture getIcon() {
         return projectileIcon;
     }
 
-    public Enemy getTarget() {
-        return target;
+    public Enemy getEnemyTarget() {
+        return enemyTarget;
     }
 
-    public void setTarget(Enemy target) {
-        this.target = target;
+    public void setEnemyTarget(Enemy enemyTarget) {
+        this.enemyTarget = enemyTarget;
     }
 
     public void setHit(boolean hit) {

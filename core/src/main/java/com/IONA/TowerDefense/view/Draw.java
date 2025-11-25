@@ -3,7 +3,7 @@ package com.IONA.TowerDefense.view;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.towerMenu;
+import com.IONA.TowerDefense.model.ui.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -67,7 +67,7 @@ public class Draw {
 
         batch.begin();
 
-        towerMenu towerMenu = model.getTowerMenu();
+        TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
 
         List<Button> buttons = model.getButtons();

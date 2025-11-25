@@ -18,7 +18,6 @@ public abstract class Tower extends Unit {
     public Texture texture;
     private Vector2 dimension;
 
-
     public Tower(int attack, float projectileSpeed, int cost, int rangeRadius, float fireRate) {
         this.attack = attack;
         this.projectileSpeed = projectileSpeed;

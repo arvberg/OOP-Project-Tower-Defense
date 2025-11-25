@@ -8,8 +8,8 @@ import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.Button;
-import com.IONA.TowerDefense.model.ui.pauseButton;
-import com.IONA.TowerDefense.model.ui.playButton;
+import com.IONA.TowerDefense.model.ui.PauseButton;
+import com.IONA.TowerDefense.model.ui.PlayButton;
 import com.IONA.TowerDefense.model.ui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
@@ -57,7 +57,7 @@ public class GameModel {
 
     public GameModel () {
 
-        this.towerMenu = new towerMenu(13,0,this);
+        this.towerMenu = new TowerMenu(13,0,this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -73,9 +73,9 @@ public class GameModel {
 
 
         this.buttons = new ArrayList<>();
-        this.playbutton = new playButton(0, 0, this);
-        this.pausebutton = new pauseButton(10, 0);
-        this.towermenutogglebutton = new towerMenuToggleButton(0,8, towerMenu);
+        this.playbutton = new PlayButton(0, 0, this);
+        this.pausebutton = new PauseButton(10, 0);
+        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu);
 
         buttons.add(towermenutogglebutton);
         buttons.add(playbutton);
@@ -143,11 +143,8 @@ public class GameModel {
             }
         }
     }
-    public void updateAttackHandler() {
-        attackHandler.update();
-    }
 
-    public com.IONA.TowerDefense.model.ui.towerMenu getTowerMenu(){return this.towerMenu; }
+    public TowerMenu getTowerMenu(){return this.towerMenu; }
 
     public Path getPath(){return this.path;}
     // Add and remove from list
@@ -269,18 +266,13 @@ public class GameModel {
 
     public List<Button> getButtons() { return buttons;}
 
-    public playButton getPlayButton(){
+    public PlayButton getPlayButton(){
         return playbutton;
     }
-
-    public pauseButton getPauseButton(){
-        return pausebutton;
-    }
-
 
     public AttackHandler getAttackHandler() {
         return attackHandler;
     }
 
-    public towerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
+    public TowerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
 }

@@ -1,11 +1,8 @@
 package com.IONA.TowerDefense.model.ui;
 
-import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 
-public class towerMenu extends Menu{
+public class TowerMenu extends Menu{
 
     private boolean open = true;
 
@@ -14,7 +11,7 @@ public class towerMenu extends Menu{
     private float targetX;
     private final float slideSpeed = 10f;
 
-    public towerMenu(float x, float y, GameModel model){
+    public TowerMenu(float x, float y, GameModel model){
         super("SideBar.png", x, y, 3, 9);
 
         this.openX = x;
