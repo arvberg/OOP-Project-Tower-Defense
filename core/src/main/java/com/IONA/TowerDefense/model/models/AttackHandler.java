@@ -9,30 +9,32 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Timer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AttackHandler {
     private List<Enemy> enemies;
     private List<Projectile> projectiles;
     private List<Tower> towers;
+    private List<Unit> deadUnits;
 
     public AttackHandler(GameModel model) {
         this.enemies = model.getEnemies();
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
+        this.deadUnits = new ArrayList<>();
     }
 
     public void update() {
         for (Tower tower : towers) {
-
             tower.update();
-
 
                 // tower.addTimeSinceLastShot(delta);
                 for (Enemy enemy : enemies) {
+                    projectileHit2000(enemy);
                     if (withinRadius(enemy, tower) && tower.canShoot()) {
 
-                        fireProjectile(enemy, tower);
+                        fireHoamingProjectile(enemy, tower);
                         tower.resetCooldown();
                         break;
 
@@ -40,9 +42,10 @@ public class AttackHandler {
                 }
             }
             for (Projectile projectile : projectiles) {
+                updateHoamingProjectile(projectile);
                 projectile.move();
             }
-
+        // removeDead();
     }
 
     public boolean withinRadius(Enemy enemy, Tower tower) {
@@ -57,12 +60,50 @@ public class AttackHandler {
         float towerX = tower.getPosition().x;
         float towerY = tower.getPosition().y;
         float length = getDistance(target, tower);
+
         // temporary target for demo, change to target later
         float dirX = getDir(enemies.get(0), tower).x;
         float dirY = getDir(enemies.get(0), tower).y;
 
         //float spawnTime = cumulativeDelay;
         projectiles.add(new Projectile(damage, projectileSpeed, towerX, towerY, dirX, dirY, enemies.get(0)));
+    }
+
+    public void removeDead(Unit unit) {
+    }
+
+    public void fireHoamingProjectile(Enemy target, Tower tower) {
+        int damage = tower.getDamage();
+        float projectileSpeed = tower.getProjectileSpeed();
+        float towerX = tower.getPosition().x;
+        float towerY = tower.getPosition().y;
+
+        Vector2 dir = getDir(tower, target);
+
+        Projectile projectile = new Projectile(damage, projectileSpeed, towerX, towerY, dir.x, dir.y, target);
+        projectile.setTarget(target);
+        projectiles.add(projectile);
+    }
+
+    public void updateHoamingProjectile(Projectile p) {
+        Enemy target =  p.getTarget();
+        if (target == null) {
+            return;
+        }
+        Vector2 dir = getDir(p, target);
+        p.setDir(dir.x, dir.y);
+    }
+
+    public void projectileHit2000(Enemy enemy) {
+        Rectangle hitbox = enemy.getHitBox();
+        for (Projectile projectile : projectiles) {
+            boolean hit = hitbox.contains(projectile.getX(), projectile.getY());
+            int damage = projectile.getDamage();
+            if (hit) {
+                projectile.setHit(true);
+                enemy.takeDamage(damage);
+            }
+        }
     }
 
     public void projectileHit(Projectile projectile, Enemy enemy) {
@@ -84,6 +125,8 @@ public class AttackHandler {
         return new Vector2(deltaX/length, deltaY/length);
     }
 
+
+
     public void setProjectileDir(Projectile projectile) {
         float posX = projectile.getY();
         float posY = projectile.getY();
@@ -99,11 +142,11 @@ public class AttackHandler {
     }
 
     public float getDeltaX(Unit from, Unit to) {
-        return from.getX() - to.getX();
+        return to.getX() - from.getX();
     }
 
     public float getDeltaY(Unit from, Unit to) {
-        return from.getY() - to.getY();
+        return to.getY() - from.getY();
     }
 
     public float getDistance (Unit from, Unit to) {

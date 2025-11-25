@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class TowerBasic extends Tower {
     private static final int BaseAttack = 50;
-    private static final float BaseSpeed = 10F;
+    private static final float BaseSpeed = 2F;
     private static final int BaseCost = 50;
     private static final float BaseFireRate = 1;
     private static final int range = 100;

@@ -17,6 +17,7 @@ public class Projectile extends Unit implements Movable {
     protected float dx;
     protected float dy;
     protected Enemy target;
+    protected boolean hit;
     private Vector2 dimension;
     public Texture projectileIcon;
 
@@ -40,6 +41,12 @@ public class Projectile extends Unit implements Movable {
         float delta = HeartBeat.delta;
         x += dx * speed * delta;
         y += dy * speed * delta;
+    }
+
+    public void hoamingMove(float dirX, float dirY) {
+        float delta = HeartBeat.delta;
+        x += dirX * speed * delta;
+        y += dirY * speed * delta;
     }
 
     public Vector2 getPosition() {
@@ -87,5 +94,21 @@ public class Projectile extends Unit implements Movable {
 
     public Texture getIcon() {
         return projectileIcon;
+    }
+
+    public Enemy getTarget() {
+        return target;
+    }
+
+    public void setTarget(Enemy target) {
+        this.target = target;
+    }
+
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
+
+    public boolean isHit() {
+        return hit;
     }
 }
