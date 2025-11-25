@@ -11,7 +11,9 @@ public class EnemyBasic extends Enemy{
         speed = 0.03f;
         gold = 5;
         this.texture = new Texture("Enemy_temp_03.png");
-        setHitBox(0.5f,0.5f);
+        this.width = 0.5f;
+        this.height = 0.5f;
+        setHitBox(width,height);
     }
 
 }

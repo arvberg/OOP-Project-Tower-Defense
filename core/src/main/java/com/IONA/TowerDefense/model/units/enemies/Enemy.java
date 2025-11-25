@@ -17,6 +17,8 @@ public abstract class Enemy extends Unit {
     protected float speed;
     protected int gold;
     protected Rectangle hitBox;
+    protected float width;
+    protected float height;
     protected int segmentIndex = 0;
     public Texture texture;
 
@@ -41,7 +43,7 @@ public abstract class Enemy extends Unit {
             case EAST -> position.x += speed;
             case WEST -> position.x -= speed;
         }
-        setHitBox(getHitBox().width, getHitBox().height);
+        setHitBox(width, height);
     }
 
     public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {

@@ -17,6 +17,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -91,11 +92,16 @@ public class GameModel {
     }
 
     public void coreDamaged(){
-        for (Enemy e : enemies){
-            //TODO: replace with a core Hitbox instead?
-            if (e.getPosition() == decorations.get(0).getPosition()){
-                enemies.remove(e);
-                System.out.println("Enemy removed");
+        if (decorations.isEmpty()) return;
+        Rectangle coreHitbox = decorations.get(0).getHitBox();
+
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            Enemy e = enemies.get(i);
+
+            if (coreHitbox.overlaps(e.getHitBox())) {
+                removeEnemy(e);
+                loseLife();
+                System.out.println("Enemy reached core");
             }
         }
     }
@@ -117,19 +123,10 @@ public class GameModel {
 
 
                 if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
-
-                    if (enemy.getSegmentIndex() == path.segmentCount() - 1) {
-                        loseLife();
-                        removeEnemy(enemy);
-                        break;
-                        //should later also decrement enemies so that the for loop gets shorter when an enemy leaves
-                    } else {
                         int nextIdx = segmentIdx + 1;
                         Segment nextSegment = path.getSegment(nextIdx);
 
                         enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
-
-                    }
                 }
             }
         }
