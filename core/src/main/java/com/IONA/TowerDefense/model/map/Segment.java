@@ -6,10 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Segment {
 
-    public final Vector2 start;
-    public final int length;
-    public final Direction direction;
-    public final Texture texture;
+    private final Vector2 start;
+    private final int length;
+    private final Direction direction;
 
     public Segment(Vector2 start, int length, Direction direction) {
         this.start = start;

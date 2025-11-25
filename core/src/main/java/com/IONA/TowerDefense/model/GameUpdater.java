@@ -8,7 +8,7 @@ public class GameUpdater  {
 
     private final GameModel model;
 
-    AttackHandler attackHandler;
+    private final AttackHandler attackHandler;
 
     public GameUpdater(GameModel model){
        this.model = model;

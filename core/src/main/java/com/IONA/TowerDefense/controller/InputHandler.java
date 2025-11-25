@@ -6,11 +6,6 @@ import com.IONA.TowerDefense.model.ui.TowerMenuToggleButton;
 
 public class InputHandler {
 
-    public enum InputState {
-        SELECTION_STATE,
-        BUYING_STATE,
-    }
-
     private final PlayButton playButton;
     private final TowerMenuToggleButton towermenutogglebutton;
 

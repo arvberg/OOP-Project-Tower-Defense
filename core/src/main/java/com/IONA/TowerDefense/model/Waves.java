@@ -6,10 +6,18 @@ import com.badlogic.gdx.utils.Array;
 
 public class Waves {
 
-    public static class Enemy {
-        public String type;
+    protected static class Enemy {
+        private static String type;
         //public String difficulty;
-        public float delay;
+        private static float delay;
+
+        public String getEnemyType() {
+            return Enemy.type;
+        }
+
+        public float getDelay() {
+            return Enemy.delay;
+        }
     }
 
     public static class Wave {

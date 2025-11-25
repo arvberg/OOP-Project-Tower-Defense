@@ -37,20 +37,21 @@ public class GameModel {
     private final List<Decoration> decorations;
     private final Path path;
     private final Background background;
-    public playButton playbutton;
-    public pauseButton pausebutton;
-    public towerMenuToggleButton towermenutogglebutton;
-    private AttackHandler attackHandler;
+    private final PlayButton playbutton;
+    private final PauseButton pausebutton;
+    private final TowerMenuToggleButton towermenutogglebutton;
+    private final AttackHandler attackHandler;
 
     private int resources; // Players resources
     private int lives; // Players health
     private int score; // Players current score
-    public static int difficulty;
+    private final int difficulty;
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private Tower pendingTower = null;
+    private Tower selectedTower = null;
 
     private final TowerMenu towerMenu;
 
@@ -146,6 +147,7 @@ public class GameModel {
 
     public Path getPath(){return this.path;}
     // Add and remove from list
+
     public void addTower(Tower tower) {
         towers.add(tower);
     }
@@ -163,13 +165,6 @@ public class GameModel {
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 
-    public void addProjectile(Projectile projectile) {
-        projectiles.add(projectile);
-    }
-
-    public void removeProjectiles(Projectile projectile) {
-        projectiles.remove(projectile);
-    }
 
     // Getters for all lists
     public List<Tower> getTowers() {
@@ -188,8 +183,8 @@ public class GameModel {
         lives--;
     }
 
-    public int getScore() {
-        return score;
+    public int getDifficulty() {
+        return difficulty;
     }
 
     // Selecting a tower
@@ -209,25 +204,25 @@ public class GameModel {
         }
         if (closestTower != null) {
             towerSelected = true;
-            pendingTower = closestTower;
+            selectedTower = closestTower;
             System.out.println("Tower selected!");
         }
         else {
             towerSelected = false;
-            pendingTower = null;
+            selectedTower = null;
         }
     }
 
     public void deselectTower () {
         towerSelected = false;
-        pendingTower = null;
+        selectedTower = null;
     }
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
-            towers.add(pendingTower);
+
             pendingTower = null;
         }
     }
@@ -239,6 +234,7 @@ public class GameModel {
         if (resources >= newTower.getCost()) {
             pendingTower = newTower;
             resources -= newTower.getCost();
+            towers.add(newTower);
         }
         else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
@@ -248,7 +244,6 @@ public class GameModel {
     public Texture getBackground(){
         return background.BackgroundTexture;
     }
-
 
     public List<Button> getButtons() { return buttons;}
 

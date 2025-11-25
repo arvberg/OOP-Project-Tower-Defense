@@ -1,4 +1,7 @@
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
+import com.badlogic.gdx.graphics.g3d.Model;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

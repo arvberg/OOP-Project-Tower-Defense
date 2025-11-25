@@ -7,7 +7,6 @@ public class TowerMenuDrawer {
 
     public static void drawTowerMenu(TowerMenu towerMenu, Batch batch){
         batch.draw(towerMenu.texture, towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y,
-                   towerMenu.width, towerMenu.height );
+                   towerMenu.getWidth(), towerMenu.getHeight() );
     }
-
 }

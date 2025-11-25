@@ -22,6 +22,14 @@ public abstract class Menu {
         this.bounds = new Rectangle(x, y, width, height);
     }
 
+    public float getWidth() {
+        return width;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
     public Vector2 getMenuPosition(){
         return menuPosition;
     }
