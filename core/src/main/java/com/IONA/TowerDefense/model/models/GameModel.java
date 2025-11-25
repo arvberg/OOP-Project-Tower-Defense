@@ -30,13 +30,12 @@ import static java.lang.Long.MAX_VALUE;
 public class GameModel {
     public boolean paused = false;
 
-    private List<Tower> towers;
-    private List<Enemy> enemies;
-    private List<Projectile> projectiles;
+    private final List<Tower> towers;
+    private final List<Enemy> enemies;
+    private final List<Projectile> projectiles;
     private List<Button> buttons;
-    private List<Decoration> decorations;
+    private final List<Decoration> decorations;
     private final Path path;
-    private PathFactory pathFactory;
     private final Background background;
     public playButton playbutton;
     public pauseButton pausebutton;
@@ -49,11 +48,11 @@ public class GameModel {
     public static int difficulty;
 
     private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
-    private TowerFactory towerFactory;
+    private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private Tower pendingTower = null;
 
-    private com.IONA.TowerDefense.model.ui.towerMenu towerMenu;
+    private final TowerMenu towerMenu;
 
     public GameModel () {
 
@@ -130,7 +129,6 @@ public class GameModel {
                 enemy.move();
 
                 Vector2 segmentEndPoint = segment.getEnd();
-                Vector2 enemyCoor = enemy.getPosition();
                 Vector2 enemyCoorPoint = new Vector2(enemy.getPosition().x, enemy.getPosition().y);
 
 
@@ -178,10 +176,6 @@ public class GameModel {
         return towers;
     }
 
-    public boolean isTowerSelected() {
-        return towerSelected;
-    }
-
     public List<Enemy> getEnemies() { return enemies; }
 
     public List<Projectile> getProjectiles() {
@@ -189,14 +183,6 @@ public class GameModel {
     }
 
     public List<Decoration> getDecor(){return decorations;}
-
-    public int getResources() {
-        return resources;
-    }
-
-    public int getLives() {
-        return lives;
-    }
 
     public void loseLife() {
         lives--;

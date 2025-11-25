@@ -15,15 +15,11 @@ public class Segment {
         this.start = start;
         this.length = length;
         this.direction = direction;
-        this.texture = new Texture("Path_temp_brush_01.png");
+        Texture texture = new Texture("Path_temp_brush_01.png");
     }
 
     public Vector2 getStartPosition() {
         return start;
-    }
-
-    public int getLength() {
-        return length;
     }
 
     public Direction getDirection() {

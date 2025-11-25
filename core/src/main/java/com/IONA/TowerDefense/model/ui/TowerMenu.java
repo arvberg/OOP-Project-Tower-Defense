@@ -9,7 +9,6 @@ public class TowerMenu extends Menu{
     private final float openX;
     private final float closedX;
     private float targetX;
-    private final float slideSpeed = 10f;
 
     public TowerMenu(float x, float y, GameModel model){
         super("SideBar.png", x, y, 3, 9);
@@ -36,6 +35,7 @@ public class TowerMenu extends Menu{
             return;
         }
         // flytta menyn mot target
+        float slideSpeed = 10f;
         if (menuPosition.x < targetX) {
             menuPosition.x += slideSpeed * delta;
             if (menuPosition.x > targetX) menuPosition.x = targetX;

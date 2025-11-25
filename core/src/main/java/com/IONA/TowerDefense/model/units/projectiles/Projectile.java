@@ -40,7 +40,7 @@ public class Projectile extends Unit implements Movable {
         y += dxdy.y * speed * delta;
     }
 
-    public void hoamingMove(float dirX, float dirY) {
+    public void homingMove(float dirX, float dirY) {
         float delta = HeartBeat.delta;
         x += dirX * speed * delta;
         y += dirY * speed * delta;

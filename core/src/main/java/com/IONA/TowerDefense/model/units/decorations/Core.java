@@ -1,9 +1,6 @@
 package com.IONA.TowerDefense.model.units.decorations;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.awt.*;
-
-
 public class Core extends Decoration{
 
     public Core(){

@@ -6,7 +6,7 @@ import com.IONA.TowerDefense.model.models.GameModel;
 
 public class GameUpdater  {
 
-    private GameModel model;
+    private final GameModel model;
 
     AttackHandler attackHandler;
 
@@ -26,4 +26,4 @@ public class GameUpdater  {
         model.getTowerMenu().update(HeartBeat.delta);
         model.getTowerMenuToggleButton().updatePosition();
     }
-};
+}

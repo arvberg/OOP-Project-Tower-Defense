@@ -19,7 +19,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.List;
@@ -28,7 +27,6 @@ public class Draw {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
-    private ExtendViewport vievport;
     private ShapeRenderer shapeRenderer;
 
     public Draw(GameModel model) {this.model = model;}

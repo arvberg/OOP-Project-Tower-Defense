@@ -6,7 +6,6 @@ import com.IONA.TowerDefense.model.units.Unit;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.Gdx;
 
 import javax.swing.*;
 
@@ -36,12 +35,12 @@ public abstract class Enemy extends Unit {
             position = new Vector2(0, 2);
         }
         float delta = HeartBeat.delta; // sekunder per frame
-        float step = speed * delta;                 // speed = units per sekund
+        float step = speed * delta;    // speed = units per sekund
         switch (dir) {
-            case NORTH -> position.y += speed;
-            case SOUTH -> position.y -= speed;
-            case EAST -> position.x += speed;
-            case WEST -> position.x -= speed;
+            case NORTH -> position.y += step;
+            case SOUTH -> position.y -= step;
+            case EAST -> position.x += step;
+            case WEST -> position.x -= step;
         }
         setHitBox(width, height);
     }
@@ -54,14 +53,6 @@ public abstract class Enemy extends Unit {
             case EAST -> enemyPosition.x >= segmentEnd.x;
             case WEST -> enemyPosition.x <= segmentEnd.x;
         };
-    }
-
-    public void reduceHP(int dmg) {
-        hp -= dmg;
-    }
-
-    public boolean isDead() {
-        return hp <= 0;
     }
 
     public void setHitBox(float width, float height) {
@@ -78,45 +69,12 @@ public abstract class Enemy extends Unit {
         }
     }
 
-
-    public Direction getDir() {
-        return dir;
-    }
-
     public void takeDamage(int damage) {
         hp -= damage;
     }
 
-    public void setDir(Direction dir) {
-        this.dir = dir;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    public int getGold() {
-        return gold;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     public int getSegmentIndex() {
         return segmentIndex;
-    }
-
-    public void setSegmentIndex(int segmentIndex) {
-        this.segmentIndex = segmentIndex;
     }
 
     public void setToNewSegment(Vector2 newPosition, Direction newDir, int newSegmentIndex) {

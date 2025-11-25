@@ -2,27 +2,23 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Timer;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class AttackHandler {
-    private List<Enemy> enemies;
-    private List<Projectile> projectiles;
-    private List<Tower> towers;
-    private List<Unit> deadUnits;
+    private final List<Enemy> enemies;
+    private final List<Projectile> projectiles;
+    private final List<Tower> towers;
 
     public AttackHandler(GameModel model) {
         this.enemies = model.getEnemies();
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
-        this.deadUnits = new ArrayList<>();
+        List<Unit> deadUnits = new ArrayList<>();
     }
 
     public void update() {
@@ -32,15 +28,14 @@ public class AttackHandler {
                 // tower.addTimeSinceLastShot(delta);
                 for (Enemy enemy : enemies) {
                     if (withinRadius(enemy, tower) && tower.canShoot()) {
-
-                        fireHoamingProjectile(enemy, tower);
+                        fireHomingProjectile(enemy, tower);
                         tower.resetCooldown();
                         break;
                     }
                 }
             }
             for (Projectile projectile : projectiles) {
-                updateHoamingProjectile(projectile);
+                updateHomingProjectile(projectile);
                 projectile.move();
             }
     }
@@ -68,7 +63,7 @@ public class AttackHandler {
 
  */
 
-    public void fireHoamingProjectile(Enemy target, Tower tower) {
+    public void fireHomingProjectile(Enemy target, Tower tower) {
         int damage = tower.getDamage();
         float projectileSpeed = tower.getProjectileSpeed();
         Vector2 towerPos =  tower.getPosition();
