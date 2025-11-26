@@ -91,14 +91,13 @@ public class AttackHandler {
 
         float dist = getDistance(p, target);
 
-        if (dist < 0.1f) { // tröskel, tweak efter din skala
+        if (dist < 0.1f) { // threshold and snap
             p.setPosition(target.getX(), target.getY());
             p.setDestroyed(true);
             target.takeDamage(p.getDamage());
             return;
         }
 
-        // annars: uppdatera riktning som vanligt
         Vector2 dir = getDir(p, target);
         p.setDir(dir.x, dir.y);
     }
