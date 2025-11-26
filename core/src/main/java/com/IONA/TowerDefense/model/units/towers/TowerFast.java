@@ -16,8 +16,8 @@ public class TowerFast extends Tower{
 
 
     public TowerFast() {
-        super(BaseAttack, BaseSpeed, BaseCost, range, BaseFireRate);
-        this.attack = BaseAttack;
+        super(BaseSpeed, BaseCost, range, BaseFireRate);
+        setDamage(damage);
         this.projectileSpeed = BaseSpeed;
         this.cost = BaseCost;
         this.level = 1;

@@ -12,20 +12,18 @@ public class Projectile extends Unit implements Movable {
     protected float speed;
     protected Vector2 position;
     protected Vector2 dxdy;
-    protected float x;
-    protected float y;
-    protected float dx;
-    protected float dy;
     protected Enemy enemyTarget;
-    protected boolean hit;
+    protected boolean destroyed;
     private Vector2 dimension;
     public Texture projectileIcon;
+    private String projectileType = "Homing";
 
     public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         this.damage = damage;
         this.speed = speed;
         this.position = position;
         this.dxdy = dxdy;
+        this.destroyed = false;
         this.projectileIcon = new Texture("Projectile_temp_02.png");
     }
 
@@ -36,18 +34,12 @@ public class Projectile extends Unit implements Movable {
 
     public void move() {
         float delta = HeartBeat.delta;
-        x += dxdy.x * speed * delta;
-        y += dxdy.y * speed * delta;
-    }
-
-    public void homingMove(float dirX, float dirY) {
-        float delta = HeartBeat.delta;
-        x += dirX * speed * delta;
-        y += dirY * speed * delta;
+        position.x += dxdy.x * speed * delta;
+        position.y += dxdy.y * speed * delta;
     }
 
     public Vector2 getPosition() {
-        return new Vector2(x, y);
+        return new Vector2(position.x, position.y);
     }
 
     public int getDamage() {
@@ -93,11 +85,15 @@ public class Projectile extends Unit implements Movable {
         this.enemyTarget = enemyTarget;
     }
 
-    public void setHit(boolean hit) {
-        this.hit = hit;
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
     }
 
-    public boolean isHit() {
-        return hit;
+    public boolean isDestroyed() {
+        return destroyed;
+    }
+
+    public String getProjectileType() {
+        return projectileType;
     }
 }
