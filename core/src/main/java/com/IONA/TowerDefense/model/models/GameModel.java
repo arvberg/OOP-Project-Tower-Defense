@@ -48,7 +48,7 @@ public class GameModel {
     private int score; // Players current score
     private final int difficulty;
 
-    private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
+    private static final float TOWER_SELECTION_RADIUS = 0.35f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private boolean buyingState = false;
@@ -86,13 +86,6 @@ public class GameModel {
         towerMenu.createGridItems(buttons);
         //buttons.add(towermenutogglebutton);
         //buttons.add(playbutton);
-
-        Tower tower = new TowerBasic();
-        tower.setPosition(new Vector2(3, 2.7f));
-        tower.setRangeRadius(1000);
-        towers.add(tower);
-
-
 
         placeCore();
     }
@@ -192,34 +185,40 @@ public class GameModel {
     }
 
     // Selecting a tower
+// Ny version av selectTower som använder tornets dimensioner
     public void selectTower(Vector2 selectedPoint) {
-
-        Tower closestTower = null;
-        float closestDistance = MAX_VALUE;
+        Tower clickedTower = null;
 
         for (Tower tower : towers) {
-            Vector2 towerPos = tower.getPosition();
-            float distance = selectedPoint.dst(towerPos);
+            float x = tower.getPosition().x;
+            float y = tower.getPosition().y;
+            float width = tower.texture.getWidth();
+            float height = tower.texture.getHeight();
 
-            if (distance < TOWER_SELECTION_RADIUS && distance < closestDistance) {
-                closestDistance = distance;
-                closestTower = tower;
+            if (selectedPoint.x >= x && selectedPoint.x <= x + width &&
+                selectedPoint.y >= y && selectedPoint.y <= y + height) {
+                clickedTower = tower;
+                break; // Vi hittade ett torn, stoppa loopen
             }
         }
-        if (closestTower != null) {
+
+        if (clickedTower == null) {
+            // Klick utanför alla torn, deselect
+            deselectTower();
+        }
+
+        if (selectedTower != clickedTower) {
+            selectedTower = clickedTower;
             towerSelected = true;
-            selectedTower = closestTower;
-            System.out.println("Tower selected!");
+            System.out.println("Tower selected at: " + selectedTower.getPosition());
         }
-        else {
-            towerSelected = false;
-            selectedTower = null;
-        }
+
     }
 
     public void deselectTower () {
-        towerSelected = false;
         selectedTower = null;
+        towerSelected = false;
+        System.out.println("Tower deselected");
     }
 
     // Placing a tower
@@ -228,7 +227,13 @@ public class GameModel {
             pendingTower.setPosition(selectedPoint);
             resources -= pendingTower.getCost();
             towers.add(pendingTower);
+
+            selectedTower = pendingTower;
+            towerSelected = true;
+            System.out.println("Selected tower: " + selectedTower);
+
             pendingTower = null;
+            buyingState = false;
             System.out.println("tower placed");
         }
     }
@@ -243,6 +248,13 @@ public class GameModel {
         }
         else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
+        }
+    }
+
+    public void sellTower (Tower tower) {
+        if (selectedTower != null) {
+            resources += tower.getCost();
+            towers.remove(tower);
         }
     }
 
@@ -282,6 +294,13 @@ public class GameModel {
         return pendingTower;
     }
 
+    public boolean isTowerSelected() {
+        return towerSelected;
+    }
+
+    public Tower getSelectedTower() {
+        return selectedTower;
+    }
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (pendingTower != null && buyingState) {
