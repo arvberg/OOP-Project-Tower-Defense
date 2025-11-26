@@ -62,7 +62,6 @@ public class Draw {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         PathDrawer.drawPath(shapeRenderer);
         shapeRenderer.end();
-
         batch.begin();
 
         TowerMenu towerMenu = model.getTowerMenu();
@@ -88,7 +87,6 @@ public class Draw {
         ProjectileDrawer.drawProjectiles(projectiles,batch);
 
         batch.end();
-
 
     }
 
