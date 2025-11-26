@@ -48,7 +48,7 @@ public class GameModel {
     private int score; // Players current score
     private final int difficulty;
 
-    private static final float TOWER_SELECTION_RADIUS = 0.35f; // Tower selection radius
+    private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private boolean buyingState = false;
@@ -190,31 +190,27 @@ public class GameModel {
         Tower clickedTower = null;
 
         for (Tower tower : towers) {
-            float x = tower.getPosition().x;
-            float y = tower.getPosition().y;
-            float width = tower.texture.getWidth();
-            float height = tower.texture.getHeight();
+            // Tornets mittpunkt
+            Vector2 center = tower.getPosition(); // Om positionen redan är mittpunkten
+            float distance = center.dst(selectedPoint);
 
-            if (selectedPoint.x >= x && selectedPoint.x <= x + width &&
-                selectedPoint.y >= y && selectedPoint.y <= y + height) {
+            if (distance <= TOWER_SELECTION_RADIUS) {
                 clickedTower = tower;
-                break; // Vi hittade ett torn, stoppa loopen
+                break; // break om torn hittat
             }
         }
-
+        // Om vi klickar utanför ett torn
         if (clickedTower == null) {
-            // Klick utanför alla torn, deselect
             deselectTower();
-        }
-
-        if (selectedTower != clickedTower) {
+            // selecta nytt torn om vi trycker på ett torn
+        } else if (selectedTower != clickedTower) {
             selectedTower = clickedTower;
             towerSelected = true;
             System.out.println("Tower selected at: " + selectedTower.getPosition());
         }
-
     }
 
+    // Deslecting a tower, used in select when outside of radius
     public void deselectTower () {
         selectedTower = null;
         towerSelected = false;
