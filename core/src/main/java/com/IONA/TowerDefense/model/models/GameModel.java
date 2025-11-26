@@ -291,6 +291,8 @@ public class GameModel {
         if (gold >= newTower.getCost()) {
             buyingState = true;
             pendingTower = newTower;
+            gold -= newTower.getCost();
+            updateGoldResource();
         }
         else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
@@ -300,6 +302,7 @@ public class GameModel {
     public void sellTower (Tower tower) {
         if (selectedTower != null) {
             gold += tower.getCost();
+            updateGoldResource();
             towers.remove(tower);
         }
     }
