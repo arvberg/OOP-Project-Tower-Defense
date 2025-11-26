@@ -44,7 +44,7 @@ public class TowerMenu extends Menu{
         float oldX;
         float newX;
         // om vi redan är nära target, sätt exakt
-        if (Math.abs(menuPosition.x - targetX) < 0.02f) {
+        if (Math.abs(menuPosition.x - targetX) < 0.1f) {
             oldX = menuPosition.x;
             menuPosition.x = targetX;
             newX = menuPosition.x;
@@ -158,14 +158,14 @@ public class TowerMenu extends Menu{
     }
 
     public void moveItemNegative(float oldX, float newX){
-        float diff = Math.abs(oldX-Math.abs(newX));
+        float diff = Math.abs(oldX-newX);
         for(TowerMenuItem item: items){
             item.setButtonPosition(item.getButtonPosition().x-diff,item.getButtonPosition().y);
         }
     }
 
     public void moveItemPositive(float oldX, float newX){
-        float diff = Math.abs(oldX-Math.abs(newX));
+        float diff = Math.abs(oldX-newX);
         for(TowerMenuItem item: items){
             item.setButtonPosition(item.getButtonPosition().x+diff,item.getButtonPosition().y);
         }
