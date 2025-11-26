@@ -234,34 +234,36 @@ public class GameModel {
     }
 
     // Selecting a tower
+// Ny version av selectTower som använder tornets dimensioner
     public void selectTower(Vector2 selectedPoint) {
-
-        Tower closestTower = null;
-        float closestDistance = MAX_VALUE;
+        Tower clickedTower = null;
 
         for (Tower tower : towers) {
-            Vector2 towerPos = tower.getPosition();
-            float distance = selectedPoint.dst(towerPos);
+            // Tornets mittpunkt
+            Vector2 center = tower.getPosition(); // Om positionen redan är mittpunkten
+            float distance = center.dst(selectedPoint);
 
-            if (distance < TOWER_SELECTION_RADIUS && distance < closestDistance) {
-                closestDistance = distance;
-                closestTower = tower;
+            if (distance <= TOWER_SELECTION_RADIUS) {
+                clickedTower = tower;
+                break; // break om torn hittat
             }
         }
-        if (closestTower != null) {
+        // Om vi klickar utanför ett torn
+        if (clickedTower == null) {
+            deselectTower();
+            // selecta nytt torn om vi trycker på ett torn
+        } else if (selectedTower != clickedTower) {
+            selectedTower = clickedTower;
             towerSelected = true;
-            selectedTower = closestTower;
-            System.out.println("Tower selected!");
-        }
-        else {
-            towerSelected = false;
-            selectedTower = null;
+            System.out.println("Tower selected at: " + selectedTower.getPosition());
         }
     }
 
+    // Deslecting a tower, used in select when outside of radius
     public void deselectTower () {
-        towerSelected = false;
         selectedTower = null;
+        towerSelected = false;
+        System.out.println("Tower deselected");
     }
 
     // Placing a tower
@@ -271,7 +273,13 @@ public class GameModel {
             gold -= pendingTower.getCost();
             updateGoldResource();
             towers.add(pendingTower);
+
+            selectedTower = pendingTower;
+            towerSelected = true;
+            System.out.println("Selected tower: " + selectedTower);
+
             pendingTower = null;
+            buyingState = false;
             System.out.println("tower placed");
         }
     }
@@ -283,9 +291,19 @@ public class GameModel {
         if (gold >= newTower.getCost()) {
             buyingState = true;
             pendingTower = newTower;
+            gold -= newTower.getCost();
+            updateGoldResource();
         }
         else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
+        }
+    }
+
+    public void sellTower (Tower tower) {
+        if (selectedTower != null) {
+            gold += tower.getCost();
+            updateGoldResource();
+            towers.remove(tower);
         }
     }
 
@@ -323,5 +341,19 @@ public class GameModel {
 
     public Tower getPendingTower() {
         return pendingTower;
+    }
+
+    public boolean isTowerSelected() {
+        return towerSelected;
+    }
+
+    public Tower getSelectedTower() {
+        return selectedTower;
+    }
+    // Make pendingTower follow mouse position after buyTower
+    public void updateTowerFollowingMouse(Vector2 mousePos) {
+        if (pendingTower != null && buyingState) {
+            pendingTower.setPosition(mousePos);
+        }
     }
 }
