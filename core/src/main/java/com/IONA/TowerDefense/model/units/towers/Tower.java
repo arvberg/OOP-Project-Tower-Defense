@@ -12,13 +12,13 @@ public abstract class Tower extends Unit {
     protected float fireRate;
     protected int cost;
     protected int level;
-    protected int rangeRadius;
+    protected float rangeRadius;
     protected int direction;
 
     public Texture texture;
     private Vector2 dimension;
 
-    public Tower(int attack, float projectileSpeed, int cost, int rangeRadius, float fireRate) {
+    public Tower(int attack, float projectileSpeed, int cost, float rangeRadius, float fireRate) {
         this.attack = attack;
         this.projectileSpeed = projectileSpeed;
         this.cost = cost;
@@ -49,7 +49,7 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-    public int getRange(){
+    public float getRange(){
         return rangeRadius;
     }
 

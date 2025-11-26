@@ -12,7 +12,7 @@ public class TowerBasic extends Tower {
     private static final float BaseSpeed = 8f;
     private static final int BaseCost = 50;
     private static final float BaseFireRate = 1;
-    private static final int range = 100;
+    private static final float range = 3f;
 
     private float cooldown = 0f;
 
