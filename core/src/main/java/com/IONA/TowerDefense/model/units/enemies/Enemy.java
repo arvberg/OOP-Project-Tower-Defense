@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import javax.swing.*;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
+import static java.lang.Math.abs;
 
 public abstract class Enemy extends Unit {
 
@@ -90,7 +91,7 @@ public abstract class Enemy extends Unit {
     }
 
     public int getDamageNumber(){
-        return damage;
+        return -abs(damage);
     }
 
 }

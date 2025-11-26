@@ -2,12 +2,14 @@ package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.ui.Resource;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
+import com.IONA.TowerDefense.view.ui.ResourceDrawer;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.ui.ButtonGroupOneDrawer;
 import com.IONA.TowerDefense.view.ui.TowerMenuDrawer;
@@ -70,6 +72,9 @@ public class Draw {
 
         List<Button> buttons = model.getButtons();
         ButtonGroupOneDrawer.drawButtons(buttons,batch);
+
+        List<Resource> resources = model.getResources();
+        ResourceDrawer.drawResources(resources,batch);
 
         List<Decoration> decorations = model.getDecor();
         DecorationDrawer.drawDecorations(decorations,batch);
