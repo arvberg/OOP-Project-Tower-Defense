@@ -13,7 +13,7 @@ public class Projectile extends Unit implements Movable {
     protected Vector2 position;
     protected Vector2 dxdy;
     protected Enemy enemyTarget;
-    protected boolean hit;
+    protected boolean destroyed;
     private Vector2 dimension;
     public Texture projectileIcon;
     private String projectileType = "Homing";
@@ -23,6 +23,7 @@ public class Projectile extends Unit implements Movable {
         this.speed = speed;
         this.position = position;
         this.dxdy = dxdy;
+        this.destroyed = false;
         this.projectileIcon = new Texture("Projectile_temp_02.png");
     }
 
@@ -84,12 +85,12 @@ public class Projectile extends Unit implements Movable {
         this.enemyTarget = enemyTarget;
     }
 
-    public void setHit(boolean hit) {
-        this.hit = hit;
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
     }
 
-    public boolean isHit() {
-        return hit;
+    public boolean isDestroyed() {
+        return destroyed;
     }
 
     public String getProjectileType() {

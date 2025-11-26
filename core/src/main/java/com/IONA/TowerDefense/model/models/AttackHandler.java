@@ -48,6 +48,11 @@ public class AttackHandler {
 
     public void updateProjectiles() {
         for (Projectile projectile : projectiles) {
+
+            if (projectile.isDestroyed()) {
+                continue;
+            }
+
             if (projectile.getProjectileType().equals("Homing")) {
                 updateHomingProjectile(projectile);
             }
@@ -79,10 +84,21 @@ public class AttackHandler {
     }
 
     public void updateHomingProjectile(Projectile p) {
-        Enemy target =  p.getEnemyTarget();
+        Enemy target = p.getEnemyTarget();
         if (target == null) {
             return;
         }
+
+        float dist = getDistance(p, target);
+
+        if (dist < 0.1f) { // tröskel, tweak efter din skala
+            p.setPosition(target.getX(), target.getY());
+            p.setDestroyed(true);
+            target.takeDamage(p.getDamage());
+            return;
+        }
+
+        // annars: uppdatera riktning som vanligt
         Vector2 dir = getDir(p, target);
         p.setDir(dir.x, dir.y);
     }
@@ -95,8 +111,9 @@ public class AttackHandler {
     public void projectileHit(Projectile projectile, List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
             if (isHit(projectile, enemy)) {
-                projectile.setHit(true);
+                projectile.setDestroyed(true);
                 enemy.takeDamage(projectile.getDamage());
+                break;
             }
         }
     }
@@ -117,7 +134,7 @@ public class AttackHandler {
             return;
         }
         for (int i = 0; i < projectiles.size(); i++) {
-            if (projectiles.get(i).isHit()) {
+            if (projectiles.get(i).isDestroyed()) {
                 projectiles.remove(i);
             }
         }
