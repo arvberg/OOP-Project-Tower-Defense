@@ -5,6 +5,7 @@ import com.IONA.TowerDefense.model.models.AttackHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.TowerMenuItem;
+import com.IONA.TowerDefense.view.ui.ResourceDrawer;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class GameUpdater  {
         attackHandler.update();
         model.getTowerMenu().update(HeartBeat.delta);
         model.getTowerMenuToggleButton().updatePosition();
+
         //model.getPendingTower().updatePosition();
     }
 }

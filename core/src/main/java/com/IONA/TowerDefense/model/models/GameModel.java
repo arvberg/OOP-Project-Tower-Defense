@@ -25,6 +25,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Long.MAX_VALUE;
 
 // Main model class to for communication with controller
 public class GameModel {
@@ -34,6 +35,8 @@ public class GameModel {
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private List<Button> buttons;
+
+    private final List<Resource> resources;
     private final List<Decoration> decorations;
     private final Path path;
     private final Background background;
@@ -41,13 +44,12 @@ public class GameModel {
     private final PauseButton pausebutton;
     private final TowerMenuToggleButton towermenutogglebutton;
     private final AttackHandler attackHandler;
-
-    private int resources; // Players resources
+    private int gold; // Players gold
     private int lives; // Players health
     private int score; // Players current score
     private final int difficulty;
 
-    private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
+    private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private boolean buyingState = false;
@@ -65,8 +67,9 @@ public class GameModel {
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
-        this.resources = 100;
+        this.resources = new ArrayList<>();
         this.lives = 100;
+        this.gold = 100;
         this.score = 0;
         this.buttons = new ArrayList<>();
         this.background = new Background();
@@ -86,6 +89,24 @@ public class GameModel {
         //buttons.add(towermenutogglebutton);
         //buttons.add(playbutton);
 
+        Tower tower = new TowerBasic();
+        tower.setPosition(new Vector2(3, 2.7f));
+        tower.setRangeRadius(1000);
+        towers.add(tower);
+
+        resources.add(new ResourceHP(
+            lives,
+            new Vector2(1.5f, 1.5f),
+            3f,
+            1f
+        ));
+
+        resources.add(new ResourceMoney(
+            lives,
+            new Vector2(4.5f, 1.5f),
+            3f,
+            1f));
+
         placeCore();
     }
 
@@ -102,6 +123,32 @@ public class GameModel {
         decorations.add(core);
     }
 
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int hpChange) {
+        this.lives = lives + hpChange;
+    }
+
+    public void updateHpResource(){
+        for (Resource r : resources){
+            if (r instanceof ResourceHP){
+                r.setCurrentResource(lives);
+                r.textBar = String.valueOf(lives);
+            }
+        }
+    }
+
+    public void updateGoldResource(){
+        for (Resource r : resources){
+            if (r instanceof ResourceMoney){
+                r.setCurrentResource(gold);
+                r.textBar = String.valueOf(gold);
+            }
+        }
+    }
+
     public void coreDamaged(){
         if (decorations.isEmpty()) return;
         Rectangle coreHitbox = decorations.get(0).getHitBox();
@@ -110,10 +157,11 @@ public class GameModel {
             Enemy e = enemies.get(i);
 
             if (coreHitbox.overlaps(e.getHitBox())) {
-                this.lives =- e.getDamageNumber();
+                setLives(e.getDamageNumber());
+                updateHpResource();
                 removeEnemy(e);
 
-                System.out.println("Enemy reached core");
+                System.out.println("Health: " + getLives());
             }
         }
     }
@@ -179,6 +227,8 @@ public class GameModel {
 
     public List<Decoration> getDecor(){return decorations;}
 
+    public List<Resource> getResources(){return resources;}
+
     public int getDifficulty() {
         return difficulty;
     }
@@ -220,7 +270,8 @@ public class GameModel {
     public void placeTower (Vector2 selectedPoint) {
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
-            resources -= pendingTower.getCost();
+            gold -= pendingTower.getCost();
+            updateGoldResource();
             towers.add(pendingTower);
 
             selectedTower = pendingTower;
@@ -237,7 +288,7 @@ public class GameModel {
     public void buyTower (String tower) {
         Tower newTower = towerFactory.createTower(tower);
 
-        if (resources >= newTower.getCost()) {
+        if (gold >= newTower.getCost()) {
             buyingState = true;
             pendingTower = newTower;
         }
@@ -248,7 +299,7 @@ public class GameModel {
 
     public void sellTower (Tower tower) {
         if (selectedTower != null) {
-            resources += tower.getCost();
+            gold += tower.getCost();
             towers.remove(tower);
         }
     }
