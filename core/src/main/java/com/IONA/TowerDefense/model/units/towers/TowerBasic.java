@@ -19,7 +19,7 @@ public class TowerBasic extends Tower {
     private static final int range = 1;
     private float cooldown = 0f;
 
-    public Texture texture = new Texture("Tower_temp_03.png");
+    public Texture texture = new Texture("Tower_temp_04.png");
 
     public TowerBasic() {
         super(BaseSpeed, BaseCost, range, BaseFireRate);
@@ -48,6 +48,7 @@ public class TowerBasic extends Tower {
     public void resetCooldown() {
         cooldown = fireRate;
     }
+
     @Override
     public void update(){
         cooldown -= HeartBeat.delta;

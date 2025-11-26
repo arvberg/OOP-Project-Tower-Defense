@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model.ui;
 
 import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,34 +82,77 @@ public class TowerMenu extends Menu{
 
     public void createGridItems(List<Button> buttons) {
 
-        float startX = menuPosition.x + 0.2f;        // lite padding
-        float startY = menuPosition.y + height - 1f; // börja vid toppen
+        float xLeft = menuPosition.x + width/3.5f;
+        float xRight = menuPosition.x + width - width/3.5f;
+        float yTop = menuPosition.y + height - height/12f;
+        float topSpacing = height/5.2f;
 
-        float itemSize = 1f;
-        float spacing = 0.3f;
+        float x;
+        float y;
 
-        int rows = 8;
+        int rows = 5;
         int cols = 2;
 
-        int index = 0;
+        String texture = "";
+        String towerType = "";
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
 
-                float x = startX + c * (itemSize + spacing);
-                float y = startY - r * (itemSize + spacing);
+                if (c == 0){
+                    x = xLeft;
+                    y = yTop - r * topSpacing;
+                }
+                else{
+                    x = xRight;
+                    y = yTop - r * topSpacing;
+                }
 
-                TowerMenuItem item = new TowerMenuItem(
-                    "Tower_temp_03.png",
-                    x,
-                    y,
-                    "TowerBasic",
-                    this,
-                    model
-                );
+                if(c == 0 && r == 0){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 1 && r == 0){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 0 && r == 1){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 1 && r == 1){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 0 && r == 2){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 1 && r == 2){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 0 && r == 3){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 1 && r == 3){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 0 && r == 4){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
+                else if(c == 1 && r == 4){
+                    texture = "Tower_temp_04.png";
+                    towerType = "TowerBasic";
+                }
 
+                TowerMenuItem item = new TowerMenuItem(texture, x, y, towerType, this, model);
                 buttons.add(item);
                 items.add(item);
+
             }
         }
     }
