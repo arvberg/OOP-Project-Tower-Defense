@@ -17,15 +17,15 @@ public class GameController {
 
     public void update() {
 
-        if (Gdx.input.justTouched()){
             float mouseX = Gdx.input.getX();
             float mouseY = Gdx.input.getY();
-
             // View konverterar till world-space
             Vector2 world = view.toWorld(mouseX, mouseY);
 
-            inputHandler.checkInput(world);
+            inputHandler.updateMouse(world);
 
+        if (Gdx.input.justTouched()) {
+            inputHandler.checkInput(world);
         }
 
         // mer logik här

@@ -11,13 +11,14 @@ public class TowerDrawer {
     public static void drawTowers(List<Tower> towers, SpriteBatch batch){
         for (Tower t : towers){
             Vector2 p = t.getPosition();
-            batch.draw(t.texture, p.x, p.y, 0.68f, 0.9f);
+            batch.draw(t.texture, p.x - 0.68f / 2f, p.y - 0.92f / 2f, 0.68f, 0.9f);
         }
     }
 
     public static void drawTower(Tower tower, SpriteBatch batch) {
         Vector2 p = tower.getPosition();
-        batch.draw(tower.texture, p.x, p.y, 0.68f, 0.9f);
+
+        batch.draw(tower.texture, p.x - 0.68f /2f, p.y - 0.9f / 2f , 0.68f, 0.9f);
     }
 
 }

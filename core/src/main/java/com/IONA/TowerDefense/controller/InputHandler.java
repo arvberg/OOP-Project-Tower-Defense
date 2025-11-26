@@ -41,10 +41,9 @@ public class InputHandler {
         }
     }
 
-    public void updateTowerFollowingMouse(Vector2 mousePos) {
-        if (model.isBuyingState() && model.getPendingTower() != null) {
-            model.getPendingTower().setPosition(mousePos);
-        }
+    // Handle input for mouse hovering
+    public void updateMouse(Vector2 worldMousePos) {
+        model.updateTowerFollowingMouse(worldMousePos);
     }
 
     private boolean clickedOnGameArea(Vector2 pos) {
@@ -55,5 +54,4 @@ public class InputHandler {
         }
         return true;
     }
-
 }
