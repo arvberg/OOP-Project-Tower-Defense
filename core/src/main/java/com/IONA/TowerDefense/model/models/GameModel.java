@@ -25,7 +25,6 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Long.MAX_VALUE;
 
 // Main model class to for communication with controller
 public class GameModel {

@@ -50,7 +50,6 @@ public class InputHandler {
             model.selectTower(pos);
             if (model.isTowerSelected()) {
                 Tower selected = model.getSelectedTower();
-                System.out.println("Tower selected at: " + selected.getPosition());
             }
         }
     }
