@@ -74,8 +74,5 @@ public abstract class Tower extends Unit {
     public void resetCooldown() {
     }
 
-    public boolean isClicked() {
-
-    }
 }
 

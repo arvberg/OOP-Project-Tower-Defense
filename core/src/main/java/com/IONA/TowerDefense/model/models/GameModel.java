@@ -281,4 +281,11 @@ public class GameModel {
     public Tower getPendingTower() {
         return pendingTower;
     }
+
+    // Make pendingTower follow mouse position after buyTower
+    public void updateTowerFollowingMouse(Vector2 mousePos) {
+        if (pendingTower != null && buyingState) {
+            pendingTower.setPosition(mousePos);
+        }
+    }
 }
