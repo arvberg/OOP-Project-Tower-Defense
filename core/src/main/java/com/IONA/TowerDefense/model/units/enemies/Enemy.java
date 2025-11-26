@@ -76,6 +76,10 @@ public abstract class Enemy extends Unit {
         hp -= damage;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
     public int getSegmentIndex() {
         return segmentIndex;
     }

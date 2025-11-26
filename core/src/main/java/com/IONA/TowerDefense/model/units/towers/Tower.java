@@ -1,13 +1,17 @@
 package com.IONA.TowerDefense.model.units.towers;
 
 import com.IONA.TowerDefense.model.units.Unit;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.List;
+
 public abstract class Tower extends Unit {
     protected  int damage;
-    protected int attack;
     protected float projectileSpeed;
     protected float fireRate;
     protected int cost;
@@ -15,11 +19,13 @@ public abstract class Tower extends Unit {
     protected int rangeRadius;
     protected int direction;
 
+    protected String attackType;
+    protected TargetingStrategy targetingStrategy;
+
     public Texture texture;
     private Vector2 dimension;
 
-    public Tower(int attack, float projectileSpeed, int cost, int rangeRadius, float fireRate) {
-        this.attack = attack;
+    public Tower(float projectileSpeed, int cost, int rangeRadius, float fireRate) {
         this.projectileSpeed = projectileSpeed;
         this.cost = cost;
         this.rangeRadius = rangeRadius;
@@ -27,16 +33,19 @@ public abstract class Tower extends Unit {
         this.texture = new Texture("Tower_temp_03.png");    //PLACEHOLDER
         level = 1;
     }
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+        this.targetingStrategy = targetingStrategy;
+    }
+
+    public List<Enemy> getTargets(List<Enemy> enemies) {
+        return targetingStrategy.pick(enemies, this);
+    }
 
     public void update() {
     }
 
     public void setRangeRadius(int rangeRadius) {
         this.rangeRadius = rangeRadius;
-    }
-
-    public int getAttack(){
-        return attack;
     }
 
     public int getDir(){
@@ -63,6 +72,10 @@ public abstract class Tower extends Unit {
         return damage;
     }
 
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
     public float getProjectileSpeed() {
         return projectileSpeed;
     }
@@ -74,8 +87,17 @@ public abstract class Tower extends Unit {
     public void resetCooldown() {
     }
 
-    public boolean isClicked() {
-
+    public String getAttackType() {
+        return attackType;
     }
+
+    public void setAttackType(String attackType) {
+        this.attackType = attackType;
+    }
+/*
+    public boolean isClicked() {
+    }
+
+ */
 }
 
