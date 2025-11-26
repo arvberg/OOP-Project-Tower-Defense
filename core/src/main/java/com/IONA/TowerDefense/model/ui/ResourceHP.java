@@ -1,24 +1,13 @@
 package com.IONA.TowerDefense.model.ui;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.Color;
 
-public class ResourceHP {
-    private int currentHP;
+import java.awt.*;
 
-    private Vector2 position;
-    private float width;
-    private float height;
-
-    private String hpBar;
-
-    public ResourceHP(float x, float y, float width, float height){
-        this.currentHP = currentHP;
-
-        this.position = new Vector2(x, y);
-        this.width = width;
-        this.height = height;
-
-        hpBar = new String(String.valueOf(this.currentHP));
-
+public class ResourceHP extends Resource{
+    public ResourceHP(int hp, Vector2 position, float width, float height){
+        super(hp, position, width, height);
+        this.color = Color.RED;
     }
 }

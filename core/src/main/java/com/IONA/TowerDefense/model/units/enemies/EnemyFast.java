@@ -8,6 +8,7 @@ public class EnemyFast extends Enemy{
         hp = 100 + 100*difficulty;
         speed = 300 + 100*difficulty;
         gold = 10;
+        damage = 2;
         setHitBox(0.5f,0.5f);
     }
 }

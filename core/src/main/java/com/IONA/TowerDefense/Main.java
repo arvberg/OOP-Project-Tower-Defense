@@ -4,6 +4,7 @@ import com.IONA.TowerDefense.controller.GameController;
 import com.IONA.TowerDefense.model.GameUpdater;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.view.Draw;
+import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 
@@ -16,6 +17,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
+        Fonts.load();
         model = new GameModel();
         updater = new GameUpdater(model);
         painter = new Draw(model);
