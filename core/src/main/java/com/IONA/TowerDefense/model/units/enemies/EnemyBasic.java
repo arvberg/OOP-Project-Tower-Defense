@@ -9,7 +9,7 @@ public class EnemyBasic extends Enemy{
         super(difficulty);
         hp = 400 + 200*difficulty;
         speed = 2.53f;
-        gold = 5;
+        gold = 25;
         damage = 1;
         this.texture = new Texture("Enemy_temp_03.png");
         this.width = 0.5f;

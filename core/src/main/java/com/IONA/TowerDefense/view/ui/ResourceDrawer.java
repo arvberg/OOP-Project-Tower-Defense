@@ -12,7 +12,7 @@ public class ResourceDrawer {
         for (Resource resource : resources) {
             if (resource.font != null){
                 Vector2 position = resource.getPosition();
-                batch.setColor(resource.color);
+                resource.font.setColor(resource.color);
                 resource.font.draw(batch, resource.getTextBar(), position.x, position.y);
                 batch.setColor(Color.WHITE);
             }
