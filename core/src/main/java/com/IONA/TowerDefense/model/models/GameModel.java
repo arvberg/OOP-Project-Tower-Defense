@@ -49,7 +49,7 @@ public class GameModel {
     private int score; // Players current score
     private final int difficulty;
 
-    private static final float TOWER_SELECTION_RADIUS = 30f; // Tower selection radius
+    private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private boolean buyingState = false;
