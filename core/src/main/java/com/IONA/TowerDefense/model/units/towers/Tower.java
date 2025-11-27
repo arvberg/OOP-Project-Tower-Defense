@@ -48,6 +48,10 @@ public abstract class Tower extends Unit {
         return rangeTexture;
     }
 
+    public Texture getTexture() {
+        return texture;
+    }
+
     public void update() {
     }
 
