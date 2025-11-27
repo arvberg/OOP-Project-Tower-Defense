@@ -89,10 +89,6 @@ public class GameModel {
         //buttons.add(towermenutogglebutton);
         //buttons.add(playbutton);
 
-        Tower tower = new TowerBasic();
-        tower.setPosition(new Vector2(3, 2.7f));
-        tower.setRangeRadius(1000);
-        towers.add(tower);
 
         resources.add(new ResourceHP(
             lives,
