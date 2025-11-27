@@ -3,11 +3,6 @@ package com.IONA.TowerDefense.model;
 import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.AttackHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.ui.Button;
-import com.IONA.TowerDefense.model.ui.TowerMenuItem;
-import com.IONA.TowerDefense.view.ui.ResourceDrawer;
-
-import java.util.List;
 
 public class GameUpdater  {
 

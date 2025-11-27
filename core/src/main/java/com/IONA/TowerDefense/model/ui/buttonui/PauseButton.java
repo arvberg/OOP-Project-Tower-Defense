@@ -1,8 +1,8 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.buttonui;
 
 import com.IONA.TowerDefense.Main;
 
-public class PauseButton extends Button{
+public class PauseButton extends Button {
     public PauseButton(float x, float y){
         super("Pause_button_temp_01.png", x+1, y, 1, 1);
     }

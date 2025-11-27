@@ -1,15 +1,14 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.towerui;
 
 import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.badlogic.gdx.graphics.Texture;
+import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.IONA.TowerDefense.HeartBeat.delta;
-
-public class TowerMenu extends Menu{
+public class TowerMenu extends Menu {
 
     private boolean open = true;
 

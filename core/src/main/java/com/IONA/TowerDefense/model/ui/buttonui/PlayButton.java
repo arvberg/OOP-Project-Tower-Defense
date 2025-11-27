@@ -1,10 +1,10 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.buttonui;
 
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.badlogic.gdx.math.Vector2;
 
-public class PlayButton extends Button{
+public class PlayButton extends Button {
     WaveGenerator generator;
     //Rectangle bounds;
     public PlayButton(float x, float y, GameModel model){

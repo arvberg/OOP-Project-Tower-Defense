@@ -1,5 +1,6 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.towerui;
 
+import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -36,7 +37,7 @@ public class TowerMenuToggleButton extends Button {
 
     public void updatePosition(){
         float newX = towermenu.getMenuPosition().x - this.width;
-        float newY = towermenu.getMenuPosition().y + towermenu.height - this.height;
+        float newY = towermenu.getMenuPosition().y + towermenu.getHeight() - this.height;
         setButtonPosition(newX,newY);
         if(isOpen){
             this.texture = texture1;

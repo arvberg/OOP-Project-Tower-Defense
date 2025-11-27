@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.buttonui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

@@ -1,10 +1,10 @@
 package com.IONA.TowerDefense.controller;
 
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.ui.Button;
-import com.IONA.TowerDefense.model.ui.PlayButton;
-import com.IONA.TowerDefense.model.ui.TowerMenuItem;
-import com.IONA.TowerDefense.model.ui.TowerMenuToggleButton;
+import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
+import com.IONA.TowerDefense.model.ui.towerui.TowerMenuItem;
+import com.IONA.TowerDefense.model.ui.towerui.TowerMenuToggleButton;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 

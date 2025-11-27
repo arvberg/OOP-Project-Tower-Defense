@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
@@ -7,6 +8,7 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +82,8 @@ public class AttackHandler {
             if (withinRadius(e, tower)) {
                 enemiesInRadius.add(e);
             }
-        } return enemiesInRadius;
+        }
+        return enemiesInRadius;
     }
 
     public void updateHomingProjectile(Projectile p) {
@@ -112,6 +115,7 @@ public class AttackHandler {
             if (isHit(projectile, enemy)) {
                 projectile.setDestroyed(true);
                 enemy.takeDamage(projectile.getDamage());
+
                 break;
             }
         }
@@ -145,16 +149,15 @@ public class AttackHandler {
 
         float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-        return new Vector2(deltaX/length, deltaY/length);
+        return new Vector2(deltaX / length, deltaY / length);
     }
 
-    public float getDistance (Unit from, Unit to) {
+    public float getDistance(Unit from, Unit to) {
         float deltaX = to.getX() - from.getX();
         float deltaY = to.getY() - from.getY();
 
         return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
     }
-
 
 
 }

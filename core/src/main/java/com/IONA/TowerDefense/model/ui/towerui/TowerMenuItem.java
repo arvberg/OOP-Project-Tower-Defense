@@ -1,6 +1,7 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.towerui;
 
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.badlogic.gdx.math.Vector2;
 
 public class TowerMenuItem extends Button {

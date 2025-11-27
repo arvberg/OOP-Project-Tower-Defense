@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.view.ui;
 
-import com.IONA.TowerDefense.model.ui.Resource;
+import com.IONA.TowerDefense.model.ui.playerui.Resource;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;

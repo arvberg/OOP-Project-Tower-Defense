@@ -1,12 +1,9 @@
-package com.IONA.TowerDefense.model.ui;
+package com.IONA.TowerDefense.model.ui.playerui;
 
 import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Color;
-
-
-import java.awt.*;
 
 public class Resource {
     private int currentResource;
@@ -42,10 +39,6 @@ public class Resource {
             g.fixedWidth = true;
         }
     }*/
-
-    public int getCurrentResource(){
-        return currentResource;
-    }
 
     public void setCurrentResource(int currentResource){
         this.currentResource = currentResource;

@@ -1,14 +1,15 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.ui.Button;
-import com.IONA.TowerDefense.model.ui.Resource;
+import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.playerui.Resource;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.TowerMenu;
+import com.IONA.TowerDefense.model.ui.towerui.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
+import com.IONA.TowerDefense.view.ui.HealthBarDrawer;
 import com.IONA.TowerDefense.view.ui.ResourceDrawer;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.ui.ButtonGroupOneDrawer;
@@ -92,6 +93,10 @@ public class Draw {
         ProjectileDrawer.drawProjectiles(projectiles,batch);
 
         batch.end();
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        HealthBarDrawer.drawHealthBar(enemies, shapeRenderer);
+        shapeRenderer.end();
 
     }
 

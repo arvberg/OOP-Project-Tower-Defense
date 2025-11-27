@@ -1,105 +1,121 @@
-package com.IONA.TowerDefense.model.units.enemies;
+    package com.IONA.TowerDefense.model.units.enemies;
 
-import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.Direction;
-import com.IONA.TowerDefense.model.units.Unit;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Rectangle;
+    import com.IONA.TowerDefense.HeartBeat;
+    import com.IONA.TowerDefense.model.Direction;
+    import com.IONA.TowerDefense.model.ui.HealthBar;
+    import com.IONA.TowerDefense.model.units.Unit;
+    import com.badlogic.gdx.graphics.Texture;
+    import com.badlogic.gdx.math.Vector2;
+    import com.badlogic.gdx.math.Rectangle;
 
-import javax.swing.*;
+    import javax.swing.*;
 
-import static com.IONA.TowerDefense.HeartBeat.delta;
-import static java.lang.Math.abs;
+    import static com.IONA.TowerDefense.HeartBeat.delta;
+    import static java.lang.Math.abs;
 
-public abstract class Enemy extends Unit {
+    public abstract class Enemy extends Unit {
+        protected HealthBar healthBar;
+        protected Direction dir;
+        protected int hp;
+        protected int maxHp;
+        protected float speed;
+        protected int gold;
+        protected Rectangle hitBox;
+        protected float width;
+        protected float height;
+        protected int segmentIndex = 0;
+        protected int damage;
+        public Texture texture;
 
-    protected Direction dir;
-    protected int hp;
-    protected float speed;
-    protected int gold;
-    protected Rectangle hitBox;
-    protected float width;
-    protected float height;
-    protected int segmentIndex = 0;
-    protected int damage;
-    public Texture texture;
-
-    public Enemy(int difficulty) {
-        this.texture = new Texture("Enemy_temp_02.png");
-    }
-
-    public Rectangle getHitBox() {
-        return hitBox;
-    }
-
-    public void move() {
-
-        if (position == null) {
-            position = new Vector2(0, 2);
+        public Enemy(int difficulty){
+            this.texture = new Texture("Enemy_temp_02.png");
         }
-         // sekunder per frame
-    // speed = units per sekund
-        switch (dir) {
-            case NORTH -> position.y += speed*delta;
-            case SOUTH -> position.y -= speed*delta;
-            case EAST -> position.x += speed*delta;
-            case WEST -> position.x -= speed*delta;
+
+        public Rectangle getHitBox() {
+            return hitBox;
         }
-        setHitBox(width, height);
-    }
 
-    public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
+        public void move() {
 
-        return switch (direction) {
-            case NORTH -> enemyPosition.y >= segmentEnd.y;
-            case SOUTH -> enemyPosition.y <= segmentEnd.y;
-            case EAST -> enemyPosition.x >= segmentEnd.x;
-            case WEST -> enemyPosition.x <= segmentEnd.x;
-        };
-    }
+            if (position == null) {
+                position = new Vector2(0, 2);
+            }
+             // sekunder per frame
+             // speed = units per sekund
+            switch (dir) {
+                case NORTH -> position.y += speed*delta;
+                case SOUTH -> position.y -= speed*delta;
+                case EAST -> position.x += speed*delta;
+                case WEST -> position.x -= speed*delta;
+            }
+            setHitBox(width, height);
 
-    public void setHitBox(float width, float height) {
-
-
-        float newX = (position.x - width/2);
-        float newY = (position.y - height/2);
-
-
-        if (hitBox == null) {
-            hitBox = new Rectangle(newX, newY, width, height);
-        } else {
-            hitBox.set(newX, newY, width, height);
+            //Move HealthBar along with Enemy
+            if (healthBar.getPosition() != null){
+                healthBar.setPosition(position.x, position.y);
+            }
         }
-    }
 
-    public void takeDamage(int damage) {
-        hp -= damage;
-    }
+        public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
 
-    public int getHp() {
-        return hp;
-    }
-
-    public int getSegmentIndex() {
-        return segmentIndex;
-    }
-
-    public void setToNewSegment(Vector2 newPosition, Direction newDir, int newSegmentIndex) {
-        if (this.position == null) {
-            this.position = new Vector2();
+            return switch (direction) {
+                case NORTH -> enemyPosition.y >= segmentEnd.y;
+                case SOUTH -> enemyPosition.y <= segmentEnd.y;
+                case EAST -> enemyPosition.x >= segmentEnd.x;
+                case WEST -> enemyPosition.x <= segmentEnd.x;
+            };
         }
-        this.position.set(newPosition.x, newPosition.y);
-        this.dir = newDir;
-        this.segmentIndex = newSegmentIndex;
-    }
 
-    public int getDamageNumber(){
-        return -abs(damage);
-    }
+        public void setHitBox(float width, float height) {
 
-    public int getGold(){
-        return gold;
-    }
 
-}
+            float newX = (position.x - width/2);
+            float newY = (position.y - height/2);
+
+
+            if (hitBox == null) {
+                hitBox = new Rectangle(newX, newY, width, height);
+            } else {
+                hitBox.set(newX, newY, width, height);
+            }
+        }
+
+        public void takeDamage(int damage) {
+            hp -= damage;
+            healthBar.setCurrentHealth(hp);
+        }
+
+        public int getHp() {
+            return hp;
+        }
+
+        public int getSegmentIndex() {
+            return segmentIndex;
+        }
+
+        public void setToNewSegment(Vector2 newPosition, Direction newDir, int newSegmentIndex) {
+            if (this.position == null) {
+                this.position = new Vector2();
+            }
+            this.position.set(newPosition.x, newPosition.y);
+            this.dir = newDir;
+            this.segmentIndex = newSegmentIndex;
+        }
+
+        public int getDamageNumber(){
+            return -abs(damage);
+        }
+
+        public int getGold(){
+            return gold;
+        }
+
+        public int getMaxHp() {
+            return maxHp;
+        }
+
+        public HealthBar getHealthBar() {
+            return healthBar;
+        }
+
+    }
