@@ -2,9 +2,9 @@ package com.IONA.TowerDefense.model.units.enemies;
 
 import com.badlogic.gdx.graphics.Texture;
 
-public class EnemyBasic extends Enemy{
-    //public Texture texture;
+public class EnemyBasic extends Enemy {
 
+    //public Texture texture;
     public EnemyBasic(int difficulty){
         super(difficulty);
         hp = 400 + 200*difficulty;
@@ -16,5 +16,4 @@ public class EnemyBasic extends Enemy{
         this.height = 0.5f;
         setHitBox(width,height);
     }
-
 }

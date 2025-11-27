@@ -207,7 +207,6 @@ public class GameModel {
     public void addEnemy(Enemy enemy) {
         Segment first = path.getSegment(0);
         enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
-
         enemies.add(enemy);
         }
 
@@ -353,5 +352,10 @@ public class GameModel {
         if (pendingTower != null && buyingState) {
             pendingTower.setPosition(mousePos);
         }
+    }
+
+    public void incrementGold() {
+        gold += 10;
+        updateGoldResource();
     }
 }

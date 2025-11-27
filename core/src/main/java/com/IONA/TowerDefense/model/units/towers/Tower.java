@@ -4,7 +4,6 @@ import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 

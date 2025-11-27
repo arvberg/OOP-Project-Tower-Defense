@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.IONA.TowerDefense.Main.model;
+
 public class AttackHandler {
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
@@ -21,7 +23,6 @@ public class AttackHandler {
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
         this.projectileFactory = new ProjectileFactory();
-        List<Unit> deadUnits = new ArrayList<>();
     }
 
     public void update() {
@@ -29,6 +30,14 @@ public class AttackHandler {
         updateProjectiles();
         removeDeadEnemies();
         removeDeadProjectiles();
+    }
+
+    public void towerAttack(Tower tower, List<Enemy> enemies) {
+        String attackType = tower.getAttackType();
+        Projectile p = projectileFactory.createProjectile(attackType, tower, enemies);
+        if (p != null) {
+            projectiles.add(p);
+        }
     }
 
     public void updateTowers() {
@@ -46,6 +55,20 @@ public class AttackHandler {
         }
     }
 
+    public List<Enemy> enemiesInRadius(Tower tower) {
+        List<Enemy> enemiesInRadius = new ArrayList<>();
+        for (Enemy e : enemies) {
+            if (withinRadius(e, tower)) {
+                enemiesInRadius.add(e);
+            }
+        } return enemiesInRadius;
+    }
+
+    public boolean withinRadius(Enemy enemy, Tower tower) {
+        float distance = getDistance(enemy, tower);
+        return distance < tower.getRange();
+    }
+
     public void updateProjectiles() {
         for (Projectile projectile : projectiles) {
 
@@ -59,28 +82,6 @@ public class AttackHandler {
             projectile.move();
             projectileHit(projectile, enemies);
         }
-    }
-
-    public boolean withinRadius(Enemy enemy, Tower tower) {
-        float distance = getDistance(enemy, tower);
-        return distance < tower.getRange();
-    }
-
-    public void towerAttack(Tower tower, List<Enemy> enemies) {
-        String attackType = tower.getAttackType();
-        Projectile p = projectileFactory.createProjectile(attackType, tower, enemies);
-        if (p != null) {
-            projectiles.add(p);
-        }
-    }
-
-    public List<Enemy> enemiesInRadius(Tower tower) {
-        List<Enemy> enemiesInRadius = new ArrayList<>();
-        for (Enemy e : enemies) {
-            if (withinRadius(e, tower)) {
-                enemiesInRadius.add(e);
-            }
-        } return enemiesInRadius;
     }
 
     public void updateHomingProjectile(Projectile p) {
@@ -102,11 +103,6 @@ public class AttackHandler {
         p.setDir(dir.x, dir.y);
     }
 
-    public boolean isHit(Projectile projectile, Enemy enemy) {
-        Rectangle hitbox = enemy.getHitBox();
-        return hitbox.contains(projectile.getX(), projectile.getY());
-    }
-
     public void projectileHit(Projectile projectile, List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
             if (isHit(projectile, enemy)) {
@@ -117,6 +113,11 @@ public class AttackHandler {
         }
     }
 
+    public boolean isHit(Projectile projectile, Enemy enemy) {
+        Rectangle hitbox = enemy.getHitBox();
+        return hitbox.contains(projectile.getX(), projectile.getY());
+    }
+
     public void removeDeadEnemies() {
         if (enemies.isEmpty()) {
             return;
@@ -124,6 +125,7 @@ public class AttackHandler {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getHp() <= 0) {
                 enemies.remove(i);
+                model.incrementGold();
             }
         }
     }

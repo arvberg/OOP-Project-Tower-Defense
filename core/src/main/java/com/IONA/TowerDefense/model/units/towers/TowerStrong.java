@@ -9,17 +9,17 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
-public class TowerBasic extends Tower {
-    private static final int BaseDamage = 50;
-    private static final int BaseSpeed = 8;
+public class TowerStrong extends Tower {
+    private static final int BaseDamage = 500;
+    private static final int BaseSpeed = 1;
     private static final int BaseCost = 50;
-    private static final float BaseFireRate = 0.1F;
+    private static final float BaseFireRate = 0.01F;
     private static final int range = 1;
     private float cooldown = 0f;
 
     public Texture texture = new Texture("Tower_temp_04.png");
 
-    public TowerBasic() {
+    public TowerStrong() {
         super(BaseSpeed, BaseCost, range, BaseFireRate);
 
         setDamage(BaseDamage);
@@ -29,7 +29,7 @@ public class TowerBasic extends Tower {
         this.rangeRadius = 100;
         this.cooldown = BaseFireRate;
         this.setTargetingStrategy(new TargetLeadingStrategy());
-        setAttackType("HomingProjectile");
+        setAttackType("Bomb");
     }
 
     @Override

@@ -7,18 +7,28 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.badlogic.gdx.math.Vector2.dst;
 
-public class TargetLeadingEnemyStrategy implements TargetingStrategy {
+public class TargetStrongestStrategy implements TargetingStrategy {
 
-    // choose the first enemy in its range
     @Override
     public List<Enemy> pick(List<Enemy> enemies, Tower tower) {
         List<Enemy> result = new ArrayList<>();
         if (enemies.isEmpty()) {
             return result;
         }
-        Enemy leading = enemies.get(0);
-        result.add(leading);
+
+        Enemy strongest = enemies.get(0);
+
+        for (int i = 1; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+
+            if (strongest.getHp() < enemy.getHp()) {
+                strongest = enemy;
+            }
+        }
+
+        result.add(strongest);
         return result;
     }
 }
