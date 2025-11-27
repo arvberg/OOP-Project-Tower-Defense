@@ -98,4 +98,8 @@ public abstract class Enemy extends Unit {
         return -abs(damage);
     }
 
+    public int getGold(){
+        return gold;
+    }
+
 }

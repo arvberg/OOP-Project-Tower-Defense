@@ -13,30 +13,20 @@ public class Fonts {
 
     public static void load(){
         FreeTypeFontGenerator generator =
-            new FreeTypeFontGenerator(Gdx.files.internal("fonts/10Pixel-Bold.otf"));
+            new FreeTypeFontGenerator(Gdx.files.internal("fonts/ChicagoFLF.ttf"));
 
         FreeTypeFontGenerator.FreeTypeFontParameter parameter =
             new FreeTypeFontGenerator.FreeTypeFontParameter();
 
-        parameter.size = 20;
+        parameter.size = 25;
         parameter.color = Color.WHITE;
         parameter.magFilter = Texture.TextureFilter.Linear;
         parameter.minFilter = Texture.TextureFilter.Linear;
 
-        parameter.packer = new PixmapPacker(
-            512, 512,
-            Pixmap.Format.RGBA8888,
-            2,
-            false
-        );
-
         resourceFont = generator.generateFont(parameter);
-        //generator.dispose();
+        resourceFont.setUseIntegerPositions(true);
 
         resourceFont.getData().setScale(.075f);
-/*        resourceFont.getData().setLineHeight(resourceFont.getLineHeight() * 1.1f);
-        resourceFont.setUseIntegerPositions(true);
-        resourceFont.getRegion().getTexture().setFilter(
-            Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);*/
+
     }
 }
