@@ -38,13 +38,13 @@ public abstract class Enemy extends Unit {
         if (position == null) {
             position = new Vector2(0, 2);
         }
-         // sekunder per frame
-    // speed = units per sekund
+        // sekunder per frame
+        // speed = units per sekund
         switch (dir) {
-            case NORTH -> position.y += speed*delta;
-            case SOUTH -> position.y -= speed*delta;
-            case EAST -> position.x += speed*delta;
-            case WEST -> position.x -= speed*delta;
+            case NORTH -> position.y += speed * delta;
+            case SOUTH -> position.y -= speed * delta;
+            case EAST -> position.x += speed * delta;
+            case WEST -> position.x -= speed * delta;
         }
         setHitBox(width, height);
     }

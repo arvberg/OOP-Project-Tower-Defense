@@ -14,7 +14,7 @@ public abstract class Menu {
     protected Rectangle bounds;
     public Texture texture;
 
-    public Menu(String texturePath, float x, float y, float width, float height){
+    public Menu(String texturePath, float x, float y, float width, float height) {
         if (texturePath == null) {
             texturePath = "ProtTower.png";
         }

@@ -110,14 +110,14 @@ public class GameModel {
         placeCore();
     }
 
-    public void placeCore(){
+    public void placeCore() {
         Decoration core = new Core();
-        Segment last = path.getSegment(path.segmentCount()-2);
+        Segment last = path.getSegment(path.segmentCount() - 2);
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x - core.getWidth()/2f,
-            end.y - core.getHeight()/2f)
+            end.x - core.getWidth() / 2f,
+            end.y - core.getHeight() / 2f)
         );
 
         decorations.add(core);
@@ -131,18 +131,18 @@ public class GameModel {
         this.lives = lives + hpChange;
     }
 
-    public void updateHpResource(){
-        for (Resource r : resources){
-            if (r instanceof ResourceHP){
+    public void updateHpResource() {
+        for (Resource r : resources) {
+            if (r instanceof ResourceHP) {
                 r.setCurrentResource(lives);
                 r.textBar = String.valueOf(lives);
             }
         }
     }
 
-    public void updateGoldResource(){
-        for (Resource r : resources){
-            if (r instanceof ResourceMoney){
+    public void updateGoldResource() {
+        for (Resource r : resources) {
+            if (r instanceof ResourceMoney) {
                 r.setCurrentResource(gold);
                 r.textBar = String.valueOf(gold);
             }
