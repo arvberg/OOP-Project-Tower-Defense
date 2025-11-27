@@ -103,7 +103,7 @@ public class GameModel {
 
         resources.add(new ResourceMoney(
             lives,
-            new Vector2(4.5f, 1.5f),
+            new Vector2(5.5f, 1.5f),
             3f,
             1f));
 
