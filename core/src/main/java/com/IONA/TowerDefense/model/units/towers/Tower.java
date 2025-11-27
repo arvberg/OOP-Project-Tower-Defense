@@ -6,6 +6,7 @@ import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -16,21 +17,23 @@ public abstract class Tower extends Unit {
     protected float fireRate;
     protected int cost;
     protected int level;
-    protected int rangeRadius;
+    protected float range;
     protected int direction;
 
     protected String attackType;
     protected TargetingStrategy targetingStrategy;
 
     public Texture texture;
+    public TextureRegion rangeTexture;
     private Vector2 dimension;
 
-    public Tower(float projectileSpeed, int cost, int rangeRadius, float fireRate) {
+    public Tower(float projectileSpeed, int cost, float range, float fireRate) {
         this.projectileSpeed = projectileSpeed;
         this.cost = cost;
-        this.rangeRadius = rangeRadius;
+        this.range = range;
         this.fireRate = fireRate;
         this.texture = new Texture("Tower_temp_04.png");    //PLACEHOLDER
+        this.rangeTexture = new TextureRegion(new Texture("Range_01.png"));
         level = 1;
     }
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
@@ -41,11 +44,15 @@ public abstract class Tower extends Unit {
         return targetingStrategy.pick(enemies, this);
     }
 
+    public TextureRegion getRangeTexture() {
+        return rangeTexture;
+    }
+
     public void update() {
     }
 
-    public void setRangeRadius(int rangeRadius) {
-        this.rangeRadius = rangeRadius;
+    public void setrange(float range) {
+        this.range = range;
     }
 
     public int getDir(){
@@ -58,8 +65,8 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-    public int getRange(){
-        return rangeRadius;
+    public float getRange(){
+        return range;
     }
 
     public float getFireRate(){

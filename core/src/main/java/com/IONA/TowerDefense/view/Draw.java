@@ -88,6 +88,10 @@ public class Draw {
             TowerDrawer.drawTower(model.getPendingTower(), batch);
         }
 
+        if (model.isTowerSelected()) {
+            TowerDrawer.drawRange(model.getSelectedTower(), batch);
+        }
+
         List<Projectile> projectiles = model.getProjectiles();
         ProjectileDrawer.drawProjectiles(projectiles,batch);
 

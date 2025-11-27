@@ -12,20 +12,17 @@ import com.IONA.TowerDefense.model.ui.PauseButton;
 import com.IONA.TowerDefense.model.ui.PlayButton;
 import com.IONA.TowerDefense.model.ui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Long.MAX_VALUE;
 
 // Main model class to for communication with controller
 public class GameModel {
@@ -86,9 +83,6 @@ public class GameModel {
         addButtons(towermenutogglebutton);
         addButtons(playbutton);
         towerMenu.createGridItems(buttons);
-        //buttons.add(towermenutogglebutton);
-        //buttons.add(playbutton);
-
 
         resources.add(new ResourceHP(
             lives,
