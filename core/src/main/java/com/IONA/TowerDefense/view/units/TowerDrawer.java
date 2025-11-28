@@ -24,7 +24,7 @@ public class TowerDrawer {
         }
     }
 
-    public static void drawTower(Tower tower, SpriteBatch batch) {
+    public static void drawPendingTower(Tower tower, SpriteBatch batch) {
         Vector2 p = tower.getPosition();
         Texture texture = tower.getTexture();
 

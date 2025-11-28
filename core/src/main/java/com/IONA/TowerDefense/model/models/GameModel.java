@@ -260,7 +260,7 @@ public class GameModel {
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
-        if (pendingTower != null && !overlapsWithPath(pendingTower)) {
+        if (pendingTower != null && !overlaps(pendingTower)) {
             pendingTower.setPosition(selectedPoint);
             gold -= pendingTower.getCost();
             updateGoldResource();
@@ -276,7 +276,8 @@ public class GameModel {
         }
     }
 
-    public boolean overlapsWithPath (Tower tower) {
+    public boolean overlaps(Tower tower) {
+
         Vector2 towerPos = tower.getPosition();
 
         float halfX = tower.getDimension().x / 1.5f;
@@ -284,6 +285,7 @@ public class GameModel {
 
         float radius = Math.max(halfX, halfY);
 
+        // Overlaps Path
         for (Segment segment : path.getSegments()) {
             float distance = Intersector.distanceSegmentPoint(
                 segment.getStartPosition(),
@@ -294,11 +296,8 @@ public class GameModel {
                 return true;
             }
         }
-        return false;
-    }
 
-    public boolean overlapsWithCore (Tower tower) {
-
+        // Set coordinates to compare with
         Rectangle towerRect = new Rectangle(
             tower.getPosition().x - tower.getDimension().x /2f,
             tower.getPosition().y - tower.getDimension().y / 2f,
@@ -306,15 +305,32 @@ public class GameModel {
             tower.getDimension().y
         );
 
-        Rectangle coreRect = new Rectangle(
-            core.getPosition().x - core.width /2f,
-            core.getPosition().y - core.height/2f,
-            core.width,
-            core.height
-        );
+        // Check for all decorations
+        for (Decoration decoration : decorations) {
+            Rectangle decorationRect = new Rectangle(
+                decoration.getPosition().x - decoration.width /2f,
+                decoration.getPosition().y - decoration.height/2f,
+                decoration.width,
+                decoration.height
+            );
+            if (towerRect.overlaps(decorationRect)) {
+                return true;
+            }
+        }
 
-        return Intersector.overlaps(towerRect, coreRect);
-
+        // Check for every tower on the map
+        for (Tower t : towers) {
+            Rectangle placedTowerRect = new Rectangle(
+                t.getPosition().x - t.getDimension().x /2f,
+                t.getPosition().y - t.getDimension().y / 2f,
+                t.getDimension().x,
+                t.getDimension().y
+            );
+            if (towerRect.overlaps(placedTowerRect)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Buy a tower

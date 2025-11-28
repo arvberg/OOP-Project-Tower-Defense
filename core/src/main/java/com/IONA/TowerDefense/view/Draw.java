@@ -88,9 +88,9 @@ public class Draw {
         TowerDrawer.drawTowers(towers, batch);
 
         if (model.isBuyingState() && model.getPendingTower() != null) {
-            TowerDrawer.drawTower(model.getPendingTower(), batch);
+            TowerDrawer.drawPendingTower(model.getPendingTower(), batch);
             TowerDrawer.drawRange(model.getPendingTower(), batch);
-            if (model.overlapsWithPath(model.getPendingTower()) || model.overlapsWithCore(model.getPendingTower())) {
+            if (model.overlaps(model.getPendingTower())) {
                 batch.setColor(Color.RED);
                 TowerDrawer.drawRange(model.getPendingTower(), batch);
                 batch.setColor(Color.WHITE);
