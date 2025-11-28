@@ -9,6 +9,8 @@ public abstract class Button {
     private final Vector2 buttonPosition;
     public float width;
     public float height;
+    public float x;
+    public float y;
     protected Rectangle bounds;
     public Texture texture;
 

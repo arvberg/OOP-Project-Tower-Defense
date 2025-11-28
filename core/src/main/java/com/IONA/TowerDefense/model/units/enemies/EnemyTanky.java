@@ -11,7 +11,7 @@ public class EnemyTanky extends Enemy{
         maxHp = 1000 + 250 * difficulty;
 
         speed = .1f * difficulty;
-        gold = 50;
+        money = 50;
         damage = 5;
         this.hitBox = new Rectangle();
         hitBox.setPosition(width/2, height/2);

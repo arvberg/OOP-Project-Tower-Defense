@@ -13,16 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AttackHandler {
+    private final GameModel model;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
     private final ProjectileFactory projectileFactory;
+    private int money;
 
     public AttackHandler(GameModel model) {
+        this.model = model;
         this.enemies = model.getEnemies();
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
         this.projectileFactory = new ProjectileFactory();
+        this.money = model.getMoney();
         List<Unit> deadUnits = new ArrayList<>();
     }
 
@@ -127,6 +131,11 @@ public class AttackHandler {
         }
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).getHp() <= 0) {
+
+                int moneyGained = enemies.get(i).getMoney();
+                model.gainMoney(moneyGained);
+                model.updateMoneyResource();
+
                 enemies.remove(i);
             }
         }

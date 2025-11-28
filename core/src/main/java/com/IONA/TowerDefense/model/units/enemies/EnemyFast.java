@@ -11,7 +11,7 @@ public class EnemyFast extends Enemy{
         maxHp = 100 + 100*difficulty;
 
         speed = 3f * difficulty;
-        gold = 10;
+        money = 10;
         damage = 2;
         setHitBox(0.5f,0.5f);
 

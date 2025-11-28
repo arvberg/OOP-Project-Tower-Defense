@@ -19,7 +19,7 @@
         protected int hp;
         protected int maxHp;
         protected float speed;
-        protected int gold;
+        protected int money;
         protected Rectangle hitBox;
         protected float width;
         protected float height;
@@ -83,6 +83,7 @@
         public void takeDamage(int damage) {
             hp -= damage;
             healthBar.setCurrentHealth(hp);
+
         }
 
         public int getHp() {
@@ -106,8 +107,8 @@
             return -abs(damage);
         }
 
-        public int getGold(){
-            return gold;
+        public int getMoney(){
+            return money;
         }
 
         public int getMaxHp() {

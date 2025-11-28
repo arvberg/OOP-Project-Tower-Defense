@@ -40,7 +40,7 @@ public class GameModel {
     private final PauseButton pausebutton;
     private final TowerMenuToggleButton towermenutogglebutton;
     private final AttackHandler attackHandler;
-    private int gold; // Players gold
+    private int money; // Players money
     private int lives; // Players health
     private int score; // Players current score
     private final int difficulty;
@@ -65,7 +65,7 @@ public class GameModel {
         this.decorations = new ArrayList<>();
         this.resources = new ArrayList<>();
         this.lives = 100;
-        this.gold = 100;
+        this.money = 100;
         this.score = 0;
         this.buttons = new ArrayList<>();
         this.background = new Background();
@@ -129,13 +129,21 @@ public class GameModel {
         }
     }
 
-    public void updateGoldResource(){
+    public void updateMoneyResource(){
         for (Resource r : resources){
             if (r instanceof ResourceMoney){
-                r.setCurrentResource(gold);
-                r.textBar = String.valueOf(gold);
+                r.setCurrentResource(money);
+                r.textBar = String.valueOf(money);
             }
         }
+    }
+
+    public int getMoney(){
+        return money;
+    }
+
+    public void gainMoney(int amount){
+        this.money += amount;
     }
 
     public void coreDamaged(){
@@ -259,8 +267,8 @@ public class GameModel {
     public void placeTower (Vector2 selectedPoint) {
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
-            gold -= pendingTower.getCost();
-            updateGoldResource();
+            money -= pendingTower.getCost();
+            updateMoneyResource();
             towers.add(pendingTower);
 
             selectedTower = pendingTower;
@@ -277,7 +285,7 @@ public class GameModel {
     public void buyTower (String tower) {
         Tower newTower = towerFactory.createTower(tower);
 
-        if (gold >= newTower.getCost()) {
+        if (money >= newTower.getCost()) {
             buyingState = true;
             pendingTower = newTower;
         }
@@ -288,8 +296,8 @@ public class GameModel {
 
     public void sellTower (Tower tower) {
         if (selectedTower != null) {
-            gold += tower.getCost();
-            updateGoldResource();
+            money += tower.getCost();
+            updateMoneyResource();
             towers.remove(tower);
         }
     }

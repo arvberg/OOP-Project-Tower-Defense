@@ -10,6 +10,7 @@ public class GameUpdater  {
 
     private final AttackHandler attackHandler;
 
+
     public GameUpdater(GameModel model){
        this.model = model;
        this.attackHandler = model.getAttackHandler();
@@ -26,6 +27,11 @@ public class GameUpdater  {
         model.getTowerMenu().update(HeartBeat.delta);
         model.getTowerMenuToggleButton().updatePosition();
 
-        //model.getPendingTower().updatePosition();
+        WaveGenerator wg = model.getPlayButton().generator;
+
+        if (wg.WaveCleared()){
+            wg.WaveReward();
+            model.getPlayButton().togglePlayButton();
+        }
     }
 }
