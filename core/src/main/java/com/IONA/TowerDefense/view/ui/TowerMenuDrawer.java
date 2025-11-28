@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.view.ui;
 
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenu;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
 public class TowerMenuDrawer {

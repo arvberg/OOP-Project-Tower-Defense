@@ -5,17 +5,18 @@ import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
-import com.IONA.TowerDefense.model.ui.towerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -25,6 +26,7 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
+
     public boolean paused = false;
 
     private final List<Tower> towers;
@@ -39,6 +41,8 @@ public class GameModel {
     private final PlayButton playbutton;
     private final PauseButton pausebutton;
     private final TowerMenuToggleButton towermenutogglebutton;
+    private final UpgradeMenuToggleButton upgrademenutogglebutton;
+    private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private int money; // Players money
     private int lives; // Players health
@@ -53,11 +57,18 @@ public class GameModel {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
+    private final UpgradeMenu upgradeMenu;
     private final TowerMenu towerMenu;
+    private final SideMenu sideMenu;
+    private final StateChanger schanger;
+
+    private final Decoration core;
 
     public GameModel () {
 
         this.towerMenu = new TowerMenu(13,0,this);
+        this.upgradeMenu = new UpgradeMenu(16,0,this);
+        this.sideMenu = new SideMenu(13,0);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -72,16 +83,26 @@ public class GameModel {
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
         this.attackHandler = new AttackHandler(this);
+        this.core = new Core();
 
 
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.pausebutton = new PauseButton(10, 0);
-        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu);
+        this.schanger = new StateChanger();
+        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
+        this.upgrademenutogglebutton = new UpgradeMenuToggleButton(0,3,upgradeMenu,sideMenu, schanger);
+        schanger.setButtons(upgrademenutogglebutton,towermenutogglebutton);
+        this.sidemenutogglebutton = new SideMenuToggleButton(0, 5,towerMenu,upgradeMenu,sideMenu,schanger);
+
 
         addButtons(towermenutogglebutton);
+        addButtons(upgrademenutogglebutton);
+        addButtons(sidemenutogglebutton);
         addButtons(playbutton);
         towerMenu.createGridItems(buttons);
+        upgradeMenu.createGridItems(buttons);
+
 
         resources.add(new ResourceHP(
             lives,
@@ -96,17 +117,16 @@ public class GameModel {
             3f,
             1f));
 
-        placeCore();
+        placeCore(core);
     }
 
-    public void placeCore(){
-        Decoration core = new Core();
+    public void placeCore(Decoration core){
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x - core.getWidth()/2f,
-            end.y - core.getHeight()/2f)
+            end.x,
+            end.y)
         );
 
         decorations.add(core);
@@ -265,7 +285,7 @@ public class GameModel {
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
-        if (pendingTower != null) {
+        if (pendingTower != null && !overlaps(pendingTower)) {
             pendingTower.setPosition(selectedPoint);
             money -= pendingTower.getCost();
             updateMoneyResource();
@@ -279,6 +299,63 @@ public class GameModel {
             buyingState = false;
             System.out.println("tower placed");
         }
+    }
+
+    public boolean overlaps(Tower tower) {
+
+        Vector2 towerPos = tower.getPosition();
+
+        float halfX = tower.getDimension().x / 1.5f;
+        float halfY = tower.getDimension().y / 1.5f;
+
+        float radius = Math.max(halfX, halfY);
+
+        // Overlaps Path
+        for (Segment segment : path.getSegments()) {
+            float distance = Intersector.distanceSegmentPoint(
+                segment.getStartPosition(),
+                segment.getEnd(),
+                towerPos
+            );
+            if (distance < radius) {
+                return true;
+            }
+        }
+
+        // Set coordinates to compare with
+        Rectangle towerRect = new Rectangle(
+            tower.getPosition().x - tower.getDimension().x /2f,
+            tower.getPosition().y - tower.getDimension().y / 2f,
+            tower.getDimension().x,
+            tower.getDimension().y
+        );
+
+        // Check for all decorations
+        for (Decoration decoration : decorations) {
+            Rectangle decorationRect = new Rectangle(
+                decoration.getPosition().x - decoration.width /2f,
+                decoration.getPosition().y - decoration.height/2f,
+                decoration.width,
+                decoration.height
+            );
+            if (towerRect.overlaps(decorationRect)) {
+                return true;
+            }
+        }
+
+        // Check for every tower on the map
+        for (Tower t : towers) {
+            Rectangle placedTowerRect = new Rectangle(
+                t.getPosition().x - t.getDimension().x /2f,
+                t.getPosition().y - t.getDimension().y / 2f,
+                t.getDimension().x,
+                t.getDimension().y
+            );
+            if (towerRect.overlaps(placedTowerRect)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Buy a tower
@@ -350,5 +427,25 @@ public class GameModel {
         if (pendingTower != null && buyingState) {
             pendingTower.setPosition(mousePos);
         }
+    }
+
+    public UpgradeMenu getUpgradeMenu() {
+        return this.upgradeMenu;
+    }
+
+    public UpgradeMenuToggleButton getUpgradeMenuToggleButton() {
+        return this.upgrademenutogglebutton;
+    }
+
+    public List<UpgradeMenuItem> getUpgradeMenuItems() {
+        return this.upgradeMenu.items;
+    }
+
+    public SideMenuToggleButton getSideMenuToggleButton() {
+        return this.sidemenutogglebutton;
+    }
+
+    public SideMenu getSideMenu() {
+        return this.sideMenu;
     }
 }

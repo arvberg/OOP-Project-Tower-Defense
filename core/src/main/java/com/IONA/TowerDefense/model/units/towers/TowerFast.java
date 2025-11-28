@@ -2,25 +2,28 @@ package com.IONA.TowerDefense.model.units.towers;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 import java.awt.*;
 
 public class TowerFast extends Tower{
-    private static final int BaseAttack = 25;
-    private static final int BaseSpeed = 100;
-    private static final int BaseCost = 50;
-    private static final float range = 100;
-    private static final int BaseProjectileSpeed = 0;
-
-    private static final long BaseFireRate = 1000;
-
 
     public TowerFast() {
-        super(BaseSpeed, BaseCost, range, BaseFireRate);
-        setDamage(damage);
-        this.projectileSpeed = BaseSpeed;
-        this.cost = BaseCost;
-        this.level = 1;
+        dimension = new Vector2(1f, 1f);
+        damage = 50;
+        projectileSpeed = 8;
+        cost = 50;
+        fireRate = 0.1f;
+        range = 2;
+        cooldown = 0f;
+        attackType = "HomingProjectile";
+        targetingStrategy = new TargetLeadingEnemyStrategy();
+
+        texture = new Texture("Tower_temp_04.png");
+        rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
 
     @Override

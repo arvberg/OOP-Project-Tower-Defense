@@ -3,8 +3,7 @@ package com.IONA.TowerDefense.controller;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenuItem;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenuToggleButton;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 
@@ -13,8 +12,11 @@ import java.util.List;
 public class InputHandler {
 
     private final PlayButton playButton;
-    private final TowerMenuToggleButton towermenutogglebutton;
+    private final TowerMenuToggleButton towerMenuToggleButton;
+    private final UpgradeMenuToggleButton upgradeMenuToggleButton;
+    private final SideMenuToggleButton sideMenuToggleButton;
     private final List<TowerMenuItem> towerMenuItems;
+    private final List<UpgradeMenuItem> upgradeMenuItems;
     private final List<Tower> towers;
 
     private GameModel model;
@@ -22,8 +24,11 @@ public class InputHandler {
     public InputHandler (GameModel model) {
 
         this.playButton = model.getPlayButton();
-        this.towermenutogglebutton = model.getTowerMenuToggleButton();
+        this.towerMenuToggleButton = model.getTowerMenuToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
+        this.upgradeMenuToggleButton = model.getUpgradeMenuToggleButton();
+        this.upgradeMenuItems = model.getUpgradeMenuItems();
+        this.sideMenuToggleButton = model.getSideMenuToggleButton();
         this.model = model;
         this.towers = model.getTowers();
     }
@@ -31,10 +36,16 @@ public class InputHandler {
 
     public void checkInput(Vector2 pos){
         // Först UI-kontroller
-        towermenutogglebutton.isClicked(pos);
+        towerMenuToggleButton.isClicked(pos);
+        upgradeMenuToggleButton.isClicked(pos);
+        sideMenuToggleButton.isClicked(pos);
+
         playButton.isClicked(pos);
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
+        }
+        for (UpgradeMenuItem u : upgradeMenuItems){
+            u.isClicked(pos);
         }
 
         // Om spelaren har ett torn redo att placera

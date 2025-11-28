@@ -3,20 +3,19 @@ package com.IONA.TowerDefense.view;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenu;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
-import com.IONA.TowerDefense.view.ui.HealthBarDrawer;
-import com.IONA.TowerDefense.view.ui.ResourceDrawer;
+import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
-import com.IONA.TowerDefense.view.ui.ButtonGroupOneDrawer;
-import com.IONA.TowerDefense.view.ui.TowerMenuDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -65,10 +64,14 @@ public class Draw {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         PathDrawer.drawPath(shapeRenderer);
         shapeRenderer.end();
+
         batch.begin();
 
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
+
+        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
+        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
 
         List<Button> buttons = model.getButtons();
         ButtonGroupOneDrawer.drawButtons(buttons,batch);
@@ -86,7 +89,13 @@ public class Draw {
         TowerDrawer.drawTowers(towers, batch);
 
         if (model.isBuyingState() && model.getPendingTower() != null) {
-            TowerDrawer.drawTower(model.getPendingTower(), batch);
+            TowerDrawer.drawPendingTower(model.getPendingTower(), batch);
+            TowerDrawer.drawRange(model.getPendingTower(), batch);
+            if (model.overlaps(model.getPendingTower())) {
+                batch.setColor(Color.RED);
+                TowerDrawer.drawRange(model.getPendingTower(), batch);
+                batch.setColor(Color.WHITE);
+            }
         }
 
         if (model.isTowerSelected()) {

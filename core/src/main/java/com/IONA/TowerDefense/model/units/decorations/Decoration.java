@@ -38,6 +38,10 @@ public class Decoration extends Unit {
         return hitBox;
     }
 
+    public Texture getTexture() {
+        return texture;
+    }
+
     public void setHitBox(float width, float height) {
 
 
