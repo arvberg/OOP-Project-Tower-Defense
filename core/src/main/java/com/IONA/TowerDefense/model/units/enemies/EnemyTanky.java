@@ -16,6 +16,6 @@ public class EnemyTanky extends Enemy{
         this.hitBox = new Rectangle();
         hitBox.setPosition(width/2, height/2);
 
-        this.healthBar = new HealthBar(hp, new Vector2(position), 1f, 0.15f);
+        this.healthBar = createHealthBar(hp, new Vector2(position), 1f, 0.15f);
     }
 }

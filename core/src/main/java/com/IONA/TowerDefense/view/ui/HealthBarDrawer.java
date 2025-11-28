@@ -25,7 +25,6 @@ public class HealthBarDrawer {
                 shape.rect(x, y, hb.width, hb.height);
 
                 shape.setColor(Color.RED);
-                System.out.println(hb.width * percent);
                 shape.rect(x, y, hb.width * percent, hb.height);
             }
         }

@@ -15,6 +15,6 @@ public class EnemyFast extends Enemy{
         damage = 2;
         setHitBox(0.5f,0.5f);
 
-        this.healthBar = new HealthBar(hp, new Vector2(position), 1f, 0.15f);
+        this.healthBar = createHealthBar(hp, new Vector2(position), 1f, 0.15f);
     }
 }

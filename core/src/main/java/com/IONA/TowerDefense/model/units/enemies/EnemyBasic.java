@@ -21,7 +21,7 @@ public class EnemyBasic extends Enemy{
         setHitBox(width,height);
 
 
-        this.healthBar = new HealthBar(hp, new Vector2(position), 1f, 0.15f);
+        this.healthBar = createHealthBar(hp, new Vector2(position), 1f, 0.15f);
     }
 
 }

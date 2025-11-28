@@ -114,6 +114,10 @@
             return maxHp;
         }
 
+        public HealthBar createHealthBar(int hp, Vector2 position, float width, float height){
+            return new HealthBar(hp, position, width, height);
+        }
+
         public HealthBar getHealthBar() {
             return healthBar;
         }
