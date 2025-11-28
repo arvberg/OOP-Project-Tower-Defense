@@ -15,6 +15,7 @@ import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -63,6 +64,7 @@ public class Draw {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         PathDrawer.drawPath(shapeRenderer);
         shapeRenderer.end();
+
         batch.begin();
 
         TowerMenu towerMenu = model.getTowerMenu();
@@ -87,7 +89,13 @@ public class Draw {
         TowerDrawer.drawTowers(towers, batch);
 
         if (model.isBuyingState() && model.getPendingTower() != null) {
-            TowerDrawer.drawTower(model.getPendingTower(), batch);
+            TowerDrawer.drawPendingTower(model.getPendingTower(), batch);
+            TowerDrawer.drawRange(model.getPendingTower(), batch);
+            if (model.overlaps(model.getPendingTower())) {
+                batch.setColor(Color.RED);
+                TowerDrawer.drawRange(model.getPendingTower(), batch);
+                batch.setColor(Color.WHITE);
+            }
         }
 
         if (model.isTowerSelected()) {

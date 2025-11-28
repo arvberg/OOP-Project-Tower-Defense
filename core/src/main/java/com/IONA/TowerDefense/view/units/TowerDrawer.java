@@ -12,40 +12,42 @@ import java.util.List;
 
 public class TowerDrawer {
 
-    public static void drawTowers(List<Tower> towers, SpriteBatch batch) {
-        for (Tower tower : towers) {
+    public static void drawTowers(List<Tower> towers, SpriteBatch batch){
+        for (Tower tower : towers){
             Vector2 p = tower.getPosition();
             Texture texture = tower.getTexture();
 
-            float size = 1f; // sätt denna variabel i varje torn?? hämta med getSize() ex.
+            float dimensionX = tower.getDimension().x;
+            float dimensionY = tower.getDimension().y;
 
-            batch.draw(texture, p.x - size / 2f, p.y - size / 2f, size, size);
+            batch.draw(texture, p.x - dimensionX/2f, p.y - dimensionY/2f, dimensionX, dimensionY);
         }
     }
 
-    public static void drawTower(Tower tower, SpriteBatch batch) {
+    public static void drawPendingTower(Tower tower, SpriteBatch batch) {
         Vector2 p = tower.getPosition();
         Texture texture = tower.getTexture();
 
-        float size = 1f;
+        float dimensionX = tower.getDimension().x;
+        float dimensionY = tower.getDimension().y;
 
-        batch.draw(texture, p.x - size / 2f, p.y - size / 2f, size, size);
+        batch.draw(texture, p.x - dimensionX/2f, p.y - dimensionY/ 2f , dimensionX, dimensionY);
     }
 
     public static void drawRange(Tower tower, SpriteBatch batch) {
-        Vector2 p = tower.getPosition();
+            Vector2 p = tower.getPosition();
 
-        TextureRegion texture = tower.getRangeTexture();
+            TextureRegion texture = tower.getRangeTexture();
 
-        float w = texture.getRegionWidth();
-        float h = texture.getRegionHeight();
+            float w = texture.getRegionWidth();
+            float h = texture.getRegionHeight();
 
-        float worldRadius = tower.getRange();  // i world units
-        float textureRadius = w / 2f;          // i pixelvärldens world units
-        float scale = worldRadius / textureRadius;
+            float worldRadius = tower.getRange();  // i world units
+            float textureRadius = w / 2f;          // i pixelvärldens world units
+            float scale = worldRadius / textureRadius;
 
-        batch.draw(texture, p.x - w / 2f, p.y - h / 2f, w / 2f, h / 2f,
-            w, h, scale, scale, 0);
+            batch.draw(texture, p.x -  w/2f, p.y - h/2f, w/2f, h / 2f,
+                w, h, scale, scale, 0);
     }
 
 }
