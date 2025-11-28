@@ -102,7 +102,6 @@ public abstract class Tower extends Unit {
         this.fireRate = fireRate;
     }
 
-
     public void setCooldown(float cooldown) {
         this.cooldown = cooldown;
     }

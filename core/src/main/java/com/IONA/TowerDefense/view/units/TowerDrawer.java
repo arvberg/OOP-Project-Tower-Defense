@@ -17,9 +17,10 @@ public class TowerDrawer {
             Vector2 p = tower.getPosition();
             Texture texture = tower.getTexture();
 
-            float size = 1f; // sätt denna variabel i varje torn?? hämta med getSize() ex.
+            float dimensionX = tower.getDimension().x;
+            float dimensionY = tower.getDimension().y;
 
-            batch.draw(texture, p.x - size/2f, p.y - size/2f, size, size);
+            batch.draw(texture, p.x - dimensionX/2f, p.y - dimensionY/2f, dimensionX, dimensionY);
         }
     }
 
@@ -27,9 +28,10 @@ public class TowerDrawer {
         Vector2 p = tower.getPosition();
         Texture texture = tower.getTexture();
 
-        float size = 1f;
+        float dimensionX = tower.getDimension().x;
+        float dimensionY = tower.getDimension().y;
 
-        batch.draw(texture, p.x - size/2f, p.y - size/ 2f , size, size);
+        batch.draw(texture, p.x - dimensionX/2f, p.y - dimensionY/ 2f , dimensionX, dimensionY);
     }
 
     public static void drawRange(Tower tower, SpriteBatch batch) {

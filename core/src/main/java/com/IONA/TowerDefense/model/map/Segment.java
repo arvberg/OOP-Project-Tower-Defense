@@ -9,11 +9,13 @@ public class Segment {
     private final Vector2 start;
     private final int length;
     private final Direction direction;
+    private final float width;
 
     public Segment(Vector2 start, int length, Direction direction) {
         this.start = start;
         this.length = length;
         this.direction = direction;
+        this.width = 0.6f;
         Texture texture = new Texture("Path_temp_brush_01.png");
     }
 
@@ -23,6 +25,10 @@ public class Segment {
 
     public Direction getDirection() {
         return direction;
+    }
+
+    public float getWidth() {
+        return width;
     }
 
     public Vector2 getEnd() {

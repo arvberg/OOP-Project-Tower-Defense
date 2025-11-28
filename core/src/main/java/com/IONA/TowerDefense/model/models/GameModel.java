@@ -16,6 +16,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -55,6 +56,8 @@ public class GameModel {
 
     private final TowerMenu towerMenu;
 
+    private final Decoration core;
+
     public GameModel () {
 
         this.towerMenu = new TowerMenu(13,0,this);
@@ -72,6 +75,7 @@ public class GameModel {
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
         this.attackHandler = new AttackHandler(this);
+        this.core = new Core();
 
 
         this.buttons = new ArrayList<>();
@@ -96,17 +100,16 @@ public class GameModel {
             3f,
             1f));
 
-        placeCore();
+        placeCore(core);
     }
 
-    public void placeCore(){
-        Decoration core = new Core();
+    public void placeCore(Decoration core){
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x - core.getWidth()/2f,
-            end.y - core.getHeight()/2f)
+            end.x,
+            end.y)
         );
 
         decorations.add(core);
@@ -257,8 +260,7 @@ public class GameModel {
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
-
-        if (pendingTower != null) {
+        if (pendingTower != null && !overlapsWithPath(pendingTower)) {
             pendingTower.setPosition(selectedPoint);
             gold -= pendingTower.getCost();
             updateGoldResource();
@@ -272,6 +274,47 @@ public class GameModel {
             buyingState = false;
             System.out.println("tower placed");
         }
+    }
+
+    public boolean overlapsWithPath (Tower tower) {
+        Vector2 towerPos = tower.getPosition();
+
+        float halfX = tower.getDimension().x / 1.5f;
+        float halfY = tower.getDimension().y / 1.5f;
+
+        float radius = Math.max(halfX, halfY);
+
+        for (Segment segment : path.getSegments()) {
+            float distance = Intersector.distanceSegmentPoint(
+                segment.getStartPosition(),
+                segment.getEnd(),
+                towerPos
+            );
+            if (distance < radius) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean overlapsWithCore (Tower tower) {
+
+        Rectangle towerRect = new Rectangle(
+            tower.getPosition().x - tower.getDimension().x /2f,
+            tower.getPosition().y - tower.getDimension().y / 2f,
+            tower.getDimension().x,
+            tower.getDimension().y
+        );
+
+        Rectangle coreRect = new Rectangle(
+            core.getPosition().x - core.width /2f,
+            core.getPosition().y - core.height/2f,
+            core.width,
+            core.height
+        );
+
+        return Intersector.overlaps(towerRect, coreRect);
+
     }
 
     // Buy a tower
