@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public class TowerBasic extends Tower {
     private static final int BaseSpeed = 8;
     private static final int BaseCost = 50;
     private static final float BaseFireRate = 0.1F;
-    private static final int range = 1;
+    private static final float range = 2;
     private float cooldown = 0f;
 
     public Texture texture = new Texture("Tower_temp_04.png");
+    public TextureRegion rangeTexture = new TextureRegion(new Texture("Range_01.png"));
 
     public TowerBasic() {
         super(BaseSpeed, BaseCost, range, BaseFireRate);
@@ -28,7 +30,6 @@ public class TowerBasic extends Tower {
         this.projectileSpeed = BaseSpeed;
         this.cost = BaseCost;
         this.level = 1;
-        this.rangeRadius = 100;
         this.cooldown = BaseFireRate;
         this.setTargetingStrategy(new TargetLeadingEnemyStrategy());
         setAttackType("HomingProjectile");

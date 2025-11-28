@@ -9,7 +9,7 @@ public class TowerFast extends Tower{
     private static final int BaseAttack = 25;
     private static final int BaseSpeed = 100;
     private static final int BaseCost = 50;
-    private static final int range = 100;
+    private static final float range = 100;
     private static final int BaseProjectileSpeed = 0;
 
     private static final long BaseFireRate = 1000;
@@ -21,7 +21,6 @@ public class TowerFast extends Tower{
         this.projectileSpeed = BaseSpeed;
         this.cost = BaseCost;
         this.level = 1;
-        this.rangeRadius = 100;
     }
 
     @Override

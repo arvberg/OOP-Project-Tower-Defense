@@ -5,17 +5,12 @@ import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
-import com.IONA.TowerDefense.model.ui.playerui.Resource;
-import com.IONA.TowerDefense.model.ui.playerui.ResourceHP;
-import com.IONA.TowerDefense.model.ui.playerui.ResourceMoney;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenu;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenuItem;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenuToggleButton;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.IONA.TowerDefense.model.ui.buttonui.PauseButton;
-import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
+import com.IONA.TowerDefense.model.ui.Button;
+import com.IONA.TowerDefense.model.ui.PauseButton;
+import com.IONA.TowerDefense.model.ui.PlayButton;
+import com.IONA.TowerDefense.model.ui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -27,6 +22,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 // Main model class to for communication with controller
 public class GameModel {
@@ -60,9 +56,9 @@ public class GameModel {
 
     private final TowerMenu towerMenu;
 
-    public GameModel() {
+    public GameModel () {
 
-        this.towerMenu = new TowerMenu(13, 0, this);
+        this.towerMenu = new TowerMenu(13,0,this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -82,14 +78,11 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.pausebutton = new PauseButton(10, 0);
-        this.towermenutogglebutton = new TowerMenuToggleButton(0, 8, towerMenu);
+        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu);
 
         addButtons(towermenutogglebutton);
         addButtons(playbutton);
         towerMenu.createGridItems(buttons);
-        //buttons.add(towermenutogglebutton);
-        //buttons.add(playbutton);
-
 
         resources.add(new ResourceHP(
             lives,
@@ -107,14 +100,14 @@ public class GameModel {
         placeCore();
     }
 
-    public void placeCore() {
+    public void placeCore(){
         Decoration core = new Core();
-        Segment last = path.getSegment(path.segmentCount() - 2);
+        Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x - core.getWidth() / 2f,
-            end.y - core.getHeight() / 2f)
+            end.x - core.getWidth()/2f,
+            end.y - core.getHeight()/2f)
         );
 
         decorations.add(core);
@@ -128,25 +121,25 @@ public class GameModel {
         this.lives = lives + hpChange;
     }
 
-    public void updateHpResource() {
-        for (Resource r : resources) {
-            if (r instanceof ResourceHP) {
+    public void updateHpResource(){
+        for (Resource r : resources){
+            if (r instanceof ResourceHP){
                 r.setCurrentResource(lives);
                 r.textBar = String.valueOf(lives);
             }
         }
     }
 
-    public void updateGoldResource() {
-        for (Resource r : resources) {
-            if (r instanceof ResourceMoney) {
+    public void updateGoldResource(){
+        for (Resource r : resources){
+            if (r instanceof ResourceMoney){
                 r.setCurrentResource(gold);
                 r.textBar = String.valueOf(gold);
             }
         }
     }
 
-    public void coreDamaged() {
+    public void coreDamaged(){
         if (decorations.isEmpty()) return;
         Rectangle coreHitbox = decorations.get(0).getHitBox();
 
@@ -179,22 +172,18 @@ public class GameModel {
 
 
                 if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
-                    int nextIdx = segmentIdx + 1;
-                    Segment nextSegment = path.getSegment(nextIdx);
+                        int nextIdx = segmentIdx + 1;
+                        Segment nextSegment = path.getSegment(nextIdx);
 
-                    enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
+                        enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
                 }
             }
         }
     }
 
-    public TowerMenu getTowerMenu() {
-        return this.towerMenu;
-    }
+    public TowerMenu getTowerMenu(){return this.towerMenu; }
 
-    public Path getPath() {
-        return this.path;
-    }
+    public Path getPath(){return this.path;}
     // Add and remove from list
 
     public void addTower(Tower tower) {
@@ -210,11 +199,9 @@ public class GameModel {
         enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
 
         enemies.add(enemy);
-    }
+        }
 
-    public void removeEnemy(Enemy enemy) {
-        enemies.remove(enemy);
-    }
+    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 
 
     // Getters for all lists
@@ -222,21 +209,15 @@ public class GameModel {
         return towers;
     }
 
-    public List<Enemy> getEnemies() {
-        return enemies;
-    }
+    public List<Enemy> getEnemies() { return enemies; }
 
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
 
-    public List<Decoration> getDecor() {
-        return decorations;
-    }
+    public List<Decoration> getDecor(){return decorations;}
 
-    public List<Resource> getResources() {
-        return resources;
-    }
+    public List<Resource> getResources(){return resources;}
 
     public int getDifficulty() {
         return difficulty;
@@ -269,14 +250,14 @@ public class GameModel {
     }
 
     // Deslecting a tower, used in select when outside of radius
-    public void deselectTower() {
+    public void deselectTower () {
         selectedTower = null;
         towerSelected = false;
         System.out.println("Tower deselected");
     }
 
     // Placing a tower
-    public void placeTower(Vector2 selectedPoint) {
+    public void placeTower (Vector2 selectedPoint) {
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
             gold -= pendingTower.getCost();
@@ -294,18 +275,19 @@ public class GameModel {
     }
 
     // Buy a tower
-    public void buyTower(String tower) {
+    public void buyTower (String tower) {
         Tower newTower = towerFactory.createTower(tower);
 
         if (gold >= newTower.getCost()) {
             buyingState = true;
             pendingTower = newTower;
-        } else {
+        }
+        else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
         }
     }
 
-    public void sellTower(Tower tower) {
+    public void sellTower (Tower tower) {
         if (selectedTower != null) {
             gold += tower.getCost();
             updateGoldResource();
@@ -313,13 +295,11 @@ public class GameModel {
         }
     }
 
-    public Texture getBackground() {
+    public Texture getBackground(){
         return background.BackgroundTexture;
     }
 
-    public List<Button> getButtons() {
-        return buttons;
-    }
+    public List<Button> getButtons() { return buttons;}
 
     public void addButtons(Button button) {
         buttons.add(button);
@@ -329,7 +309,7 @@ public class GameModel {
         buttons.remove(button);
     }
 
-    public PlayButton getPlayButton() {
+    public PlayButton getPlayButton(){
         return playbutton;
     }
 
@@ -337,9 +317,7 @@ public class GameModel {
         return attackHandler;
     }
 
-    public TowerMenuToggleButton getTowerMenuToggleButton() {
-        return towermenutogglebutton;
-    }
+    public TowerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
 
     public List<TowerMenuItem> getTowerMenuItems() {
         return towerMenu.items;
@@ -360,7 +338,6 @@ public class GameModel {
     public Tower getSelectedTower() {
         return selectedTower;
     }
-
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (pendingTower != null && buyingState) {
