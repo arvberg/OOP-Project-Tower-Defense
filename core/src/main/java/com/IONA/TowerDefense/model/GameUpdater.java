@@ -24,7 +24,11 @@ public class GameUpdater  {
         model.coreDamaged();
         attackHandler.update();
         model.getTowerMenu().update(HeartBeat.delta);
+        model.getUpgradeMenu().update(HeartBeat.delta);
+        model.getSideMenu().update(HeartBeat.delta);
         model.getTowerMenuToggleButton().updatePosition();
+        model.getUpgradeMenuToggleButton().updatePosition();
+        model.getSideMenuToggleButton().updatePosition();
 
         //model.getPendingTower().updatePosition();
     }

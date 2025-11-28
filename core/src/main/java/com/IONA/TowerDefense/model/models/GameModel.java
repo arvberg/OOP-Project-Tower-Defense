@@ -5,11 +5,11 @@ import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
-import com.IONA.TowerDefense.model.ui.towerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -25,6 +25,7 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
+
     public boolean paused = false;
 
     private final List<Tower> towers;
@@ -39,6 +40,8 @@ public class GameModel {
     private final PlayButton playbutton;
     private final PauseButton pausebutton;
     private final TowerMenuToggleButton towermenutogglebutton;
+    private final UpgradeMenuToggleButton upgrademenutogglebutton;
+    private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private int gold; // Players gold
     private int lives; // Players health
@@ -53,11 +56,16 @@ public class GameModel {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
+    private final UpgradeMenu upgradeMenu;
     private final TowerMenu towerMenu;
+    private final SideMenu sideMenu;
+    private final StateChanger schanger;
 
     public GameModel () {
 
         this.towerMenu = new TowerMenu(13,0,this);
+        this.upgradeMenu = new UpgradeMenu(16,0,this);
+        this.sideMenu = new SideMenu(13,0);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -77,11 +85,20 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.pausebutton = new PauseButton(10, 0);
-        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu);
+        this.schanger = new StateChanger();
+        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
+        this.upgrademenutogglebutton = new UpgradeMenuToggleButton(0,3,upgradeMenu,sideMenu, schanger);
+        schanger.setButtons(upgrademenutogglebutton,towermenutogglebutton);
+        this.sidemenutogglebutton = new SideMenuToggleButton(0, 5,towerMenu,upgradeMenu,sideMenu,schanger);
+
 
         addButtons(towermenutogglebutton);
+        addButtons(upgrademenutogglebutton);
+        addButtons(sidemenutogglebutton);
         addButtons(playbutton);
         towerMenu.createGridItems(buttons);
+        upgradeMenu.createGridItems(buttons);
+
 
         resources.add(new ResourceHP(
             lives,
@@ -342,5 +359,25 @@ public class GameModel {
         if (pendingTower != null && buyingState) {
             pendingTower.setPosition(mousePos);
         }
+    }
+
+    public UpgradeMenu getUpgradeMenu() {
+        return this.upgradeMenu;
+    }
+
+    public UpgradeMenuToggleButton getUpgradeMenuToggleButton() {
+        return this.upgrademenutogglebutton;
+    }
+
+    public List<UpgradeMenuItem> getUpgradeMenuItems() {
+        return this.upgradeMenu.items;
+    }
+
+    public SideMenuToggleButton getSideMenuToggleButton() {
+        return this.sidemenutogglebutton;
+    }
+
+    public SideMenu getSideMenu() {
+        return this.sideMenu;
     }
 }

@@ -3,17 +3,15 @@ package com.IONA.TowerDefense.view;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.towerui.TowerMenu;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
-import com.IONA.TowerDefense.view.ui.HealthBarDrawer;
-import com.IONA.TowerDefense.view.ui.ResourceDrawer;
+import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
-import com.IONA.TowerDefense.view.ui.ButtonGroupOneDrawer;
-import com.IONA.TowerDefense.view.ui.TowerMenuDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
@@ -69,6 +67,9 @@ public class Draw {
 
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
+
+        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
+        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
 
         List<Button> buttons = model.getButtons();
         ButtonGroupOneDrawer.drawButtons(buttons,batch);
