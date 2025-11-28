@@ -257,6 +257,7 @@ public class GameModel {
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
+
         if (pendingTower != null) {
             pendingTower.setPosition(selectedPoint);
             gold -= pendingTower.getCost();

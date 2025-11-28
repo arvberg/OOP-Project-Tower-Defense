@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
@@ -10,32 +11,25 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
+import java.util.Vector;
 
 public abstract class Tower extends Unit {
-    protected  int damage;
+    protected int damage;
     protected float projectileSpeed;
     protected float fireRate;
     protected int cost;
-    protected int level;
     protected float range;
     protected int direction;
+    protected float cooldown;
+
+    protected Vector2 dimension;
 
     protected String attackType;
     protected TargetingStrategy targetingStrategy;
 
     public Texture texture;
     public TextureRegion rangeTexture;
-    private Vector2 dimension;
 
-    public Tower(float projectileSpeed, int cost, float range, float fireRate) {
-        this.projectileSpeed = projectileSpeed;
-        this.cost = cost;
-        this.range = range;
-        this.fireRate = fireRate;
-        this.texture = new Texture("Tower_temp_04.png");    //PLACEHOLDER
-        this.rangeTexture = new TextureRegion(new Texture("Range_01.png"));
-        level = 1;
-    }
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
         this.targetingStrategy = targetingStrategy;
     }
@@ -52,10 +46,15 @@ public abstract class Tower extends Unit {
         return texture;
     }
 
-    public void update() {
+    public void setDimension(Vector2 dimension) {
+        this.dimension = dimension;
     }
 
-    public void setrange(float range) {
+    public Vector2 getDimension() {
+        return dimension;
+    }
+
+    public void setRange(float range) {
         this.range = range;
     }
 
@@ -64,6 +63,10 @@ public abstract class Tower extends Unit {
     }
 
     public abstract void attack(Targetable target, long currentTimeMillis);
+
+    public void setCost(int cost){
+        this.cost = cost;
+    }
 
     public int getCost(){
         return cost;
@@ -87,15 +90,25 @@ public abstract class Tower extends Unit {
         this.damage = damage;
     }
 
+    public void setProjectileSpeed(float projectileSpeed) {
+        this.projectileSpeed = projectileSpeed;
+    }
+
     public float getProjectileSpeed() {
         return projectileSpeed;
     }
 
-    public boolean canShoot() {
-        return false;
+    public void setFireRate(float fireRate) {
+        this.fireRate = fireRate;
     }
 
-    public void resetCooldown() {
+
+    public void setCooldown(float cooldown) {
+        this.cooldown = cooldown;
+    }
+
+    public float getCooldown() {
+        return cooldown;
     }
 
     public String getAttackType() {
@@ -105,10 +118,17 @@ public abstract class Tower extends Unit {
     public void setAttackType(String attackType) {
         this.attackType = attackType;
     }
-/*
-    public boolean isClicked() {
+
+    public boolean canShoot() {
+        return cooldown <= 0f;
     }
 
- */
+    public void resetCooldown() {
+        cooldown = fireRate;
+    }
+
+    public void update(){
+        cooldown -= HeartBeat.delta;
+    }
 }
 

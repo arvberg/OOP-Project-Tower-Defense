@@ -87,6 +87,7 @@ public class Draw {
 
         if (model.isBuyingState() && model.getPendingTower() != null) {
             TowerDrawer.drawTower(model.getPendingTower(), batch);
+            TowerDrawer.drawRange(model.getPendingTower(), batch);
         }
 
         if (model.isTowerSelected()) {

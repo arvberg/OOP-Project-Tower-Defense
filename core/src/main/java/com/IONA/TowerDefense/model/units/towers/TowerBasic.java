@@ -11,48 +11,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
+import java.util.Vector;
 
 public class TowerBasic extends Tower {
-    private static final int BaseDamage = 50;
-    private static final int BaseSpeed = 8;
-    private static final int BaseCost = 50;
-    private static final float BaseFireRate = 0.1F;
-    private static final float range = 2;
-    private float cooldown = 0f;
-
-    public Texture texture = new Texture("Tower_temp_04.png");
-    public TextureRegion rangeTexture = new TextureRegion(new Texture("Range_01.png"));
 
     public TowerBasic() {
-        super(BaseSpeed, BaseCost, range, BaseFireRate);
+        dimension = new Vector2(1f, 1f);
+        damage = 50;
+        projectileSpeed = 8;
+        cost = 50;
+        fireRate = 0.1f;
+        range = 2;
+        cooldown = 0f;
+        attackType = "HomingProjectile";
+        targetingStrategy = new TargetLeadingEnemyStrategy();
 
-        setDamage(BaseDamage);
-        this.projectileSpeed = BaseSpeed;
-        this.cost = BaseCost;
-        this.level = 1;
-        this.cooldown = BaseFireRate;
-        this.setTargetingStrategy(new TargetLeadingEnemyStrategy());
-        setAttackType("HomingProjectile");
-    }
-
-    @Override
-    public List<Enemy> getTargets(List<Enemy> enemies) {
-        return targetingStrategy.pick(enemies, this);
-    }
-
-    @Override
-    public boolean canShoot() {
-        return cooldown <= 0f;
-    }
-
-    @Override
-    public void resetCooldown() {
-        cooldown = fireRate;
-    }
-
-    @Override
-    public void update(){
-        cooldown -= HeartBeat.delta;
+        texture = new Texture("Tower_temp_04.png");
+        rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
 
     @Override

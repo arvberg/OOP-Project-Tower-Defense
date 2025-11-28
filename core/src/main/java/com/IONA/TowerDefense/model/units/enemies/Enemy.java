@@ -25,15 +25,18 @@
         protected float height;
         protected int segmentIndex = 0;
         protected int damage;
+        protected int difficulty;
         public Texture texture;
 
         public Enemy(int difficulty){
-            this.texture = new Texture("Enemy_temp_02.png");
+            this.difficulty = difficulty;
         }
 
         public Rectangle getHitBox() {
             return hitBox;
         }
+
+
 
         public void move() {
 
@@ -67,7 +70,6 @@
         }
 
         public void setHitBox(float width, float height) {
-
 
             float newX = (position.x - width/2);
             float newY = (position.y - height/2);
