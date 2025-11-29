@@ -14,13 +14,22 @@ public class TowerDrawer {
 
     public static void drawTowers(List<Tower> towers, SpriteBatch batch){
         for (Tower tower : towers){
+            float angleDeg = (float)Math.toDegrees(0);
             Vector2 p = tower.getPosition();
             Texture texture = tower.getTexture();
+            TextureRegion region = new TextureRegion(texture);
+
+            if(tower.isAiming()) {
+                float dx = tower.getCurrentTarget().getX() - tower.getX();
+                float dy = tower.getCurrentTarget().getY() - tower.getY();
+                float angleRad = (float)Math.atan2(dy,dx);
+                angleDeg = (float)Math.toDegrees(angleRad);
+            }
 
             float dimensionX = tower.getDimension().x;
             float dimensionY = tower.getDimension().y;
 
-            batch.draw(texture, p.x - dimensionX/2f, p.y - dimensionY/2f, dimensionX, dimensionY);
+            batch.draw(region, p.x - dimensionX/2f, p.y - dimensionY/2f,dimensionX/2, dimensionY/2, dimensionX, dimensionY, 1f, 1f, angleDeg);
         }
     }
 

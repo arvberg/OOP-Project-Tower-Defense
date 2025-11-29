@@ -44,9 +44,14 @@ public class AttackHandler {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
                 List<Enemy> targets = tower.getTargets(enemiesInRadius);
 
+
                 if (!targets.isEmpty()) {
+                    tower.setCurrentTarget(targets.get(0));
                     towerAttack(tower, targets);
                     tower.resetCooldown();
+                }
+                else{
+                    tower.setCurrentTarget(null);
                 }
             }
         }

@@ -21,6 +21,7 @@ public abstract class Tower extends Unit {
     protected float range;
     protected int direction;
     protected float cooldown;
+    protected Enemy currentTarget;
 
     protected Vector2 dimension;
 
@@ -29,6 +30,16 @@ public abstract class Tower extends Unit {
 
     public Texture texture;
     public TextureRegion rangeTexture;
+
+    public boolean isAiming() {
+        return this.currentTarget != null;
+    }
+
+    public void setCurrentTarget(Enemy enemy){this.currentTarget = enemy;}
+
+    public Enemy getCurrentTarget(){
+            return this.currentTarget;
+    }
 
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
         this.targetingStrategy = targetingStrategy;
@@ -129,5 +140,7 @@ public abstract class Tower extends Unit {
     public void update(){
         cooldown -= HeartBeat.delta;
     }
+
+
 }
 
