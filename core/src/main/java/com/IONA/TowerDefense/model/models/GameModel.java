@@ -197,6 +197,10 @@ public class GameModel {
         return money;
     }
 
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
     public ResourceHandler getResourceHandler(){
         return resourceHandler;
     }
@@ -218,8 +222,12 @@ public class GameModel {
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
         towerHandler.placeTower(selectedPoint);
-            money -= pendingTower.getCost();
+        Tower tower = getSelectedTower();
+        // tornet som just placerades
+        if (tower != null) {
+            resourceHandler.spendMoney(tower.getCost());
             resourceHandler.updateMoneyResource();
+        }
     }
 
     public boolean overlaps(Tower tower) {

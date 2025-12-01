@@ -22,8 +22,6 @@ public class TowerHandler {
     private final Path path;
     private final List<Decoration> decorations;
 
-    private Tower pendingTower;
-
     private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
 
 
@@ -33,7 +31,6 @@ public class TowerHandler {
         this.factory = model.getTowerFactory();
         this.path = model.getPath();
         this.decorations = model.getDecor();
-        this.pendingTower = model.getPendingTower();
     }
 
     /*public void updateTowerAngle(){
@@ -49,7 +46,6 @@ public class TowerHandler {
                 float angleRad = (float)Math.atan2(dy,dx);
                 angleDeg = (float)Math.toDegrees(angleRad);
             }
-
         }
     }*/
 
@@ -78,16 +74,17 @@ public class TowerHandler {
     }
 
     public void placeTower (Vector2 selectedPoint) {
+        Tower pendingTower = model.getPendingTower();
+
         if (pendingTower != null && !overlaps(pendingTower)) {
             pendingTower.setPosition(selectedPoint);
-            model.getMoney() -= pendingTower.getCost();
             towers.add(pendingTower);
 
             model.setSelectedTower(pendingTower);
             model.setTowerSelected(true);
             System.out.println("Selected tower: " + model.getSelectedTower());
 
-            pendingTower = null;
+            model.setPendingTower(null);
             model.setBuyingState(false);
             System.out.println("tower placed");
         }

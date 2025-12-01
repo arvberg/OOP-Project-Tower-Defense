@@ -63,6 +63,10 @@ public class ResourceHandler {
         this.money += amount;
     }
 
+    public void spendMoney(int amount) {
+        this.money -= amount;
+    }
+
     public int getLives() {
         return lives;
     }
