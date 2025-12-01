@@ -37,7 +37,6 @@
         }
 
 
-
         public void move() {
 
             if (position == null) {

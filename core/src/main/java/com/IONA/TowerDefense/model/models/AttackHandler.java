@@ -33,7 +33,7 @@ public class AttackHandler {
     public void update() {
         updateTowers();
         updateProjectiles();
-        removeDeadEnemies();
+        model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
@@ -130,22 +130,6 @@ public class AttackHandler {
         }
     }
 
-    public void removeDeadEnemies() {
-        if (enemies.isEmpty()) {
-            return;
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).getHp() <= 0) {
-
-                int moneyGained = enemies.get(i).getMoney();
-                model.gainMoney(moneyGained);
-                model.updateMoneyResource();
-
-                enemies.remove(i);
-            }
-        }
-    }
-
     public void removeDeadProjectiles() {
         if (projectiles.isEmpty()) {
             return;
@@ -172,6 +156,10 @@ public class AttackHandler {
 
         return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
     }
-
+/*
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
+    }
+*/
 
 }
