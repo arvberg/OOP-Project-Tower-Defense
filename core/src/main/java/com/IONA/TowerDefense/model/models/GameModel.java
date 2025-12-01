@@ -221,9 +221,10 @@ public class GameModel {
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
+        // placera genom towerHandler
         towerHandler.placeTower(selectedPoint);
         Tower tower = getSelectedTower();
-        // tornet som just placerades
+        // Minska pengar genom resourceHandler
         if (tower != null) {
             resourceHandler.spendMoney(tower.getCost());
             resourceHandler.updateMoneyResource();
@@ -245,20 +246,16 @@ public class GameModel {
         resourceHandler.updateMoneyResource();
     }
 
+    // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
     public void removeDeadEnemies() {
-        if (enemies.isEmpty()) {
-            return;
-        }
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).getHp() <= 0) {
+        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
 
-                int moneyGained = enemies.get(i).getMoney();
-                resourceHandler.gainMoney(moneyGained);
-                resourceHandler.updateMoneyResource();
-
-                enemies.remove(i);
-            }
+        for (Enemy enemy : deadEnemies) {
+            int moneyGained = enemy.getMoney();
+            resourceHandler.gainMoney(moneyGained);
         }
+
+        resourceHandler.updateMoneyResource();
     }
 
     public Texture getBackground(){

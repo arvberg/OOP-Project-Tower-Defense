@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.IONA.TowerDefense.Main.model;
@@ -48,6 +49,19 @@ public class EnemyHandler {
                 }
             }
         }
+    }
+
+    public List<Enemy> removeDeadEnemies() {
+        List<Enemy> dead = new ArrayList<>();
+
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            if (enemies.get(i).getHp() <= 0) {
+                dead.add(enemies.get(i));
+                enemies.remove(i);
+            }
+        }
+
+        return dead;
     }
 
 }

@@ -24,7 +24,6 @@ public class TowerHandler {
 
     private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
 
-
     public TowerHandler (GameModel model) {
         this.model = model;
         this.towers = model.getTowers();
