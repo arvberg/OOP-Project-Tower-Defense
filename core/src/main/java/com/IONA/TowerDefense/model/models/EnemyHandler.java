@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
@@ -43,7 +44,7 @@ public class EnemyHandler {
                 Segment segment = path.getSegment(segmentIdx);
 
                 Direction enemyDirection = segment.getDirection();
-                enemy.move();
+                enemy.move(HeartBeat.delta);
 
                 Vector2 segmentEndPoint = segment.getEnd();
                 Vector2 enemyCoorPoint = new Vector2(enemy.getPosition().x, enemy.getPosition().y);

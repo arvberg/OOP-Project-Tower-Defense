@@ -11,8 +11,6 @@ public abstract class Button {
     private final Vector2 buttonPosition;
     public float width;
     public float height;
-    public float x;
-    public float y;
     protected Rectangle bounds;
     public Texture texture;
 
@@ -43,11 +41,11 @@ public abstract class Button {
     public void toggleButton() {
         buttonLocked = !buttonLocked;
         if (buttonLocked) {
-            model.getPlayButton().setButtonPosition(lockedX, y);
-            model.getSpeedUpButton().setButtonPosition(x, y);
+            model.getPlayButton().setButtonPosition(lockedX, 0);
+            model.getSpeedUpButton().setButtonPosition(0, 0);
         } else {
-            model.getPlayButton().setButtonPosition(x, y);
-            model.getSpeedUpButton().setButtonPosition(lockedX, y);
+            model.getPlayButton().setButtonPosition(0,0);
+            model.getSpeedUpButton().setButtonPosition(lockedX, 0);
         }
     }
 

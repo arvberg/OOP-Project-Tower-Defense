@@ -27,6 +27,7 @@ public class SpeedUpButton extends Button{
 
     @Override
     public void onClick(){
+        System.out.println("Speeding Up!");
         this.fastForward = !this.fastForward;
         if (fastForward){
             this.multiplier = 10;

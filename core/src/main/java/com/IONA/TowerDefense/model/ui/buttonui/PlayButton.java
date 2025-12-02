@@ -13,8 +13,6 @@ public class PlayButton extends Button {
     public PlayButton(float x, float y, GameModel model) {
         super("Playbutton_temp_02.png", x, y, 1, 1);
         this.generator = new WaveGenerator(model.getDifficulty(), model);
-        this.x = x;
-        this.y = y;
         //this.bounds = new Rectangle(x,y,1,1);
     }
 
@@ -29,6 +27,7 @@ public class PlayButton extends Button {
     public void onClick() {
         System.out.println("Start button pressed!");
         generator.SpawnNextWave();
+
         model.getPlayButton().toggleButton();
     }
 }

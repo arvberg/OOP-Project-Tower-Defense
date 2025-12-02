@@ -12,5 +12,5 @@ public interface Movable {
 
     void setPosition(Vector2 position);
 
-    void move();
+    void move(float delta);
 }
