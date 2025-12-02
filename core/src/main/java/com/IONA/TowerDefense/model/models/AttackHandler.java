@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
@@ -155,6 +156,10 @@ public class AttackHandler {
         float deltaY = to.getY() - from.getY();
 
         return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
+    }
+
+    public void removeAllProjectiles() {
+        projectiles.clear();
     }
 
 }

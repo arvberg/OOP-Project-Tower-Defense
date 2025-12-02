@@ -4,6 +4,7 @@ import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
+import com.IONA.TowerDefense.model.ui.buttonui.RestartButton;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +14,7 @@ import java.util.List;
 public class InputHandler {
 
     private final PlayButton playButton;
+    private final RestartButton restartButton;
     private final TowerMenuToggleButton towerMenuToggleButton;
     private final UpgradeMenuToggleButton upgradeMenuToggleButton;
     private final SideMenuToggleButton sideMenuToggleButton;
@@ -25,6 +27,7 @@ public class InputHandler {
     public InputHandler (GameModel model) {
 
         this.playButton = model.getPlayButton();
+        this.restartButton = model.getRestartButton();
         this.towerMenuToggleButton = model.getTowerMenuToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
         this.upgradeMenuToggleButton = model.getUpgradeMenuToggleButton();
@@ -38,6 +41,7 @@ public class InputHandler {
     public void checkInput(Vector2 pos){
 
         if (model.getGameState() == GameState.GAME_OVER) {
+            restartButton.isClicked(pos);
             return;
         }
 
@@ -81,7 +85,7 @@ public class InputHandler {
     }
 
     private boolean clickedOnGameArea(Vector2 pos) {
-        for (Button b : model.getButtons()) {
+        for (Button b : model.getInGameButtons()) {
             if (b.contains(pos.x, pos.y)) {
                 return false;
             }

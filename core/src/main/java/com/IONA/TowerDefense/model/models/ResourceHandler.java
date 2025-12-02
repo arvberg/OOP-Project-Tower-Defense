@@ -79,4 +79,11 @@ public class ResourceHandler {
         return resources;
     }
 
+    public void resetResources() {
+        this.lives = 100;
+        this.money = 100;
+        updateHpResource();
+        updateMoneyResource();
+    }
+
 }

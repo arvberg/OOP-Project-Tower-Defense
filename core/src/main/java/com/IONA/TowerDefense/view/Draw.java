@@ -33,6 +33,7 @@ public class Draw {
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
 
+    // Variables for fading transitions
     private float fadeTimer = 0f;
     private final float fadeDuration = 2f;
 
@@ -78,8 +79,8 @@ public class Draw {
         UpgradeMenu upgradeMenu = model.getUpgradeMenu();
         UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
 
-        List<Button> buttons = model.getButtons();
-        ButtonGroupOneDrawer.drawButtons(buttons,batch);
+        List<Button> inGameButtons = model.getInGameButtons();
+        ButtonDrawer.drawButtons(inGameButtons,batch);
 
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
@@ -111,10 +112,13 @@ public class Draw {
         ProjectileDrawer.drawProjectiles(projectiles,batch);
 
         if (model.getGameState() == GameState.GAME_OVER) {
+            List<Button> gameOverButtons = model.getGameOverButtons();
+
             fadeTimer += Gdx.graphics.getDeltaTime();
             float alpha = Math.min(fadeTimer / fadeDuration, 1f);
             batch.setColor(1f, 1f, 1f, alpha);
             batch.draw(model.getGameOverBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+            ButtonDrawer.drawButtons(gameOverButtons,batch);
             batch.setColor(1f, 1f, 1f, 1f);
         }
 

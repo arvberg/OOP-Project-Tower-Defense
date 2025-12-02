@@ -170,4 +170,18 @@ public class TowerHandler {
         return false;
     }
 
+    public void addTower(Tower tower) {
+        towers.add(tower);
+    }
+
+    public void removeTower(Tower tower) {
+        towers.remove(tower);
+    }
+
+    public void removeAllTowers() {
+        for (int i = towers.size() - 1; i >= 0; i--) {
+            towers.remove(i);
+        }
+    }
+
 }

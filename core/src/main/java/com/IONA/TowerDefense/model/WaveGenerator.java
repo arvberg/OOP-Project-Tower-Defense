@@ -57,7 +57,12 @@ public class WaveGenerator {
     }
 
     public boolean WaveCleared() {
-        return finishedSpawning && !rewardGiven && model.getEnemies().isEmpty();
+        if (model.getGameState() != GameState.RUNNING) {
+            return false;
+        }
+        return finishedSpawning &&
+            !rewardGiven &&
+            model.getEnemies().isEmpty();
     }
 
     public void WaveReward(){
@@ -67,6 +72,13 @@ public class WaveGenerator {
         model.getResourceHandler().updateMoneyResource();
 
         rewardGiven = true;
+    }
+
+    public void resetWaves() {
+        WaveNr = 0;
+        finishedSpawning = false;
+        rewardGiven = false;
+
     }
 }
 

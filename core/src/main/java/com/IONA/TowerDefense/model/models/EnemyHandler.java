@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.Direction;
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
@@ -28,6 +29,12 @@ public class EnemyHandler {
         Segment first = path.getSegment(0);
         enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
         enemies.add(enemy);
+    }
+
+    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
+
+    public void removeAllEnemies() {
+        enemies.clear();
     }
 
     public void moveEnemies() {
@@ -60,6 +67,7 @@ public class EnemyHandler {
     }
 
     public List<Enemy> removeDeadEnemies() {
+
         List<Enemy> dead = new ArrayList<>();
 
         for (int i = enemies.size() - 1; i >= 0; i--) {

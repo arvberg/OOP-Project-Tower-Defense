@@ -31,7 +31,7 @@ public class GameUpdater  {
         model.getUpgradeMenuToggleButton().updatePosition();
         model.getSideMenuToggleButton().updatePosition();
 
-        WaveGenerator wg = model.getPlayButton().generator;
+        WaveGenerator wg = model.getGenerator();
 
         if (wg.WaveCleared()){
             wg.WaveReward();
