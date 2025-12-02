@@ -23,7 +23,15 @@ public class EnemyHandler {
         this.enemies = model.getEnemies();
     }
 
+    public void addEnemy(Enemy enemy) {
+        Path path = model.getPath();
+        Segment first = path.getSegment(0);
+        enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
+        enemies.add(enemy);
+    }
+
     public void moveEnemies() {
+
 
         List<Enemy> enemies = gamemodel.getEnemies();
         Path path = gamemodel.getPath();

@@ -248,6 +248,7 @@ public class GameModel {
 
     // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
     public void removeDeadEnemies() {
+
         List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
 
         for (Enemy enemy : deadEnemies) {
@@ -330,11 +331,7 @@ public class GameModel {
     }
 
     public void addEnemy(Enemy enemy) {
-
-        Segment first = path.getSegment(0);
-        enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
-
-        enemies.add(enemy);
+        enemyHandler.addEnemy(enemy);
     }
 
     public UpgradeMenu getUpgradeMenu() {

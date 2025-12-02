@@ -39,14 +39,11 @@ public class WaveGenerator {
                     if (e.getEnemyType().equals("1")) {
                         Enemy enemy = new EnemyBasic(GameDiff);
                         model.addEnemy(enemy);
-
                     }
 
                 }
 
             }, spawnTime);
-
-
         }
         Timer.schedule(new Timer.Task(){
             @Override

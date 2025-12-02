@@ -156,10 +156,5 @@ public class AttackHandler {
 
         return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
     }
-/*
-    public EnemyHandler getEnemyHandler() {
-        return enemyHandler;
-    }
-*/
 
 }
