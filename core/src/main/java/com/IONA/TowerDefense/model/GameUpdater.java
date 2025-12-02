@@ -17,7 +17,7 @@ public class GameUpdater  {
     }
 
     public void update(){
-        if (model.paused){
+        if (model.getGameState() == GameState.PAUSED){
             return;
         }
         //System.out.println("updating!");

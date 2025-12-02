@@ -31,7 +31,7 @@ public class ResourceHandler {
         ));
 
         resources.add(new ResourceMoney(
-            lives,
+            money,
             new Vector2(5.5f, 1.5f),
             3f,
             1f));
@@ -39,7 +39,7 @@ public class ResourceHandler {
 
     public void updateHpResource(){
         for (Resource r : resources){
-            if (r instanceof ResourceHP){
+            if (r instanceof ResourceHP && lives >= 0){
                 r.setCurrentResource(lives);
                 r.textBar = String.valueOf(lives);
             }
@@ -71,8 +71,8 @@ public class ResourceHandler {
         return lives;
     }
 
-    public void setLives(int hpChange) {
-        this.lives = lives + hpChange;
+    public void setLives(int newLives) {
+        this.lives = newLives;
     }
 
     public List<Resource> getResources(){

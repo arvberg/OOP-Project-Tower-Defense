@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -14,6 +15,7 @@ import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -27,6 +29,8 @@ import java.util.List;
 public class GameModel {
 
     public boolean paused = false;
+
+    private GameState gameState = GameState.RUNNING;
 
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
@@ -47,7 +51,6 @@ public class GameModel {
     private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
-    private int lives; // Players health
     private int score; // Players current score
     private int money;
     private final int difficulty;
@@ -89,11 +92,9 @@ public class GameModel {
         this.resourceHandler = new ResourceHandler(this);
         this.resources = resourceHandler.getResources();
         this.money = resourceHandler.getMoney();
-        this.lives = resourceHandler.getLives();
 
         this.towerHandler = new TowerHandler(this);
         this.core = new Core();
-
 
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
@@ -114,14 +115,14 @@ public class GameModel {
 
 
         resources.add(new ResourceHP(
-            lives,
+            resourceHandler.getLives(),
             new Vector2(1.5f, 1.5f),
             3f,
             1f
         ));
 
         resources.add(new ResourceMoney(
-            lives,
+            resourceHandler.getMoney(),
             new Vector2(5.5f, 1.5f),
             3f,
             1f));
@@ -149,13 +150,26 @@ public class GameModel {
             Enemy e = enemies.get(i);
 
             if (coreHitbox.overlaps(e.getHitBox())) {
-                resourceHandler.setLives(e.getDamageNumber());
+                int currentLives = resourceHandler.getLives();
+                resourceHandler.setLives(currentLives - e.getDamageNumber());
                 resourceHandler.updateHpResource();
                 removeEnemy(e);
-
                 System.out.println("Health: " + resourceHandler.getLives());
+                // Set Game Over state
+                if (resourceHandler.getLives() <= 0) {
+                    setGameState(GameState.GAME_OVER);
+                    System.out.println("Game Over!");
+                }
             }
         }
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(GameState state) {
+        this.gameState = state;
     }
 
     public void updateEnemies() {
@@ -255,7 +269,6 @@ public class GameModel {
             int moneyGained = enemy.getMoney();
             resourceHandler.gainMoney(moneyGained);
         }
-
         resourceHandler.updateMoneyResource();
     }
 

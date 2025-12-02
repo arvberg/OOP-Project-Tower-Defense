@@ -105,7 +105,7 @@
         }
 
         public int getDamageNumber(){
-            return -abs(damage);
+            return damage;
         }
 
         public int getMoney(){
