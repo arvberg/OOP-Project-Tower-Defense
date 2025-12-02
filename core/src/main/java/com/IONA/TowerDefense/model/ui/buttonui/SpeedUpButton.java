@@ -10,7 +10,7 @@ public class SpeedUpButton extends Button{
 
     public SpeedUpButton(float x, float y) {
         super("SpeedButton_temp_01.png", x, y, 1, 1);
-        this.fastForward = false;
+        this.fastForward = true;
         this.multiplier = 1;
     }
 
@@ -30,7 +30,7 @@ public class SpeedUpButton extends Button{
         System.out.println("Speeding Up!");
         this.fastForward = !this.fastForward;
         if (fastForward){
-            this.multiplier = 10;
+            this.multiplier = 2;
         }
         else{
             this.multiplier = 1;

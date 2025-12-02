@@ -4,6 +4,7 @@ import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
+import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +14,7 @@ import java.util.List;
 public class InputHandler {
 
     private final PlayButton playButton;
+    private final SpeedUpButton speedUpButton;
     private final TowerMenuToggleButton towerMenuToggleButton;
     private final UpgradeMenuToggleButton upgradeMenuToggleButton;
     private final SideMenuToggleButton sideMenuToggleButton;
@@ -25,6 +27,7 @@ public class InputHandler {
     public InputHandler (GameModel model) {
 
         this.playButton = model.getPlayButton();
+        this.speedUpButton = model.getSpeedUpButton();
         this.towerMenuToggleButton = model.getTowerMenuToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
         this.upgradeMenuToggleButton = model.getUpgradeMenuToggleButton();
@@ -57,6 +60,8 @@ public class InputHandler {
         for (UpgradeMenuItem u : upgradeMenuItems){
             u.isClicked(pos);
         }
+
+        speedUpButton.isClicked(pos);
 
         // Om spelaren har ett torn redo att placera
         if (model.isBuyingState()) {
