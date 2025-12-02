@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import static com.IONA.TowerDefense.Main.model;
+
 public abstract class Button {
     private final Vector2 buttonPosition;
     public float width;
@@ -14,12 +16,16 @@ public abstract class Button {
     protected Rectangle bounds;
     public Texture texture;
 
+    private boolean buttonLocked = false;
+    private final float lockedX;
+
     public Button(String texturePath, float x, float y, float width, float height){
         this.texture = new Texture(Gdx.files.internal(texturePath));
         this.buttonPosition = new Vector2(x, y);
         this.width = width;
         this.height = height;
         this.bounds = new Rectangle(x, y, width, height);
+        this.lockedX = 500f;
     }
 
 
@@ -32,6 +38,17 @@ public abstract class Button {
     public void setButtonPosition(float x, float y) {
         buttonPosition.set(x, y);
         bounds.setPosition(x, y);
+    }
+
+    public void toggleButton() {
+        buttonLocked = !buttonLocked;
+        if (buttonLocked) {
+            model.getPlayButton().setButtonPosition(lockedX, y);
+            model.getSpeedUpButton().setButtonPosition(x, y);
+        } else {
+            model.getPlayButton().setButtonPosition(x, y);
+            model.getSpeedUpButton().setButtonPosition(lockedX, y);
+        }
     }
 
     public Vector2 getButtonPosition(){

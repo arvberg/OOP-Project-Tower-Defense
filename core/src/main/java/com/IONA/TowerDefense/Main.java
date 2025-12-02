@@ -3,6 +3,7 @@ package com.IONA.TowerDefense;
 import com.IONA.TowerDefense.controller.GameController;
 import com.IONA.TowerDefense.model.GameUpdater;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
 import com.IONA.TowerDefense.view.Draw;
 import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.ApplicationAdapter;
@@ -27,7 +28,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-        HeartBeat.delta = Gdx.graphics.getDeltaTime();
+        HeartBeat.delta = Gdx.graphics.getDeltaTime() * model.getSpeedUpButton().getMultiplier();
         input();    // All input endast
         logic();    // Uppdatera spelvärlden
         draw();     // Måla

@@ -8,26 +8,14 @@ import static com.IONA.TowerDefense.Main.model;
 
 public class PlayButton extends Button {
     public WaveGenerator generator;
-    private boolean buttonLocked = false;
-    private final float lockedX;
 
     //Rectangle bounds;
     public PlayButton(float x, float y, GameModel model) {
         super("Playbutton_temp_02.png", x, y, 1, 1);
         this.generator = new WaveGenerator(model.getDifficulty(), model);
-        this.lockedX = 500f;
         this.x = x;
         this.y = y;
         //this.bounds = new Rectangle(x,y,1,1);
-    }
-
-    public void togglePlayButton() {
-        buttonLocked = !buttonLocked;
-        if (buttonLocked) {
-            model.getPlayButton().setButtonPosition(lockedX, y);
-        } else {
-            model.getPlayButton().setButtonPosition(x, y);
-        }
     }
 
     @Override
@@ -41,6 +29,6 @@ public class PlayButton extends Button {
     public void onClick() {
         System.out.println("Start button pressed!");
         generator.SpawnNextWave();
-        model.getPlayButton().togglePlayButton();
+        model.getPlayButton().toggleButton();
     }
 }

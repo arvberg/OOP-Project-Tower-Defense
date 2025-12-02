@@ -39,6 +39,7 @@ public class GameModel {
     private final Path path;
     private final Background background;
     private final PlayButton playbutton;
+    private final SpeedUpButton speedUpButton;
     private final PauseButton pausebutton;
     private final TowerMenuToggleButton towermenutogglebutton;
     private final UpgradeMenuToggleButton upgrademenutogglebutton;
@@ -88,6 +89,7 @@ public class GameModel {
 
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
+        this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pausebutton = new PauseButton(10, 0);
         this.schanger = new StateChanger();
         this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
@@ -100,6 +102,7 @@ public class GameModel {
         addButtons(upgrademenutogglebutton);
         addButtons(sidemenutogglebutton);
         addButtons(playbutton);
+        addButtons(speedUpButton);
         towerMenu.createGridItems(buttons);
         upgradeMenu.createGridItems(buttons);
 
@@ -395,6 +398,10 @@ public class GameModel {
 
     public PlayButton getPlayButton(){
         return playbutton;
+    }
+
+    public SpeedUpButton getSpeedUpButton(){
+        return speedUpButton;
     }
 
     public AttackHandler getAttackHandler() {
