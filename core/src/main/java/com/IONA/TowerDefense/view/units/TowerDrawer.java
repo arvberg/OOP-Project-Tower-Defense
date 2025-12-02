@@ -10,21 +10,17 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
+import static com.IONA.TowerDefense.Main.model;
+
 public class TowerDrawer {
 
     public static void drawTowers(List<Tower> towers, SpriteBatch batch){
         for (Tower tower : towers){
-            float angleDeg = (float)Math.toDegrees(0);
+
             Vector2 p = tower.getPosition();
             Texture texture = tower.getTexture();
             TextureRegion region = new TextureRegion(texture);
-
-            if(tower.isAiming()) {
-                float dx = tower.getCurrentTarget().getX() - tower.getX();
-                float dy = tower.getCurrentTarget().getY() - tower.getY();
-                float angleRad = (float)Math.atan2(dy,dx);
-                angleDeg = (float)Math.toDegrees(angleRad);
-            }
+            float angleDeg = tower.getAngleDeg();
 
             float dimensionX = tower.getDimension().x;
             float dimensionY = tower.getDimension().y;

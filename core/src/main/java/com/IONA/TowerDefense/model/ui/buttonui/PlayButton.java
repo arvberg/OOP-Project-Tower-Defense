@@ -13,7 +13,7 @@ public class PlayButton extends Button {
 
     //Rectangle bounds;
     public PlayButton(float x, float y, GameModel model) {
-        super("Playbutton_temp_02.png", x, y, 1, 1);
+        super("Playbutton.png", x, y, 1, 1);
         this.generator = new WaveGenerator(model.getDifficulty(), model);
         this.lockedX = 500f;
         this.x = x;

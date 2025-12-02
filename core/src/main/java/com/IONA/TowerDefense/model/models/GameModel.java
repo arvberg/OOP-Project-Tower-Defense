@@ -323,6 +323,8 @@ public class GameModel {
         this.towerSelected = bool;
     }
 
+    public void updateTowerAngle(Tower tower){towerHandler.updateTowerAngle(tower);}
+
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (pendingTower != null && buyingState) {
