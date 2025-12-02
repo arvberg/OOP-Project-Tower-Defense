@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.view;
 
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
@@ -15,6 +16,7 @@ import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -30,6 +32,9 @@ public class Draw {
     private SpriteBatch batch;
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
+
+    private float fadeTimer = 0f;
+    private final float fadeDuration = 2f;
 
     public Draw(GameModel model) {this.model = model;}
 
@@ -104,6 +109,14 @@ public class Draw {
 
         List<Projectile> projectiles = model.getProjectiles();
         ProjectileDrawer.drawProjectiles(projectiles,batch);
+
+        if (model.getGameState() == GameState.GAME_OVER) {
+            fadeTimer += Gdx.graphics.getDeltaTime();
+            float alpha = Math.min(fadeTimer / fadeDuration, 1f);
+            batch.setColor(1f, 1f, 1f, alpha);
+            batch.draw(model.getGameOverBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+            batch.setColor(1f, 1f, 1f, 1f);
+        }
 
         batch.end();
 

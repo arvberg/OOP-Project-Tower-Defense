@@ -276,6 +276,10 @@ public class GameModel {
         return background.BackgroundTexture;
     }
 
+    public Texture getGameOverBackground() {
+        return background.gameOverBackground;
+    }
+
     public List<Button> getButtons() { return buttons;}
 
     public void addButtons(Button button) {
