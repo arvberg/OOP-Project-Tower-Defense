@@ -26,7 +26,7 @@ public class TowerBasic extends Tower {
         attackType = "HomingProjectile";
         targetingStrategy = new TargetLeadingEnemyStrategy();
 
-        texture = new Texture("Tower_temp_04.png");
+        texture = new Texture("TowerBasic.png");
         rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
 

@@ -12,7 +12,7 @@ public class EnemyBasic extends Enemy{
         maxHp = 400 + 200*difficulty;
         speed = 2.53f;
         money = 25;
-        damage = 1;
+        damage = 10;
         texture = new Texture("Enemy_temp_03.png");
         width = 0.5f;
         height = 0.5f;

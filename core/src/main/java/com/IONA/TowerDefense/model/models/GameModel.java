@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
-import com.IONA.TowerDefense.model.*;
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -15,6 +15,7 @@ import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,11 +30,16 @@ public class GameModel {
 
     public boolean paused = false;
 
+    private GameState gameState = GameState.RUNNING;
+
     private final List<Tower> towers;
+    private final TowerHandler towerHandler;
+    private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private List<Button> buttons;
 
+    //private final List<Resource> resources;
     private final List<Resource> resources;
     private final List<Decoration> decorations;
     private final Path path;
@@ -45,12 +51,11 @@ public class GameModel {
     private final UpgradeMenuToggleButton upgrademenutogglebutton;
     private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
-    private int money; // Players money
-    private int lives; // Players health
+    private final EnemyHandler enemyHandler;
     private int score; // Players current score
+    private int money;
     private final int difficulty;
 
-    private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
     private boolean buyingState = false;
@@ -75,17 +80,22 @@ public class GameModel {
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
-        this.resources = new ArrayList<>();
-        this.lives = 100;
-        this.money = 100;
-        this.score = 0;
+
+        //this.money = 100;
+        //this.score = 0;
         this.buttons = new ArrayList<>();
         this.background = new Background();
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
         this.attackHandler = new AttackHandler(this);
-        this.core = new Core();
+        this.enemyHandler = new EnemyHandler(this);
 
+        this.resourceHandler = new ResourceHandler(this);
+        this.resources = resourceHandler.getResources();
+        this.money = resourceHandler.getMoney();
+
+        this.towerHandler = new TowerHandler(this);
+        this.core = new Core();
 
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
@@ -108,14 +118,14 @@ public class GameModel {
 
 
         resources.add(new ResourceHP(
-            lives,
+            resourceHandler.getLives(),
             new Vector2(1.5f, 1.5f),
             3f,
             1f
         ));
 
         resources.add(new ResourceMoney(
-            lives,
+            resourceHandler.getMoney(),
             new Vector2(5.5f, 1.5f),
             3f,
             1f));
@@ -135,40 +145,6 @@ public class GameModel {
         decorations.add(core);
     }
 
-    public int getLives() {
-        return lives;
-    }
-
-    public void setLives(int hpChange) {
-        this.lives = lives + hpChange;
-    }
-
-    public void updateHpResource(){
-        for (Resource r : resources){
-            if (r instanceof ResourceHP){
-                r.setCurrentResource(lives);
-                r.textBar = String.valueOf(lives);
-            }
-        }
-    }
-
-    public void updateMoneyResource(){
-        for (Resource r : resources){
-            if (r instanceof ResourceMoney){
-                r.setCurrentResource(money);
-                r.textBar = String.valueOf(money);
-            }
-        }
-    }
-
-    public int getMoney(){
-        return money;
-    }
-
-    public void gainMoney(int amount){
-        this.money += amount;
-    }
-
     public void coreDamaged(){
         if (decorations.isEmpty()) return;
         Rectangle coreHitbox = decorations.get(0).getHitBox();
@@ -177,38 +153,30 @@ public class GameModel {
             Enemy e = enemies.get(i);
 
             if (coreHitbox.overlaps(e.getHitBox())) {
-                setLives(e.getDamageNumber());
-                updateHpResource();
+                int currentLives = resourceHandler.getLives();
+                resourceHandler.setLives(currentLives - e.getDamageNumber());
+                resourceHandler.updateHpResource();
                 removeEnemy(e);
-
-                System.out.println("Health: " + getLives());
+                System.out.println("Health: " + resourceHandler.getLives());
+                // Set Game Over state
+                if (resourceHandler.getLives() <= 0) {
+                    setGameState(GameState.GAME_OVER);
+                    System.out.println("Game Over!");
+                }
             }
         }
     }
 
-    public void moveEnemies() {
+    public GameState getGameState() {
+        return gameState;
+    }
 
-        if (!enemies.isEmpty()) {
+    public void setGameState(GameState state) {
+        this.gameState = state;
+    }
 
-            for (Enemy enemy : enemies) {
-                int segmentIdx = enemy.getSegmentIndex();
-                Segment segment = path.getSegment(segmentIdx);
-
-                Direction enemyDirection = segment.getDirection();
-                enemy.move();
-
-                Vector2 segmentEndPoint = segment.getEnd();
-                Vector2 enemyCoorPoint = new Vector2(enemy.getPosition().x, enemy.getPosition().y);
-
-
-                if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
-                        int nextIdx = segmentIdx + 1;
-                        Segment nextSegment = path.getSegment(nextIdx);
-
-                        enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
-                }
-            }
-        }
+    public void updateEnemies() {
+        enemyHandler.moveEnemies();
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }
@@ -223,13 +191,6 @@ public class GameModel {
     public void removeTower(Tower tower) {
         towers.remove(tower);
     }
-
-    public void addEnemy(Enemy enemy) {
-        Segment first = path.getSegment(0);
-        enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
-
-        enemies.add(enemy);
-        }
 
     public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
 
@@ -249,137 +210,69 @@ public class GameModel {
 
     public List<Resource> getResources(){return resources;}
 
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public ResourceHandler getResourceHandler(){
+        return resourceHandler;
+    }
+
     public int getDifficulty() {
         return difficulty;
     }
 
     // Selecting a tower
-// Ny version av selectTower som använder tornets dimensioner
     public void selectTower(Vector2 selectedPoint) {
-        Tower clickedTower = null;
-
-        for (Tower tower : towers) {
-            // Tornets mittpunkt
-            Vector2 center = tower.getPosition(); // Om positionen redan är mittpunkten
-            float distance = center.dst(selectedPoint);
-
-            if (distance <= TOWER_SELECTION_RADIUS) {
-                clickedTower = tower;
-                break; // break om torn hittat
-            }
-        }
-        // Om vi klickar utanför ett torn
-        if (clickedTower == null) {
-            deselectTower();
-            // selecta nytt torn om vi trycker på ett torn
-        } else if (selectedTower != clickedTower) {
-            selectedTower = clickedTower;
-            towerSelected = true;
-            System.out.println("Tower selected at: " + selectedTower.getPosition());
-        }
+        towerHandler.selectTower(selectedPoint);
     }
 
     // Deslecting a tower, used in select when outside of radius
     public void deselectTower () {
-        selectedTower = null;
-        towerSelected = false;
-        System.out.println("Tower deselected");
+        towerHandler.deselectTower();
     }
 
     // Placing a tower
     public void placeTower (Vector2 selectedPoint) {
-        if (pendingTower != null && !overlaps(pendingTower)) {
-            pendingTower.setPosition(selectedPoint);
-            money -= pendingTower.getCost();
-            updateMoneyResource();
-            towers.add(pendingTower);
-
-            selectedTower = pendingTower;
-            towerSelected = true;
-            System.out.println("Selected tower: " + selectedTower);
-
-            pendingTower = null;
-            buyingState = false;
-            System.out.println("tower placed");
+        // placera genom towerHandler
+        towerHandler.placeTower(selectedPoint);
+        Tower tower = getSelectedTower();
+        // Minska pengar genom resourceHandler
+        if (tower != null) {
+            resourceHandler.spendMoney(tower.getCost());
+            resourceHandler.updateMoneyResource();
         }
     }
 
     public boolean overlaps(Tower tower) {
-
-        Vector2 towerPos = tower.getPosition();
-
-        float halfX = tower.getDimension().x / 1.5f;
-        float halfY = tower.getDimension().y / 1.5f;
-
-        float radius = Math.max(halfX, halfY);
-
-        // Overlaps Path
-        for (Segment segment : path.getSegments()) {
-            float distance = Intersector.distanceSegmentPoint(
-                segment.getStartPosition(),
-                segment.getEnd(),
-                towerPos
-            );
-            if (distance < radius) {
-                return true;
-            }
-        }
-
-        // Set coordinates to compare with
-        Rectangle towerRect = new Rectangle(
-            tower.getPosition().x - tower.getDimension().x /2f,
-            tower.getPosition().y - tower.getDimension().y / 2f,
-            tower.getDimension().x,
-            tower.getDimension().y
-        );
-
-        // Check for all decorations
-        for (Decoration decoration : decorations) {
-            Rectangle decorationRect = new Rectangle(
-                decoration.getPosition().x - decoration.width /2f,
-                decoration.getPosition().y - decoration.height/2f,
-                decoration.width,
-                decoration.height
-            );
-            if (towerRect.overlaps(decorationRect)) {
-                return true;
-            }
-        }
-
-        // Check for every tower on the map
-        for (Tower t : towers) {
-            Rectangle placedTowerRect = new Rectangle(
-                t.getPosition().x - t.getDimension().x /2f,
-                t.getPosition().y - t.getDimension().y / 2f,
-                t.getDimension().x,
-                t.getDimension().y
-            );
-            if (towerRect.overlaps(placedTowerRect)) {
-                return true;
-            }
-        }
-        return false;
+        return towerHandler.overlaps(tower);
     }
 
     // Buy a tower
-    public void buyTower (String tower) {
-        Tower newTower = towerFactory.createTower(tower);
-
-        if (money >= newTower.getCost()) {
-            buyingState = true;
-            pendingTower = newTower;
-        }
-        else {
-            System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
-        }
+    public void buyTower(String tower) {
+        towerHandler.buyTower(tower);
     }
 
-    public void sellTower (Tower tower) {
-        if (selectedTower != null) {
-            money += tower.getCost();
-            updateMoneyResource();
-            towers.remove(tower);
+    public void sellTower(Tower tower) {
+        towerHandler.sellTower(tower);
+        money += (int) (pendingTower.getCost() * 0.8);
+        resourceHandler.updateMoneyResource();
+    }
+
+    // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
+    public void removeDeadEnemies() {
+
+        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
+
+        for (Enemy enemy : deadEnemies) {
+            int moneyGained = enemy.getMoney();
+            resourceHandler.gainMoney(moneyGained);
         }
+        resourceHandler.updateMoneyResource();
     }
 
     public Texture getBackground(){
@@ -408,6 +301,10 @@ public class GameModel {
         return attackHandler;
     }
 
+    public TowerFactory getTowerFactory() {
+        return towerFactory;
+        }
+
     public TowerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
 
     public List<TowerMenuItem> getTowerMenuItems() {
@@ -418,22 +315,43 @@ public class GameModel {
         return buyingState;
     }
 
+    public void setBuyingState(Boolean bool) {
+        this.buyingState = bool;
+    }
+
     public Tower getPendingTower() {
         return pendingTower;
+    }
+
+    public void setPendingTower(Tower tower) {
+        this.pendingTower = tower;
+    }
+
+    public Tower getSelectedTower() {
+        return selectedTower;
+    }
+
+    public void setSelectedTower(Tower tower) {
+        this.selectedTower = tower;
     }
 
     public boolean isTowerSelected() {
         return towerSelected;
     }
 
-    public Tower getSelectedTower() {
-        return selectedTower;
+    public void setTowerSelected(Boolean bool) {
+        this.towerSelected = bool;
     }
+
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (pendingTower != null && buyingState) {
             pendingTower.setPosition(mousePos);
         }
+    }
+
+    public void addEnemy(Enemy enemy) {
+        enemyHandler.addEnemy(enemy);
     }
 
     public UpgradeMenu getUpgradeMenu() {

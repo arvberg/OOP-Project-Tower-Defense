@@ -37,7 +37,6 @@
         }
 
 
-
         public void move() {
 
             if (position == null) {
@@ -106,7 +105,7 @@
         }
 
         public int getDamageNumber(){
-            return -abs(damage);
+            return damage;
         }
 
         public int getMoney(){

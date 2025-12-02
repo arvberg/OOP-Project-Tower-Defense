@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.controller;
 
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
@@ -35,6 +36,15 @@ public class InputHandler {
 
 
     public void checkInput(Vector2 pos){
+
+        if (model.getGameState() == GameState.GAME_OVER) {
+            return;
+        }
+
+        if (model.getGameState() == GameState.PAUSED) {
+            return;
+        }
+
         // Först UI-kontroller
         towerMenuToggleButton.isClicked(pos);
         upgradeMenuToggleButton.isClicked(pos);

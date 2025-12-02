@@ -39,15 +39,11 @@ public class WaveGenerator {
                     if (e.getEnemyType().equals("1")) {
                         Enemy enemy = new EnemyBasic(GameDiff);
                         model.addEnemy(enemy);
-
-
                     }
 
                 }
 
             }, spawnTime);
-
-
         }
         Timer.schedule(new Timer.Task(){
             @Override
@@ -66,8 +62,10 @@ public class WaveGenerator {
 
     public void WaveReward(){
         int moneyReward = 100 + 50 * WaveNr;
-        model.gainMoney(moneyReward);
-        model.updateMoneyResource();
+
+        model.getResourceHandler().gainMoney(moneyReward);
+        model.getResourceHandler().updateMoneyResource();
+
         rewardGiven = true;
     }
 }

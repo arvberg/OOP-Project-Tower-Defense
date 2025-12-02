@@ -9,7 +9,6 @@ public class EnemyFast extends Enemy{
         super(difficulty);
         hp = 100 + 100*difficulty;
         maxHp = 100 + 100*difficulty;
-
         speed = 3f * difficulty;
         money = 10;
         damage = 2;
