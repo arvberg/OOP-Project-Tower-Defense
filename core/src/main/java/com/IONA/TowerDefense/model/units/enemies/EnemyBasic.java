@@ -18,7 +18,7 @@ public class EnemyBasic extends Enemy{
 
     public EnemyBasic(int difficulty){
         super(difficulty);
-        texture2 = new Texture("Virus_back.png");
+        texture2 = new Texture("Virus_green_back.png");
         texture = new Texture("Virus_front.png");
         hp = 400 + 200*difficulty;
         maxHp = 400 + 200*difficulty;

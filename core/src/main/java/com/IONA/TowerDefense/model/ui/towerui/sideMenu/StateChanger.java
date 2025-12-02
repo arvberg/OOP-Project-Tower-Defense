@@ -19,7 +19,7 @@ public class StateChanger {
     }
 
     public void reset(){
-        if(umtb.isOpen){umtb.changeState();}
-        if(!tmtb.isOpen){tmtb.changeState();}
+        if(!umtb.isOpen){umtb.changeState();}
+        if(tmtb.isOpen){tmtb.changeState();}
     }
 }

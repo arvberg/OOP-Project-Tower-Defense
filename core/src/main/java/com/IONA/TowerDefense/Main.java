@@ -23,6 +23,7 @@ public class Main extends ApplicationAdapter {
         painter = new Draw(model);
         painter.create();
         controller = new GameController(model, painter);
+
     }
 
     @Override

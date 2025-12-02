@@ -15,8 +15,9 @@ import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -25,18 +26,33 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.List;
 
+import static javax.swing.Spring.scale;
+
 public class Draw {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
+    private TextureAtlas atlas;
+    private Animation<TextureAtlas.AtlasRegion> coreAnimation;
+    private float stateTime = 0f;
+    private Sprite coreSprite;
+
 
     public Draw(GameModel model) {this.model = model;}
 
     public void create() {
+
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
+        atlas = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
+        coreAnimation = new Animation<>(0.01f, atlas.findRegions("Core_01"));
+        coreAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        coreSprite = new Sprite(coreAnimation.getKeyFrame(0));
+        coreSprite.setScale(1f);
+        coreSprite.setPosition(12,7);
+
     }
 
     public void resize(int w, int h) {
@@ -64,6 +80,15 @@ public class Draw {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         PathDrawer.drawPath(shapeRenderer);
         shapeRenderer.end();
+
+        stateTime += Gdx.graphics.getDeltaTime();
+        TextureRegion frame = coreAnimation.getKeyFrame(stateTime);
+
+        batch.begin();
+        batch.draw(frame, 9.5f, 6.1f, 3f, 1.2f); // 1×1 world units
+        batch.end();
+
+
 
         batch.begin();
 
