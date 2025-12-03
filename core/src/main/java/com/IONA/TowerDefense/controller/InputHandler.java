@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.controller;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.buttonui.PauseButton;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
@@ -15,6 +16,7 @@ public class InputHandler {
 
     private final PlayButton playButton;
     private final SpeedUpButton speedUpButton;
+    private final PauseButton pauseButton;
     private final TowerMenuToggleButton towerMenuToggleButton;
     private final UpgradeMenuToggleButton upgradeMenuToggleButton;
     private final SideMenuToggleButton sideMenuToggleButton;
@@ -28,6 +30,7 @@ public class InputHandler {
 
         this.playButton = model.getPlayButton();
         this.speedUpButton = model.getSpeedUpButton();
+        this.pauseButton = model.getPauseButton();
         this.towerMenuToggleButton = model.getTowerMenuToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
         this.upgradeMenuToggleButton = model.getUpgradeMenuToggleButton();
@@ -39,6 +42,8 @@ public class InputHandler {
 
 
     public void checkInput(Vector2 pos){
+
+        pauseButton.isClicked(pos);
 
         if (model.getGameState() == GameState.GAME_OVER) {
             return;

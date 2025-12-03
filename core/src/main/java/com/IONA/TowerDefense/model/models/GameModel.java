@@ -15,9 +15,7 @@ import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -27,9 +25,6 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
-
-    public boolean paused = false;
-
     private GameState gameState = GameState.RUNNING;
 
     private final List<Tower> towers;
@@ -46,7 +41,7 @@ public class GameModel {
     private final Background background;
     private final PlayButton playbutton;
     private final SpeedUpButton speedUpButton;
-    private final PauseButton pausebutton;
+    private final PauseButton pauseButton;
     private final TowerMenuToggleButton towermenutogglebutton;
     private final UpgradeMenuToggleButton upgrademenutogglebutton;
     private final SideMenuToggleButton sidemenutogglebutton;
@@ -81,8 +76,6 @@ public class GameModel {
         this.enemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
 
-        //this.money = 100;
-        //this.score = 0;
         this.buttons = new ArrayList<>();
         this.background = new Background();
         this.difficulty = 0;
@@ -100,7 +93,7 @@ public class GameModel {
         this.buttons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.speedUpButton = new SpeedUpButton(500f, 0);
-        this.pausebutton = new PauseButton(10, 0);
+        this.pauseButton = new PauseButton(10, 0);
         this.schanger = new StateChanger();
         this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
         this.upgrademenutogglebutton = new UpgradeMenuToggleButton(0,3,upgradeMenu,sideMenu, schanger);
@@ -113,6 +106,7 @@ public class GameModel {
         addButtons(sidemenutogglebutton);
         addButtons(playbutton);
         addButtons(speedUpButton);
+        addButtons(pauseButton);
         towerMenu.createGridItems(buttons);
         upgradeMenu.createGridItems(buttons);
 
@@ -214,10 +208,6 @@ public class GameModel {
         return money;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
     public ResourceHandler getResourceHandler(){
         return resourceHandler;
     }
@@ -296,6 +286,8 @@ public class GameModel {
     public SpeedUpButton getSpeedUpButton(){
         return speedUpButton;
     }
+
+    public PauseButton getPauseButton(){return pauseButton;}
 
     public AttackHandler getAttackHandler() {
         return attackHandler;

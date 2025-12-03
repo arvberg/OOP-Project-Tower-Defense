@@ -61,6 +61,7 @@ public class ResourceHandler {
 
     public void gainMoney(int amount){
         this.money += amount;
+        this.score += amount;
     }
 
     public void spendMoney(int amount) {
@@ -74,6 +75,8 @@ public class ResourceHandler {
     public void setLives(int newLives) {
         this.lives = newLives;
     }
+
+    public int getScore(){ return score; }
 
     public List<Resource> getResources(){
         return resources;
