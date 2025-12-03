@@ -149,14 +149,14 @@ public class TowerMenu extends Menu {
         }
     }
 
-    public void moveItemNegative(float oldX, float newX) {
+    private void moveItemNegative(float oldX, float newX) {
         float diff = Math.abs(oldX - newX);
         for (TowerMenuItem item : items) {
             item.setButtonPosition(item.getButtonPosition().x - diff, item.getButtonPosition().y);
         }
     }
 
-    public void moveItemPositive(float oldX, float newX) {
+    private void moveItemPositive(float oldX, float newX) {
         float diff = Math.abs(oldX - newX);
         for (TowerMenuItem item : items) {
             item.setButtonPosition(item.getButtonPosition().x + diff, item.getButtonPosition().y);

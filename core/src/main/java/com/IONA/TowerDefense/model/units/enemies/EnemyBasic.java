@@ -24,8 +24,7 @@ public class EnemyBasic extends Enemy{
         maxHp = 400 + 200*difficulty;
         speed = 2.53f;
         money = 25;
-        texture = new Texture("Enemy_temp_03.png");
-        damage = 1;
+        damage = 10;
         width = 0.5f;
         height = 0.5f;
         setHitBox(width,height);
