@@ -94,6 +94,7 @@ public class TowerHandler {
         Tower newTower = factory.createTower(tower);
 
         if (model.getMoney() >= newTower.getCost()) {
+                model.deselectTower();
                 model.setBuyingState(true);
                 model.setPendingTower(newTower);
         }
