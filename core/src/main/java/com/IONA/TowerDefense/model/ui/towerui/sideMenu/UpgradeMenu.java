@@ -111,34 +111,34 @@ public class UpgradeMenu extends Menu {
                 }
 
                 if (c == 0 && r == 0) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 0) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 1) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 1) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 2) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 2) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 3) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 3) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 4) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 4) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 }
 
