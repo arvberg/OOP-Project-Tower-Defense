@@ -15,7 +15,6 @@ public class PlayButton extends Button {
     public PlayButton(float x, float y, GameModel model) {
         super("Playbutton.png", x, y, 1, 1);
         this.generator = model.getGenerator();
-        this.generator = new WaveGenerator(model.getDifficulty(), model);
         this.width = 1f;
         this.height = 1f;
         this.bounds = new Rectangle(x, y, width, height);

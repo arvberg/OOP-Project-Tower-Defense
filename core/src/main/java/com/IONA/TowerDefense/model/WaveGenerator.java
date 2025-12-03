@@ -57,9 +57,6 @@ public class WaveGenerator {
     }
 
     public boolean WaveCleared() {
-        if (model.getGameState() != GameState.RUNNING) {
-            return false;
-        }
         return finishedSpawning &&
             !rewardGiven &&
             model.getEnemies().isEmpty();
