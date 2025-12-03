@@ -9,7 +9,7 @@ import static com.IONA.TowerDefense.Main.model;
 public class PathDrawer {
 
     public static void drawPath(ShapeRenderer shapeRenderer){
-        shapeRenderer.setColor(Color.valueOf("#DFF8D0"));
+        shapeRenderer.setColor(Color.valueOf("#EEE4E0"));
         float width = 0.6f;
         for (int i = 0; i < model.getPath().getSegments().size() - 1; i++) {
             Vector2 a = model.getPath().getSegment(i).getStartPosition();

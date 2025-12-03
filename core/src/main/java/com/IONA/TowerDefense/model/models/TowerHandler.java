@@ -32,21 +32,16 @@ public class TowerHandler {
         this.decorations = model.getDecor();
     }
 
-    /*public void updateTowerAngle(){
-        for (Tower tower : towers){
-            float angleDeg = (float)Math.toDegrees(0);
-            Vector2 p = tower.getPosition();
-            Texture texture = tower.getTexture();
-            TextureRegion region = new TextureRegion(texture);
+    public void updateTowerAngle(Tower tower){
 
             if(tower.isAiming()) {
                 float dx = tower.getCurrentTarget().getX() - tower.getX();
                 float dy = tower.getCurrentTarget().getY() - tower.getY();
                 float angleRad = (float)Math.atan2(dy,dx);
-                angleDeg = (float)Math.toDegrees(angleRad);
+                tower.setAngleDeg((float)Math.toDegrees(angleRad));
             }
-        }
-    }*/
+
+    }
 
     public void selectTower(Vector2 selectedPoint) {
         Tower clickedTower = null;

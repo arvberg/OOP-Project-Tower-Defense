@@ -130,7 +130,7 @@ public class GameModel {
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x,
+            end.x+0.1f,
             end.y)
         );
 
@@ -344,6 +344,8 @@ public class GameModel {
     public void setTowerSelected(Boolean bool) {
         this.towerSelected = bool;
     }
+
+    public void updateTowerAngle(Tower tower){towerHandler.updateTowerAngle(tower);}
 
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {

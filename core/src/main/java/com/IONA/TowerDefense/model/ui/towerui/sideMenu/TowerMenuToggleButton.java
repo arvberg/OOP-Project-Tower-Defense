@@ -16,13 +16,13 @@ public class TowerMenuToggleButton extends Button {
 
     public TowerMenuToggleButton(float x, float y, TowerMenu menu, SideMenu smenu, StateChanger schanger) {
 
-        super("Playbutton_temp_02.png", x, y, 0.5f, 0.5f);
+        super("Tower_Button.png", x, y, 0.5f, 1.8f);
         this.towermenu = menu;
         this.smenu = smenu;
         this.schanger = schanger;
         this.texture1 = this.texture;
-        this.texture2 = new Texture("Pause_button_temp_01.png");
-        this.isOpen = true;
+        this.texture2 = new Texture("Tower_button_selected.png");
+        this.isOpen = false;
 
     }
 

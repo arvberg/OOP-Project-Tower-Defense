@@ -18,7 +18,7 @@ import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -27,11 +27,17 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.List;
 
+import static javax.swing.Spring.scale;
+
 public class Draw {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
+    private TextureAtlas atlas;
+    private Animation<TextureAtlas.AtlasRegion> coreAnimation;
+    private float stateTime = 0f;
+
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -40,9 +46,17 @@ public class Draw {
     public Draw(GameModel model) {this.model = model;}
 
     public void create() {
+
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
+        atlas = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
+        coreAnimation = new Animation<>(0.01f, atlas.findRegions("Core_01"));
+        coreAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        //coreSprite = new Sprite(coreAnimation.getKeyFrame(0));
+        //coreSprite.setScale(1f);
+        //coreSprite.setPosition(12,7);
+
     }
 
     public void resize(int w, int h) {
@@ -56,6 +70,7 @@ public class Draw {
     }
 
     public void draw() {
+
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
@@ -73,6 +88,11 @@ public class Draw {
 
         batch.begin();
 
+        stateTime += Gdx.graphics.getDeltaTime();
+        TextureRegion frame = coreAnimation.getKeyFrame(stateTime);
+        List<Decoration> decorations = model.getDecor();
+        DecorationDrawer.drawDecorations(decorations,batch, frame);
+
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
 
@@ -84,9 +104,6 @@ public class Draw {
 
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
-
-        List<Decoration> decorations = model.getDecor();
-        DecorationDrawer.drawDecorations(decorations,batch);
 
         List<Enemy> enemies = model.getEnemies();
         EnemyDrawer.drawEnemies(enemies,batch);

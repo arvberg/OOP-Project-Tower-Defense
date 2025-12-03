@@ -8,8 +8,8 @@ public class Background {
     public Texture gameOverBackground;
 
     public Background() {
-        this.BackgroundTexture = new Texture("Background_temp_02.png");
+        this.BackgroundTexture = new Texture("Background_03.png");
         this.gameOverBackground = new Texture("Game_over_overlay_screen_01.png");
-    }
 
+    }
 }

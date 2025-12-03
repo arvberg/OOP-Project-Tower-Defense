@@ -40,6 +40,7 @@ public class AttackHandler {
 
     public void updateTowers() {
         for (Tower tower : towers) {
+            model.updateTowerAngle(tower);
             tower.update();
             if (tower.canShoot()) {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
