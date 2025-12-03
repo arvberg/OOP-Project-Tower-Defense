@@ -45,7 +45,7 @@ public class WaveGenerator {
 
             }, spawnTime);
         }
-        Timer.schedule(new Timer.Task(){
+        Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 finishedSpawning = true;
@@ -57,12 +57,15 @@ public class WaveGenerator {
     }
 
     public boolean WaveCleared() {
-        return finishedSpawning &&
-            !rewardGiven &&
-            model.getEnemies().isEmpty();
+        if (model.getGameState() != GameState.GAME_OVER) {
+            return finishedSpawning &&
+                !rewardGiven &&
+                model.getEnemies().isEmpty();
+        }
+        return false;
     }
 
-    public void WaveReward(){
+    public void WaveReward() {
         int moneyReward = 100 + 50 * WaveNr;
 
         model.getResourceHandler().gainMoney(moneyReward);

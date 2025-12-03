@@ -73,7 +73,7 @@ public class ResourceHandler {
     }
 
     public void setLives(int newLives) {
-        this.lives = newLives;
+        this.lives = Math.max(newLives, 0);
     }
 
     public int getScore(){ return score; }
