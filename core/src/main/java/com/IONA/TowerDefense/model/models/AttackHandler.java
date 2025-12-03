@@ -22,7 +22,6 @@ public class AttackHandler {
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
     private final ProjectileFactory projectileFactory;
-    private int money;
 
     public AttackHandler(GameModel model) {
         this.model = model;
@@ -30,7 +29,6 @@ public class AttackHandler {
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
         this.projectileFactory = new ProjectileFactory();
-        this.money = model.getMoney();
         List<Unit> deadUnits = new ArrayList<>();
     }
 
@@ -49,13 +47,12 @@ public class AttackHandler {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
                 List<Enemy> targets = tower.getTargets(enemiesInRadius);
 
-
                 if (!targets.isEmpty()) {
                     tower.setCurrentTarget(targets.get(0));
                     towerAttack(tower, targets);
                     tower.resetCooldown();
                 }
-                else{
+                else {
                     tower.setCurrentTarget(null);
                 }
             }

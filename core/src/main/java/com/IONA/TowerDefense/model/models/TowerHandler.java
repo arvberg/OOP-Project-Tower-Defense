@@ -40,6 +40,10 @@ public class TowerHandler {
                 float angleRad = (float)Math.atan2(dy,dx);
                 tower.setAngleDeg((float)Math.toDegrees(angleRad));
             }
+            if (!tower.getHasDetected()) {
+                float degree = tower.getAngleDeg();
+                tower.setAngleDeg(degree/1.1F);
+            }
 
     }
 
