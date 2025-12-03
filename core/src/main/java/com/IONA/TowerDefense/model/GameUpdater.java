@@ -35,7 +35,7 @@ public class GameUpdater  {
 
         if (wg.WaveCleared()){
             wg.WaveReward();
-            model.getPlayButton().togglePlayButton();
+            model.getPlayButton().toggleButton();
         }
     }
 }

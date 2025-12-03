@@ -37,7 +37,7 @@
         }
 
 
-        public void move() {
+        public void move(float delta) {
 
             if (position == null) {
                 position = new Vector2(0, 2);

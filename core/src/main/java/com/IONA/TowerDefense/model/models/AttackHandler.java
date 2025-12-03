@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.IONA.TowerDefense.HeartBeat.delta;
 
 public class AttackHandler {
     private final GameModel model;
@@ -69,7 +72,7 @@ public class AttackHandler {
             if (projectile.getProjectileType().equals("Homing")) {
                 updateHomingProjectile(projectile);
             }
-            projectile.move();
+            projectile.move(HeartBeat.delta);
             projectileHit(projectile, enemies);
         }
     }

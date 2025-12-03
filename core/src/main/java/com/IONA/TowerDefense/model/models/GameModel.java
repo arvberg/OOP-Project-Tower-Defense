@@ -29,9 +29,6 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel {
-
-    public boolean paused = false;
-
     private GameState gameState = GameState.RUNNING;
 
     private final List<Tower> towers;
@@ -48,7 +45,8 @@ public class GameModel {
     private final Path path;
     private final Background background;
     private final PlayButton playbutton;
-    private final PauseButton pausebutton;
+    private final SpeedUpButton speedUpButton;
+    private final PauseButton pauseButton;
     private final RestartButton restartButton;
     private final TowerMenuToggleButton towermenutogglebutton;
     private final UpgradeMenuToggleButton upgrademenutogglebutton;
@@ -105,7 +103,8 @@ public class GameModel {
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
-        this.pausebutton = new PauseButton(10, 0);
+        this.speedUpButton = new SpeedUpButton(500f, 0);
+        this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5, 5, this);
         this.schanger = new StateChanger();
         this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
@@ -294,6 +293,12 @@ public class GameModel {
     public PlayButton getPlayButton(){
         return playbutton;
     }
+
+    public SpeedUpButton getSpeedUpButton(){
+        return speedUpButton;
+    }
+
+    public PauseButton getPauseButton(){return pauseButton;}
 
     public RestartButton getRestartButton() {
         return restartButton;
