@@ -152,11 +152,12 @@ public class GameModel {
                 removeEnemy(e);
                 System.out.println("Health: " + resourceHandler.getLives());
                 // Set Game Over state
-                if (resourceHandler.getLives() <= 0) {
-                    setGameState(GameState.GAME_OVER);
-                    System.out.println("Game Over!");
-                }
             }
+        }
+        if (resourceHandler.getLives() <= 0 && getGameState() != GameState.GAME_OVER) {
+            setGameState(GameState.GAME_OVER);
+            System.out.println("Game Over!");
+            getPlayButton().toggleButton();
         }
     }
 
