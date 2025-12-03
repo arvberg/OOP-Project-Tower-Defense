@@ -75,7 +75,18 @@ public class WaveGenerator {
         WaveNr = 0;
         finishedSpawning = false;
         rewardGiven = false;
+    }
 
+    public int getWaveNr() {
+        return this.WaveNr;
+    }
+
+    public int getGameDiff() {
+        return this.GameDiff;
+    }
+
+    public void setGameDiff(int diff) {
+        this.GameDiff = diff;
     }
 }
 
