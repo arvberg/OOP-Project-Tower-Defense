@@ -33,8 +33,8 @@ public class EnemyBasic extends Enemy{
     }
 
     @Override
-    public void move() {
-        super.move(); // behåll all logik från Enemy.update()
+    public void move(float delta) {
+        super.move(delta); // behåll all logik från Enemy.update()
         visualRotationBack  += visualRotationSpeedBack  * delta;
         visualRotationFront += visualRotationSpeedFront * delta;
     }

@@ -117,6 +117,8 @@ public class GameModel {
         inGameButtons.add(upgrademenutogglebutton);
         inGameButtons.add(sidemenutogglebutton);
         inGameButtons.add(playbutton);
+        inGameButtons.add(speedUpButton);
+        inGameButtons.add(pauseButton);
         gameOverButtons.add(restartButton);
         towerMenu.createGridItems(inGameButtons);
         upgradeMenu.createGridItems(inGameButtons);
@@ -164,7 +166,6 @@ public class GameModel {
         attackHandler.removeAllProjectiles();
         resourceHandler.resetResources();
         generator.resetWaves();
-        playbutton.reset();
         setGameState(GameState.START);
     }
 
