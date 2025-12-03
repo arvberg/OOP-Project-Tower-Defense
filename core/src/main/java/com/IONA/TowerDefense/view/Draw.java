@@ -36,7 +36,6 @@ public class Draw {
     private TextureAtlas atlas;
     private Animation<TextureAtlas.AtlasRegion> coreAnimation;
     private float stateTime = 0f;
-    private Sprite coreSprite;
 
 
     public Draw(GameModel model) {this.model = model;}
@@ -49,9 +48,9 @@ public class Draw {
         atlas = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
         coreAnimation = new Animation<>(0.01f, atlas.findRegions("Core_01"));
         coreAnimation.setPlayMode(Animation.PlayMode.LOOP);
-        coreSprite = new Sprite(coreAnimation.getKeyFrame(0));
-        coreSprite.setScale(1f);
-        coreSprite.setPosition(12,7);
+        //coreSprite = new Sprite(coreAnimation.getKeyFrame(0));
+        //coreSprite.setScale(1f);
+        //coreSprite.setPosition(12,7);
 
     }
 
@@ -66,6 +65,7 @@ public class Draw {
     }
 
     public void draw() {
+
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
@@ -81,16 +81,12 @@ public class Draw {
         PathDrawer.drawPath(shapeRenderer);
         shapeRenderer.end();
 
+        batch.begin();
+
         stateTime += Gdx.graphics.getDeltaTime();
         TextureRegion frame = coreAnimation.getKeyFrame(stateTime);
-
-        batch.begin();
-        batch.draw(frame, 9.5f, 6.1f, 3f, 1.2f); // 1×1 world units
-        batch.end();
-
-
-
-        batch.begin();
+        List<Decoration> decorations = model.getDecor();
+        DecorationDrawer.drawDecorations(decorations,batch, frame);
 
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
@@ -103,9 +99,6 @@ public class Draw {
 
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
-
-        List<Decoration> decorations = model.getDecor();
-        DecorationDrawer.drawDecorations(decorations,batch);
 
         List<Enemy> enemies = model.getEnemies();
         EnemyDrawer.drawEnemies(enemies,batch);

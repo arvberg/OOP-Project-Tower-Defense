@@ -134,7 +134,7 @@ public class GameModel {
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x,
+            end.x+0.1f,
             end.y)
         );
 
