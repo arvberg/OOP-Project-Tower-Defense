@@ -14,7 +14,7 @@ public class RestartButton extends Button {
     private boolean buttonLocked = false;
 
     public RestartButton (float x, float y, GameModel model) {
-        super("Playbutton_temp_02.png", x, y, 1, 1);
+        super("Playbutton.png", x, y, 1, 1);
         this.width = 1f;
         this.height = 1f;
         this.bounds = new Rectangle(x, y, width, height);
