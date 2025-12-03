@@ -17,12 +17,12 @@ public class UpgradeMenuToggleButton extends Button {
 
     public UpgradeMenuToggleButton(float x, float y, UpgradeMenu menu, SideMenu smenu, StateChanger schanger) {
 
-        super("Upgrade_button.png", x, y, 0.5f, 1.8f);
+        super("Upgrade_button_temp.png", x, y, 0.5f, 1.8f);
         this.upgrademenu = menu;
         this.schanger = schanger;
         this.smenu = smenu;
         this.texture1 = this.texture;
-        this.texture2 = new Texture("Upgrade_button_selected.png");
+        this.texture2 = new Texture("Upgrade_button_selected_temp.png");
         this.isOpen = true;
 
     }
