@@ -144,8 +144,8 @@ public abstract class Tower extends Unit {
         cooldown = fireRate;
     }
 
-    public void update(){
-        cooldown -= HeartBeat.delta;
+    public void update(float delta){
+        cooldown -= delta;
     }
 
 
