@@ -8,6 +8,7 @@ import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.ui.buttonui.RestartButton;
 import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
+import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 
@@ -100,6 +101,12 @@ public class InputHandler {
                 return false;
             }
         }
+        for (Menu m : model.getMenus()) {
+            if (m.contains(pos.x, pos.y)) {
+                return false;
+            }
+        }
+
         return true;
     }
 }
