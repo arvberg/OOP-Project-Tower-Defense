@@ -38,7 +38,7 @@ public class EnemyHandler {
         enemies.clear();
     }
 
-    public void moveEnemies() {
+    public void moveEnemies(float delta) {
 
 
         List<Enemy> enemies = gamemodel.getEnemies();
@@ -51,7 +51,7 @@ public class EnemyHandler {
                 Segment segment = path.getSegment(segmentIdx);
 
                 Direction enemyDirection = segment.getDirection();
-                enemy.move(HeartBeat.delta);
+                enemy.move(delta);
 
                 Vector2 segmentEndPoint = segment.getEnd();
                 Vector2 enemyCoorPoint = new Vector2(enemy.getPosition().x, enemy.getPosition().y);
