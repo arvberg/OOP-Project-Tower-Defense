@@ -61,13 +61,13 @@ public class UpgradeMenu extends Menu {
         // flytta menyn mot target
         if (menuPosition.x < targetX) {
             oldX = menuPosition.x;
-            menuPosition.x += slideSpeed * HeartBeat.delta;
+            menuPosition.x += slideSpeed * delta;
             newX = menuPosition.x;
             moveItemPositive(oldX, newX);
 
         } else {
             oldX = menuPosition.x;
-            menuPosition.x -= slideSpeed * HeartBeat.delta;
+            menuPosition.x -= slideSpeed * delta;
             newX = menuPosition.x;
             moveItemNegative(oldX, newX);
         }

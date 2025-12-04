@@ -23,7 +23,7 @@ public class GameUpdater  {
         //System.out.println("updating!");
         model.updateEnemies();
         model.coreDamaged();
-        attackHandler.update();
+        attackHandler.update(HeartBeat.delta);
         model.getTowerMenu().update(HeartBeat.delta);
         model.getUpgradeMenu().update(HeartBeat.delta);
         model.getSideMenu().update(HeartBeat.delta);

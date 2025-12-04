@@ -34,17 +34,17 @@ public class AttackHandler {
         List<Unit> deadUnits = new ArrayList<>();
     }
 
-    public void update() {
-        updateTowers();
-        updateProjectiles();
+    public void update(float delta) {
+        updateTowers(delta);
+        updateProjectiles(delta);
         model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
-    public void updateTowers() {
+    public void updateTowers(float delta) {
         for (Tower tower : towers) {
             model.updateTowerAngle(tower);
-            tower.update();
+            tower.update(delta);
             if (tower.canShoot()) {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
                 List<Enemy> targets = tower.getTargets(enemiesInRadius);
@@ -62,7 +62,7 @@ public class AttackHandler {
         }
     }
 
-    public void updateProjectiles() {
+    public void updateProjectiles(float delta) {
         for (Projectile projectile : projectiles) {
 
             if (projectile.isDestroyed()) {
@@ -72,7 +72,7 @@ public class AttackHandler {
             if (projectile.getProjectileType().equals("Homing")) {
                 updateHomingProjectile(projectile);
             }
-            projectile.move(HeartBeat.delta);
+            projectile.move(delta);
             projectileHit(projectile, enemies);
         }
     }
