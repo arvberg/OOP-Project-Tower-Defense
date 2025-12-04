@@ -186,8 +186,8 @@ public class GameModel {
         this.gameState = state;
     }
 
-    public void updateEnemies() {
-        enemyHandler.moveEnemies();
+    public void updateEnemies(float delta) {
+        enemyHandler.moveEnemies(delta);
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }

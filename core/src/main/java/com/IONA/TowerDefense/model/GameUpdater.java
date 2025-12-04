@@ -21,7 +21,7 @@ public class GameUpdater  {
             return;
         }
         //System.out.println("updating!");
-        model.updateEnemies();
+        model.updateEnemies(HeartBeat.delta);
         model.coreDamaged();
         attackHandler.update(HeartBeat.delta);
         model.getTowerMenu().update(HeartBeat.delta);
