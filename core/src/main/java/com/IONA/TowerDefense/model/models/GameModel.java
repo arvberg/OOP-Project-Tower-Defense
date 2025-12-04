@@ -260,6 +260,7 @@ public class GameModel {
 
     public void sellTower(Tower tower) {
         towerHandler.sellTower(tower);
+        resourceHandler.gainMoney(tower.getCost());
         resourceHandler.updateMoneyResource();
     }
 

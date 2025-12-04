@@ -25,7 +25,10 @@ public class UpgradeMenuItem extends Button {
     @Override
     public void onClick() {
         System.out.println("Clicked tower: " + towerType);
-        model.buyTower(towerType);
+        if (model.isTowerSelected()) {
+            model.sellTower(model.getSelectedTower());
+            model.deselectTower();
+        }
     }
 
 
