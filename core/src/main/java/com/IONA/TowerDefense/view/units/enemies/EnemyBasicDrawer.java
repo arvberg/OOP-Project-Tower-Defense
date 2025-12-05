@@ -1,32 +1,31 @@
-package com.IONA.TowerDefense.view.units;
+package com.IONA.TowerDefense.view.units.enemies;
 
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
-import com.IONA.TowerDefense.view.wrappers.units.DrawableEnemy;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 
-public class EnemyBasicDrawer extends DrawableEnemy {
+public final class EnemyBasicDrawer implements DrawableEnemy {
 
-    private TextureRegion texture2;
-    private TextureRegion texture1;
-    private Rectangle hb;
+    private final TextureRegion texture2;
+    private final TextureRegion texture1;
+    private final Rectangle hb;
     private float rotationfront;
     private float rotationback;
+    private final EnemyBasic enemy;
 
     public EnemyBasicDrawer(EnemyBasic enemy) {
-        super(enemy);
+        this.enemy = enemy;
         texture1 = enemy.getTexture1();
         texture2 = enemy.getTexture2();
         hb = enemy.getHitBox();
-        rotationfront = enemy.getVisualRotationFront();
-        rotationback = enemy.getVisualRotationBack();
     }
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+        rotationfront = enemy.getVisualRotationFront();
+        rotationback = enemy.getVisualRotationBack();
         batch.draw(
             texture2,
             hb.x, hb.y,
@@ -43,5 +42,6 @@ public class EnemyBasicDrawer extends DrawableEnemy {
             1.5f, 1.5f,
             rotationfront
         );
+
     }
 }

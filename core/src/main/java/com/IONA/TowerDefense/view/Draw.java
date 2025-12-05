@@ -13,7 +13,8 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.model.PathDrawer;
 import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
-import com.IONA.TowerDefense.view.units.EnemyDrawer;
+import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
+import com.IONA.TowerDefense.view.units.enemies.DrawableEnemyFactory;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
 import com.badlogic.gdx.Gdx;
@@ -25,9 +26,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static javax.swing.Spring.scale;
+import static com.IONA.TowerDefense.HeartBeat.delta;
 
 public class Draw {
     private final GameModel model;
@@ -37,7 +40,7 @@ public class Draw {
     private TextureAtlas atlas;
     private Animation<TextureAtlas.AtlasRegion> coreAnimation;
     private float stateTime = 0f;
-
+    private final Map<Enemy, DrawableEnemy> enemyViews = new HashMap<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -67,6 +70,10 @@ public class Draw {
         Vector3 v = new Vector3(screenX, screenY, 0);
         viewport.unproject(v);
         return new Vector2(v.x, v.y);
+    }
+
+    private DrawableEnemy getDrawableEnemy(Enemy e){
+        return enemyViews.computeIfAbsent(e, DrawableEnemyFactory::create);
     }
 
     public void draw() {
@@ -105,8 +112,10 @@ public class Draw {
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
 
-        List<Enemy> enemies = model.getEnemies();
-        EnemyDrawer.drawEnemies(enemies,batch);
+        for (Enemy e : model.getEnemies()) {
+            DrawableEnemy view = getDrawableEnemy(e);
+            view.draw(batch, shapeRenderer, delta);
+        }
 
         List<Tower> towers = model.getTowers();
         TowerDrawer.drawTowers(towers, batch);
@@ -142,8 +151,11 @@ public class Draw {
         batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        List<Enemy> enemies = model.getEnemies();
         HealthBarDrawer.drawHealthBar(enemies, shapeRenderer);
         shapeRenderer.end();
+
+        enemyViews.keySet().removeIf(e -> !model.getEnemies().contains(e));
 
     }
 
