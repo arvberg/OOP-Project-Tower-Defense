@@ -19,9 +19,11 @@ In  CyberDefender you are protecting a computer's core from various robotic viru
 The gameplay inputs are purely by mouse, as you press certain buttons to build/upgrade towers, and to control the pace of the game.
 
 To prepare before the game starts, locate the bar of towers on the right side of the screen.
+
 ![Tower Menu Screenshot](assets/readme/TowerMenuREADME.png)
 
 Then, place one alongside the path so that its white circle reaches the path. This action can be repeated. Below is an example of a good first placement.
+
 ![Tower Placement Screenshot](assets/readme/TowerPlacementREADME.png)
 
 Now, with your tower/towers ready, press the play button in the bottom left corner.
