@@ -15,6 +15,7 @@ import java.util.Vector;
 
 public class TowerBasic extends Tower {
 
+    Texture texture2;
     public TowerBasic() {
         dimension = new Vector2(1f, 1f);
         damage = 50;
@@ -26,8 +27,14 @@ public class TowerBasic extends Tower {
         attackType = "HomingProjectile";
         targetingStrategy = new TargetLeadingEnemyStrategy();
 
-        texture = new Texture("TowerBasic.png");
+        texture = new Texture("Tower_back.png");
+        texture2 = new Texture("TowerBasic_01_barrel.png");
+
         rangeTexture = new TextureRegion(new Texture("Range_01.png"));
+    }
+
+    public TextureRegion getTexture2(){
+        return new TextureRegion(this.texture2);
     }
 
     @Override
