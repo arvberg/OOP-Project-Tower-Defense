@@ -45,8 +45,20 @@ public class Main extends ApplicationAdapter {
         painter.dispose();
     }
 
-    private void input() { controller.update(); }
-    private void logic() { updater.update(); }
-    private void draw() {  painter.draw(); }
+    private void input() {
+        controller.update();
+    }
+
+    private void pauseInput() {
+        controller.update();
+    }
+
+    private void logic() {
+        updater.update();
+    }
+
+    private void draw() {
+        painter.draw();
+    }
 }
 
