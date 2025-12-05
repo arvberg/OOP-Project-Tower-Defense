@@ -73,13 +73,20 @@ public class ResourceHandler {
     }
 
     public void setLives(int newLives) {
-        this.lives = newLives;
+        this.lives = Math.max(newLives, 0);
     }
 
     public int getScore(){ return score; }
 
     public List<Resource> getResources(){
         return resources;
+    }
+
+    public void resetResources() {
+        this.lives = 100;
+        this.money = 100;
+        updateHpResource();
+        updateMoneyResource();
     }
 
 }

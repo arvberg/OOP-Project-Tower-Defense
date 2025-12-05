@@ -32,21 +32,16 @@ public class TowerHandler {
         this.decorations = model.getDecor();
     }
 
-    /*public void updateTowerAngle(){
-        for (Tower tower : towers){
-            float angleDeg = (float)Math.toDegrees(0);
-            Vector2 p = tower.getPosition();
-            Texture texture = tower.getTexture();
-            TextureRegion region = new TextureRegion(texture);
+    public void updateTowerAngle(Tower tower){
 
             if(tower.isAiming()) {
                 float dx = tower.getCurrentTarget().getX() - tower.getX();
                 float dy = tower.getCurrentTarget().getY() - tower.getY();
                 float angleRad = (float)Math.atan2(dy,dx);
-                angleDeg = (float)Math.toDegrees(angleRad);
+                tower.setAngleDeg((float)Math.toDegrees(angleRad));
             }
-        }
-    }*/
+
+    }
 
     public void selectTower(Vector2 selectedPoint) {
         Tower clickedTower = null;
@@ -99,6 +94,7 @@ public class TowerHandler {
         Tower newTower = factory.createTower(tower);
 
         if (model.getMoney() >= newTower.getCost()) {
+                model.deselectTower();
                 model.setBuyingState(true);
                 model.setPendingTower(newTower);
         }
@@ -168,6 +164,20 @@ public class TowerHandler {
             }
         }
         return false;
+    }
+
+    public void addTower(Tower tower) {
+        towers.add(tower);
+    }
+
+    public void removeTower(Tower tower) {
+        towers.remove(tower);
+    }
+
+    public void removeAllTowers() {
+        for (int i = towers.size() - 1; i >= 0; i--) {
+            towers.remove(i);
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
@@ -33,16 +34,17 @@ public class AttackHandler {
         List<Unit> deadUnits = new ArrayList<>();
     }
 
-    public void update() {
-        updateTowers();
-        updateProjectiles();
+    public void update(float delta) {
+        updateTowers(delta);
+        updateProjectiles(delta);
         model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
-    public void updateTowers() {
+    public void updateTowers(float delta) {
         for (Tower tower : towers) {
-            tower.update();
+            model.updateTowerAngle(tower);
+            tower.update(delta);
             if (tower.canShoot()) {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
                 List<Enemy> targets = tower.getTargets(enemiesInRadius);
@@ -60,7 +62,7 @@ public class AttackHandler {
         }
     }
 
-    public void updateProjectiles() {
+    public void updateProjectiles(float delta) {
         for (Projectile projectile : projectiles) {
 
             if (projectile.isDestroyed()) {
@@ -70,7 +72,7 @@ public class AttackHandler {
             if (projectile.getProjectileType().equals("Homing")) {
                 updateHomingProjectile(projectile);
             }
-            projectile.move(HeartBeat.delta);
+            projectile.move(delta);
             projectileHit(projectile, enemies);
         }
     }
@@ -158,6 +160,10 @@ public class AttackHandler {
         float deltaY = to.getY() - from.getY();
 
         return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
+    }
+
+    public void removeAllProjectiles() {
+        projectiles.clear();
     }
 
 }

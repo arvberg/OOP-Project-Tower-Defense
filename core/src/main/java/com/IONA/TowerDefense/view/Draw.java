@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.view;
 
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
@@ -15,8 +16,9 @@ import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.EnemyDrawer;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
 import com.IONA.TowerDefense.view.units.TowerDrawer;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -25,18 +27,36 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.List;
 
+import static javax.swing.Spring.scale;
+
 public class Draw {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
+    private TextureAtlas atlas;
+    private Animation<TextureAtlas.AtlasRegion> coreAnimation;
+    private float stateTime = 0f;
+
+
+    // Variables for fading transitions
+    private float fadeTimer = 0f;
+    private final float fadeDuration = 2f;
 
     public Draw(GameModel model) {this.model = model;}
 
     public void create() {
+
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
+        atlas = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
+        coreAnimation = new Animation<>(0.01f, atlas.findRegions("Core_01"));
+        coreAnimation.setPlayMode(Animation.PlayMode.LOOP);
+        //coreSprite = new Sprite(coreAnimation.getKeyFrame(0));
+        //coreSprite.setScale(1f);
+        //coreSprite.setPosition(12,7);
+
     }
 
     public void resize(int w, int h) {
@@ -50,6 +70,7 @@ public class Draw {
     }
 
     public void draw() {
+
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
         viewport.apply();
         batch.setProjectionMatrix(viewport.getCamera().combined);
@@ -67,20 +88,22 @@ public class Draw {
 
         batch.begin();
 
+        stateTime += Gdx.graphics.getDeltaTime();
+        TextureRegion frame = coreAnimation.getKeyFrame(stateTime);
+        List<Decoration> decorations = model.getDecor();
+        DecorationDrawer.drawDecorations(decorations,batch, frame);
+
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
 
         UpgradeMenu upgradeMenu = model.getUpgradeMenu();
         UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
 
-        List<Button> buttons = model.getButtons();
-        ButtonGroupOneDrawer.drawButtons(buttons,batch);
+        List<Button> inGameButtons = model.getInGameButtons();
+        ButtonDrawer.drawButtons(inGameButtons,batch);
 
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
-
-        List<Decoration> decorations = model.getDecor();
-        DecorationDrawer.drawDecorations(decorations,batch);
 
         List<Enemy> enemies = model.getEnemies();
         EnemyDrawer.drawEnemies(enemies,batch);
@@ -104,6 +127,17 @@ public class Draw {
 
         List<Projectile> projectiles = model.getProjectiles();
         ProjectileDrawer.drawProjectiles(projectiles,batch);
+
+        if (model.getGameState() == GameState.GAME_OVER) {
+            List<Button> gameOverButtons = model.getGameOverButtons();
+
+            fadeTimer += Gdx.graphics.getDeltaTime();
+            float alpha = Math.min(fadeTimer / fadeDuration, 1f);
+            batch.setColor(1f, 1f, 1f, alpha);
+            batch.draw(model.getGameOverBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+            ButtonDrawer.drawButtons(gameOverButtons,batch);
+            batch.setColor(1f, 1f, 1f, 1f);
+        }
 
         batch.end();
 

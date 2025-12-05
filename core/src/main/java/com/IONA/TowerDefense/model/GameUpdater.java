@@ -21,9 +21,9 @@ public class GameUpdater  {
             return;
         }
         //System.out.println("updating!");
-        model.updateEnemies();
+        model.updateEnemies(HeartBeat.delta);
         model.coreDamaged();
-        attackHandler.update();
+        attackHandler.update(HeartBeat.delta);
         model.getTowerMenu().update(HeartBeat.delta);
         model.getUpgradeMenu().update(HeartBeat.delta);
         model.getSideMenu().update(HeartBeat.delta);
@@ -31,7 +31,7 @@ public class GameUpdater  {
         model.getUpgradeMenuToggleButton().updatePosition();
         model.getSideMenuToggleButton().updatePosition();
 
-        WaveGenerator wg = model.getPlayButton().generator;
+        WaveGenerator wg = model.getGenerator();
 
         if (wg.WaveCleared()){
             wg.WaveReward();

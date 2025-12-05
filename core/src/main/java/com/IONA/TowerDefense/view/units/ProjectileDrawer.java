@@ -9,9 +9,9 @@ import java.util.List;
 public class ProjectileDrawer {
 
     public static void drawProjectiles(List<Projectile> projectiles, SpriteBatch batch){
-        for (Projectile p : projectiles){
+        for (Projectile p : projectiles) {
             Vector2 proj = p.getPosition();
-            batch.draw(p.projectileIcon, proj.x, proj.y, 0.5f, 0.5f);
+            batch.draw(p.projectileIcon, proj.x, proj.y, 0.18f, 0.18f);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense;
 
 import com.IONA.TowerDefense.controller.GameController;
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.GameUpdater;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
@@ -24,6 +25,7 @@ public class Main extends ApplicationAdapter {
         painter = new Draw(model);
         painter.create();
         controller = new GameController(model, painter);
+
     }
 
     @Override

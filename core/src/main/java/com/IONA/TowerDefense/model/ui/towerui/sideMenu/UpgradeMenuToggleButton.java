@@ -17,13 +17,13 @@ public class UpgradeMenuToggleButton extends Button {
 
     public UpgradeMenuToggleButton(float x, float y, UpgradeMenu menu, SideMenu smenu, StateChanger schanger) {
 
-        super("Playbutton_temp_02.png", x, y, 0.5f, 0.5f);
+        super("Upgrade_button_temp.png", x, y, 0.5f, 1.8f);
         this.upgrademenu = menu;
         this.schanger = schanger;
         this.smenu = smenu;
         this.texture1 = this.texture;
-        this.texture2 = new Texture("Pause_button_temp_01.png");
-        this.isOpen = false;
+        this.texture2 = new Texture("Upgrade_button_selected_temp.png");
+        this.isOpen = true;
 
     }
 
@@ -46,7 +46,7 @@ public class UpgradeMenuToggleButton extends Button {
 
     public void updatePosition(){
         float newX = smenu.getMenuPosition().x - this.width;
-        float newY = smenu.getMenuPosition().y + upgrademenu.getHeight() - this.height*2.05f;
+        float newY = smenu.getMenuPosition().y + upgrademenu.getHeight() - this.height*2f;
         setButtonPosition(newX,newY);
         if(isOpen){
             this.texture = texture1;

@@ -16,7 +16,7 @@ public class Segment {
         this.length = length;
         this.direction = direction;
         this.width = 0.6f;
-        Texture texture = new Texture("Path_temp_brush_01.png");
+
     }
 
     public Vector2 getStartPosition() {

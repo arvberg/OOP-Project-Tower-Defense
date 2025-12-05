@@ -24,7 +24,7 @@ public class Projectile extends Unit implements Movable {
         this.position = position;
         this.dxdy = dxdy;
         this.destroyed = false;
-        this.projectileIcon = new Texture("Projectile_temp_02.png");
+        this.projectileIcon = new Texture("Projectile_basic_01.png");
     }
 
     public void setPosition(float newX, float newY) {

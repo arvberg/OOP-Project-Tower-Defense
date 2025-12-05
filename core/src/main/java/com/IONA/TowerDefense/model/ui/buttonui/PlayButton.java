@@ -1,7 +1,9 @@
 package com.IONA.TowerDefense.model.ui.buttonui;
 
+import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import static com.IONA.TowerDefense.Main.model;
@@ -11,9 +13,11 @@ public class PlayButton extends Button {
 
     //Rectangle bounds;
     public PlayButton(float x, float y, GameModel model) {
-        super("Playbutton_temp_02.png", x, y, 1, 1);
-        this.generator = new WaveGenerator(model.getDifficulty(), model);
-        //this.bounds = new Rectangle(x,y,1,1);
+        super("Playbutton.png", x, y, 1, 1);
+        this.generator = model.getGenerator();
+        this.width = 1f;
+        this.height = 1f;
+        this.bounds = new Rectangle(x, y, width, height);
     }
 
     @Override
@@ -28,6 +32,9 @@ public class PlayButton extends Button {
         System.out.println("Start button pressed!");
         generator.SpawnNextWave();
 
+        model.setGameState(GameState.RUNNING);
+        System.out.println("State:" + model.getGameState());
         model.getPlayButton().toggleButton();
+
     }
 }

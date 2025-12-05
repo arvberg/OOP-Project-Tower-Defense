@@ -16,13 +16,13 @@ public class SideMenuToggleButton extends Button {
 
     public SideMenuToggleButton(float x, float y, TowerMenu menu, UpgradeMenu umenu, SideMenu smenu, StateChanger schanger) {
 
-        super("Playbutton_temp_02.png", x, y, 0.5f, 0.5f);
+        super("Close.png", x, y, 0.5f, 1.8f);
         this.towermenu = menu;
         this.upgrademenu = umenu;
         this.sidemenu = smenu;
         this.schanger = schanger;
         this.texture1 = this.texture;
-        this.texture2 = new Texture("Pause_button_temp_01.png");
+        this.texture2 = new Texture("Open_button.png");
         this.isOpen = true;
 
     }
@@ -54,7 +54,7 @@ public class SideMenuToggleButton extends Button {
 
     public void updatePosition() {
         float newX = sidemenu.getMenuPosition().x - this.width;
-        float newY = sidemenu.getMenuPosition().y + towermenu.getHeight() - this.height * 3;
+        float newY = sidemenu.getMenuPosition().y + towermenu.getHeight() - this.height * 3f;
         setButtonPosition(newX, newY);
         if (isOpen) {
             this.texture = texture1;

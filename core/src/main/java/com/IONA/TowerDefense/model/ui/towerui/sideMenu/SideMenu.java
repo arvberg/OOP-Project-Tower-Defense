@@ -40,11 +40,11 @@ public class SideMenu extends Menu {
         // flytta menyn mot target
         if (menuPosition.x < targetX) {
 
-            menuPosition.x += slideSpeed * HeartBeat.delta;
+            menuPosition.x += slideSpeed * delta;
 
         } else {
 
-            menuPosition.x -= slideSpeed * HeartBeat.delta;
+            menuPosition.x -= slideSpeed * delta;
 
         }
         bounds.setX(menuPosition.x);

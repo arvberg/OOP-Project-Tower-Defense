@@ -1,6 +1,8 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.WaveGenerator;
+import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -15,7 +17,9 @@ import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -32,7 +36,8 @@ public class GameModel {
     private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
-    private List<Button> buttons;
+    private List<Button> inGameButtons;
+    private List<Button> gameOverButtons;
 
     //private final List<Resource> resources;
     private final List<Resource> resources;
@@ -42,13 +47,13 @@ public class GameModel {
     private final PlayButton playbutton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
+    private final RestartButton restartButton;
     private final TowerMenuToggleButton towermenutogglebutton;
     private final UpgradeMenuToggleButton upgrademenutogglebutton;
     private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
     private int score; // Players current score
-    private int money;
     private final int difficulty;
 
     private final TowerFactory towerFactory;
@@ -65,6 +70,8 @@ public class GameModel {
 
     private final Decoration core;
 
+    private final WaveGenerator generator;
+
     public GameModel () {
 
         this.towerMenu = new TowerMenu(13,0,this);
@@ -75,25 +82,30 @@ public class GameModel {
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
+        this.generator = new WaveGenerator(0, this);
 
-        this.buttons = new ArrayList<>();
+        //this.money = 100;
+        //this.score = 0;
+        this.inGameButtons = new ArrayList<>();
         this.background = new Background();
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
-        this.attackHandler = new AttackHandler(this);
-        this.enemyHandler = new EnemyHandler(this);
 
         this.resourceHandler = new ResourceHandler(this);
         this.resources = resourceHandler.getResources();
-        this.money = resourceHandler.getMoney();
+
+        this.attackHandler = new AttackHandler(this);
+        this.enemyHandler = new EnemyHandler(this);
 
         this.towerHandler = new TowerHandler(this);
         this.core = new Core();
 
-        this.buttons = new ArrayList<>();
+        this.inGameButtons = new ArrayList<>();
+        this.gameOverButtons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pauseButton = new PauseButton(10, 0);
+        this.restartButton = new RestartButton(5, 5, this);
         this.schanger = new StateChanger();
         this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
         this.upgrademenutogglebutton = new UpgradeMenuToggleButton(0,3,upgradeMenu,sideMenu, schanger);
@@ -101,28 +113,15 @@ public class GameModel {
         this.sidemenutogglebutton = new SideMenuToggleButton(0, 5,towerMenu,upgradeMenu,sideMenu,schanger);
 
 
-        addButtons(towermenutogglebutton);
-        addButtons(upgrademenutogglebutton);
-        addButtons(sidemenutogglebutton);
-        addButtons(playbutton);
-        addButtons(speedUpButton);
-        addButtons(pauseButton);
-        towerMenu.createGridItems(buttons);
-        upgradeMenu.createGridItems(buttons);
-
-
-        resources.add(new ResourceHP(
-            resourceHandler.getLives(),
-            new Vector2(1.5f, 1.5f),
-            3f,
-            1f
-        ));
-
-        resources.add(new ResourceMoney(
-            resourceHandler.getMoney(),
-            new Vector2(5.5f, 1.5f),
-            3f,
-            1f));
+        inGameButtons.add(towermenutogglebutton);
+        inGameButtons.add(upgrademenutogglebutton);
+        inGameButtons.add(sidemenutogglebutton);
+        inGameButtons.add(playbutton);
+        inGameButtons.add(speedUpButton);
+        inGameButtons.add(pauseButton);
+        gameOverButtons.add(restartButton);
+        towerMenu.createGridItems(inGameButtons);
+        upgradeMenu.createGridItems(inGameButtons);
 
         placeCore(core);
     }
@@ -132,7 +131,7 @@ public class GameModel {
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x,
+            end.x+0.1f,
             end.y)
         );
 
@@ -153,12 +152,22 @@ public class GameModel {
                 removeEnemy(e);
                 System.out.println("Health: " + resourceHandler.getLives());
                 // Set Game Over state
-                if (resourceHandler.getLives() <= 0) {
-                    setGameState(GameState.GAME_OVER);
-                    System.out.println("Game Over!");
-                }
             }
         }
+        if (resourceHandler.getLives() <= 0 && getGameState() != GameState.GAME_OVER) {
+            setGameState(GameState.GAME_OVER);
+            System.out.println("Game Over!");
+            getPlayButton().toggleButton();
+        }
+    }
+
+    public void restartGame() {
+        enemyHandler.removeAllEnemies();
+        towerHandler.removeAllTowers();
+        attackHandler.removeAllProjectiles();
+        resourceHandler.resetResources();
+        generator.resetWaves();
+        setGameState(GameState.START);
     }
 
     public GameState getGameState() {
@@ -169,8 +178,8 @@ public class GameModel {
         this.gameState = state;
     }
 
-    public void updateEnemies() {
-        enemyHandler.moveEnemies();
+    public void updateEnemies(float delta) {
+        enemyHandler.moveEnemies(delta);
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }
@@ -179,14 +188,16 @@ public class GameModel {
     // Add and remove from list
 
     public void addTower(Tower tower) {
-        towers.add(tower);
+        towerHandler.addTower(tower);
     }
 
     public void removeTower(Tower tower) {
-        towers.remove(tower);
+        towerHandler.removeTower(tower);
     }
 
-    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
+    public void removeEnemy(Enemy enemy) {
+        enemyHandler.removeEnemy(enemy);
+    }
 
 
     // Getters for all lists
@@ -205,7 +216,7 @@ public class GameModel {
     public List<Resource> getResources(){return resources;}
 
     public int getMoney() {
-        return money;
+        return resourceHandler.getMoney();
     }
 
     public ResourceHandler getResourceHandler(){
@@ -249,12 +260,15 @@ public class GameModel {
 
     public void sellTower(Tower tower) {
         towerHandler.sellTower(tower);
-        money += (int) (pendingTower.getCost() * 0.8);
         resourceHandler.updateMoneyResource();
     }
 
     // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
     public void removeDeadEnemies() {
+
+        if (getGameState() != GameState.RUNNING) {
+            return;
+        }
 
         List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
 
@@ -269,15 +283,14 @@ public class GameModel {
         return background.BackgroundTexture;
     }
 
-    public List<Button> getButtons() { return buttons;}
-
-    public void addButtons(Button button) {
-        buttons.add(button);
+    public Texture getGameOverBackground() {
+        return background.gameOverBackground;
     }
 
-    public void removeButton(Button button) {
-        buttons.remove(button);
-    }
+    public List<Button> getInGameButtons() { return inGameButtons;}
+
+    public List<Button> getGameOverButtons() { return gameOverButtons; }
+
 
     public PlayButton getPlayButton(){
         return playbutton;
@@ -288,6 +301,10 @@ public class GameModel {
     }
 
     public PauseButton getPauseButton(){return pauseButton;}
+
+    public RestartButton getRestartButton() {
+        return restartButton;
+    }
 
     public AttackHandler getAttackHandler() {
         return attackHandler;
@@ -335,6 +352,8 @@ public class GameModel {
         this.towerSelected = bool;
     }
 
+    public void updateTowerAngle(Tower tower){towerHandler.updateTowerAngle(tower);}
+
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (pendingTower != null && buyingState) {
@@ -362,7 +381,13 @@ public class GameModel {
         return this.sidemenutogglebutton;
     }
 
+    public WaveGenerator getGenerator() {
+        return generator;
+    }
+
     public SideMenu getSideMenu() {
         return this.sideMenu;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.units;
 
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,26 +11,30 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
+import static com.IONA.TowerDefense.Main.model;
+
 public class TowerDrawer {
 
     public static void drawTowers(List<Tower> towers, SpriteBatch batch){
         for (Tower tower : towers){
-            float angleDeg = (float)Math.toDegrees(0);
+
             Vector2 p = tower.getPosition();
             Texture texture = tower.getTexture();
             TextureRegion region = new TextureRegion(texture);
-
-            if(tower.isAiming()) {
-                float dx = tower.getCurrentTarget().getX() - tower.getX();
-                float dy = tower.getCurrentTarget().getY() - tower.getY();
-                float angleRad = (float)Math.atan2(dy,dx);
-                angleDeg = (float)Math.toDegrees(angleRad);
-            }
+            float angleDeg = tower.getAngleDeg();
 
             float dimensionX = tower.getDimension().x;
             float dimensionY = tower.getDimension().y;
 
-            batch.draw(region, p.x - dimensionX/2f, p.y - dimensionY/2f,dimensionX/2, dimensionY/2, dimensionX, dimensionY, 1f, 1f, angleDeg);
+            if(tower instanceof TowerBasic){
+                TextureRegion texture2 = ((TowerBasic) tower).getTexture2();
+                batch.draw(texture, p.x - dimensionX / 2f, p.y - dimensionY / 2f, dimensionX, dimensionY);
+                batch.draw(texture2, p.x - dimensionX / 2f, p.y - dimensionY / 2f, dimensionX / 2f, dimensionY / 2f, dimensionX, dimensionY, 1f, 1f, angleDeg-90);
+
+            }
+            else {
+                batch.draw(region, p.x - dimensionX / 2f, p.y - dimensionY / 2f, dimensionX / 2, dimensionY / 2, dimensionX, dimensionY, 1f, 1f, angleDeg);
+            }
         }
     }
 

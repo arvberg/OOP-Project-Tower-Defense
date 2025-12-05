@@ -61,13 +61,13 @@ public class UpgradeMenu extends Menu {
         // flytta menyn mot target
         if (menuPosition.x < targetX) {
             oldX = menuPosition.x;
-            menuPosition.x += slideSpeed * HeartBeat.delta;
+            menuPosition.x += slideSpeed * delta;
             newX = menuPosition.x;
             moveItemPositive(oldX, newX);
 
         } else {
             oldX = menuPosition.x;
-            menuPosition.x -= slideSpeed * HeartBeat.delta;
+            menuPosition.x -= slideSpeed * delta;
             newX = menuPosition.x;
             moveItemNegative(oldX, newX);
         }
@@ -111,34 +111,34 @@ public class UpgradeMenu extends Menu {
                 }
 
                 if (c == 0 && r == 0) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 0) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 1) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 1) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 2) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 2) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 3) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 3) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 4) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 4) {
-                    texture = "Enemy_temp_03.png";
+                    texture = "TowerBasic.png";
                     towerType = "TowerBasic";
                 }
 
@@ -150,14 +150,14 @@ public class UpgradeMenu extends Menu {
         }
     }
 
-    public void moveItemNegative(float oldX, float newX) {
+    private void moveItemNegative(float oldX, float newX) {
         float diff = Math.abs(oldX - newX);
         for (UpgradeMenuItem item : items) {
             item.setButtonPosition(item.getButtonPosition().x - diff, item.getButtonPosition().y);
         }
     }
 
-    public void moveItemPositive(float oldX, float newX) {
+    private void moveItemPositive(float oldX, float newX) {
         float diff = Math.abs(oldX - newX);
         for (UpgradeMenuItem item : items) {
             item.setButtonPosition(item.getButtonPosition().x + diff, item.getButtonPosition().y);
