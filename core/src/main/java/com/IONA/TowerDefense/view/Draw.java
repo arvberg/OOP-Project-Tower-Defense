@@ -16,7 +16,8 @@ import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemyFactory;
 import com.IONA.TowerDefense.view.units.ProjectileDrawer;
-import com.IONA.TowerDefense.view.units.TowerDrawer;
+import com.IONA.TowerDefense.view.units.towers.DrawableTower;
+import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -41,6 +42,7 @@ public class Draw {
     private Animation<TextureAtlas.AtlasRegion> coreAnimation;
     private float stateTime = 0f;
     private final Map<Enemy, DrawableEnemy> enemyViews = new HashMap<>();
+    private final Map<Tower, DrawableTower> towerViews = new HashMap<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -74,6 +76,10 @@ public class Draw {
 
     private DrawableEnemy getDrawableEnemy(Enemy e){
         return enemyViews.computeIfAbsent(e, DrawableEnemyFactory::create);
+    }
+
+    private DrawableTower getDrawableTower(Tower t){
+        return towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
     }
 
     public void draw() {
@@ -117,21 +123,25 @@ public class Draw {
             view.draw(batch, shapeRenderer, delta);
         }
 
-        List<Tower> towers = model.getTowers();
-        TowerDrawer.drawTowers(towers, batch);
-
         if (model.isBuyingState() && model.getPendingTower() != null) {
-            TowerDrawer.drawPendingTower(model.getPendingTower(), batch);
-            TowerDrawer.drawRange(model.getPendingTower(), batch);
+            Tower t = model.getPendingTower();
+            DrawableTower view = getDrawableTower(t);
+            view.drawPendingTower(batch);
+            view.drawRange(batch);
             if (model.overlaps(model.getPendingTower())) {
                 batch.setColor(Color.RED);
-                TowerDrawer.drawRange(model.getPendingTower(), batch);
+                view.drawRange(batch);
                 batch.setColor(Color.WHITE);
             }
         }
 
-        if (model.isTowerSelected()) {
-            TowerDrawer.drawRange(model.getSelectedTower(), batch);
+        for(Tower t: model.getTowers()){
+            DrawableTower view = getDrawableTower(t);
+            view.draw(batch, shapeRenderer, delta);
+
+            if (model.isTowerSelected() && model.getSelectedTower() == t) {
+                view.drawRange(batch);
+            }
         }
 
         List<Projectile> projectiles = model.getProjectiles();
@@ -155,7 +165,9 @@ public class Draw {
         HealthBarDrawer.drawHealthBar(enemies, shapeRenderer);
         shapeRenderer.end();
 
+        // Ta bort enemies och torn ifall de är döda/sålda.
         enemyViews.keySet().removeIf(e -> !model.getEnemies().contains(e));
+        towerViews.keySet().removeIf(t -> !model.getTowers().contains(t));
 
     }
 

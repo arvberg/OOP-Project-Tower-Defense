@@ -11,8 +11,6 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
     private final TextureRegion texture2;
     private final TextureRegion texture1;
     private final Rectangle hb;
-    private float rotationfront;
-    private float rotationback;
     private final EnemyBasic enemy;
 
     public EnemyBasicDrawer(EnemyBasic enemy) {
@@ -24,8 +22,9 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
-        rotationfront = enemy.getVisualRotationFront();
-        rotationback = enemy.getVisualRotationBack();
+        float rotationfront = enemy.getVisualRotationFront();
+        float rotationback = enemy.getVisualRotationBack();
+
         batch.draw(
             texture2,
             hb.x, hb.y,
