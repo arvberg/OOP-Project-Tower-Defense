@@ -10,12 +10,13 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.view.model.PathDrawer;
+import com.IONA.TowerDefense.view.map.PathDrawer;
 import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.units.DecorationDrawer;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemyFactory;
-import com.IONA.TowerDefense.view.units.ProjectileDrawer;
+import com.IONA.TowerDefense.view.units.projectiles.DrawableProjectile;
+import com.IONA.TowerDefense.view.units.projectiles.DrawableProjectileFactory;
 import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.badlogic.gdx.Gdx;
@@ -43,6 +44,7 @@ public class Draw {
     private float stateTime = 0f;
     private final Map<Enemy, DrawableEnemy> enemyViews = new HashMap<>();
     private final Map<Tower, DrawableTower> towerViews = new HashMap<>();
+    private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -58,9 +60,6 @@ public class Draw {
         atlas = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
         coreAnimation = new Animation<>(0.01f, atlas.findRegions("Core_01"));
         coreAnimation.setPlayMode(Animation.PlayMode.LOOP);
-        //coreSprite = new Sprite(coreAnimation.getKeyFrame(0));
-        //coreSprite.setScale(1f);
-        //coreSprite.setPosition(12,7);
 
     }
 
@@ -80,6 +79,10 @@ public class Draw {
 
     private DrawableTower getDrawableTower(Tower t){
         return towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
+    }
+
+    private DrawableProjectile getDrawableProjectile(Projectile p){
+        return projectileViews.computeIfAbsent(p, DrawableProjectileFactory::create);
     }
 
     public void draw() {
@@ -144,8 +147,10 @@ public class Draw {
             }
         }
 
-        List<Projectile> projectiles = model.getProjectiles();
-        ProjectileDrawer.drawProjectiles(projectiles,batch);
+        for(Projectile p: model.getProjectiles()){
+            DrawableProjectile view = getDrawableProjectile(p);
+            view.draw(batch, shapeRenderer, delta);
+        }
 
         if (model.getGameState() == GameState.GAME_OVER) {
             List<Button> gameOverButtons = model.getGameOverButtons();
@@ -168,6 +173,7 @@ public class Draw {
         // Ta bort enemies och torn ifall de är döda/sålda.
         enemyViews.keySet().removeIf(e -> !model.getEnemies().contains(e));
         towerViews.keySet().removeIf(t -> !model.getTowers().contains(t));
+        projectileViews.keySet().removeIf(p -> !model.getProjectiles().contains(p));
 
     }
 

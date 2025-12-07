@@ -11,13 +11,13 @@ import com.badlogic.gdx.math.Vector2;
 public final class TowerBasicDrawer implements DrawableTower {
 
     private final TowerBasic tower;
-    Vector2 p;
-    Texture texture;
-    TextureRegion texture2;
-    TextureRegion rangetexture;
-    float dimensionX;
-    float dimensionY;
-    float angleDeg;
+    private Vector2 p;
+    private Texture texture;
+    private TextureRegion texture2;
+    private TextureRegion rangetexture;
+    private float dimensionX;
+    private float dimensionY;
+    private float angleDeg;
 
     public TowerBasicDrawer(TowerBasic tower){
         this.tower = tower;
