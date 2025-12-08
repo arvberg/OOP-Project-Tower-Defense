@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
@@ -38,6 +39,7 @@ public class GameModel {
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
+    private List<Menu> menus;
 
     //private final List<Resource> resources;
     private final List<Resource> resources;
@@ -102,6 +104,7 @@ public class GameModel {
 
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
+        this.menus = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pauseButton = new PauseButton(10, 0);
@@ -122,6 +125,11 @@ public class GameModel {
         gameOverButtons.add(restartButton);
         towerMenu.createGridItems(inGameButtons);
         upgradeMenu.createGridItems(inGameButtons);
+
+        // används för att inte kunna placera torn på menues.
+        menus.add(towerMenu);
+        menus.add(upgradeMenu);
+        menus.add(sideMenu);
 
         placeCore(core);
     }
@@ -260,6 +268,7 @@ public class GameModel {
 
     public void sellTower(Tower tower) {
         towerHandler.sellTower(tower);
+        resourceHandler.gainMoney(tower.getCost());
         resourceHandler.updateMoneyResource();
     }
 
@@ -387,6 +396,10 @@ public class GameModel {
 
     public SideMenu getSideMenu() {
         return this.sideMenu;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
     }
 
 
