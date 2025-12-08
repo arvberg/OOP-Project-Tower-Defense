@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.view.model;
+package com.IONA.TowerDefense.view.map;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
