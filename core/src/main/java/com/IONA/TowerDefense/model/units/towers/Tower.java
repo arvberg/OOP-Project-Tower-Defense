@@ -19,12 +19,12 @@ public abstract class Tower extends Unit {
     protected float fireRate;
     protected int cost;
     protected float range;
-    protected int direction;
     protected float cooldown;
     protected Enemy currentTarget;
     protected float dx;
     protected float dy;
     protected float angleDeg;
+    protected boolean hasDetected;
 
     protected Vector2 dimension;
 
@@ -40,6 +40,14 @@ public abstract class Tower extends Unit {
 
     public boolean isAiming() {
         return this.currentTarget != null;
+    }
+
+    public boolean getHasDetected() {
+        return hasDetected;
+    }
+
+    public void setHasDetected(boolean hasDetected) {
+        this.hasDetected = hasDetected;
     }
 
     public void setCurrentTarget(Enemy enemy){this.currentTarget = enemy;}
@@ -74,10 +82,6 @@ public abstract class Tower extends Unit {
 
     public void setRange(float range) {
         this.range = range;
-    }
-
-    public int getDir(){
-        return direction;
     }
 
     public abstract void attack(Targetable target, long currentTimeMillis);
@@ -144,8 +148,8 @@ public abstract class Tower extends Unit {
         cooldown = fireRate;
     }
 
-    public void update(){
-        cooldown -= HeartBeat.delta;
+    public void update(float delta){
+        cooldown -= delta;
     }
 
 

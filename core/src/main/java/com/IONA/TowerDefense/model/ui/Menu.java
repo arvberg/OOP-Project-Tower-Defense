@@ -38,4 +38,8 @@ public abstract class Menu {
     }
 
     public abstract void onClick();
+
+    public boolean contains(float x, float y) {
+        return bounds.contains(x, y);
+    }
 }

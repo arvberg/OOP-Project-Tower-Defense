@@ -30,7 +30,16 @@ public class PlayButton extends Button {
     @Override
     public void onClick() {
         System.out.println("Start button pressed!");
+
+        if (generator.getWaveNr() == 3) {
+            generator.setGameDiff(generator.getGameDiff()+1);
+            System.out.println(generator.getGameDiff());
+            generator.resetWaves();
+            generator.SpawnNextWave();
+            System.out.println(generator.getWaveNr());
+        }
         generator.SpawnNextWave();
+        System.out.println(generator.getWaveNr());
 
         model.setGameState(GameState.RUNNING);
         System.out.println("State:" + model.getGameState());
