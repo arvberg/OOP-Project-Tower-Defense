@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.IONA.TowerDefense.Main.model;
-
+//
 public class EnemyHandler {
 
     GameModel gamemodel;
