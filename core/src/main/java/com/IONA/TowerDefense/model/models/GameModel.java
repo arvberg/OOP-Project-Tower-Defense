@@ -94,7 +94,7 @@ public class GameModel {
         this.resourceHandler = new ResourceHandler(this);
         this.resources = resourceHandler.getResources();
 
-        this.attackHandler = new AttackHandler(this);
+        this.attackHandler = new AttackHandler(enemies, towers, projectiles);
         this.enemyHandler = new EnemyHandler(this);
 
         this.towerHandler = new TowerHandler(this);
@@ -263,20 +263,12 @@ public class GameModel {
         resourceHandler.updateMoneyResource();
     }
 
-    // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
-    public void removeDeadEnemies() {
-
+    public void enemyDeath(Enemy enemy) {
         if (getGameState() != GameState.RUNNING) {
             return;
         }
-
-        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
-
-        for (Enemy enemy : deadEnemies) {
-            int moneyGained = enemy.getMoney();
-            resourceHandler.gainMoney(moneyGained);
-        }
-        resourceHandler.updateMoneyResource();
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
     }
 
     public Texture getBackground(){
@@ -351,8 +343,6 @@ public class GameModel {
     public void setTowerSelected(Boolean bool) {
         this.towerSelected = bool;
     }
-
-    public void updateTowerAngle(Tower tower){towerHandler.updateTowerAngle(tower);}
 
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {

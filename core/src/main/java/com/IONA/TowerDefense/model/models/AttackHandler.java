@@ -17,33 +17,28 @@ import java.util.List;
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
 public class AttackHandler {
-    private final GameModel model;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
     private final ProjectileFactory projectileFactory;
-    private int money;
 
-    public AttackHandler(GameModel model) {
-        this.model = model;
-        this.enemies = model.getEnemies();
-        this.projectiles = model.getProjectiles();
-        this.towers = model.getTowers();
+    public AttackHandler(List<Enemy> enemies, List<Tower> towers, List<Projectile> projectiles) {
+        this.enemies = enemies;
+        this.projectiles = projectiles;
+        this.towers = towers;
         this.projectileFactory = new ProjectileFactory();
-        this.money = model.getMoney();
         List<Unit> deadUnits = new ArrayList<>();
     }
 
     public void update() {
         updateTowers();
         updateProjectiles();
-        model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
     public void updateTowers() {
         for (Tower tower : towers) {
-            model.updateTowerAngle(tower);
+            updateTowerAngle(tower);
             tower.update();
             if (tower.canShoot()) {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
@@ -60,6 +55,17 @@ public class AttackHandler {
                 }
             }
         }
+    }
+
+    public void updateTowerAngle(Tower tower) {
+
+        if(tower.isAiming()) {
+            float dx = tower.getCurrentTarget().getX() - tower.getX();
+            float dy = tower.getCurrentTarget().getY() - tower.getY();
+            float angleRad = (float)Math.atan2(dy,dx);
+            tower.setAngleDeg((float)Math.toDegrees(angleRad));
+        }
+
     }
 
     public void updateProjectiles() {

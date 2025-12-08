@@ -67,6 +67,16 @@ public class EnemyHandler {
         }
     }
 
+    public void removeDeadEnemies() {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            if (enemies.get(i).getHp() <= 0) {
+
+                enemies.remove(i);
+            }
+        }
+    }
+
+    /*
     public List<Enemy> removeDeadEnemies() {
 
         List<Enemy> dead = new ArrayList<>();
@@ -80,5 +90,7 @@ public class EnemyHandler {
 
         return dead;
     }
+
+     */
 
 }
