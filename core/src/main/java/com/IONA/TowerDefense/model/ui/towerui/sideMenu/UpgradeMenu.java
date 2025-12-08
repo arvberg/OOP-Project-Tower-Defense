@@ -4,6 +4,9 @@ import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
+import com.IONA.TowerDefense.model.upgrades.SpeedUpgrade;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,39 +115,16 @@ public class UpgradeMenu extends Menu {
 
                 if (c == 0 && r == 0) {
                     texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
+                    UpgradeMenuItem item = new UpgradeMenuItem(texture, x, y, model, new SpeedUpgrade(50));
+                    buttons.add(item);
+                    items.add(item);
                 } else if (c == 1 && r == 0) {
                     texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 1) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 1) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 2) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 2) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 3) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 3) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 4) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 4) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
+                    UpgradeMenuItem item = new UpgradeMenuItem(texture, x, y, model, new RangeUpgrade(50));
+                    buttons.add(item);
+                    items.add(item);
                 }
 
-                UpgradeMenuItem item = new UpgradeMenuItem(texture, x, y, towerType, model);
-                buttons.add(item);
-                items.add(item);
 
             }
         }

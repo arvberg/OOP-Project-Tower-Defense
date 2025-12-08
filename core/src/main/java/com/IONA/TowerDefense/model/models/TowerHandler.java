@@ -179,5 +179,4 @@ public class TowerHandler {
             towers.remove(i);
         }
     }
-
 }

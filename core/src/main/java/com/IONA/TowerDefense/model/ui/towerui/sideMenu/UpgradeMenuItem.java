@@ -2,17 +2,18 @@ package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
 public class UpgradeMenuItem extends Button {
 
-    private final String towerType; //
     private final GameModel model;
+    private final TowerUpgrade upgrade;
 
-    public UpgradeMenuItem(String texture, float x, float y, String towerType, GameModel model) {
+    public UpgradeMenuItem(String texture, float x, float y, GameModel model, TowerUpgrade upgrade) {
         super(texture, x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
-        this.towerType = towerType;
         this.model = model;
+        this.upgrade = upgrade;
     }
 
     @Override
@@ -24,10 +25,9 @@ public class UpgradeMenuItem extends Button {
 
     @Override
     public void onClick() {
-        System.out.println("Clicked tower: " + towerType);
         if (model.isTowerSelected()) {
-            model.sellTower(model.getSelectedTower());
-            model.deselectTower();
+            model.upgradeTower(model.getSelectedTower(), upgrade);
+            System.out.println("Upgraded");
         }
     }
 

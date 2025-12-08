@@ -22,7 +22,7 @@ public class TowerBasic extends Tower {
         projectileSpeed = 8;
         cost = 50;
         fireRate = 0.1f;
-        range = 2;
+        range = 2f;
         cooldown = 0f;
         attackType = "HomingProjectile";
         targetingStrategy = new TargetLeadingEnemyStrategy();

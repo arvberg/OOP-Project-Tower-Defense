@@ -18,6 +18,7 @@ import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Intersector;
@@ -55,6 +56,7 @@ public class GameModel {
     private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
+    private final UpgradeHandler upgradeHandler;
     private int score; // Players current score
     private final int difficulty;
 
@@ -101,6 +103,8 @@ public class GameModel {
 
         this.towerHandler = new TowerHandler(this);
         this.core = new Core();
+
+        this.upgradeHandler = new UpgradeHandler(this);
 
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
@@ -272,6 +276,13 @@ public class GameModel {
         resourceHandler.updateMoneyResource();
     }
 
+    public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
+        if (resourceHandler.getMoney() >= tower.getCost() && selectedTower != null) {
+            upgradeHandler.upgrade(tower, upgrade);
+            resourceHandler.spendMoney(tower.getCost());
+        }
+    }
+
     // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
     public void removeDeadEnemies() {
 
@@ -400,6 +411,10 @@ public class GameModel {
 
     public List<Menu> getMenus() {
         return menus;
+    }
+
+    public UpgradeHandler getUpgradeHandler() {
+        return this.upgradeHandler;
     }
 
 
