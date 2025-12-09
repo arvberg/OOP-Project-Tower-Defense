@@ -24,7 +24,7 @@ public class InputHandler {
     private final UpgradeMenuToggleButton upgradeMenuToggleButton;
     private final SideMenuToggleButton sideMenuToggleButton;
     private final List<TowerMenuItem> towerMenuItems;
-    private final List<UpgradeMenuItem> upgradeMenuItems;
+    private final List<Button> upgradeMenuItems;
     private final List<Tower> towers;
 
     private GameModel model;
@@ -67,7 +67,7 @@ public class InputHandler {
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
         }
-        for (UpgradeMenuItem u : upgradeMenuItems){
+        for (Button u : upgradeMenuItems){
             u.isClicked(pos);
         }
 

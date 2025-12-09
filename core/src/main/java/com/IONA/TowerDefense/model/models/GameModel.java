@@ -393,7 +393,7 @@ public class GameModel {
         return this.upgrademenutogglebutton;
     }
 
-    public List<UpgradeMenuItem> getUpgradeMenuItems() {
+    public List<Button> getUpgradeMenuItems() {
         return this.upgradeMenu.items;
     }
 

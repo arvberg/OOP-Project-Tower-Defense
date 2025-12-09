@@ -15,6 +15,7 @@ import java.util.Vector;
 
 public abstract class Tower extends Unit {
     protected int damage;
+    protected int baseDamage;
     protected float projectileSpeed;
     protected float fireRate;
     protected float baseFireRate;

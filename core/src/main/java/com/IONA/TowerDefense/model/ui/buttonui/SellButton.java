@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import static com.IONA.TowerDefense.Main.model;
 
-public class SellButton extends Button{
+public class SellButton extends Button {
 
     public SellButton (float x, float y, GameModel model) {
         super("Playbutton.png", x, y, 1, 1);
@@ -25,6 +25,9 @@ public class SellButton extends Button{
 
     @Override
     public void onClick() {
-        model.sellTower(model.getSelectedTower());
+        if (model.isTowerSelected()) {
+            model.sellTower(model.getSelectedTower());
+            model.deselectTower();
+        }
     }
 }
