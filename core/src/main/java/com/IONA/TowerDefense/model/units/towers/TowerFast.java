@@ -21,8 +21,6 @@ public class TowerFast extends Tower{
         cooldown = 0f;
         attackType = "HomingProjectile";
         targetingStrategy = new TargetLeadingEnemyStrategy();
-
-        texture = new Texture("Tower_temp_04.png");
         rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
 

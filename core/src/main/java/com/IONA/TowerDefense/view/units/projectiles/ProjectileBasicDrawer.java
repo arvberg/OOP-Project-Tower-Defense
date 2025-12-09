@@ -11,12 +11,11 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
 
     private final Projectile projectile;
     private Vector2 p;
-    private Texture texture;
+    private Texture texture = new Texture("Projectile_basic_01.png");
 
     public ProjectileBasicDrawer(Projectile projectile){
         this.projectile = projectile;
         p = projectile.getPosition();
-        texture = projectile.getIcon();
     }
 
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
