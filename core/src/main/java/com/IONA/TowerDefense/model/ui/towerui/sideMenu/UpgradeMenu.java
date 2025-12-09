@@ -124,8 +124,6 @@ public class UpgradeMenu extends Menu {
                     buttons.add(item);
                     items.add(item);
                 }
-
-
             }
         }
     }

@@ -17,6 +17,7 @@ public class TowerFast extends Tower{
         projectileSpeed = 8;
         cost = 50;
         fireRate = 0.1f;
+        baseFireRate = 0.1f;
         range = 2;
         cooldown = 0f;
         attackType = "HomingProjectile";

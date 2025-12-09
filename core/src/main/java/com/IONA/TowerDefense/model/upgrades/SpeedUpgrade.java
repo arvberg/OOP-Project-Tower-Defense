@@ -27,11 +27,12 @@ public class SpeedUpgrade implements TowerUpgrade {
 
     @Override
     public void apply(Tower tower) {
-        float fireRate = tower.getFireRate();
-        float maxRate = fireRate * 2;
+        float currentRate = tower.getFireRate();
+        float maxRate = tower.getBaseFireRate() * 0.5f;
         float factor = 0.2f; // 20% av skillnaden i ökning
 
-        float newRate = fireRate + ((maxRate - fireRate) * factor);
+        float newRate = currentRate - (currentRate - maxRate) * factor;
         tower.setFireRate(newRate);
+        System.out.println("new rate: " + currentRate);
     }
 }

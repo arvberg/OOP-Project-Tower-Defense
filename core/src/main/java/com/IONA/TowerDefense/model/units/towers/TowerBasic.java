@@ -20,9 +20,11 @@ public class TowerBasic extends Tower {
         dimension = new Vector2(1f, 1f);
         damage = 50;
         projectileSpeed = 8;
+        baseFireRate = 0.1f;
         cost = 50;
         fireRate = 0.1f;
         range = 2f;
+        baseRange = 2f;
         cooldown = 0f;
         attackType = "HomingProjectile";
         targetingStrategy = new TargetLeadingEnemyStrategy();

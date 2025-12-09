@@ -29,11 +29,11 @@ public class RangeUpgrade implements TowerUpgrade{
 
     @Override
     public void apply(Tower tower) {
-        float range = tower.getRange();
-        float Rmax = range * 2;
+        float currentRange = tower.getRange();
+        float maxRange = tower.getBaseRange() * 2;
         float factor = 0.2f;
 
-        float newRange = range + ((Rmax - range) * factor);
+        float newRange = currentRange + ((maxRange - currentRange) * factor);
         tower.setRange(newRange);
     }
 }

@@ -17,8 +17,10 @@ public abstract class Tower extends Unit {
     protected int damage;
     protected float projectileSpeed;
     protected float fireRate;
+    protected float baseFireRate;
     protected int cost;
     protected float range;
+    protected float baseRange;
     protected float cooldown;
     protected Enemy currentTarget;
     protected float dx;
@@ -98,9 +100,15 @@ public abstract class Tower extends Unit {
         return range;
     }
 
+    public float getBaseRange(){
+        return baseRange;
+    }
+
     public float getFireRate(){
         return fireRate;
     }
+
+    public float getBaseFireRate() { return baseFireRate; }
 
     public abstract void fire();
 
