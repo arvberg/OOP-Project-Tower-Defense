@@ -2,11 +2,7 @@ package com.IONA.TowerDefense.controller;
 
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.IONA.TowerDefense.model.ui.buttonui.PauseButton;
-import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
-import com.IONA.TowerDefense.model.ui.buttonui.RestartButton;
-import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
+import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
@@ -16,6 +12,7 @@ import java.util.List;
 public class InputHandler {
 
     private final PlayButton playButton;
+    private final ExitButton exitButton;
     private final RestartButton restartButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
@@ -31,6 +28,7 @@ public class InputHandler {
     public InputHandler (GameModel model) {
 
         this.playButton = model.getPlayButton();
+        this.exitButton = model.getExitButton();
         this.restartButton = model.getRestartButton();
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
@@ -50,6 +48,7 @@ public class InputHandler {
 
         if (model.getGameState() == GameState.GAME_OVER) {
             restartButton.isClicked(pos);
+            exitButton.isClicked(pos);
             return;
         }
 
@@ -71,6 +70,7 @@ public class InputHandler {
         }
 
         speedUpButton.isClicked(pos);
+
 
         // Om spelaren har ett torn redo att placera
         if (model.isBuyingState()) {

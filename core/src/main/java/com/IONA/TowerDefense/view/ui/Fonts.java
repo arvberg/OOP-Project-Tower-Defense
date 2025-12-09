@@ -12,21 +12,14 @@ public class Fonts {
     public static BitmapFont resourceFont;
 
     public static void load(){
-        FreeTypeFontGenerator generator =
-            new FreeTypeFontGenerator(Gdx.files.internal("fonts/ChicagoFLF.ttf"));
+        resourceFont = new BitmapFont(Gdx.files.internal("fonts/VT323.fnt"));
 
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter =
-            new FreeTypeFontGenerator.FreeTypeFontParameter();
+        float desiredWorldHeight = .5f;
+        float glyphPixelHeight = 32f;
 
-        parameter.size = 25;
-        parameter.color = Color.WHITE;
-        parameter.magFilter = Texture.TextureFilter.Linear;
-        parameter.minFilter = Texture.TextureFilter.Linear;
+        float scale = desiredWorldHeight / glyphPixelHeight;
 
-        resourceFont = generator.generateFont(parameter);
-        resourceFont.setUseIntegerPositions(true);
-
-        resourceFont.getData().setScale(.075f);
-
+        resourceFont.getData().setScale(scale);
+        resourceFont.setUseIntegerPositions(false);
     }
 }

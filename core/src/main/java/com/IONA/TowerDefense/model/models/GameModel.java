@@ -45,6 +45,7 @@ public class GameModel {
     private final Path path;
     private final Background background;
     private final PlayButton playbutton;
+    private final ExitButton exitButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
@@ -103,6 +104,7 @@ public class GameModel {
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
+        this.exitButton = new ExitButton(500f, 5f);
         this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5, 5, this);
@@ -120,6 +122,7 @@ public class GameModel {
         inGameButtons.add(speedUpButton);
         inGameButtons.add(pauseButton);
         gameOverButtons.add(restartButton);
+        gameOverButtons.add(exitButton);
         towerMenu.createGridItems(inGameButtons);
         upgradeMenu.createGridItems(inGameButtons);
 
@@ -158,6 +161,7 @@ public class GameModel {
             setGameState(GameState.GAME_OVER);
             System.out.println("Game Over!");
             getPlayButton().toggleButton();
+            getExitButton().toggleButton();
         }
     }
 
@@ -168,6 +172,7 @@ public class GameModel {
         resourceHandler.resetResources();
         generator.resetWaves();
         setGameState(GameState.START);
+        exitButton.toggleButton();
     }
 
     public GameState getGameState() {
@@ -296,6 +301,10 @@ public class GameModel {
         return playbutton;
     }
 
+    public ExitButton getExitButton(){
+        return exitButton;
+    }
+
     public SpeedUpButton getSpeedUpButton(){
         return speedUpButton;
     }
@@ -388,6 +397,4 @@ public class GameModel {
     public SideMenu getSideMenu() {
         return this.sideMenu;
     }
-
-
 }
