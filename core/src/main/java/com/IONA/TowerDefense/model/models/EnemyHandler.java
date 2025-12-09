@@ -70,27 +70,9 @@ public class EnemyHandler {
     public void removeDeadEnemies() {
         for (int i = enemies.size() - 1; i >= 0; i--) {
             if (enemies.get(i).getHp() <= 0) {
-
+                model.enemyDeath(enemies.get(i));
                 enemies.remove(i);
             }
         }
     }
-
-    /*
-    public List<Enemy> removeDeadEnemies() {
-
-        List<Enemy> dead = new ArrayList<>();
-
-        for (int i = enemies.size() - 1; i >= 0; i--) {
-            if (enemies.get(i).getHp() <= 0) {
-                dead.add(enemies.get(i));
-                enemies.remove(i);
-            }
-        }
-
-        return dead;
-    }
-
-     */
-
 }

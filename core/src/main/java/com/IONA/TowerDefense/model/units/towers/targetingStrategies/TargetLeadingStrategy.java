@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TargetLeadingEnemyStrategy implements TargetingStrategy {
+public class TargetLeadingStrategy implements TargetingStrategy {
 
     // choose the first enemy in its range
     @Override

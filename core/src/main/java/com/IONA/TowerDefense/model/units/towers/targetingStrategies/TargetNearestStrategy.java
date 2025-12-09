@@ -7,7 +7,7 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TargetNearestEnemy implements TargetingStrategy {
+public class TargetNearestStrategy implements TargetingStrategy {
 
     private float getDistance(Tower tower, Enemy enemy) {
         float dx = enemy.getX() - tower.getX();
