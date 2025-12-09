@@ -62,6 +62,7 @@ public class ResourceHandler {
     public void gainMoney(int amount){
         this.money += amount;
         this.score += amount;
+        updateMoneyResource();
     }
 
     public void spendMoney(int amount) {

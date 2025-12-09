@@ -98,7 +98,7 @@ public class GameModel {
         this.resourceHandler = new ResourceHandler(this);
         this.resources = resourceHandler.getResources();
 
-        this.attackHandler = new AttackHandler(this);
+        this.attackHandler = new AttackHandler(enemies, towers, projectiles);
         this.enemyHandler = new EnemyHandler(this);
 
         this.towerHandler = new TowerHandler(this);
@@ -289,14 +289,8 @@ public class GameModel {
         if (getGameState() != GameState.RUNNING) {
             return;
         }
-
-        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
-
-        for (Enemy enemy : deadEnemies) {
-            int moneyGained = enemy.getMoney();
-            resourceHandler.gainMoney(moneyGained);
-        }
-        resourceHandler.updateMoneyResource();
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
     }
 
     public Texture getBackground(){
