@@ -1,12 +1,10 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
-import com.IONA.TowerDefense.model.upgrades.SpeedUpgrade;
-import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
+import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,7 +113,7 @@ public class UpgradeMenu extends Menu {
 
                 if (c == 0 && r == 0) {
                     texture = "TowerBasic.png";
-                    UpgradeMenuItem item = new UpgradeMenuItem(texture, x, y, model, new SpeedUpgrade(50));
+                    UpgradeMenuItem item = new UpgradeMenuItem(texture, x, y, model, new FireRateUpgrade(50));
                     buttons.add(item);
                     items.add(item);
                 } else if (c == 1 && r == 0) {
@@ -126,6 +124,7 @@ public class UpgradeMenu extends Menu {
                 }
             }
         }
+
     }
 
     private void moveItemNegative(float oldX, float newX) {

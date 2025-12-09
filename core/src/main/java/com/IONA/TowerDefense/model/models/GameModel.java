@@ -277,7 +277,7 @@ public class GameModel {
     }
 
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
-        if (resourceHandler.getMoney() >= tower.getCost() && selectedTower != null) {
+        if (resourceHandler.getMoney() >= upgrade.getCost() && selectedTower != null) {
             upgradeHandler.upgrade(tower, upgrade);
             resourceHandler.spendMoney(tower.getCost());
         }

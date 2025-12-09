@@ -2,11 +2,11 @@ package com.IONA.TowerDefense.model.upgrades;
 
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
-public class SpeedUpgrade implements TowerUpgrade {
+public class FireRateUpgrade implements TowerUpgrade {
 
     private final int cost;
 
-    public SpeedUpgrade (int cost) {
+    public FireRateUpgrade(int cost) {
         this.cost = cost;
     }
 
