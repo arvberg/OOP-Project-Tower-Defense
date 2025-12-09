@@ -12,17 +12,7 @@ import java.util.List;
 
 public class ProjectileAttackStrategy implements AttackStrategy {
 
-    public Vector2 getDir(Unit from, Unit to) {
-        float deltaX = to.getX() - from.getX();
-        float deltaY = to.getY() - from.getY();
-
-        float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-        return new Vector2(deltaX / length, deltaY / length);
-    }
-
     @Override
-    public void attack(Tower tower, List<Enemy> enemies, List<Projectile> projectilesOut, float deltaTime) {
-
+    public void attack(Tower tower, List<Enemy> enemies, Vector2 targetPos) {
     }
 }
