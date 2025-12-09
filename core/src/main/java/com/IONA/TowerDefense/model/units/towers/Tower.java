@@ -5,6 +5,7 @@ import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
+import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,8 +32,9 @@ public abstract class Tower extends Unit {
 
     protected Vector2 dimension;
 
-    protected String attackType;
+    protected Enum attackType;
     protected TargetingStrategy targetingStrategy;
+    protected AttackStrategy attackStrategy;
 
     public Texture texture;
     public TextureRegion rangeTexture;
@@ -87,8 +89,6 @@ public abstract class Tower extends Unit {
         this.range = range;
     }
 
-    public abstract void attack(Targetable target, long currentTimeMillis);
-
     public void setCost(int cost){
         this.cost = cost;
     }
@@ -111,7 +111,6 @@ public abstract class Tower extends Unit {
 
     public float getBaseFireRate() { return baseFireRate; }
 
-    public abstract void fire();
 
     public int getDamage() {
         return damage;
@@ -161,6 +160,8 @@ public abstract class Tower extends Unit {
         cooldown -= delta;
     }
 
-
+    public AttackStrategy getAttackStrategy() {
+        return this.attackStrategy;
+    }
 }
 

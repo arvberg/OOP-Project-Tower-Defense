@@ -8,6 +8,7 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -37,7 +38,6 @@ public class AttackHandler {
     public void update(float delta) {
         updateTowers(delta);
         updateProjectiles(delta);
-        model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
@@ -49,9 +49,8 @@ public class AttackHandler {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
                 List<Enemy> targets = tower.getTargets(enemiesInRadius);
 
-
                 if (!targets.isEmpty()) {
-                    tower.setCurrentTarget(targets.get(0));
+                    attack(tower, enemies); //////////
                     towerAttack(tower, targets);
                     tower.resetCooldown();
                 }
@@ -88,6 +87,11 @@ public class AttackHandler {
         if (p != null) {
             projectiles.add(p);
         }
+    }
+
+    public void attack(Tower tower, List<Enemy> enemies) {
+        AttackStrategy strategy = tower.getAttackStrategy();
+        strategy.attack(tower, enemies);
     }
 
     public List<Enemy> enemiesInRadius(Tower tower) {

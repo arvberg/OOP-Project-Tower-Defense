@@ -26,14 +26,4 @@ public class TowerFast extends Tower{
         texture = new Texture("Tower_temp_04.png");
         rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
-
-    @Override
-    public void attack(Targetable target, long currentTimeMillis) {
-    }
-
-    @Override
-    public void fire() {
-        Point tempPoint = new Point();
-        tempPoint.setLocation(this.getPosition().x, this.getPosition().y);
-    }
 }

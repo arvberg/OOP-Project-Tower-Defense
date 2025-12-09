@@ -283,19 +283,12 @@ public class GameModel {
         }
     }
 
-    // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
-    public void removeDeadEnemies() {
-
+    public enemyDeath(Enemy enemy) {
         if (getGameState() != GameState.RUNNING) {
             return;
         }
-
-        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
-
-        for (Enemy enemy : deadEnemies) {
-            int moneyGained = enemy.getMoney();
-            resourceHandler.gainMoney(moneyGained);
-        }
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
     }
 

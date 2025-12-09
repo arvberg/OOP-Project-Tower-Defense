@@ -31,12 +31,5 @@ public class TowerLaser extends Tower{
         return new TextureRegion(this.texture2);
     }
 
-    @Override
-    public void attack(Targetable target, long currentTimeMillis) {
-    }
 
-    @Override
-    public void fire() {
-        Vector2 tempPoint = new Vector2(this.getPosition().x, this.getPosition().y);
-    }
 }
