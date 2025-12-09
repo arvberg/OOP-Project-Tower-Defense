@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.IONA.TowerDefense.Main.model;
-//
+
 public class EnemyHandler {
 
     GameModel gamemodel;
@@ -67,12 +67,18 @@ public class EnemyHandler {
         }
     }
 
-    public void removeDeadEnemies() {
+    public List<Enemy> removeDeadEnemies() {
+
+        List<Enemy> dead = new ArrayList<>();
+
         for (int i = enemies.size() - 1; i >= 0; i--) {
             if (enemies.get(i).getHp() <= 0) {
-                model.enemyDeath(enemies.get(i));
+                dead.add(enemies.get(i));
                 enemies.remove(i);
             }
         }
+
+        return dead;
     }
+
 }

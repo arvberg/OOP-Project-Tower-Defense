@@ -32,6 +32,17 @@ public class TowerHandler {
         this.decorations = model.getDecor();
     }
 
+    public void updateTowerAngle(Tower tower){
+
+            if(tower.isAiming()) {
+                float dx = tower.getCurrentTarget().getX() - tower.getX();
+                float dy = tower.getCurrentTarget().getY() - tower.getY();
+                float angleRad = (float)Math.atan2(dy,dx);
+                tower.setAngleDeg((float)Math.toDegrees(angleRad));
+            }
+
+    }
+
     public void selectTower(Vector2 selectedPoint) {
         Tower clickedTower = null;
 

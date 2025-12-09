@@ -17,26 +17,33 @@ import java.util.List;
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
 public class AttackHandler {
+    private final GameModel model;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
-    private static final ProjectileFactory projectileFactory = new ProjectileFactory();
+    private final ProjectileFactory projectileFactory;
     private int money;
 
-    public AttackHandler(List<Enemy> enemies, List<Tower> towers, List<Projectile> projectiles) {
-        this.enemies = enemies;
-        this.projectiles = projectiles;
-        this.towers = towers;
+    public AttackHandler(GameModel model) {
+        this.model = model;
+        this.enemies = model.getEnemies();
+        this.projectiles = model.getProjectiles();
+        this.towers = model.getTowers();
+        this.projectileFactory = new ProjectileFactory();
+        this.money = model.getMoney();
+        List<Unit> deadUnits = new ArrayList<>();
     }
 
     public void update(float delta) {
         updateTowers(delta);
         updateProjectiles(delta);
+        model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
     public void updateTowers(float delta) {
         for (Tower tower : towers) {
+            model.updateTowerAngle(tower);
             tower.update(delta);
             if (tower.canShoot()) {
                 List<Enemy> enemiesInRadius = enemiesInRadius(tower);
