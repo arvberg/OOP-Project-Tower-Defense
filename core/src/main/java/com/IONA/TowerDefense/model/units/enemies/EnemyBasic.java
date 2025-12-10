@@ -13,13 +13,10 @@ public class EnemyBasic extends Enemy{
     private float visualRotationBack = 0;
     public float visualRotationSpeedFront = 100f;
     public float visualRotationSpeedBack = 60f;
-    private Texture texture2;
 
 
     public EnemyBasic(int difficulty){
         super(difficulty);
-        texture2 = new Texture("Virus_green_back.png");
-        texture = new Texture("Virus_front.png");
         hp = 400 + 200*difficulty;
         maxHp = 400 + 200*difficulty;
         speed = 2.53f;
@@ -38,9 +35,6 @@ public class EnemyBasic extends Enemy{
         visualRotationBack  += visualRotationSpeedBack  * delta;
         visualRotationFront += visualRotationSpeedFront * delta;
     }
-
-    public TextureRegion getTexture2(){return new TextureRegion(this.texture2);}
-    public TextureRegion getTexture1(){return new TextureRegion(this.texture);}
 
     public float getVisualRotationFront(){return this.visualRotationFront;}
     public float getVisualRotationBack(){return this.visualRotationBack;}

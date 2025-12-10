@@ -15,7 +15,6 @@ public class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
-    public Texture projectileIcon;
     private String projectileType = "Homing";
 
     public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
@@ -24,7 +23,6 @@ public class Projectile extends Unit implements Movable {
         this.position = position;
         this.dxdy = dxdy;
         this.destroyed = false;
-        this.projectileIcon = new Texture("Projectile_basic_01.png");
     }
 
     public void setPosition(float newX, float newY) {
@@ -70,10 +68,6 @@ public class Projectile extends Unit implements Movable {
 
     public float getY() {
         return position.y;
-    }
-
-    public Texture getIcon() {
-        return projectileIcon;
     }
 
     public Enemy getEnemyTarget() {

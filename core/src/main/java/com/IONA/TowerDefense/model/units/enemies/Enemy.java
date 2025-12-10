@@ -26,7 +26,6 @@
         protected int segmentIndex = 0;
         protected int damage;
         protected int difficulty;
-        public Texture texture;
 
         public Enemy(int difficulty){
             this.difficulty = difficulty;

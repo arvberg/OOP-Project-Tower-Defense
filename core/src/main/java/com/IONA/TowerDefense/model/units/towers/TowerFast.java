@@ -17,8 +17,6 @@ public class TowerFast extends Tower{
         range = 2;
         cooldown = 0f;
         targetingStrategy = new TargetLeadingStrategy();
-
-        texture = new Texture("Tower_temp_04.png");
-        rangeTexture = new TextureRegion(new Texture("Range_01.png"));
+        targetingStrategy = new TargetLeadingStrategy();
     }
 }

@@ -32,8 +32,6 @@ public abstract class Tower extends Unit {
     protected TargetingStrategy targetingStrategy;
     protected AttackStrategy attackStrategy;
 
-    public Texture texture;
-    public TextureRegion rangeTexture;
 
     public void setAngleDeg(float angleDeg){this.angleDeg = angleDeg;}
 
@@ -63,14 +61,6 @@ public abstract class Tower extends Unit {
 
     public List<Enemy> getTargets(List<Enemy> enemies) {
         return targetingStrategy.pick(enemies, this);
-    }
-
-    public TextureRegion getRangeTexture() {
-        return rangeTexture;
-    }
-
-    public Texture getTexture() {
-        return texture;
     }
 
     public void setDimension(Vector2 dimension) {
