@@ -95,7 +95,7 @@ public class GameModel {
         //this.money = 100;
         //this.score = 0;
         this.inGameButtons = new ArrayList<>();
-        this.background = new Background();
+        this.background = new Background("Basic");
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
 
@@ -322,14 +322,6 @@ public class GameModel {
         resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
         notifySoundEvent(SoundEvent.ENEMY_BASIC_DEATH);
-    }
-
-    public Texture getBackground(){
-        return background.BackgroundTexture;
-    }
-
-    public Texture getGameOverBackground() {
-        return background.gameOverBackground;
     }
 
     public List<Button> getInGameButtons() { return inGameButtons;}

@@ -18,8 +18,7 @@ public abstract class Button {
     private boolean buttonLocked = false;
     private final float lockedX;
 
-    public Button(String texturePath, float x, float y, float width, float height){
-        this.texture = new Texture(Gdx.files.internal(texturePath));
+    public Button(float x, float y, float width, float height){
         this.buttonPosition = new Vector2(x, y);
         this.width = width;
         this.height = height;
@@ -67,4 +66,10 @@ public abstract class Button {
     public void setHovered(boolean hovered) {
         this.isHovered = hovered;
     }
+
+    public float getWidth(){return this.width;}
+
+    public float getHeight(){return this.height;}
+
+
 }

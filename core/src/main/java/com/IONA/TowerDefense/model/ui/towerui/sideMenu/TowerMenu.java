@@ -95,7 +95,7 @@ public class TowerMenu extends Menu {
         int rows = 5;
         int cols = 2;
 
-        String texture = "";
+
         String towerType = "";
 
         for (int r = 0; r < rows; r++) {
@@ -110,38 +110,38 @@ public class TowerMenu extends Menu {
                 }
 
                 if (c == 0 && r == 0) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 0) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 1) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 1) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 2) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 2) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 3) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 3) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 0 && r == 4) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 } else if (c == 1 && r == 4) {
-                    texture = "TowerBasic.png";
+
                     towerType = "TowerBasic";
                 }
 
-                TowerMenuItem item = new TowerMenuItem(texture, x, y, towerType, model);
+                TowerMenuItem item = new TowerMenuItem(x, y, towerType, model);
                 buttons.add(item);
                 items.add(item);
 

@@ -13,7 +13,7 @@ public class PlayButton extends Button {
 
     //Rectangle bounds;
     public PlayButton(float x, float y, GameModel model) {
-        super("Playbutton.png", x, y, 1, 1);
+        super(x, y, 1, 1);
         this.generator = model.getGenerator();
         this.width = 1f;
         this.height = 1f;
