@@ -25,7 +25,6 @@ public class TowerBasic extends Tower {
         cooldown = 0f;
         attackType = "HomingProjectile";
         targetingStrategy = new TargetLeadingEnemyStrategy();
-        rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
 
 
