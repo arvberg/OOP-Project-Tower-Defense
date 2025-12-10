@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model.models;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
