@@ -82,7 +82,7 @@ public class GameModel {
 
     public GameModel () {
 
-        this.towerMenu = new TowerMenu(13,0,this);
+        this.towerMenu = new TowerMenu(11,0,this);
         this.upgradeMenu = new UpgradeMenu(16,0,this);
         this.sideMenu = new SideMenu(13,0);
         this.towers = new ArrayList<>();
@@ -479,4 +479,6 @@ public class GameModel {
     public SoundManager getSoundManager() {
         return this.soundManager;
     }
+
+
 }
