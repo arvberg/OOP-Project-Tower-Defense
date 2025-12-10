@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model.models;
 import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.audio.SoundEvent;
 import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
@@ -50,6 +51,8 @@ public class AttackHandler {
                 if (!targets.isEmpty()) {
                     AttackStrategy strategy = tower.getAttackStrategy();
                     strategy.attack(tower, targets, projectiles);
+                    // Lösa på något annat sätt???
+                    model.notifySoundEvent(SoundEvent.TOWER_FIRE);
 
                     tower.resetCooldown();
                 }

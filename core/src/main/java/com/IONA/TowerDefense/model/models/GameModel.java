@@ -1,8 +1,9 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.model.audio.SoundEvent;
 import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
@@ -15,6 +16,7 @@ import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.audio.SoundListener;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -61,6 +63,8 @@ public class GameModel {
     private final SoundManager soundManager;
     private int score; // Players current score
     private final int difficulty;
+
+    private final List<SoundListener> listeners = new ArrayList<>();
 
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
@@ -141,6 +145,27 @@ public class GameModel {
         menus.add(sideMenu);
 
         placeCore(core);
+    }
+
+    public void update(){
+        if (gameState == GameState.PAUSED){
+            return;
+        }
+        //System.out.println("updating!");
+        updateEnemies(HeartBeat.delta);
+        coreDamaged();
+        attackHandler.update(HeartBeat.delta);
+        towerMenu.update(HeartBeat.delta);
+        upgradeMenu.update(HeartBeat.delta);
+        sideMenu.update(HeartBeat.delta);
+        towermenutogglebutton.updatePosition();
+        upgrademenutogglebutton.updatePosition();
+        sidemenutogglebutton.updatePosition();
+
+        if (generator.WaveCleared()){
+            generator.WaveReward();
+            playbutton.toggleButton();
+        }
     }
 
     public void placeCore(Decoration core){
@@ -259,12 +284,13 @@ public class GameModel {
     public void placeTower (Vector2 selectedPoint) {
         // placera genom towerHandler
         towerHandler.placeTower(selectedPoint);
-        soundManager.playSound("place_tower");
+
         Tower tower = getSelectedTower();
         // Minska pengar genom resourceHandler
         if (tower != null) {
             resourceHandler.spendMoney(tower.getCost());
             resourceHandler.updateMoneyResource();
+            notifySoundEvent(SoundEvent.TOWER_PLACED);
         }
     }
 
@@ -281,7 +307,7 @@ public class GameModel {
         towerHandler.sellTower(tower);
         resourceHandler.gainMoney(tower.getCost());
         resourceHandler.updateMoneyResource();
-        soundManager.playSound("sell_tower");
+        notifySoundEvent(SoundEvent.TOWER_SOLD);
     }
 
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
@@ -298,6 +324,7 @@ public class GameModel {
         int moneyGained = enemy.getMoney();
         resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
+        notifySoundEvent(SoundEvent.ENEMY_BASIC_DEATH);
     }
 
     public Texture getBackground(){
@@ -435,5 +462,24 @@ public class GameModel {
             }
         }
         return null;
+    }
+
+
+    public void addListener(SoundListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(SoundListener listener) {
+        listeners.remove(listener);
+    }
+
+    public void notifySoundEvent(SoundEvent event) {
+        for (SoundListener listener : listeners) {
+            listener.onSoundEvent(event);
+        }
+    }
+
+    public SoundManager getSoundManager() {
+        return this.soundManager;
     }
 }
