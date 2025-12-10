@@ -10,8 +10,8 @@ public class UpgradeMenuItem extends Button {
     private final GameModel model;
     private final TowerUpgrade upgrade;
 
-    public UpgradeMenuItem(String texture, float x, float y, GameModel model, TowerUpgrade upgrade) {
-        super(texture, x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
+    public UpgradeMenuItem(float x, float y, GameModel model, TowerUpgrade upgrade) {
+        super(x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
         this.model = model;
         this.upgrade = upgrade;
     }

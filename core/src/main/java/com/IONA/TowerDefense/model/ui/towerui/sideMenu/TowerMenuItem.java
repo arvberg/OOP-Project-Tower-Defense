@@ -9,8 +9,8 @@ public class TowerMenuItem extends Button {
     private final String towerType; //
     private final GameModel model;
 
-    public TowerMenuItem(String texture, float x, float y, String towerType, GameModel model) {
-        super(texture, x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
+    public TowerMenuItem(float x, float y, String towerType, GameModel model) {
+        super(x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
         this.towerType = towerType;
         this.model = model;
     }

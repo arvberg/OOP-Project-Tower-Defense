@@ -1,6 +1,5 @@
 package com.IONA.TowerDefense.model.models;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.audio.SoundEvent;
@@ -22,9 +21,6 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -97,7 +93,7 @@ public class GameModel {
         //this.money = 100;
         //this.score = 0;
         this.inGameButtons = new ArrayList<>();
-        this.background = new Background();
+        this.background = new Background("Basic");
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
 
@@ -168,6 +164,7 @@ public class GameModel {
         }
     }
 
+    public Background getBackground(){return this.background;}
     public void placeCore(Decoration core){
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
@@ -325,14 +322,6 @@ public class GameModel {
         resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
         notifySoundEvent(SoundEvent.ENEMY_BASIC_DEATH);
-    }
-
-    public Texture getBackground(){
-        return background.BackgroundTexture;
-    }
-
-    public Texture getGameOverBackground() {
-        return background.gameOverBackground;
     }
 
     public List<Button> getInGameButtons() { return inGameButtons;}
