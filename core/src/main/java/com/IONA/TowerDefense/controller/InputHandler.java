@@ -96,6 +96,12 @@ public class InputHandler {
     // Handle input for mouse hovering
     public void updateMouse(Vector2 worldMousePos) {
         model.updateTowerFollowingMouse(worldMousePos);
+
+        for (TowerMenuItem item : towerMenuItems) {
+            item.setHovered(
+                item.contains(worldMousePos.x, worldMousePos.y)
+            );
+        }
     }
 
     private boolean clickedOnGameArea(Vector2 pos) {
