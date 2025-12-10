@@ -1,24 +1,24 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
+import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
-import java.util.Vector;
 
 public abstract class Tower extends Unit {
     protected int damage;
+    protected int baseDamage;
     protected float projectileSpeed;
     protected float fireRate;
+    protected float baseFireRate;
     protected int cost;
     protected float range;
+    protected float baseRange;
     protected float cooldown;
     protected Enemy currentTarget;
     protected float dx;
@@ -28,8 +28,9 @@ public abstract class Tower extends Unit {
 
     protected Vector2 dimension;
 
-    protected String attackType;
+    protected Enum attackType;
     protected TargetingStrategy targetingStrategy;
+    protected AttackStrategy attackStrategy;
 
     public Texture texture;
     public TextureRegion rangeTexture;
@@ -84,8 +85,6 @@ public abstract class Tower extends Unit {
         this.range = range;
     }
 
-    public abstract void attack(Targetable target, long currentTimeMillis);
-
     public void setCost(int cost){
         this.cost = cost;
     }
@@ -98,11 +97,16 @@ public abstract class Tower extends Unit {
         return range;
     }
 
+    public float getBaseRange(){
+        return baseRange;
+    }
+
     public float getFireRate(){
         return fireRate;
     }
 
-    public abstract void fire();
+    public float getBaseFireRate() { return baseFireRate; }
+
 
     public int getDamage() {
         return damage;
@@ -132,14 +136,6 @@ public abstract class Tower extends Unit {
         return cooldown;
     }
 
-    public String getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(String attackType) {
-        this.attackType = attackType;
-    }
-
     public boolean canShoot() {
         return cooldown <= 0f;
     }
@@ -152,6 +148,12 @@ public abstract class Tower extends Unit {
         cooldown -= delta;
     }
 
+    public AttackStrategy getAttackStrategy() {
+        return this.attackStrategy;
+    }
 
+    public void setAttackStrategy(AttackStrategy attackStrategy) {
+        this.attackStrategy = attackStrategy;
+    }
 }
 

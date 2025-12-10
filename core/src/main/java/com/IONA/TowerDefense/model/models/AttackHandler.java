@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
+import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
@@ -8,6 +9,7 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -29,13 +31,11 @@ public class AttackHandler {
         this.projectiles = model.getProjectiles();
         this.towers = model.getTowers();
         this.projectileFactory = new ProjectileFactory();
-        List<Unit> deadUnits = new ArrayList<>();
     }
 
     public void update(float delta) {
         updateTowers(delta);
         updateProjectiles(delta);
-        model.removeDeadEnemies();
         removeDeadProjectiles();
     }
 
@@ -48,8 +48,9 @@ public class AttackHandler {
                 List<Enemy> targets = tower.getTargets(enemiesInRadius);
 
                 if (!targets.isEmpty()) {
-                    tower.setCurrentTarget(targets.get(0));
-                    towerAttack(tower, targets);
+                    AttackStrategy strategy = tower.getAttackStrategy();
+                    strategy.attack(tower, targets, projectiles);
+
                     tower.resetCooldown();
                 }
                 else {
@@ -75,16 +76,8 @@ public class AttackHandler {
     }
 
     public boolean withinRadius(Enemy enemy, Tower tower) {
-        float distance = getDistance(enemy, tower);
+        float distance = VectorUtils.distance(enemy.getPosition(), tower.getPosition());
         return distance < tower.getRange();
-    }
-
-    public void towerAttack(Tower tower, List<Enemy> enemies) {
-        String attackType = tower.getAttackType();
-        Projectile p = projectileFactory.createProjectile(attackType, tower, enemies);
-        if (p != null) {
-            projectiles.add(p);
-        }
     }
 
     public List<Enemy> enemiesInRadius(Tower tower) {
@@ -102,10 +95,9 @@ public class AttackHandler {
         if (target == null) {
             return;
         }
+        float distance = VectorUtils.distance(target.getPosition(), p.getPosition());
 
-        float dist = getDistance(p, target);
-
-        if (dist < 0.1f) { // threshold and snap
+        if (distance < 0.1f) { // threshold and snap
             p.setPosition(target.getX(), target.getY());
             p.setDestroyed(true);
             target.takeDamage(p.getDamage());
@@ -138,7 +130,7 @@ public class AttackHandler {
         }
         for (int i = 0; i < projectiles.size(); i++) {
             if (projectiles.get(i).isDestroyed()) {
-                projectiles.remove(i);
+                projectiles.remove(projectiles.get(i));
             }
         }
     }

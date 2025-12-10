@@ -2,7 +2,6 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -18,9 +17,8 @@ import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
-import com.badlogic.gdx.Game;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -55,6 +53,7 @@ public class GameModel {
     private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
+    private final UpgradeHandler upgradeHandler;
     private int score; // Players current score
     private final int difficulty;
 
@@ -101,6 +100,8 @@ public class GameModel {
 
         this.towerHandler = new TowerHandler(this);
         this.core = new Core();
+
+        this.upgradeHandler = new UpgradeHandler(this);
 
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
@@ -187,7 +188,7 @@ public class GameModel {
     }
 
     public void updateEnemies(float delta) {
-        enemyHandler.moveEnemies(delta);
+        enemyHandler.updateEnemies(delta);
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }
@@ -272,19 +273,19 @@ public class GameModel {
         resourceHandler.updateMoneyResource();
     }
 
-    // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
-    public void removeDeadEnemies() {
+    public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
+        if (resourceHandler.getMoney() >= upgrade.getCost() && selectedTower != null) {
+            upgradeHandler.upgrade(tower, upgrade);
+            resourceHandler.spendMoney(tower.getCost());
+        }
+    }
 
+    public void enemyDeath(Enemy enemy) {
         if (getGameState() != GameState.RUNNING) {
             return;
         }
-
-        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
-
-        for (Enemy enemy : deadEnemies) {
-            int moneyGained = enemy.getMoney();
-            resourceHandler.gainMoney(moneyGained);
-        }
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
     }
 
@@ -382,7 +383,7 @@ public class GameModel {
         return this.upgrademenutogglebutton;
     }
 
-    public List<UpgradeMenuItem> getUpgradeMenuItems() {
+    public List<Button> getUpgradeMenuItems() {
         return this.upgradeMenu.items;
     }
 
@@ -400,6 +401,10 @@ public class GameModel {
 
     public List<Menu> getMenus() {
         return menus;
+    }
+
+    public UpgradeHandler getUpgradeHandler() {
+        return this.upgradeHandler;
     }
 
 
