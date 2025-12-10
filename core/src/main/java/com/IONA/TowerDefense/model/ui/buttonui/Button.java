@@ -72,4 +72,12 @@ public abstract class Button {
     public float getHeight(){return this.height;}
 
 
+
+    public boolean isHovered() {
+        return isHovered;
+    }
+
+    public void setHovered(boolean hovered) {
+        this.isHovered = hovered;
+    }
 }
