@@ -4,5 +4,7 @@ public enum SoundEvent {
     TOWER_PLACED,
     TOWER_SOLD,
     ENEMY_DEATH,
-    CLICK_TOWER
+    CLICK_TOWER,
+    TOWER_FIRE,
+    ENEMY_BASIC_DEATH
 }

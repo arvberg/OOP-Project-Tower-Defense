@@ -1,8 +1,8 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.audio.SoundEvent;
 import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.map.Background;
@@ -16,15 +16,13 @@ import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.interfaces.SoundListener;
+import com.IONA.TowerDefense.model.audio.SoundListener;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -128,7 +126,6 @@ public class GameModel {
         schanger.setButtons(upgrademenutogglebutton,towermenutogglebutton);
         this.sidemenutogglebutton = new SideMenuToggleButton(0, 5,towerMenu,upgradeMenu,sideMenu,schanger);
 
-
         inGameButtons.add(towermenutogglebutton);
         inGameButtons.add(upgrademenutogglebutton);
         inGameButtons.add(sidemenutogglebutton);
@@ -145,6 +142,27 @@ public class GameModel {
         menus.add(sideMenu);
 
         placeCore(core);
+    }
+
+    public void update(){
+        if (gameState == GameState.PAUSED){
+            return;
+        }
+        //System.out.println("updating!");
+        updateEnemies(HeartBeat.delta);
+        coreDamaged();
+        attackHandler.update(HeartBeat.delta);
+        towerMenu.update(HeartBeat.delta);
+        upgradeMenu.update(HeartBeat.delta);
+        sideMenu.update(HeartBeat.delta);
+        towermenutogglebutton.updatePosition();
+        upgrademenutogglebutton.updatePosition();
+        sidemenutogglebutton.updatePosition();
+
+        if (generator.WaveCleared()){
+            generator.WaveReward();
+            playbutton.toggleButton();
+        }
     }
 
     public void placeCore(Decoration core){
@@ -303,6 +321,7 @@ public class GameModel {
         int moneyGained = enemy.getMoney();
         resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
+        notifySoundEvent(SoundEvent.ENEMY_BASIC_DEATH);
     }
 
     public Texture getBackground(){
@@ -451,7 +470,7 @@ public class GameModel {
         listeners.remove(listener);
     }
 
-    private void notifySoundEvent(SoundEvent event) {
+    public void notifySoundEvent(SoundEvent event) {
         for (SoundListener listener : listeners) {
             listener.onSoundEvent(event);
         }
