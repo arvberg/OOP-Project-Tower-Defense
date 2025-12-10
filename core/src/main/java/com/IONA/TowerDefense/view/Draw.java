@@ -10,8 +10,11 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.view.map.BackgroundDrawer;
 import com.IONA.TowerDefense.view.map.PathDrawer;
 import com.IONA.TowerDefense.view.ui.*;
+import com.IONA.TowerDefense.view.ui.buttons.DrawableButton;
+import com.IONA.TowerDefense.view.ui.buttons.DrawableButtonFactory;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
@@ -22,6 +25,7 @@ import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -40,16 +44,17 @@ public class Draw {
     private SpriteBatch batch;
     private FitViewport viewport;
     private ShapeRenderer shapeRenderer;
-    private TextureAtlas atlas;
-    private Animation<TextureAtlas.AtlasRegion> coreAnimation;
     private final Map<Enemy, DrawableEnemy> enemyViews = new HashMap<>();
     private final Map<Tower, DrawableTower> towerViews = new HashMap<>();
     private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
     private final Map<Decoration, DrawableDecoration> decorationViews = new HashMap<>();
+    private final Map<Button, DrawableButton> buttonViews = new HashMap<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
     private final float fadeDuration = 2f;
+
+    private Texture gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
 
     public Draw(GameModel model) {this.model = model;}
 
@@ -86,6 +91,10 @@ public class Draw {
         return decorationViews.computeIfAbsent(d, DrawableDecorationFactory::create);
     }
 
+    private DrawableButton getDrawableButton(Button b){
+        return buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
+    }
+
     public void draw() {
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
@@ -95,7 +104,7 @@ public class Draw {
 
         // Draw background
         batch.begin();
-        batch.draw(model.getBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        BackgroundDrawer.drawBackground(batch, model.getBackground(),0,0, viewport.getWorldWidth(),viewport.getWorldHeight());
         batch.end();
 
         // Draw Path
@@ -116,8 +125,10 @@ public class Draw {
         UpgradeMenu upgradeMenu = model.getUpgradeMenu();
         UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
 
-        List<Button> inGameButtons = model.getInGameButtons();
-        ButtonDrawer.drawButtons(inGameButtons,batch);
+        for (Button b : model.getInGameButtons()){
+            DrawableButton view = getDrawableButton(b);
+            view.draw(batch, shapeRenderer, delta);
+        }
 
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
@@ -154,13 +165,14 @@ public class Draw {
         }
 
         if (model.getGameState() == GameState.GAME_OVER) {
-            List<Button> gameOverButtons = model.getGameOverButtons();
-
             fadeTimer += Gdx.graphics.getDeltaTime();
             float alpha = Math.min(fadeTimer / fadeDuration, 1f);
             batch.setColor(1f, 1f, 1f, alpha);
-            batch.draw(model.getGameOverBackground(), 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
-            ButtonDrawer.drawButtons(gameOverButtons,batch);
+            batch.draw(gameOverTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+            for (Button b : model.getGameOverButtons()){
+                DrawableButton view = getDrawableButton(b);
+                view.draw(batch, shapeRenderer, delta);
+            }
             batch.setColor(1f, 1f, 1f, 1f);
         }
 
@@ -176,12 +188,15 @@ public class Draw {
         towerViews.keySet().removeIf(t -> !model.getTowers().contains(t));
         projectileViews.keySet().removeIf(p -> !model.getProjectiles().contains(p));
         decorationViews.keySet().removeIf(d -> !model.getDecor().contains(d));
+        buttonViews.keySet().removeIf(b -> !model.getInGameButtons().contains(b));
+        buttonViews.keySet().removeIf(b -> !model.getGameOverButtons().contains(b));
 
     }
 
     public void dispose() {
         if (batch != null) batch.dispose();
         if (shapeRenderer != null) shapeRenderer.dispose();
+
 
     }
 }

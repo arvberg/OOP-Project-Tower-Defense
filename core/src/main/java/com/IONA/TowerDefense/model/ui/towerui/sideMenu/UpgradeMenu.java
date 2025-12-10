@@ -117,10 +117,10 @@ public class UpgradeMenu extends Menu {
 
                 switch (cellType) {
                     case 1:
-                        button = new UpgradeMenuItem("TowerBasic.png", x, y, model, new FireRateUpgrade(50));
+                        button = new UpgradeMenuItem(x, y, model, new FireRateUpgrade(50));
                         break;
                     case 2:
-                        button = new UpgradeMenuItem("TowerBasic.png", x, y, model, new RangeUpgrade(50));
+                        button = new UpgradeMenuItem(x, y, model, new RangeUpgrade(50));
                         break;
                     case 3:
                         button = new SellButton(x, y, model);
