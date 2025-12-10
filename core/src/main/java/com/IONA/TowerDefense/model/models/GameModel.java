@@ -2,7 +2,6 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -19,9 +18,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -191,7 +188,7 @@ public class GameModel {
     }
 
     public void updateEnemies(float delta) {
-        enemyHandler.moveEnemies(delta);
+        enemyHandler.updateEnemies(delta);
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }
@@ -283,7 +280,7 @@ public class GameModel {
         }
     }
 
-    public enemyDeath(Enemy enemy) {
+    public void enemyDeath(Enemy enemy) {
         if (getGameState() != GameState.RUNNING) {
             return;
         }

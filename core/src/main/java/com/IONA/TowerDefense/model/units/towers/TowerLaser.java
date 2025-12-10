@@ -1,7 +1,7 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.model.units.interfaces.Targetable;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
+import com.IONA.TowerDefense.model.units.towers.attackStrategies.LaserAttackStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -18,8 +18,8 @@ public class TowerLaser extends Tower{
         range = 2f;
         baseRange = 2f;
         cooldown = 0f;
-        attackType = "HomingProjectile";
-        targetingStrategy = new TargetLeadingEnemyStrategy();
+        targetingStrategy = new TargetLeadingStrategy();
+        attackStrategy = new LaserAttackStrategy();
 
         texture = new Texture("Tower_back.png");
         texture2 = new Texture("TowerBasic_01_barrel.png");
