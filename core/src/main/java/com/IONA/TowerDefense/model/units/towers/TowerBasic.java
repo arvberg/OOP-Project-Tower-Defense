@@ -21,10 +21,12 @@ public class TowerBasic extends Tower {
         range = 2f;
         baseRange = 2f;
         cooldown = 0f;
-        attackStrategy = new AreaAttackStrategy();
-        targetingStrategy = new TargetAllStrategy();
+        attackStrategy = new ProjectileAttackStrategy();
+        //targetingStrategy = new TargetAllStrategy();
         targetingStrategy = new TargetLeadingStrategy();
     }
+}
+
 }
 
 
