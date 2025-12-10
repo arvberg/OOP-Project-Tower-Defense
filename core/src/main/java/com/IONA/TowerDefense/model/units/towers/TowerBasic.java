@@ -25,5 +25,6 @@ public class TowerBasic extends Tower {
         targetingStrategy = new TargetAllStrategy();
         targetingStrategy = new TargetLeadingStrategy();
     }
+}
 
 

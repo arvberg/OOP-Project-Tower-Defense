@@ -20,11 +20,6 @@ public class TowerLaser extends Tower{
         cooldown = 0f;
         targetingStrategy = new TargetLeadingStrategy();
         attackStrategy = new LaserAttackStrategy();
-
-        texture = new Texture("Tower_back.png");
-        texture2 = new Texture("TowerBasic_01_barrel.png");
-
-        rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     }
 
     public TextureRegion getTexture2(){

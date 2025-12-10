@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
@@ -20,6 +21,7 @@ import com.IONA.TowerDefense.view.units.projectiles.DrawableProjectile;
 import com.IONA.TowerDefense.view.units.projectiles.DrawableProjectileFactory;
 import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -184,4 +186,5 @@ public class Draw {
         if (shapeRenderer != null) shapeRenderer.dispose();
 
     }
+
 }

@@ -24,7 +24,6 @@ public class SoundManager implements Disposable {
 
         sounds.put("fire", Gdx.audio.newSound(Gdx.files.internal("audio/fire_temp.wav")));
 
-
         // Music
     }
 
