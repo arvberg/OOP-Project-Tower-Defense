@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
+import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -18,7 +19,9 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -54,6 +57,7 @@ public class GameModel {
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
     private final UpgradeHandler upgradeHandler;
+    private final SoundManager soundManager;
     private int score; // Players current score
     private final int difficulty;
 
@@ -102,6 +106,9 @@ public class GameModel {
         this.core = new Core();
 
         this.upgradeHandler = new UpgradeHandler(this);
+
+        this.soundManager = new SoundManager();
+        soundManager.load();
 
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
@@ -239,6 +246,7 @@ public class GameModel {
     // Selecting a tower
     public void selectTower(Vector2 selectedPoint) {
         towerHandler.selectTower(selectedPoint);
+        soundManager.playSound("click_tower");
     }
 
     // Deslecting a tower, used in select when outside of radius
@@ -250,6 +258,7 @@ public class GameModel {
     public void placeTower (Vector2 selectedPoint) {
         // placera genom towerHandler
         towerHandler.placeTower(selectedPoint);
+        soundManager.playSound("place_tower");
         Tower tower = getSelectedTower();
         // Minska pengar genom resourceHandler
         if (tower != null) {
@@ -271,6 +280,7 @@ public class GameModel {
         towerHandler.sellTower(tower);
         resourceHandler.gainMoney(tower.getCost());
         resourceHandler.updateMoneyResource();
+        soundManager.playSound("sell_tower");
     }
 
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
@@ -408,4 +418,21 @@ public class GameModel {
     }
 
 
+    public Tower getTowerAt(Vector2 pos) {
+        float towerSize = 1.0f;
+
+        for (Tower t : towers) {
+            float centerX = t.getPosition().x;
+            float centerY = t.getPosition().y;
+
+            // Eftersom positionen nu är tornets mitt
+            float halfSize = towerSize / 2f;
+
+            if (pos.x >= centerX - halfSize && pos.x <= centerX + halfSize &&
+                pos.y >= centerY - halfSize && pos.y <= centerY + halfSize) {
+                return t;
+            }
+        }
+        return null;
+    }
 }

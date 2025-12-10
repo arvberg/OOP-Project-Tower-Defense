@@ -83,9 +83,12 @@ public class InputHandler {
 
         // Endast välj torn om man INTE håller på att placera ett nytt
         if (clickedOnGameArea(pos)) {
-            model.selectTower(pos);
-            if (model.isTowerSelected()) {
-                Tower selected = model.getSelectedTower();
+            Tower clickedTower = model.getTowerAt(pos); // returnerar null om ingen torn på pos
+
+            if (clickedTower != null) {
+                model.selectTower(pos);
+            } else {
+                model.deselectTower();
             }
         }
     }
