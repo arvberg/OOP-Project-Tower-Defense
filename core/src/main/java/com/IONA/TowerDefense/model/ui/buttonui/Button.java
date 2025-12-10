@@ -80,4 +80,12 @@ public abstract class Button {
     public void setHovered(boolean hovered) {
         this.isHovered = hovered;
     }
+
+    public boolean isHovered() {
+        return isHovered;
+    }
+
+    public void setHovered(boolean hovered) {
+        this.isHovered = hovered;
+    }
 }
