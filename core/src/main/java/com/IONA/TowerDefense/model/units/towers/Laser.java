@@ -30,4 +30,5 @@ public class Laser {
     public float getWidth() {
         return width;
     }
+
 }

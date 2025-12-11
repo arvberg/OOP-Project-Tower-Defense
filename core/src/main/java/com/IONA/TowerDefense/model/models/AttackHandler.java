@@ -1,10 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.VectorUtils;
-import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.ui.HealthBar;
-import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -16,9 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.IONA.TowerDefense.HeartBeat.delta;
-
 public class AttackHandler {
+
     private final GameModel model;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
@@ -41,34 +36,75 @@ public class AttackHandler {
 
     public void updateTowers(float delta) {
         for (Tower tower : towers) {
-            model.updateTowerAngle(tower);
-            tower.update(delta);
-            if (tower.canShoot()) {
-                List<Enemy> enemiesInRadius = enemiesInRadius(tower);
-                List<Enemy> targets = tower.getTargets(enemiesInRadius);
 
-                if (!targets.isEmpty()) {
-                    AttackStrategy strategy = tower.getAttackStrategy();
-                    strategy.attack(tower, targets, projectiles);
+            tower.updateCooldown(delta);
 
-                    tower.resetCooldown();
-                }
-                else {
-                    tower.setCurrentTarget(null);
-                }
+            List<Enemy> enemiesInRadius = enemiesInRadius(tower);
+            List<Enemy> targets = tower.getTargets(enemiesInRadius);
+            if (targets == null) {
+                targets = new ArrayList<>();
+            }
+
+            boolean hasTargets = !targets.isEmpty();
+            tower.setHasDetected(hasTargets);
+
+            updateTowerAngle(tower, targets, delta);
+
+            if (!hasTargets) {
+                tower.setCurrentTarget(null);
+            }
+
+            if (hasTargets && tower.canShoot() && tower.getIsAiming()) {
+                AttackStrategy strategy = tower.getAttackStrategy();
+                strategy.attack(tower, targets, projectiles);
+                tower.resetCooldown();
             }
         }
     }
 
+    public void updateTowerAngle(Tower tower, List<Enemy> targets, float delta) {
+
+        if (targets == null || targets.isEmpty()) {
+            tower.setCurrentTarget(null);
+            tower.setIsAiming(false);
+            return;
+        }
+
+        float rotationSpeed = 5f;
+
+        Enemy target = targets.get(0);
+        tower.setCurrentTarget(target);
+
+        Vector2 desiredDir = VectorUtils.direction(tower.getPosition(), target.getPosition());
+        Vector2 currentDir = tower.getDirection();
+
+        if (currentDir == null) {
+            tower.setDirection(desiredDir);
+            tower.setIsAiming(false);
+            return;
+        }
+
+        float r = rotationSpeed * delta;
+
+        float xNew = currentDir.x + (desiredDir.x - currentDir.x) * r;
+        float yNew = currentDir.y + (desiredDir.y - currentDir.y) * r;
+
+        Vector2 newDir = new Vector2(xNew, yNew).nor();
+        tower.setDirection(newDir);
+
+        float dx = newDir.x - desiredDir.x;
+        float dy = newDir.y - desiredDir.y;
+        float distSq = dx * dx + dy * dy;
+
+        boolean aimingDone = distSq < 0.001f;
+        tower.setIsAiming(aimingDone);
+
+    }
+
     public void updateProjectiles(float delta) {
         for (Projectile projectile : projectiles) {
-
             if (projectile.isDestroyed()) {
                 continue;
-            }
-
-            if (projectile.getProjectileType().equals("Homing")) {
-                updateHomingProjectile(projectile);
             }
             projectile.move(delta);
             projectileHit(projectile, enemies);
@@ -95,16 +131,17 @@ public class AttackHandler {
         if (target == null) {
             return;
         }
+
         float distance = VectorUtils.distance(target.getPosition(), p.getPosition());
 
-        if (distance < 0.1f) { // threshold and snap
+        if (distance < 0.1f) {
             p.setPosition(target.getX(), target.getY());
             p.setDestroyed(true);
             target.takeDamage(p.getDamage());
             return;
         }
 
-        Vector2 dir = getDir(p, target);
+        Vector2 dir = VectorUtils.direction(p.getPosition(), target.getPosition());
         p.setDir(dir.x, dir.y);
     }
 
@@ -118,37 +155,17 @@ public class AttackHandler {
             if (isHit(projectile, enemy)) {
                 projectile.setDestroyed(true);
                 enemy.takeDamage(projectile.getDamage());
-
-                break;
+                return;
             }
         }
     }
 
     public void removeDeadProjectiles() {
-        if (projectiles.isEmpty()) {
-            return;
-        }
-        for (int i = 0; i < projectiles.size(); i++) {
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
             if (projectiles.get(i).isDestroyed()) {
-                projectiles.remove(projectiles.get(i));
+                projectiles.remove(i);
             }
         }
-    }
-
-    public Vector2 getDir(Unit from, Unit to) {
-        float deltaX = to.getX() - from.getX();
-        float deltaY = to.getY() - from.getY();
-
-        float length = (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-        return new Vector2(deltaX / length, deltaY / length);
-    }
-
-    public float getDistance(Unit from, Unit to) {
-        float deltaX = to.getX() - from.getX();
-        float deltaY = to.getY() - from.getY();
-
-        return (float) Math.sqrt(deltaX * deltaX + deltaY * deltaY); // length
     }
 
     public void removeAllProjectiles() {

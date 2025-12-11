@@ -71,7 +71,7 @@ public class EnemyHandler {
     public void removeDeadEnemies() {
         for (int i = enemies.size() - 1; i >= 0; i--) {
             if (enemies.get(i).getHp() <= 0) {
-                model.enemyDeath(enemies.get(i));
+                gamemodel.enemyDeath(enemies.get(i));
                 enemies.remove(i);
             }
         }
