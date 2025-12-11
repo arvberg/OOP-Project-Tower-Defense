@@ -44,7 +44,7 @@ public class GameModel {
     //private final List<Resource> resources;
     private final List<Resource> resources;
     private final List<Decoration> decorations;
-    private final Path path;
+    private Path path;
     private final Background background;
     private final PlayButton playbutton;
     private final ExitButton exitButton;
@@ -229,6 +229,10 @@ public class GameModel {
     public TowerMenu getTowerMenu(){return this.towerMenu; }
 
     public Path getPath(){return this.path;}
+
+    public void setPath(Path path){
+        this.path = path;
+    }
     // Add and remove from list
 
     public void addTower(Tower tower) {

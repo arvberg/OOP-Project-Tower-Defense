@@ -18,7 +18,7 @@
         protected Direction dir;
         protected int hp;
         protected int maxHp;
-        protected float speed;
+        public float speed;
         protected int money;
         protected Rectangle hitBox;
         protected float width;

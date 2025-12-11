@@ -1,0 +1,96 @@
+package towerTests;
+
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
+import com.IONA.TowerDefense.model.units.interfaces.Targetable;
+import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
+import com.badlogic.gdx.math.Vector2;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TowerTest {
+    private Tower tower;
+
+    private static class SampleTower extends Tower{
+        public SampleTower(){
+            dimension = new Vector2(1f, 1f);
+            damage = 10;
+            projectileSpeed = 5;
+            fireRate = 1f;
+            cooldown = 0;
+            range = 3f;
+            attackType = "Test";
+            targetingStrategy = new TargetLeadingEnemyStrategy();
+        }
+
+        @Override
+        public void attack(Targetable target, long time){}
+
+        @Override
+        public void fire(){}
+    }
+
+    @BeforeEach
+    void setup(){
+        tower = new SampleTower();
+    }
+
+    @Test
+    void testCooldownStartsZeroAndCanShoot(){
+        assertTrue(tower.canShoot());
+    }
+
+    @Test
+    void testCooldownResetPreventsShoot(){
+        tower.resetCooldown();
+        assertFalse(tower.canShoot());
+    }
+
+    @Test
+    void testCooldownDecreases(){
+        tower.resetCooldown();
+        tower.update(0.5f);
+        assertFalse(tower.canShoot());
+
+        tower.update(0.5f);
+        assertTrue(tower.canShoot());
+    }
+
+    @Test
+    void testSetAndDimensions(){
+        Vector2 dim = new Vector2(2f, 3f);
+        tower.setDimension(dim);
+        assertEquals(dim, tower.getDimension());
+    }
+
+    @Test
+    void testGetTargetReturnsFirstEnemy(){
+        List<Enemy> enemies = new ArrayList<>();
+
+        Enemy e1 = new EnemyBasicDud();
+        Enemy e2 = new EnemyBasicDud();
+
+        enemies.add(e1);
+        enemies.add(e2);
+
+        List<Enemy> result = tower.getTargets(enemies);
+        assertEquals(1, result.size());
+        assertEquals(e1, result.get(0));
+    }
+
+    private static class EnemyBasicDud extends Enemy{
+        public EnemyBasicDud(){
+            super(1);
+        }
+
+        @Override
+        public void move(float dt){};
+    }
+
+}
