@@ -23,7 +23,7 @@ public class TowerBasic extends Tower {
         cooldown = 0f;
         attackStrategy = new ProjectileAttackStrategy();
         //targetingStrategy = new TargetAllStrategy();
-        targetingStrategy = new TargetLeadingStrategy();
+        targetingStrategy = new TargetNearestStrategy();
     }
 }
 

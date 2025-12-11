@@ -1,11 +1,10 @@
 package com.IONA.TowerDefense.model.units.towers;
 
+import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -21,24 +20,41 @@ public abstract class Tower extends Unit {
     protected float baseRange;
     protected float cooldown;
     protected Enemy currentTarget;
-    protected float dx;
-    protected float dy;
+    protected Vector2 direction = new Vector2(0,0);
     protected float angleDeg;
     protected boolean hasDetected;
+    protected boolean isAiming;
 
     protected Vector2 dimension;
 
-    protected Enum attackType;
     protected TargetingStrategy targetingStrategy;
     protected AttackStrategy attackStrategy;
 
-
     public void setAngleDeg(float angleDeg){this.angleDeg = angleDeg;}
 
-    public float getAngleDeg(){return this.angleDeg;}
+    public float getAngleDeg() {
+
+        float dx = this.getDirection().x;
+        float dy = this.getDirection().y;
+
+        float radians = (float) Math.atan2(dy, dx);
+        float degrees = (float) Math.toDegrees(radians);
+
+        if (degrees < 0) {
+            degrees += 360f;
+        }
+
+        return degrees;
+    }
+
 
     public boolean isAiming() {
-        return this.currentTarget != null;
+        if (currentTarget == null) {
+            return false;
+        }
+        Vector2 direction = this.direction;
+        Vector2 directionToTarget = VectorUtils.direction(this.position, currentTarget.getPosition());
+        return (direction.x - directionToTarget.x < 0.1f) && (direction.y - directionToTarget.y < 0.1f);
     }
 
     public boolean getHasDetected() {
@@ -97,7 +113,6 @@ public abstract class Tower extends Unit {
 
     public float getBaseFireRate() { return baseFireRate; }
 
-
     public int getDamage() {
         return damage;
     }
@@ -118,6 +133,22 @@ public abstract class Tower extends Unit {
         this.fireRate = fireRate;
     }
 
+    public Vector2 getDirection() {
+        return direction;
+    }
+
+    public boolean getIsAiming() {
+        return isAiming;
+    }
+
+    public void setIsAiming(boolean isAiming) {
+        this.isAiming = isAiming;
+    }
+
+    public void setDirection(Vector2 direction) {
+        this.direction = direction;
+    }
+
     public void setCooldown(float cooldown) {
         this.cooldown = cooldown;
     }
@@ -134,7 +165,7 @@ public abstract class Tower extends Unit {
         cooldown = fireRate;
     }
 
-    public void update(float delta){
+    public void updateCooldown(float delta){
         cooldown -= delta;
     }
 

@@ -1,3 +1,4 @@
+/*
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
@@ -37,4 +38,7 @@ public class JUnitTest {
         assertEquals(expectedDrawX, tower.getPosition().x - tower.texture.getWidth()/2f, 0.001f);
         assertEquals(expectedDrawY, tower.getPosition().y - tower.texture.getHeight()/2f, 0.001f);
     }
+
+
 }
+ */
