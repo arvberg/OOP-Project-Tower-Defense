@@ -5,7 +5,6 @@ import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.audio.SoundEvent;
 import com.IONA.TowerDefense.model.audio.SoundManager;
-import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
@@ -46,7 +45,6 @@ public class GameModel {
     private final List<Resource> resources;
     private final List<Decoration> decorations;
     private final Path path;
-    private final Background background;
     private final PlayButton playbutton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
@@ -79,6 +77,8 @@ public class GameModel {
 
     private final WaveGenerator generator;
 
+    private String background;
+
     public GameModel () {
 
         this.towerMenu = new TowerMenu(11,0,this);
@@ -94,7 +94,7 @@ public class GameModel {
         //this.money = 100;
         //this.score = 0;
         this.inGameButtons = new ArrayList<>();
-        this.background = new Background("Basic");
+        this.background = "Starter map";
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
 
@@ -165,7 +165,12 @@ public class GameModel {
         }
     }
 
-    public Background getBackground(){return this.background;}
+    public String getBackground(){return this.background;}
+
+    public void setBackground(String background){
+        this.background = background;
+    }
+
     public void placeCore(Decoration core){
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
