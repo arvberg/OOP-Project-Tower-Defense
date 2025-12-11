@@ -11,9 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class CoreDrawer implements DrawableDecoration {
 
-    // -----------------------------
-    // STATIC TEXTURES / ANIMATION
-    // -----------------------------
+
     private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
     private static final Animation<TextureAtlas.AtlasRegion> CORE_ANIMATION;
 
@@ -22,15 +20,11 @@ public final class CoreDrawer implements DrawableDecoration {
         CORE_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
     }
 
-    // -----------------------------
-    // INSTANCE DATA
-    // -----------------------------
     private final Core core;
     private final float dimensionX;
     private final float dimensionY;
     private Vector2 p;
     private float stateTime = 0f;
-
 
     public CoreDrawer(Core core) {
         this.core = core;

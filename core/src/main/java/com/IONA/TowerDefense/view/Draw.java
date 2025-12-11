@@ -71,6 +71,7 @@ public class Draw {
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
         gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
+
     }
 
     public void resize(int w, int h) {
