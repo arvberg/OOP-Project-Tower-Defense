@@ -1,4 +1,4 @@
-package modelTests;
+package enemyTests.enemyHandling;
 
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.models.EnemyHandler;

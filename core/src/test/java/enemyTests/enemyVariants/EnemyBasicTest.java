@@ -1,4 +1,4 @@
-package enemyTests;
+package enemyTests.enemyVariants;
 
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import org.junit.jupiter.api.Test;
