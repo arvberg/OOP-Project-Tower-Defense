@@ -20,7 +20,7 @@ public abstract class Tower extends Unit {
     protected float baseRange;
     protected float cooldown;
     protected Enemy currentTarget;
-    protected Vector2 direction;
+    protected Vector2 direction = new Vector2(0,0);
     protected float angleDeg;
     protected boolean hasDetected;
     protected boolean isAiming;
@@ -32,7 +32,21 @@ public abstract class Tower extends Unit {
 
     public void setAngleDeg(float angleDeg){this.angleDeg = angleDeg;}
 
-    public float getAngleDeg(){return this.angleDeg;}
+    public float getAngleDeg() {
+
+        float dx = this.getDirection().x;
+        float dy = this.getDirection().y;
+
+        float radians = (float) Math.atan2(dy, dx);
+        float degrees = (float) Math.toDegrees(radians);
+
+        if (degrees < 0) {
+            degrees += 360f;
+        }
+
+        return degrees;
+    }
+
 
     public boolean isAiming() {
         if (currentTarget == null) {
@@ -121,10 +135,6 @@ public abstract class Tower extends Unit {
 
     public Vector2 getDirection() {
         return direction;
-    }
-
-    public float angleFromDirection() {
-        return 5;
     }
 
     public boolean getIsAiming() {

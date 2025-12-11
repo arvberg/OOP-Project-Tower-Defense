@@ -70,7 +70,7 @@ public class AttackHandler {
             return;
         }
 
-        float rotationSpeed = 5f;
+        float rotationSpeed = 10;
 
         Enemy target = targets.get(0);
         tower.setCurrentTarget(target);
