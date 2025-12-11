@@ -1,9 +1,11 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
+import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
+import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public class UpgradeMenu extends Menu {
     private final float openX;
     private final float closedX;
     private float targetX;
-    public List<UpgradeMenuItem> items;
+    public List<Button> items;
     private GameModel model;
 
     float slideSpeed = 10f;
@@ -85,84 +87,69 @@ public class UpgradeMenu extends Menu {
 
     public void createGridItems(List<Button> buttons) {
 
-        float xLeft = menuPosition.x + width / 3.5f;
-        float xRight = menuPosition.x + width - width / 3.5f;
-        float yTop = menuPosition.y + height - height / 12f;
-        float topSpacing = height / 5.2f;
-
-        float x;
-        float y;
-
         int rows = 5;
         int cols = 2;
 
-        String texture = "";
-        String towerType = "";
+        float xLeft  = menuPosition.x + width / 3.5f;
+        float xRight = menuPosition.x + width - width / 3.5f;
+        float yTop   = menuPosition.y + height - height / 12f;
+        float yStep  = height / 5.2f;
+
+        // 0 = tom, 1 = FireRate, 2 = Range, 3 = Sell
+        int[][] layout = {
+            {1, 2},
+            {0, 0},
+            {0, 0},
+            {0, 0},
+            {3, 0}   // Sell-knapp längst ner vänster
+        };
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
 
-                if (c == 0) {
-                    x = xLeft;
-                    y = yTop - r * topSpacing;
-                } else {
-                    x = xRight;
-                    y = yTop - r * topSpacing;
+                int cellType = layout[r][c];
+                if (cellType == 0) continue;  // ingen knapp på denna ruta
+
+                float x = (c == 0) ? xLeft : xRight;
+                float y = yTop - r * yStep;
+
+                Button button = null;
+
+                switch (cellType) {
+                    case 1:
+                        button = new UpgradeMenuItem(x, y, model, new FireRateUpgrade(50));
+                        break;
+                    case 2:
+                        button = new UpgradeMenuItem(x, y, model, new RangeUpgrade(50));
+                        break;
+                    case 3:
+                        button = new SellButton(x, y, model);
+                        break;
                 }
 
-                if (c == 0 && r == 0) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 0) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 1) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 1) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 2) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 2) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 3) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 3) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 0 && r == 4) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
-                } else if (c == 1 && r == 4) {
-                    texture = "TowerBasic.png";
-                    towerType = "TowerBasic";
+                if (button != null) {
+                    buttons.add(button);
+                    items.add(button);
                 }
-
-                UpgradeMenuItem item = new UpgradeMenuItem(texture, x, y, towerType, model);
-                buttons.add(item);
-                items.add(item);
-
             }
         }
     }
 
     private void moveItemNegative(float oldX, float newX) {
         float diff = Math.abs(oldX - newX);
-        for (UpgradeMenuItem item : items) {
+        for (Button item : items) {
             item.setButtonPosition(item.getButtonPosition().x - diff, item.getButtonPosition().y);
         }
     }
 
     private void moveItemPositive(float oldX, float newX) {
         float diff = Math.abs(oldX - newX);
-        for (UpgradeMenuItem item : items) {
+        for (Button item : items) {
             item.setButtonPosition(item.getButtonPosition().x + diff, item.getButtonPosition().y);
         }
     }
+
+
 
 }
 

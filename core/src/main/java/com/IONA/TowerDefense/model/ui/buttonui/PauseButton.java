@@ -8,7 +8,7 @@ import static com.IONA.TowerDefense.Main.model;
 public class PauseButton extends Button {
 
     public PauseButton(float x, float y){
-        super("Pause_button_temp_01.png", x+1, y, 1, 1);
+        super(x+1, y, 1, 1);
     }
 
     @Override

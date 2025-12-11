@@ -4,6 +4,7 @@ import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
+import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 
@@ -20,7 +21,7 @@ public class InputHandler {
     private final UpgradeMenuToggleButton upgradeMenuToggleButton;
     private final SideMenuToggleButton sideMenuToggleButton;
     private final List<TowerMenuItem> towerMenuItems;
-    private final List<UpgradeMenuItem> upgradeMenuItems;
+    private final List<Button> upgradeMenuItems;
     private final List<Tower> towers;
 
     private GameModel model;
@@ -65,7 +66,7 @@ public class InputHandler {
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
         }
-        for (UpgradeMenuItem u : upgradeMenuItems){
+        for (Button u : upgradeMenuItems){
             u.isClicked(pos);
         }
 
@@ -82,9 +83,12 @@ public class InputHandler {
 
         // Endast välj torn om man INTE håller på att placera ett nytt
         if (clickedOnGameArea(pos)) {
-            model.selectTower(pos);
-            if (model.isTowerSelected()) {
-                Tower selected = model.getSelectedTower();
+            Tower clickedTower = model.getTowerAt(pos); // returnerar null om ingen torn på pos
+
+            if (clickedTower != null) {
+                model.selectTower(pos);
+            } else {
+                model.deselectTower();
             }
         }
     }
@@ -100,6 +104,12 @@ public class InputHandler {
                 return false;
             }
         }
+        for (Menu m : model.getMenus()) {
+            if (m.contains(pos.x, pos.y)) {
+                return false;
+            }
+        }
+
         return true;
     }
 }

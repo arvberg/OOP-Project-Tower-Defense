@@ -2,17 +2,18 @@ package com.IONA.TowerDefense;
 
 import com.IONA.TowerDefense.controller.GameController;
 import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.GameUpdater;
+import com.IONA.TowerDefense.model.audio.SoundManager;
+import com.IONA.TowerDefense.model.audio.SoundPlayer;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
 import com.IONA.TowerDefense.view.Draw;
 import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 
 public class Main extends ApplicationAdapter {
     public GameController controller;
-    public GameUpdater updater;
     public static GameModel model;
     public Draw painter; // view
 
@@ -21,10 +22,13 @@ public class Main extends ApplicationAdapter {
     public void create() {
         Fonts.load();
         model = new GameModel();
-        updater = new GameUpdater(model);
         painter = new Draw(model);
         painter.create();
         controller = new GameController(model, painter);
+
+        SoundPlayer soundPlayer = new SoundPlayer(model.getSoundManager());
+
+        model.addListener(soundPlayer);
 
     }
 
@@ -56,7 +60,7 @@ public class Main extends ApplicationAdapter {
     }
 
     private void logic() {
-        updater.update();
+        model.update();
     }
 
     private void draw() {

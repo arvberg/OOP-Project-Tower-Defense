@@ -2,24 +2,25 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.model.audio.SoundEvent;
+import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.map.Background;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.audio.SoundListener;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -38,6 +39,7 @@ public class GameModel {
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
+    private List<Menu> menus;
 
     //private final List<Resource> resources;
     private final List<Resource> resources;
@@ -54,8 +56,12 @@ public class GameModel {
     private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
+    private final UpgradeHandler upgradeHandler;
+    private final SoundManager soundManager;
     private int score; // Players current score
     private final int difficulty;
+
+    private final List<SoundListener> listeners = new ArrayList<>();
 
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
@@ -88,7 +94,7 @@ public class GameModel {
         //this.money = 100;
         //this.score = 0;
         this.inGameButtons = new ArrayList<>();
-        this.background = new Background();
+        this.background = new Background("Basic");
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
 
@@ -101,8 +107,14 @@ public class GameModel {
         this.towerHandler = new TowerHandler(this);
         this.core = new Core();
 
+        this.upgradeHandler = new UpgradeHandler(this);
+
+        this.soundManager = new SoundManager();
+        soundManager.load();
+
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
+        this.menus = new ArrayList<>();
         this.playbutton = new PlayButton(0, 0, this);
         this.exitButton = new ExitButton(500f, 5f);
         this.speedUpButton = new SpeedUpButton(500f, 0);
@@ -126,9 +138,36 @@ public class GameModel {
         towerMenu.createGridItems(inGameButtons);
         upgradeMenu.createGridItems(inGameButtons);
 
+        // används för att inte kunna placera torn på menues.
+        menus.add(towerMenu);
+        menus.add(upgradeMenu);
+        menus.add(sideMenu);
+
         placeCore(core);
     }
 
+    public void update(){
+        if (gameState == GameState.PAUSED){
+            return;
+        }
+        //System.out.println("updating!");
+        updateEnemies(HeartBeat.delta);
+        coreDamaged();
+        attackHandler.update(HeartBeat.delta);
+        towerMenu.update(HeartBeat.delta);
+        upgradeMenu.update(HeartBeat.delta);
+        sideMenu.update(HeartBeat.delta);
+        towermenutogglebutton.updatePosition();
+        upgrademenutogglebutton.updatePosition();
+        sidemenutogglebutton.updatePosition();
+
+        if (generator.WaveCleared()){
+            generator.WaveReward();
+            playbutton.toggleButton();
+        }
+    }
+
+    public Background getBackground(){return this.background;}
     public void placeCore(Decoration core){
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
@@ -184,7 +223,7 @@ public class GameModel {
     }
 
     public void updateEnemies(float delta) {
-        enemyHandler.moveEnemies(delta);
+        enemyHandler.updateEnemies(delta);
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }
@@ -235,6 +274,7 @@ public class GameModel {
     // Selecting a tower
     public void selectTower(Vector2 selectedPoint) {
         towerHandler.selectTower(selectedPoint);
+        soundManager.playSound("click_tower");
     }
 
     // Deslecting a tower, used in select when outside of radius
@@ -246,11 +286,13 @@ public class GameModel {
     public void placeTower (Vector2 selectedPoint) {
         // placera genom towerHandler
         towerHandler.placeTower(selectedPoint);
+
         Tower tower = getSelectedTower();
         // Minska pengar genom resourceHandler
         if (tower != null) {
             resourceHandler.spendMoney(tower.getCost());
             resourceHandler.updateMoneyResource();
+            notifySoundEvent(SoundEvent.TOWER_PLACED);
         }
     }
 
@@ -265,31 +307,26 @@ public class GameModel {
 
     public void sellTower(Tower tower) {
         towerHandler.sellTower(tower);
+        resourceHandler.gainMoney(tower.getCost());
         resourceHandler.updateMoneyResource();
+        notifySoundEvent(SoundEvent.TOWER_SOLD);
     }
 
-    // Tar bort fiender genom enemyHandler och ger pengar genom resourceHandler
-    public void removeDeadEnemies() {
+    public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
+        if (resourceHandler.getMoney() >= upgrade.getCost() && selectedTower != null) {
+            upgradeHandler.upgrade(tower, upgrade);
+            resourceHandler.spendMoney(tower.getCost());
+        }
+    }
 
+    public void enemyDeath(Enemy enemy) {
         if (getGameState() != GameState.RUNNING) {
             return;
         }
-
-        List<Enemy> deadEnemies = enemyHandler.removeDeadEnemies();
-
-        for (Enemy enemy : deadEnemies) {
-            int moneyGained = enemy.getMoney();
-            resourceHandler.gainMoney(moneyGained);
-        }
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
-    }
-
-    public Texture getBackground(){
-        return background.BackgroundTexture;
-    }
-
-    public Texture getGameOverBackground() {
-        return background.gameOverBackground;
+        notifySoundEvent(SoundEvent.ENEMY_BASIC_DEATH);
     }
 
     public List<Button> getInGameButtons() { return inGameButtons;}
@@ -382,7 +419,7 @@ public class GameModel {
         return this.upgrademenutogglebutton;
     }
 
-    public List<UpgradeMenuItem> getUpgradeMenuItems() {
+    public List<Button> getUpgradeMenuItems() {
         return this.upgradeMenu.items;
     }
 
@@ -396,5 +433,51 @@ public class GameModel {
 
     public SideMenu getSideMenu() {
         return this.sideMenu;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public UpgradeHandler getUpgradeHandler() {
+        return this.upgradeHandler;
+    }
+
+
+    public Tower getTowerAt(Vector2 pos) {
+        float towerSize = 1.0f;
+
+        for (Tower t : towers) {
+            float centerX = t.getPosition().x;
+            float centerY = t.getPosition().y;
+
+            // Eftersom positionen nu är tornets mitt
+            float halfSize = towerSize / 2f;
+
+            if (pos.x >= centerX - halfSize && pos.x <= centerX + halfSize &&
+                pos.y >= centerY - halfSize && pos.y <= centerY + halfSize) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+
+    public void addListener(SoundListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(SoundListener listener) {
+        listeners.remove(listener);
+    }
+
+    public void notifySoundEvent(SoundEvent event) {
+        for (SoundListener listener : listeners) {
+            listener.onSoundEvent(event);
+        }
+    }
+
+    public SoundManager getSoundManager() {
+        return this.soundManager;
     }
 }

@@ -13,7 +13,7 @@ public class PlayButton extends Button {
 
     //Rectangle bounds;
     public PlayButton(float x, float y, GameModel model) {
-        super("Playbutton.png", x, y, 1, 1);
+        super(x, y, 1, 1);
         this.generator = model.getGenerator();
         this.width = 1f;
         this.height = 1f;
@@ -30,7 +30,16 @@ public class PlayButton extends Button {
     @Override
     public void onClick() {
         System.out.println("Start button pressed!");
+
+        if (generator.getWaveNr() == 3) {
+            generator.setGameDiff(generator.getGameDiff()+1);
+            System.out.println(generator.getGameDiff());
+            generator.resetWaves();
+            generator.SpawnNextWave();
+            System.out.println(generator.getWaveNr());
+        }
         generator.SpawnNextWave();
+        System.out.println(generator.getWaveNr());
 
         model.setGameState(GameState.RUNNING);
         System.out.println("State:" + model.getGameState());
