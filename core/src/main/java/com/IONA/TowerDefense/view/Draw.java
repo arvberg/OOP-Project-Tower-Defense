@@ -130,8 +130,10 @@ public class Draw {
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
 
+        /*
         UpgradeMenu upgradeMenu = model.getUpgradeMenu();
         UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
+         */
 
         for (Button b : model.getInGameButtons()){
             DrawableButton view = getDrawableButton(b);

@@ -34,12 +34,6 @@ public class UpgradeMenu extends Menu {
     }
 
     public void toggle() {
-        open = !open;
-        if (open) {
-            targetX = openX;
-        } else {
-            targetX = closedX;
-        }
     }
 
     public void update(float delta) {
