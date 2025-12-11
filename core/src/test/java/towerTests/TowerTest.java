@@ -4,7 +4,7 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingEnemyStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +25,8 @@ public class TowerTest {
             fireRate = 1f;
             cooldown = 0;
             range = 3f;
-            attackType = "Test";
-            targetingStrategy = new TargetLeadingEnemyStrategy();
+            attackStrategy = ;
+            targetingStrategy = new TargetLeadingStrategy();
         }
 
         @Override

@@ -4,11 +4,15 @@
     import com.IONA.TowerDefense.model.Direction;
     import com.IONA.TowerDefense.model.ui.HealthBar;
     import com.IONA.TowerDefense.model.units.Unit;
+    import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
     import com.badlogic.gdx.graphics.Texture;
     import com.badlogic.gdx.math.Vector2;
     import com.badlogic.gdx.math.Rectangle;
 
     import javax.swing.*;
+
+    import java.util.ArrayList;
+    import java.util.List;
 
     import static com.IONA.TowerDefense.HeartBeat.delta;
     import static java.lang.Math.abs;
@@ -27,10 +31,12 @@
         protected int damage;
         protected int difficulty;
 
+        private List<EnemyDeathListener>  deathListeners = new ArrayList<>();
+
+
         public Enemy(int difficulty){
             this.difficulty = difficulty;
         }
-
         public Rectangle getHitBox() {
             return hitBox;
         }
@@ -40,6 +46,10 @@
 
             if (position == null) {
                 position = new Vector2(0, 2);
+            }
+
+            if (dir == null) {
+                dir = Direction.NORTH;
             }
              // sekunder per frame
              // speed = units per sekund
@@ -55,6 +65,10 @@
             if (healthBar.getPosition() != null){
                 healthBar.setPosition(position.x, position.y);
             }
+        }
+
+        public void setDirection(Direction direction) {
+            this.dir = direction;
         }
 
         public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
@@ -83,7 +97,6 @@
         public void takeDamage(int damage) {
             hp -= damage;
             healthBar.setCurrentHealth(hp);
-
         }
 
         public int getHp() {

@@ -1,9 +1,9 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
+import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.audio.SoundEvent;
 import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
@@ -15,13 +15,13 @@ import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.audio.SoundListener;
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
+import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -30,13 +30,14 @@ import java.util.List;
 
 
 // Main model class to for communication with controller
-public class GameModel {
+public class GameModel implements EnemyDeathListener, AttackListener {
     private GameState gameState = GameState.RUNNING;
 
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
     private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
+    private final List<Enemy> deadEnemies;
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
@@ -54,11 +55,8 @@ public class GameModel {
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
     private final UpgradeHandler upgradeHandler;
-    private final SoundManager soundManager;
     private int score; // Players current score
     private final int difficulty;
-
-    private final List<SoundListener> listeners = new ArrayList<>();
 
     private final TowerFactory towerFactory;
     private boolean towerSelected = false;
@@ -82,11 +80,11 @@ public class GameModel {
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
+        this.deadEnemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
         this.generator = new WaveGenerator(0, this);
+        this.core = new Core();
 
-        //this.money = 100;
-        //this.score = 0;
         this.inGameButtons = new ArrayList<>();
         this.background = "Starter map";
         this.difficulty = 0;
@@ -96,15 +94,11 @@ public class GameModel {
         this.resources = resourceHandler.getResources();
 
         this.attackHandler = new AttackHandler(this);
-        this.enemyHandler = new EnemyHandler(this);
+        attackHandler.addAttackListener(this);
+        this.enemyHandler = new EnemyHandler(enemies, path);
 
         this.towerHandler = new TowerHandler(this);
-        this.core = new Core();
-
         this.upgradeHandler = new UpgradeHandler(this);
-
-        this.soundManager = new SoundManager();
-        soundManager.load();
 
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
@@ -229,7 +223,6 @@ public class GameModel {
         enemyHandler.removeEnemy(enemy);
     }
 
-
     // Getters for all lists
     public List<Tower> getTowers() {
         return towers;
@@ -260,7 +253,6 @@ public class GameModel {
     // Selecting a tower
     public void selectTower(Vector2 selectedPoint) {
         towerHandler.selectTower(selectedPoint);
-        notifySoundEvent(SoundEvent.CLICK_TOWER);
     }
 
     // Deslecting a tower, used in select when outside of radius
@@ -278,7 +270,6 @@ public class GameModel {
         if (tower != null) {
             resourceHandler.spendMoney(tower.getCost());
             resourceHandler.updateMoneyResource();
-            notifySoundEvent(SoundEvent.TOWER_PLACED);
         }
     }
 
@@ -295,7 +286,6 @@ public class GameModel {
         towerHandler.sellTower(tower);
         resourceHandler.gainMoney(tower.getCost());
         resourceHandler.updateMoneyResource();
-        notifySoundEvent(SoundEvent.TOWER_SOLD);
     }
 
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
@@ -312,7 +302,6 @@ public class GameModel {
         int moneyGained = enemy.getMoney();
         resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
-        notifySoundEvent(SoundEvent.ENEMY_BASIC_DEATH);
     }
 
     public List<Button> getInGameButtons() { return inGameButtons;}
@@ -393,7 +382,13 @@ public class GameModel {
         enemyHandler.addEnemy(enemy);
     }
 
-
+    @Override
+    public void onEnemyDeath(Enemy enemy) {
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
+        resourceHandler.updateMoneyResource();
+        enemyHandler.removeEnemy(enemy);
+    }
 
     public WaveGenerator getGenerator() {
         return generator;
@@ -427,23 +422,13 @@ public class GameModel {
         return null;
     }
 
-
-    public void addListener(SoundListener listener) {
-        listeners.add(listener);
+    @Override
+    public void onProjectileFired() {
+        // gör nåt
     }
 
-    public void removeListener(SoundListener listener) {
-        listeners.remove(listener);
-    }
-
-    public void notifySoundEvent(SoundEvent event) {
-        for (SoundListener listener : listeners) {
-            listener.onSoundEvent(event);
-        }
-    }
-
-    public SoundManager getSoundManager() {
-        return this.soundManager;
+    public EnemyHandler getEnemyhandler() {
+        return enemyHandler;
     }
 
 

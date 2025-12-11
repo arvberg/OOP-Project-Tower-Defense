@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -19,6 +20,7 @@ public class AttackHandler {
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
     private final ProjectileFactory projectileFactory;
+    private final List<AttackListener> listeners = new ArrayList<>();
 
     public AttackHandler(GameModel model) {
         this.model = model;
@@ -57,6 +59,7 @@ public class AttackHandler {
             if (hasTargets && tower.canShoot() && tower.getIsAiming()) {
                 AttackStrategy strategy = tower.getAttackStrategy();
                 strategy.attack(tower, targets, projectiles);
+                notifyProjectileFired();
                 tower.resetCooldown();
             }
         }
@@ -170,6 +173,21 @@ public class AttackHandler {
 
     public void removeAllProjectiles() {
         projectiles.clear();
+    }
+
+
+    public void notifyProjectileFired() {
+        for (AttackListener l : listeners) {
+            l.onProjectileFired();
+        }
+    }
+
+    public void addAttackListener(AttackListener l) {
+        listeners.add(l);
+    }
+
+    public void removeAttackListener(AttackListener l) {
+        listeners.remove(l);
     }
 
 }

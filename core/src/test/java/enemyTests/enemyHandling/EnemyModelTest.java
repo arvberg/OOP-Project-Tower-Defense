@@ -20,8 +20,7 @@ public class EnemyModelTest {
     @BeforeEach
     void setup(){
         model = new GameModel();
-        handler = new EnemyHandler(model);
-
+        handler = new EnemyHandler( model.getEnemies(), model.getPath());
     }
 
     @Test
