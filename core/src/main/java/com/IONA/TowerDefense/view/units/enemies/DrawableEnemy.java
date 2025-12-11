@@ -4,4 +4,5 @@ import com.IONA.TowerDefense.view.Drawable;
 
 public sealed interface DrawableEnemy extends Drawable permits EnemyBasicDrawer {
 
+
 }
