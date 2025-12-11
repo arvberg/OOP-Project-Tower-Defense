@@ -7,11 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 public class Segment {
 
     private final Vector2 start;
-    private final int length;
+    private final float length;
     private final Direction direction;
     private final float width;
 
-    public Segment(Vector2 start, int length, Direction direction) {
+    public Segment(Vector2 start, float length, Direction direction) {
         this.start = start;
         this.length = length;
         this.direction = direction;

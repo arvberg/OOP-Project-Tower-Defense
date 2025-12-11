@@ -14,7 +14,7 @@ public class SideMenu extends Menu {
     float slideSpeed = 10f;
 
     public SideMenu(float x, float y) {
-        super("SideBar.png", x, y, 3, 9);
+        super(x, y, 3, 9);
         this.openX = x;
         this.targetX = x;
         this.closedX = x + width;

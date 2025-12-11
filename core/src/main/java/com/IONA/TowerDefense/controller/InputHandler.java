@@ -18,6 +18,7 @@ public class InputHandler {
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final List<TowerMenuItem> towerMenuItems;
+    private final UpgradeMenu upgradeMenu;
     private final List<Tower> towers;
 
     private GameModel model;
@@ -30,6 +31,7 @@ public class InputHandler {
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
         this.towerMenuItems = model.getTowerMenuItems();
+        this.upgradeMenu = model.getUpgradeMenu();
         this.model = model;
         this.towers = model.getTowers();
     }
@@ -91,9 +93,14 @@ public class InputHandler {
         model.updateTowerFollowingMouse(worldMousePos);
 
         for (TowerMenuItem item : towerMenuItems) {
-            item.setHovered(
-                item.contains(worldMousePos.x, worldMousePos.y)
-            );
+                if(item.inBound(worldMousePos)){
+                    upgradeMenu.setMenuPosition(item.getButtonPosition().x - upgradeMenu.getWidth()/2, item.getButtonPosition().y - upgradeMenu.getHeight());
+                    model.setUpgradeMenuStateTrue();
+                    break;
+                }
+                else{
+                    model.setUpgradeMenuStateFalse();
+                }
         }
     }
 

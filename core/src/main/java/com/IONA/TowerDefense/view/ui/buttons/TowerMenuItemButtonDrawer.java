@@ -14,7 +14,7 @@ public final class TowerMenuItemButtonDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE
-    private static final Texture TEXTURE = new Texture("TowerBasic.png");
+    private static final Texture TEXTURE = new Texture("TowerButton_Placeholder.png");
 
     public TowerMenuItemButtonDrawer(TowerMenuItem button) {
         this.button = button;

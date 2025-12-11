@@ -6,6 +6,7 @@ import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class UpgradeMenu extends Menu {
 
     private boolean open = false;
+    private boolean isHovered = false;
 
     private final float openX;
     private final float closedX;
@@ -24,7 +26,7 @@ public class UpgradeMenu extends Menu {
     float slideSpeed = 10f;
 
     public UpgradeMenu(float x, float y, GameModel model) {
-        super("SideBar.png", x, y, 3, 9);
+        super(x, y, 3, 3);
 
         this.openX = x-width;
         this.targetX = x;
@@ -36,43 +38,17 @@ public class UpgradeMenu extends Menu {
     public void toggle() {
     }
 
+
+
     public void update(float delta) {
-        float oldX;
-        float newX;
-        // om vi redan är nära target, sätt exakt
-        if (Math.abs(menuPosition.x - targetX) < 0.1f) {
-            oldX = menuPosition.x;
-            menuPosition.x = targetX;
-            newX = menuPosition.x;
-
-            if (oldX < newX) {
-                moveItemPositive(oldX, newX);
-            } else {
-                moveItemNegative(oldX, newX);
-            }
-
-            bounds.setX(targetX);
-            return;
-        }
-        // flytta menyn mot target
-        if (menuPosition.x < targetX) {
-            oldX = menuPosition.x;
-            menuPosition.x += slideSpeed * delta;
-            newX = menuPosition.x;
-            moveItemPositive(oldX, newX);
-
-        } else {
-            oldX = menuPosition.x;
-            menuPosition.x -= slideSpeed * delta;
-            newX = menuPosition.x;
-            moveItemNegative(oldX, newX);
-        }
+        this.open = this.isHovered;
         bounds.setX(menuPosition.x);
     }
 
     public boolean isOpen() {
         return open;
     }
+    public void isHovered(boolean b){ this.isHovered = b;}
 
     @Override
     public void onClick() {

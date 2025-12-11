@@ -10,7 +10,7 @@ public class TowerMenuItem extends Button {
     private final GameModel model;
 
     public TowerMenuItem(float x, float y, String towerType, GameModel model) {
-        super(x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
+        super(x-.9f/2, y-.9f/2, .9f, 1.1f);  // 1x1 world units
         this.towerType = towerType;
         this.model = model;
     }
@@ -20,6 +20,10 @@ public class TowerMenuItem extends Button {
         if(bounds.contains(pos)) {
             onClick();
         }
+    }
+
+    public boolean inBound(Vector2 pos){
+        return bounds.contains(pos);
     }
 
     @Override

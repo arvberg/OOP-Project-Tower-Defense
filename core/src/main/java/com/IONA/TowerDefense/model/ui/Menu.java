@@ -12,13 +12,8 @@ public abstract class Menu {
     protected float width;
     protected float height;
     protected Rectangle bounds;
-    public Texture texture;
 
-    public Menu(String texturePath, float x, float y, float width, float height){
-        if (texturePath == null) {
-            texturePath = "ProtTower.png";
-        }
-        this.texture = new Texture(Gdx.files.internal(texturePath));
+    public Menu(float x, float y, float width, float height){
         this.menuPosition = new Vector2(x, y);
         this.width = width;
         this.height = height;
@@ -35,6 +30,11 @@ public abstract class Menu {
 
     public Vector2 getMenuPosition(){
         return menuPosition;
+    }
+
+    public void setMenuPosition(float x, float y){
+        menuPosition.x = x;
+        menuPosition.y = y;
     }
 
     public abstract void onClick();

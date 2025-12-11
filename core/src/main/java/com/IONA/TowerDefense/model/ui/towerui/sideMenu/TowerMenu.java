@@ -16,7 +16,7 @@ public class TowerMenu extends Menu {
     float slideSpeed = 10f;
 
     public TowerMenu(float x, float y, GameModel model) {
-        super("SideBar.png", x, y, 6, 1.5f);
+        super(x, y, 4, 1.5f);
         this.model = model;
         this.items = new ArrayList<>();
     }
@@ -34,14 +34,19 @@ public class TowerMenu extends Menu {
 
     public void createGridItems(List<Button> buttons) {
 
-        int cols = 4;      // fyra kolumner
-        int rows = 1;      // en rad
+        int cols = 3;
+        // spacing går att ändra.
+        float spacing = 1.2f;
 
-        float spacingX = width / (cols + 1); // jämn horisontell fördelning
-        float y = menuPosition.y + height / 2f; // centrera vertikalt
+        float centerX = menuPosition.x + width / 2f;
+        float step = spacing;
+        float total = (cols - 1) * step;
+        float startX = centerX - total / 2f;
+        float y = menuPosition.y - 0.1f + height / 2f;
 
         for (int c = 0; c < cols; c++) {
-            float x = menuPosition.x + spacingX * (c + 1);
+
+            float x = startX + c * step;
 
             // Bestäm towerType här, exempelvis:
             String towerType;
@@ -55,15 +60,15 @@ public class TowerMenu extends Menu {
                 case 2:
                     towerType = "TowerBasic";
                     break;
-                case 3:
-                    towerType = "TowerBasic";
-                    break;
                 default:
                     towerType = "TowerBasic";
             }
             TowerMenuItem item = new TowerMenuItem(x, y, towerType, model);
             buttons.add(item);
             items.add(item);
+            for(TowerMenuItem i: items) {
+                System.out.println(i.getButtonPosition() + " " + i.getWidth() + " " + i.getHeight());
+            }
         }
     }
 

@@ -68,6 +68,7 @@ public class GameModel {
     private Tower selectedTower = null;
 
     private final TowerMenu towerMenu;
+    private final UpgradeMenu upgradeMenu;
 
     private final Decoration core;
 
@@ -77,7 +78,8 @@ public class GameModel {
 
     public GameModel () {
 
-        this.towerMenu = new TowerMenu(5,7.5f,this);
+        this.towerMenu = new TowerMenu(12,7.5f,this);
+        this.upgradeMenu = new UpgradeMenu(5, 5, this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -124,6 +126,7 @@ public class GameModel {
 
         // används för att inte kunna placera torn på menues.
         menus.add(towerMenu);
+        menus.add(upgradeMenu);
 
         placeCore(core);
     }
@@ -137,6 +140,7 @@ public class GameModel {
         coreDamaged();
         attackHandler.update(HeartBeat.delta);
         towerMenu.update(HeartBeat.delta);
+        upgradeMenu.update(HeartBeat.delta);
 
         if (generator.WaveCleared()){
             generator.WaveReward();
@@ -446,5 +450,16 @@ public class GameModel {
         return this.soundManager;
     }
 
+    public UpgradeMenu getUpgradeMenu() {
+        return this.upgradeMenu;
+    }
+
+    public void setUpgradeMenuStateTrue(){
+        this.upgradeMenu.isHovered(true);
+    }
+
+    public void setUpgradeMenuStateFalse(){
+        this.upgradeMenu.isHovered(false);
+    }
 
 }
