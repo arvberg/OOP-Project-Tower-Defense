@@ -10,46 +10,97 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class TowerBasicDrawer implements DrawableTower {
 
+    private static final Texture TEXTURE = new Texture("Tower_back.png");
+    private static final Texture TEXTURE_BARREL = new Texture("TowerBasic_01_barrel.png");
+    private static final Texture TEXTURE_RANGE = new Texture("Range_01.png");
+
+    private static final TextureRegion TEXTURE_BARREL_R = new TextureRegion(TEXTURE_BARREL);
+    private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
+
     private final TowerBasic tower;
     private Vector2 p;
-    private Texture texture = new Texture("Tower_back.png");
-    private Texture texture2 = new Texture("TowerBasic_01_barrel.png");
-    private TextureRegion texture2r = new TextureRegion(texture2);
-    private TextureRegion rangeTexture = new TextureRegion(new Texture("Range_01.png"));
     private float dimensionX;
     private float dimensionY;
     private float angleDeg;
 
     public TowerBasicDrawer(TowerBasic tower){
         this.tower = tower;
-        p = tower.getPosition();
-        dimensionX = tower.getDimension().x;
-        dimensionY = tower.getDimension().y;
-        angleDeg = tower.getAngleDeg();
+        this.p = tower.getPosition();
+        this.dimensionX = tower.getDimension().x;
+        this.dimensionY = tower.getDimension().y;
+        this.angleDeg = tower.getAngleDeg();
     }
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
         angleDeg = tower.getAngleDeg();
-        batch.draw(texture, p.x - dimensionX / 2f, p.y - dimensionY / 2f, dimensionX, dimensionY);
-        batch.draw(texture2r, p.x - dimensionX / 2f, p.y - dimensionY / 2f, dimensionX / 2f, dimensionY / 2f, dimensionX, dimensionY, 1f, 1f, angleDeg-90);
+
+        batch.draw(
+            TEXTURE,
+            p.x - dimensionX / 2f,
+            p.y - dimensionY / 2f,
+            dimensionX,
+            dimensionY
+        );
+
+        batch.draw(
+            TEXTURE_BARREL_R,
+            p.x - dimensionX / 2f,
+            p.y - dimensionY / 2f,
+            dimensionX / 2f, dimensionY / 2f,
+            dimensionX, dimensionY,
+            1f, 1f,
+            angleDeg - 90
+        );
     }
 
     public void drawPendingTower(SpriteBatch batch) {
         p = tower.getPosition();
-        batch.draw(texture, p.x - dimensionX/2f, p.y - dimensionY/ 2f , dimensionX, dimensionY);
-        batch.draw(texture2r, p.x - dimensionX / 2f, p.y - dimensionY / 2f, dimensionX / 2f, dimensionY / 2f, dimensionX, dimensionY, 1f, 1f, angleDeg-90);
+
+        batch.draw(
+            TEXTURE,
+            p.x - dimensionX / 2f,
+            p.y - dimensionY / 2f,
+            dimensionX,
+            dimensionY
+        );
+
+        batch.draw(
+            TEXTURE_BARREL_R,
+            p.x - dimensionX / 2f,
+            p.y - dimensionY / 2f,
+            dimensionX / 2f, dimensionY / 2f,
+            dimensionX, dimensionY,
+            1f, 1f,
+            angleDeg - 90
+        );
     }
+
 
     public void drawRange(SpriteBatch batch) {
 
-        float w = rangeTexture.getRegionWidth();
-        float h = rangeTexture.getRegionHeight();
-        float worldRadius = tower.getRange();  // i world units
-        float textureRadius = w / 2f;          // i pixelvärldens world units
+        float w = RANGE_REGION.getRegionWidth();
+        float h = RANGE_REGION.getRegionHeight();
+
+        float worldRadius = tower.getRange();
+        float textureRadius = w / 2f;
+
         float scale = worldRadius / textureRadius;
 
-        batch.draw(rangeTexture, p.x -  w/2f, p.y - h/2f, w/2f, h / 2f,
-            w, h, scale, scale, 0);
+        batch.draw(
+            RANGE_REGION,
+            p.x - w / 2f,
+            p.y - h / 2f,
+            w / 2f, h / 2f,
+            w, h,
+            scale, scale,
+            0
+        );
+    }
+
+    public static void disposeStatic() {
+        TEXTURE.dispose();
+        TEXTURE_BARREL.dispose();
+        TEXTURE_RANGE.dispose();
     }
 }

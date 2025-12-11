@@ -17,11 +17,7 @@ public class InputHandler {
     private final RestartButton restartButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
-    private final TowerMenuToggleButton towerMenuToggleButton;
-    private final UpgradeMenuToggleButton upgradeMenuToggleButton;
-    private final SideMenuToggleButton sideMenuToggleButton;
     private final List<TowerMenuItem> towerMenuItems;
-    private final List<Button> upgradeMenuItems;
     private final List<Tower> towers;
 
     private GameModel model;
@@ -33,11 +29,7 @@ public class InputHandler {
         this.restartButton = model.getRestartButton();
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
-        this.towerMenuToggleButton = model.getTowerMenuToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
-        this.upgradeMenuToggleButton = model.getUpgradeMenuToggleButton();
-        this.upgradeMenuItems = model.getUpgradeMenuItems();
-        this.sideMenuToggleButton = model.getSideMenuToggleButton();
         this.model = model;
         this.towers = model.getTowers();
     }
@@ -58,17 +50,18 @@ public class InputHandler {
         }
 
         // Först UI-kontroller
-        towerMenuToggleButton.isClicked(pos);
-        upgradeMenuToggleButton.isClicked(pos);
-        sideMenuToggleButton.isClicked(pos);
 
         playButton.isClicked(pos);
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
         }
+
+        /*
         for (Button u : upgradeMenuItems){
             u.isClicked(pos);
         }
+
+         */
 
         speedUpButton.isClicked(pos);
 
@@ -96,6 +89,12 @@ public class InputHandler {
     // Handle input for mouse hovering
     public void updateMouse(Vector2 worldMousePos) {
         model.updateTowerFollowingMouse(worldMousePos);
+
+        for (TowerMenuItem item : towerMenuItems) {
+            item.setHovered(
+                item.contains(worldMousePos.x, worldMousePos.y)
+            );
+        }
     }
 
     private boolean clickedOnGameArea(Vector2 pos) {

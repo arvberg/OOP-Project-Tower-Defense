@@ -12,7 +12,8 @@ public abstract class Button {
     public float width;
     public float height;
     protected Rectangle bounds;
-
+    public Texture texture;
+    private boolean isHovered = false;
 
     private boolean buttonLocked = false;
     private final float lockedX;
@@ -56,6 +57,14 @@ public abstract class Button {
 
     public boolean contains(float x, float y) {
         return bounds.contains(x, y);
+    }
+
+    public boolean isHovered() {
+        return isHovered;
+    }
+
+    public void setHovered(boolean hovered) {
+        this.isHovered = hovered;
     }
 
     public float getWidth(){return this.width;}

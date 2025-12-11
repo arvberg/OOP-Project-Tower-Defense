@@ -4,6 +4,8 @@ import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.buttonui.RestartButton;
+import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
@@ -14,16 +16,19 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.map.BackgroundDrawer;
 import com.IONA.TowerDefense.view.map.PathDrawer;
 import com.IONA.TowerDefense.view.ui.*;
-import com.IONA.TowerDefense.view.ui.buttons.DrawableButton;
-import com.IONA.TowerDefense.view.ui.buttons.DrawableButtonFactory;
+import com.IONA.TowerDefense.view.ui.buttons.*;
+import com.IONA.TowerDefense.view.units.decorations.CoreDrawer;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemyFactory;
+import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
 import com.IONA.TowerDefense.view.units.projectiles.DrawableProjectile;
 import com.IONA.TowerDefense.view.units.projectiles.DrawableProjectileFactory;
+import com.IONA.TowerDefense.view.units.projectiles.ProjectileBasicDrawer;
 import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
+import com.IONA.TowerDefense.view.units.towers.TowerBasicDrawer;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -56,7 +61,7 @@ public class Draw {
     private float fadeTimer = 0f;
     private final float fadeDuration = 2f;
 
-    private Texture gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
+    private Texture gameOverTexture;
 
     public Draw(GameModel model) {this.model = model;}
 
@@ -65,6 +70,8 @@ public class Draw {
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
+        gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
+
     }
 
     public void resize(int w, int h) {
@@ -124,8 +131,10 @@ public class Draw {
         TowerMenu towerMenu = model.getTowerMenu();
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
 
+        /*
         UpgradeMenu upgradeMenu = model.getUpgradeMenu();
         UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
+         */
 
         for (Button b : model.getInGameButtons()){
             DrawableButton view = getDrawableButton(b);
@@ -186,20 +195,49 @@ public class Draw {
         shapeRenderer.end();
 
         // Ta bort enemies och torn ifall de är döda/sålda.
-        enemyViews.keySet().removeIf(e -> !model.getEnemies().contains(e));
-        towerViews.keySet().removeIf(t -> !model.getTowers().contains(t));
-        projectileViews.keySet().removeIf(p -> !model.getProjectiles().contains(p));
-        decorationViews.keySet().removeIf(d -> !model.getDecor().contains(d));
-        buttonViews.keySet().removeIf(b -> !model.getInGameButtons().contains(b));
-        buttonViews.keySet().removeIf(b -> !model.getGameOverButtons().contains(b));
+        enemyViews.entrySet().removeIf(e -> !model.getEnemies().contains(e.getKey()));
+        towerViews.entrySet().removeIf(t -> !model.getTowers().contains(t.getKey()));
+        projectileViews.entrySet().removeIf(p -> !model.getProjectiles().contains(p.getKey()));
+        decorationViews.entrySet().removeIf(d -> !model.getDecor().contains(d.getKey()));
+        buttonViews.entrySet().removeIf(b -> !model.getInGameButtons().contains(b.getKey()));
+        buttonViews.entrySet().removeIf(b -> !model.getGameOverButtons().contains(b.getKey()));
 
     }
 
+    public void disposeDrawers() {
+        TowerBasicDrawer.disposeStatic();
+        EnemyBasicDrawer.disposeStatic();
+        ProjectileBasicDrawer.disposeStatic();
+        CoreDrawer.disposeStatic();
+        PauseButtonDrawer.disposeStatic();
+        PlayButtonDrawer.disposeStatic();
+        RestartButtonDrawer.disposeStatic();
+        SellButtonDrawer.disposeStatic();
+        SideMenuToggleButtonDrawer.disposeStatic();
+        SpeedUpButtonDrawer.disposeStatic();
+        TowerMenuItemButtonDrawer.disposeStatic();
+        TowerMenuItemButtonDrawer.disposeStatic();
+        TowerMenuToggleButtonDrawer.disposeStatic();
+        UpgradeMenuItemButtonDrawer.disposeStatic();
+        UpgradeMenuToggleButtonDrawer.disposeStatic();
+        // lägg till fler
+    }
+
     public void dispose() {
+        // Först disposa alla Drawer-resurser
+        disposeDrawers();
+
+        // Sedan dispose:a batch och shapeRenderer
         if (batch != null) batch.dispose();
         if (shapeRenderer != null) shapeRenderer.dispose();
+        if (gameOverTexture != null) gameOverTexture.dispose();
 
-
+        // Rensa mapparna
+        towerViews.clear();
+        enemyViews.clear();
+        projectileViews.clear();
+        decorationViews.clear();
+        buttonViews.clear();
     }
 
 }
