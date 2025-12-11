@@ -59,12 +59,6 @@ public abstract class Button {
         return bounds.contains(x, y);
     }
 
-    public float getWidth(){return this.width;}
-
-    public float getHeight(){return this.height;}
-
-
-
     public boolean isHovered() {
         return isHovered;
     }
@@ -72,4 +66,10 @@ public abstract class Button {
     public void setHovered(boolean hovered) {
         this.isHovered = hovered;
     }
+
+    public float getWidth(){return this.width;}
+
+    public float getHeight(){return this.height;}
+
+
 }

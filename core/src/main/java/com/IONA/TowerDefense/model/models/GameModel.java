@@ -22,6 +22,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -51,9 +52,6 @@ public class GameModel {
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
-    private final TowerMenuToggleButton towermenutogglebutton;
-    private final UpgradeMenuToggleButton upgrademenutogglebutton;
-    private final SideMenuToggleButton sidemenutogglebutton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
     private final UpgradeHandler upgradeHandler;
@@ -70,10 +68,7 @@ public class GameModel {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
-    private final UpgradeMenu upgradeMenu;
     private final TowerMenu towerMenu;
-    private final SideMenu sideMenu;
-    private final StateChanger schanger;
 
     private final Decoration core;
 
@@ -81,9 +76,7 @@ public class GameModel {
 
     public GameModel () {
 
-        this.towerMenu = new TowerMenu(11,0,this);
-        this.upgradeMenu = new UpgradeMenu(16,0,this);
-        this.sideMenu = new SideMenu(13,0);
+        this.towerMenu = new TowerMenu(5,7.5f,this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -119,27 +112,15 @@ public class GameModel {
         this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5, 5, this);
-        this.schanger = new StateChanger();
-        this.towermenutogglebutton = new TowerMenuToggleButton(0,8, towerMenu,sideMenu, schanger);
-        this.upgrademenutogglebutton = new UpgradeMenuToggleButton(0,3,upgradeMenu,sideMenu, schanger);
-        schanger.setButtons(upgrademenutogglebutton,towermenutogglebutton);
-        this.sidemenutogglebutton = new SideMenuToggleButton(0, 5,towerMenu,upgradeMenu,sideMenu,schanger);
 
-
-        inGameButtons.add(towermenutogglebutton);
-        inGameButtons.add(upgrademenutogglebutton);
-        inGameButtons.add(sidemenutogglebutton);
         inGameButtons.add(playbutton);
         inGameButtons.add(speedUpButton);
         inGameButtons.add(pauseButton);
         gameOverButtons.add(restartButton);
         towerMenu.createGridItems(inGameButtons);
-        upgradeMenu.createGridItems(inGameButtons);
 
         // används för att inte kunna placera torn på menues.
         menus.add(towerMenu);
-        menus.add(upgradeMenu);
-        menus.add(sideMenu);
 
         placeCore(core);
     }
@@ -153,11 +134,6 @@ public class GameModel {
         coreDamaged();
         attackHandler.update(HeartBeat.delta);
         towerMenu.update(HeartBeat.delta);
-        upgradeMenu.update(HeartBeat.delta);
-        sideMenu.update(HeartBeat.delta);
-        towermenutogglebutton.updatePosition();
-        upgrademenutogglebutton.updatePosition();
-        sidemenutogglebutton.updatePosition();
 
         if (generator.WaveCleared()){
             generator.WaveReward();
@@ -165,7 +141,6 @@ public class GameModel {
         }
     }
 
-    public Background getBackground(){return this.background;}
     public void placeCore(Decoration core){
         Segment last = path.getSegment(path.segmentCount()-2);
         Vector2 end = last.getEnd();
@@ -270,7 +245,7 @@ public class GameModel {
     // Selecting a tower
     public void selectTower(Vector2 selectedPoint) {
         towerHandler.selectTower(selectedPoint);
-        soundManager.playSound("click_tower");
+        notifySoundEvent(SoundEvent.CLICK_TOWER);
     }
 
     // Deslecting a tower, used in select when outside of radius
@@ -352,8 +327,6 @@ public class GameModel {
         return towerFactory;
         }
 
-    public TowerMenuToggleButton getTowerMenuToggleButton() {return towermenutogglebutton;}
-
     public List<TowerMenuItem> getTowerMenuItems() {
         return towerMenu.items;
     }
@@ -403,29 +376,12 @@ public class GameModel {
         enemyHandler.addEnemy(enemy);
     }
 
-    public UpgradeMenu getUpgradeMenu() {
-        return this.upgradeMenu;
-    }
 
-    public UpgradeMenuToggleButton getUpgradeMenuToggleButton() {
-        return this.upgrademenutogglebutton;
-    }
-
-    public List<Button> getUpgradeMenuItems() {
-        return this.upgradeMenu.items;
-    }
-
-    public SideMenuToggleButton getSideMenuToggleButton() {
-        return this.sidemenutogglebutton;
-    }
 
     public WaveGenerator getGenerator() {
         return generator;
     }
 
-    public SideMenu getSideMenu() {
-        return this.sideMenu;
-    }
 
     public List<Menu> getMenus() {
         return menus;
@@ -471,6 +427,10 @@ public class GameModel {
 
     public SoundManager getSoundManager() {
         return this.soundManager;
+    }
+
+    public Background getBackground() {
+        return background;
     }
 
 

@@ -32,20 +32,6 @@ public class SideMenuToggleButton extends Button {
 
     @Override
     public void onClick() {
-        if (isOpen) {
-            schanger.reset();
-            if (towermenu.isOpen()) {
-                towermenu.toggle();
-            }
-            if (upgrademenu.isOpen()) {
-                upgrademenu.toggle();
-            }
-        } else {
-            towermenu.toggle();
-        }
-        sidemenu.toggle();
-        isOpen = !isOpen;
-        System.out.println("TowerMenu: " + towermenu.isOpen() + " UpgradeMenu: " + upgrademenu.isOpen() + " SideMenu: " + isOpen);
     }
 
     public void updatePosition() {
