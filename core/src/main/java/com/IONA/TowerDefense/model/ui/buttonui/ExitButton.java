@@ -10,7 +10,7 @@ import static com.IONA.TowerDefense.Main.model;
 public class ExitButton extends Button {
 
     public ExitButton(float x, float y) {
-        super("Projectile_temp_02.png", x, y, 1, 1);
+        super( x, y, 1, 1);
         this.width = 1f;
         this.height = 1f;
         this.bounds = new Rectangle(x, y, width, height);
