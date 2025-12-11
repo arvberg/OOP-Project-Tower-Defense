@@ -6,22 +6,29 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public final class PauseButtonDrawer implements DrawableButton{
-    Texture texture = new Texture("Pause_button_temp_01.png");
-    Vector2 p;
-    PauseButton button;
-    float DimensionX;
-    float DimensionY;
+public final class PauseButtonDrawer implements DrawableButton {
+
+    private final PauseButton button;
+    private Vector2 p;
+    private final float dimensionX;
+    private final float dimensionY;
+
+    // STATIC TEXTURE shared by all instances
+    private static final Texture TEXTURE = new Texture("Pause_button_temp_01.png");
 
     public PauseButtonDrawer(PauseButton button) {
-        this.DimensionX = button.getWidth();
-        this.DimensionY = button.getHeight();
         this.button = button;
+        this.dimensionX = button.getWidth();
+        this.dimensionY = button.getHeight();
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         p = button.getButtonPosition();
-        batch.draw(texture, p.x, p.y, DimensionX, DimensionY);
+        batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
+    }
+
+    public static void disposeStatic() {
+        if (TEXTURE != null) TEXTURE.dispose();
     }
 }

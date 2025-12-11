@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
+import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.audio.SoundEvent;
