@@ -13,8 +13,6 @@ public class TowerMenu extends Menu {
     public List<TowerMenuItem> items;
     private GameModel model;
 
-    float slideSpeed = 10f;
-
     public TowerMenu(float x, float y, GameModel model) {
         super(x, y, 4, 1.5f);
         this.model = model;
@@ -60,15 +58,15 @@ public class TowerMenu extends Menu {
                 case 2:
                     towerType = "TowerBasic";
                     break;
+                case 3:
+                    towerType = "TowerBasic";
+                    break;
                 default:
                     towerType = "TowerBasic";
             }
             TowerMenuItem item = new TowerMenuItem(x, y, towerType, model);
             buttons.add(item);
             items.add(item);
-            for(TowerMenuItem i: items) {
-                System.out.println(i.getButtonPosition() + " " + i.getWidth() + " " + i.getHeight());
-            }
         }
     }
 

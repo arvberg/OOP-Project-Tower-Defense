@@ -454,12 +454,4 @@ public class GameModel {
         return this.upgradeMenu;
     }
 
-    public void setUpgradeMenuStateTrue(){
-        this.upgradeMenu.isHovered(true);
-    }
-
-    public void setUpgradeMenuStateFalse(){
-        this.upgradeMenu.isHovered(false);
-    }
-
 }

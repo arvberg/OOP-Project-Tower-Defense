@@ -94,12 +94,12 @@ public class InputHandler {
 
         for (TowerMenuItem item : towerMenuItems) {
                 if(item.inBound(worldMousePos)){
-                    upgradeMenu.setMenuPosition(item.getButtonPosition().x - upgradeMenu.getWidth()/2, item.getButtonPosition().y - upgradeMenu.getHeight());
-                    model.setUpgradeMenuStateTrue();
+                    upgradeMenu.setMenuPosition(item.getButtonPosition().x - upgradeMenu.getWidth()/2 + item.getWidth()/2, item.getButtonPosition().y - upgradeMenu.getHeight());
+                    upgradeMenu.setHoveredState(true);
                     break;
                 }
                 else{
-                    model.setUpgradeMenuStateFalse();
+                    upgradeMenu.setHoveredState(false);
                 }
         }
     }

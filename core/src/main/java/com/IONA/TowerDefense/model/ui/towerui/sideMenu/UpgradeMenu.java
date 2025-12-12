@@ -38,17 +38,28 @@ public class UpgradeMenu extends Menu {
     public void toggle() {
     }
 
-
+    @Override
+    public void setMenuPosition(float x, float y){
+        if(x + width > 16) {
+            menuPosition.x = 16-width;
+            menuPosition.y = y;
+        }
+        else{
+            menuPosition.x = x;
+            menuPosition.y = y;
+        }
+    }
 
     public void update(float delta) {
-        this.open = this.isHovered;
         bounds.setX(menuPosition.x);
     }
 
     public boolean isOpen() {
         return open;
     }
-    public void isHovered(boolean b){ this.isHovered = b;}
+    public void setHoveredState(boolean b){ this.isHovered = b;}
+
+    public boolean isHovered(){return this.isHovered;}
 
     @Override
     public void onClick() {
