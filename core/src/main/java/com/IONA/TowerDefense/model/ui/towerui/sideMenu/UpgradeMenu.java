@@ -6,8 +6,10 @@ import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 
@@ -32,6 +34,14 @@ public class UpgradeMenu extends Menu {
         this.closedX = x;
         this.model = model;
         this.items = new ArrayList<>();
+    }
+
+    public void clearGridItems(){
+        for(Button item: items){
+            model.removeButton(item);
+            items.remove(item);
+        }
+
     }
 
     public void toggle() {
@@ -66,23 +76,21 @@ public class UpgradeMenu extends Menu {
         //TODO
     }
 
-    public void createGridItems(List<Button> buttons) {
+    public void createGridItems(Deque<TowerUpgrade> upgradePath1, Deque<TowerUpgrade> upgradePath2) {
 
-        int rows = 5;
+        int rows = 3;
         int cols = 2;
 
         float xLeft  = menuPosition.x + width / 3.5f;
         float xRight = menuPosition.x + width - width / 3.5f;
-        float yTop   = menuPosition.y + height - height / 12f;
+        float yTop   = menuPosition.y + height - height / 3.5f;
         float yStep  = height / 5.2f;
 
         // 0 = tom, 1 = FireRate, 2 = Range, 3 = Sell
         int[][] layout = {
-            {1, 2},
-            {0, 0},
-            {0, 0},
-            {0, 0},
-            {3, 0}   // Sell-knapp längst ner vänster
+            {1, 0},
+            {2, 0},
+            {3, 0}// Sell-knapp längst ner vänster
         };
 
         for (int r = 0; r < rows; r++) {
@@ -98,10 +106,10 @@ public class UpgradeMenu extends Menu {
 
                 switch (cellType) {
                     case 1:
-                        button = new UpgradeMenuItem(x, y, model, new FireRateUpgrade(50));
+                        button = new UpgradeMenuItem(x, y, model, upgradePath1.peek());
                         break;
                     case 2:
-                        button = new UpgradeMenuItem(x, y, model, new RangeUpgrade(50));
+                        button = new UpgradeMenuItem(x, y, model, upgradePath2.peek());
                         break;
                     case 3:
                         button = new SellButton(x, y, model);
@@ -109,26 +117,14 @@ public class UpgradeMenu extends Menu {
                 }
 
                 if (button != null) {
-                    buttons.add(button);
+                    model.addButton(button);
                     items.add(button);
                 }
             }
         }
     }
 
-    private void moveItemNegative(float oldX, float newX) {
-        float diff = Math.abs(oldX - newX);
-        for (Button item : items) {
-            item.setButtonPosition(item.getButtonPosition().x - diff, item.getButtonPosition().y);
-        }
-    }
 
-    private void moveItemPositive(float oldX, float newX) {
-        float diff = Math.abs(oldX - newX);
-        for (Button item : items) {
-            item.setButtonPosition(item.getButtonPosition().x + diff, item.getButtonPosition().y);
-        }
-    }
 
 
 

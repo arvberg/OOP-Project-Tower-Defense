@@ -5,8 +5,11 @@ import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.List;
 
 public abstract class Tower extends Unit {
@@ -24,13 +27,27 @@ public abstract class Tower extends Unit {
     protected float angleDeg;
     protected boolean hasDetected;
     protected boolean isAiming;
+    protected boolean hasCurrentUpgradeMenu = false;
 
     protected Vector2 dimension;
 
     protected TargetingStrategy targetingStrategy;
     protected AttackStrategy attackStrategy;
 
+    protected final Deque<TowerUpgrade> upgradePath1 = new ArrayDeque<>();
+    protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
+
+    public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
+    public boolean getHasCurrentUpgradeMenu(){return this.hasCurrentUpgradeMenu;}
     public void setAngleDeg(float angleDeg){this.angleDeg = angleDeg;}
+
+    public Deque<TowerUpgrade> getUpgradePath1() {
+        return upgradePath1;
+    }
+
+    public Deque<TowerUpgrade> getUpgradePath2() {
+        return upgradePath2;
+    }
 
     public float getAngleDeg() {
 

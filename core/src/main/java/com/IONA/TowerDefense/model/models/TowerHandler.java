@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -31,18 +32,22 @@ public class TowerHandler {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
+    private UpgradeMenu upgradeMenu;
+
     private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
 
-    public TowerHandler (List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler) {
+    public TowerHandler (List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler, UpgradeMenu upgradeMenu) {
         this.towers = towers;
         this.factory = factory;
         this.path = path;
         this.decorations = decor;
         this.resourceHandler = resourceHandler;
+        this.upgradeMenu = upgradeMenu;
     }
 
     public void selectTower(Vector2 selectedPoint) {
         Tower clickedTower = null;
+        boolean itemsCreated = false;
 
         for (Tower tower : towers) {
             // Tornets mittpunkt
@@ -51,6 +56,12 @@ public class TowerHandler {
 
             if (distance <= TOWER_SELECTION_RADIUS) {
                 clickedTower = tower;
+                if(!tower.getHasCurrentUpgradeMenu()) {
+                    upgradeMenu.clearGridItems();
+                    upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2());
+                    tower.setHasCurrentUpgradeMenu(true);
+                }
+
                 break; // break om torn hittat
             }
         }

@@ -20,6 +20,7 @@ public class InputHandler {
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final List<TowerMenuItem> towerMenuItems;
+    private final List<Button> upgradeMenuItems;
     private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
     private final List<Tower> towers;
@@ -35,6 +36,7 @@ public class InputHandler {
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
         this.towerMenuItems = model.getTowerMenuItems();
+        this.upgradeMenuItems = model.getUpgradeMenuItems();
         this.infoMenu = model.getInfoMenu();
         this.upgradeMenu = model.getUpgradeMenu();
         this.model = model;
@@ -60,6 +62,9 @@ public class InputHandler {
 
         playButton.isClicked(pos);
         for (TowerMenuItem t : towerMenuItems) {
+            t.isClicked(pos);
+        }
+        for (Button t : upgradeMenuItems){
             t.isClicked(pos);
         }
 
@@ -90,6 +95,7 @@ public class InputHandler {
             } else {
                 model.deselectTower();
                 upgradeMenu.setTowerIsClicked(false);
+                upgradeMenu.setMenuPosition(16,9);
             }
         }
     }

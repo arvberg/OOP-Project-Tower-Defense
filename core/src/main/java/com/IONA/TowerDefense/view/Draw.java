@@ -140,11 +140,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        for (Button b : model.getInGameButtons()){
-            DrawableButton view = getDrawableButton(b);
-            view.draw(batch, shapeRenderer, delta);
-        }
-
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
 
@@ -169,6 +164,8 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             DrawableTower view = getDrawableTower(t);
             view.draw(batch, shapeRenderer, delta);
 
+            // DrawableUpgrade Uview = getDrawableUpgrade(t.getUpgradeList)
+            // Uview.draw(batch, shapeRenderer, delta)
             if (model.isTowerSelected() && model.getSelectedTower() == t) {
                 view.drawRange(batch);
             }
@@ -181,6 +178,12 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         for(Menu m: model.getMenus()){
             DrawableMenu view = getDrawableMenu(m);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for (Button b : model.getInGameButtons()){
+            System.out.println("Buttons:" + model.getInGameButtons());
+            DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
         }
 
