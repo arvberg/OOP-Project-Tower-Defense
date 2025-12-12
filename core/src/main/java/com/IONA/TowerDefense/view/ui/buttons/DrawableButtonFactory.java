@@ -24,6 +24,7 @@ public class DrawableButtonFactory {
             case TowerMenuItem b -> new TowerMenuItemButtonDrawer(b);
             case UpgradeMenuItem b -> new UpgradeMenuItemButtonDrawer(b);
             case ExitButton b -> new ExitButtonDrawer(b);
+            case TargetingStrategyToggleButton b -> new TargetingToggleButtonDrawer(b);
             default -> throw new IllegalStateException("Unexpected value: " + button);
         };
     }

@@ -3,9 +3,14 @@ package com.IONA.TowerDefense.model.models;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -31,6 +36,9 @@ public class TowerHandler {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
+    private final List<TargetingStrategy> targetingStrategies = new ArrayList<>();
+    private int currentStrategyIndex = 0;
+
     private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
 
     public TowerHandler (List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler) {
@@ -39,6 +47,9 @@ public class TowerHandler {
         this.path = path;
         this.decorations = decor;
         this.resourceHandler = resourceHandler;
+        targetingStrategies.add(new TargetAllStrategy());
+        targetingStrategies.add(new TargetLeadingStrategy());
+        targetingStrategies.add(new TargetNearestStrategy());
     }
 
     public void selectTower(Vector2 selectedPoint) {
@@ -166,6 +177,14 @@ public class TowerHandler {
             }
         }
         return false;
+    }
+
+
+    public void toggleTargetingStrategy() {
+        currentStrategyIndex = (currentStrategyIndex + 1) % targetingStrategies.size();
+        TargetingStrategy currentStrategy = targetingStrategies.get(currentStrategyIndex);
+        selectedTower.setTargetingStrategy(currentStrategy);
+        System.out.println("New strategy: " + currentStrategy);
     }
 
     public void addTower(Tower tower) {

@@ -51,6 +51,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
+    private final TargetingStrategyToggleButton targetingStrategyToggleButton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
     private final UpgradeHandler upgradeHandler;
@@ -106,6 +107,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5, 5, this);
+        this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5, this);
+
 
         inGameButtons.add(playbutton);
         inGameButtons.add(speedUpButton);
@@ -461,5 +464,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     @Override
     public void onCouldNotBuy() {
+    }
+
+    public TargetingStrategyToggleButton getTargetingToggleButton() {
+        return targetingStrategyToggleButton;
     }
 }
