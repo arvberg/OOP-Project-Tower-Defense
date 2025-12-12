@@ -19,6 +19,7 @@ public class InputHandler {
     private final RestartButton restartButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
+    private final TargetingStrategyToggleButton targetingToggleButton;
     private final List<TowerMenuItem> towerMenuItems;
     private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
@@ -34,6 +35,7 @@ public class InputHandler {
         this.restartButton = model.getRestartButton();
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
+        this.targetingToggleButton = model.getTargetingToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
         this.infoMenu = model.getInfoMenu();
         this.upgradeMenu = model.getUpgradeMenu();
@@ -70,6 +72,7 @@ public class InputHandler {
          */
 
         speedUpButton.isClicked(pos);
+        targetingToggleButton.isClicked(pos);
 
         // Om spelaren har ett torn redo att placera
         if (model.isBuyingState()) {
@@ -85,6 +88,7 @@ public class InputHandler {
 
             if (clickedTower != null) {
                 model.selectTower(pos);
+
                 upgradeMenu.setMenuPosition(model.getSelectedTower().getX() - upgradeMenu.getWidth()/2, model.getSelectedTower().getY() + model.getSelectedTower().getDimension().y);
                 upgradeMenu.setTowerIsClicked(true);
             } else {

@@ -11,10 +11,7 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
-import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
-import com.IONA.TowerDefense.model.units.interfaces.InputListener;
-import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
+import com.IONA.TowerDefense.model.units.interfaces.*;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.map.BackgroundDrawer;
@@ -51,7 +48,7 @@ import java.util.Map;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
-public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener {
+public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener, UpgradeListener {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
@@ -299,5 +296,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     @Override
     public void onCouldNotBuy() {
         soundManager.playSound("invalid_click");
+    }
+
+    @Override
+    public void onUpgrade() {
+        soundManager.playSound("tower_upgraded");
     }
 }
