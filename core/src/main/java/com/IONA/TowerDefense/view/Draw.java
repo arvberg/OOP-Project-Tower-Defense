@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.view;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.InfoMenu;
@@ -20,6 +21,8 @@ import com.IONA.TowerDefense.view.map.BackgroundDrawer;
 import com.IONA.TowerDefense.view.map.PathDrawer;
 import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.ui.buttons.*;
+import com.IONA.TowerDefense.view.ui.menues.DrawableMenu;
+import com.IONA.TowerDefense.view.ui.menues.DrawableMenuFactory;
 import com.IONA.TowerDefense.view.units.decorations.CoreDrawer;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
@@ -33,8 +36,6 @@ import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.IONA.TowerDefense.view.units.towers.TowerBasicDrawer;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -60,6 +61,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
     private final Map<Decoration, DrawableDecoration> decorationViews = new HashMap<>();
     private final Map<Button, DrawableButton> buttonViews = new HashMap<>();
+    private final Map<Menu, DrawableMenu> menuViews = new HashMap<>();
 
     private final SoundManager soundManager = new SoundManager();
 
@@ -110,6 +112,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         return buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
     }
 
+    private DrawableMenu getDrawableMenu(Menu m){
+        return menuViews.computeIfAbsent(m, DrawableMenuFactory::create);
+    }
+
     public void draw() {
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
@@ -133,15 +139,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             DrawableDecoration view = getDrawableDecoration(d);
             view.draw(batch, shapeRenderer, delta);
         }
-
-        TowerMenu towerMenu = model.getTowerMenu();
-        TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
-
-
-        InfoMenu infoMenu = model.getInfoMenu();
-        InfoMenuDrawer.drawInfoMenu(infoMenu, batch);
-
-
 
         for (Button b : model.getInGameButtons()){
             DrawableButton view = getDrawableButton(b);
@@ -168,9 +165,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             }
         }
 
-        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
-        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu,batch);
-
         for(Tower t: model.getTowers()){
             DrawableTower view = getDrawableTower(t);
             view.draw(batch, shapeRenderer, delta);
@@ -182,6 +176,11 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         for(Projectile p: model.getProjectiles()){
             DrawableProjectile view = getDrawableProjectile(p);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for(Menu m: model.getMenus()){
+            DrawableMenu view = getDrawableMenu(m);
             view.draw(batch, shapeRenderer, delta);
         }
 
@@ -211,6 +210,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         decorationViews.entrySet().removeIf(d -> !model.getDecor().contains(d.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getInGameButtons().contains(b.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getGameOverButtons().contains(b.getKey()));
+        menuViews.entrySet().removeIf(m-> !model.getMenus().contains(m.getKey()));
 
     }
 

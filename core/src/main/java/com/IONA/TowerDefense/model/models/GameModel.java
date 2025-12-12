@@ -72,8 +72,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public GameModel () {
 
         this.towerMenu = new TowerMenu(12,7.5f,this);
-        this.infoMenu = new InfoMenu(5, 5, this);
-        this.upgradeMenu = new UpgradeMenu(5, 5, this);
+        this.infoMenu = new InfoMenu(16, 9, this);
+        this.upgradeMenu = new UpgradeMenu(16, 9, this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
