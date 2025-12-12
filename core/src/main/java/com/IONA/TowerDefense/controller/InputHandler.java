@@ -67,6 +67,9 @@ public class InputHandler {
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
         }
+        for (Button t : upgradeMenuItems){
+            t.isClicked(pos);
+        }
 
         if(!upgradeMenuItems.isEmpty()){
             upgradeMenuItems.get(0).isClicked(pos);
@@ -106,6 +109,7 @@ public class InputHandler {
             } else {
                 model.deselectTower();
                 upgradeMenu.setTowerIsClicked(false);
+                upgradeMenu.setMenuPosition(16,9);
             }
         }
     }
