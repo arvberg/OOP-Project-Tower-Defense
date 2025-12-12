@@ -5,10 +5,8 @@ import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 
 public class UpgradeHandler {
 
-    private final GameModel model;
 
-    public UpgradeHandler(GameModel model) {
-        this.model = model;
+    public UpgradeHandler() {
     }
 
     /**

@@ -1,13 +1,19 @@
 package com.IONA.TowerDefense.controller;
 
 import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
+import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.view.Draw;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InputHandler {
@@ -21,6 +27,7 @@ public class InputHandler {
     private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
     private final List<Tower> towers;
+    private final List<InputListener> listeners = new ArrayList<>();
 
     private GameModel model;
 
@@ -64,11 +71,9 @@ public class InputHandler {
         for (Button u : upgradeMenuItems){
             u.isClicked(pos);
         }
-
          */
 
         speedUpButton.isClicked(pos);
-
 
         // Om spelaren har ett torn redo att placera
         if (model.isBuyingState()) {
@@ -122,5 +127,21 @@ public class InputHandler {
         }
 
         return true;
+    }
+
+    public void notifyButtonClicked() {
+        for (InputListener l : listeners) {
+            l.onButtonClicked();
+        }
+    }
+
+    public void notifyInvalidClick() {
+        for (InputListener l : listeners) {
+            l.onInvalidClick();
+        }
+    }
+
+    public void addAttackListener(InputListener listener) {
+        listeners.add(listener);
     }
 }

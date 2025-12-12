@@ -13,7 +13,7 @@ public class TowerBasic extends Tower {
 
     public TowerBasic() {
         dimension = new Vector2(1f, 1f);
-        damage = 50;
+        damage = 500;
         projectileSpeed = 8;
         baseFireRate = 0.1f;
         cost = 50;

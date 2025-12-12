@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
@@ -9,6 +10,10 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
+import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
+import com.IONA.TowerDefense.model.units.interfaces.InputListener;
+import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.map.BackgroundDrawer;
@@ -28,6 +33,8 @@ import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.IONA.TowerDefense.view.units.towers.TowerBasicDrawer;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -43,7 +50,7 @@ import java.util.Map;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
-public class Draw {
+public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
@@ -53,6 +60,8 @@ public class Draw {
     private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
     private final Map<Decoration, DrawableDecoration> decorationViews = new HashMap<>();
     private final Map<Button, DrawableButton> buttonViews = new HashMap<>();
+
+    private final SoundManager soundManager = new SoundManager();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -68,7 +77,7 @@ public class Draw {
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
         gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
-
+        soundManager.load();
     }
 
     public void resize(int w, int h) {
@@ -212,6 +221,7 @@ public class Draw {
         CoreDrawer.disposeStatic();
         PauseButtonDrawer.disposeStatic();
         PlayButtonDrawer.disposeStatic();
+        ExitButtonDrawer.disposeStatic();
         RestartButtonDrawer.disposeStatic();
         SellButtonDrawer.disposeStatic();
         SideMenuToggleButtonDrawer.disposeStatic();
@@ -221,7 +231,6 @@ public class Draw {
         TowerMenuToggleButtonDrawer.disposeStatic();
         UpgradeMenuItemButtonDrawer.disposeStatic();
         UpgradeMenuToggleButtonDrawer.disposeStatic();
-        TowerMenuDrawer.disposeStatic();
         // lägg till fler
     }
 
@@ -242,4 +251,45 @@ public class Draw {
         buttonViews.clear();
     }
 
+    @Override
+    public void onProjectileFired() {
+        soundManager.playSound("fire");
+    }
+
+    @Override
+    public void onEnemyDeath(Enemy enemy) {
+        soundManager.playSound("enemy_basic_death");
+        System.out.println("sound is playing");
+    }
+
+    @Override
+    public void onButtonClicked() {
+    }
+
+    @Override
+    public void onInvalidClick() {
+    }
+
+    @Override
+    public void onTowerSelected() {
+        soundManager.playSound("click_tower");
+    }
+
+    @Override
+    public void onTowerPlaced() {
+        soundManager.playSound("place_tower");
+    }
+
+    @Override
+    public void onTowerSold() {
+        soundManager.playSound("sell_tower");
+    }
+
+    @Override
+    public void onTowerDeselected() {
+    }
+
+    @Override
+    public void onTowerPending() {
+    }
 }

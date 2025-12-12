@@ -23,6 +23,7 @@ public class DrawableButtonFactory {
             case SideMenuToggleButton b -> new SideMenuToggleButtonDrawer(b);
             case TowerMenuItem b -> new TowerMenuItemButtonDrawer(b);
             case UpgradeMenuItem b -> new UpgradeMenuItemButtonDrawer(b);
+            case ExitButton b -> new ExitButtonDrawer(b);
             default -> throw new IllegalStateException("Unexpected value: " + button);
         };
     }

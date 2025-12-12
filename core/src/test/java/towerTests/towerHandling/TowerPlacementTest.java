@@ -26,8 +26,6 @@ public class TowerPlacementTest {
             this.position = pos;
             this.dimension = new Vector2(1, 1);
         }
-        @Override public void attack(Targetable target, long time){}
-        @Override public void fire(){}
     }
 
     private static class SampleDecoration extends Decoration {

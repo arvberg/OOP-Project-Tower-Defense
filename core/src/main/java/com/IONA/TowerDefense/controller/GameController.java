@@ -1,6 +1,9 @@
 package com.IONA.TowerDefense.controller;
 
+import com.IONA.TowerDefense.model.models.AttackHandler;
+import com.IONA.TowerDefense.model.models.EnemyHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.models.TowerHandler;
 import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -13,6 +16,20 @@ public class GameController {
     public GameController (GameModel model, Draw view) {
         this.view = view;
         this.inputHandler = new InputHandler(model);
+
+        AttackHandler attackhandler = model.getAttackHandler();
+        EnemyHandler enemyhandler = model.getEnemyhandler();
+        TowerHandler towerHandler = model.getTowerHandler();
+
+        attackhandler.addAttackListener(model);
+        attackhandler.addAttackListener(view);
+        enemyhandler.addAttackListener(model);
+        enemyhandler.addAttackListener(view);
+        towerHandler.addTowerListener(model);
+        towerHandler.addTowerListener(view);
+
+        inputHandler.addAttackListener(view);
+
     }
 
     public void update() {
