@@ -4,17 +4,17 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
-import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
+import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class UpgradeMenu extends Menu {
+public class InfoMenu extends Menu {
 
     private boolean open = false;
-    private boolean isTowerClicked = false;
+    private boolean isHovered = false;
 
     private final float openX;
     private final float closedX;
@@ -24,7 +24,7 @@ public class UpgradeMenu extends Menu {
 
     float slideSpeed = 10f;
 
-    public UpgradeMenu(float x, float y, GameModel model) {
+    public InfoMenu(float x, float y, GameModel model) {
         super(x, y, 3, 3);
 
         this.openX = x-width;
@@ -56,13 +56,12 @@ public class UpgradeMenu extends Menu {
     public boolean isOpen() {
         return open;
     }
-    public void setTowerIsClicked(boolean b){ this.isTowerClicked = b;}
+    public void setHoveredState(boolean b){ this.isHovered = b;}
 
-    public boolean towerIsClicked(){return this.isTowerClicked;}
+    public boolean isHovered(){return this.isHovered;}
 
     @Override
     public void onClick() {
-
         //TODO
     }
 

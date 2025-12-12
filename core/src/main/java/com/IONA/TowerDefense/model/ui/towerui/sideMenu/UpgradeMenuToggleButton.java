@@ -1,19 +1,18 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
 public class UpgradeMenuToggleButton extends Button {
 
-    private final UpgradeMenu upgrademenu;
+    private final InfoMenu upgrademenu;
     private final StateChanger schanger;
     private final SideMenu smenu;
     public Boolean isOpen;
 
 
 
-    public UpgradeMenuToggleButton(float x, float y, UpgradeMenu menu, SideMenu smenu, StateChanger schanger) {
+    public UpgradeMenuToggleButton(float x, float y, InfoMenu menu, SideMenu smenu, StateChanger schanger) {
 
         super(x, y, 0.5f, 1.8f);
         this.upgrademenu = menu;

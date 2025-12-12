@@ -21,7 +21,6 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -68,6 +67,7 @@ public class GameModel {
     private Tower selectedTower = null;
 
     private final TowerMenu towerMenu;
+    private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
 
     private final Decoration core;
@@ -79,6 +79,7 @@ public class GameModel {
     public GameModel () {
 
         this.towerMenu = new TowerMenu(12,7.5f,this);
+        this.infoMenu = new InfoMenu(5, 5, this);
         this.upgradeMenu = new UpgradeMenu(5, 5, this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
@@ -126,6 +127,7 @@ public class GameModel {
 
         // används för att inte kunna placera torn på menues.
         menus.add(towerMenu);
+        menus.add(infoMenu);
         menus.add(upgradeMenu);
 
         placeCore(core);
@@ -140,7 +142,7 @@ public class GameModel {
         coreDamaged();
         attackHandler.update(HeartBeat.delta);
         towerMenu.update(HeartBeat.delta);
-        upgradeMenu.update(HeartBeat.delta);
+        infoMenu.update(HeartBeat.delta);
 
         if (generator.WaveCleared()){
             generator.WaveReward();
@@ -450,7 +452,11 @@ public class GameModel {
         return this.soundManager;
     }
 
-    public UpgradeMenu getUpgradeMenu() {
+    public InfoMenu getInfoMenu() {
+        return this.infoMenu;
+    }
+
+    public UpgradeMenu getUpgradeMenu(){
         return this.upgradeMenu;
     }
 

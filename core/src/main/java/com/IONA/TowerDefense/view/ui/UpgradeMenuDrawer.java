@@ -9,7 +9,7 @@ public class UpgradeMenuDrawer {
     private static final Texture TEXTURE = new Texture("Sidebar.png");
 
     public static void drawUpgradeMenu(UpgradeMenu upgradeMenu, Batch batch){
-        if (upgradeMenu.isHovered()) {
+        if (upgradeMenu.towerIsClicked()) {
             batch.draw(TEXTURE, upgradeMenu.getMenuPosition().x, upgradeMenu.getMenuPosition().y,
                 upgradeMenu.getWidth(), upgradeMenu.getHeight());
         }

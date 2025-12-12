@@ -18,6 +18,7 @@ public class InputHandler {
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final List<TowerMenuItem> towerMenuItems;
+    private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
     private final List<Tower> towers;
 
@@ -31,6 +32,7 @@ public class InputHandler {
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
         this.towerMenuItems = model.getTowerMenuItems();
+        this.infoMenu = model.getInfoMenu();
         this.upgradeMenu = model.getUpgradeMenu();
         this.model = model;
         this.towers = model.getTowers();
@@ -82,8 +84,11 @@ public class InputHandler {
 
             if (clickedTower != null) {
                 model.selectTower(pos);
+                upgradeMenu.setMenuPosition(model.getSelectedTower().getX() - upgradeMenu.getWidth()/2, model.getSelectedTower().getY() + model.getSelectedTower().getDimension().y);
+                upgradeMenu.setTowerIsClicked(true);
             } else {
                 model.deselectTower();
+                upgradeMenu.setTowerIsClicked(false);
             }
         }
     }
@@ -94,12 +99,12 @@ public class InputHandler {
 
         for (TowerMenuItem item : towerMenuItems) {
                 if(item.inBound(worldMousePos)){
-                    upgradeMenu.setMenuPosition(item.getButtonPosition().x - upgradeMenu.getWidth()/2 + item.getWidth()/2, item.getButtonPosition().y - upgradeMenu.getHeight());
-                    upgradeMenu.setHoveredState(true);
+                    infoMenu.setMenuPosition(item.getButtonPosition().x - infoMenu.getWidth()/2 + item.getWidth()/2, item.getButtonPosition().y - infoMenu.getHeight());
+                    infoMenu.setHoveredState(true);
                     break;
                 }
                 else{
-                    upgradeMenu.setHoveredState(false);
+                    infoMenu.setHoveredState(false);
                 }
         }
     }

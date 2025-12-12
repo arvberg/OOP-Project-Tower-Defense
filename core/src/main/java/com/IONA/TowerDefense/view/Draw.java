@@ -1,12 +1,10 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.IONA.TowerDefense.model.ui.buttonui.RestartButton;
-import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.InfoMenu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
@@ -29,7 +27,6 @@ import com.IONA.TowerDefense.view.units.projectiles.ProjectileBasicDrawer;
 import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.IONA.TowerDefense.view.units.towers.TowerBasicDrawer;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -132,8 +129,9 @@ public class Draw {
         TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
 
 
-        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
-        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu, batch);
+        InfoMenu infoMenu = model.getInfoMenu();
+        InfoMenuDrawer.drawInfoMenu(infoMenu, batch);
+
 
 
         for (Button b : model.getInGameButtons()){
@@ -160,6 +158,9 @@ public class Draw {
                 batch.setColor(Color.WHITE);
             }
         }
+
+        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
+        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu,batch);
 
         for(Tower t: model.getTowers()){
             DrawableTower view = getDrawableTower(t);
