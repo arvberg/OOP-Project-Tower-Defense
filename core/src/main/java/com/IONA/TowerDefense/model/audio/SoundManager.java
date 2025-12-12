@@ -18,6 +18,8 @@ public class SoundManager implements Disposable {
         sounds.put("place_tower", Gdx.audio.newSound(Gdx.files.internal("audio/place_tower.wav")));
         sounds.put("sell_tower", Gdx.audio.newSound(Gdx.files.internal("audio/sell_tower.wav")));
         sounds.put("click_tower", Gdx.audio.newSound(Gdx.files.internal("audio/click_tower.wav")));
+        sounds.put("tower_upgraded", Gdx.audio.newSound(Gdx.files.internal("audio/tower_upgraded.wav")));
+
 
         sounds.put("invalid_click", Gdx.audio.newSound(Gdx.files.internal("audio/invalid_click.wav")));
         sounds.put("ui_button_click", Gdx.audio.newSound(Gdx.files.internal("audio/ui_button_click.wav")));

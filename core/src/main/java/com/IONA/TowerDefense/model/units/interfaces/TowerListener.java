@@ -8,4 +8,5 @@ public interface TowerListener {
     void onTowerSold();
     void onTowerDeselected();
     void onTowerPending();
+    void onCouldNotBuy();
 }
