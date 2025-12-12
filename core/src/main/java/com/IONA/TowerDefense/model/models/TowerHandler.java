@@ -99,6 +99,7 @@ public class TowerHandler {
                 setPendingTower(newTower);
         }
         else {
+            notifyNotEnoughMoney();
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
         }
     }
@@ -230,6 +231,12 @@ public class TowerHandler {
     public void notifyTowerPlacedEvent() {
         for (TowerListener l : listeners) {
             l.onTowerPlaced();
+        }
+    }
+
+    public void notifyNotEnoughMoney() {
+        for (TowerListener l : listeners) {
+            l.onCouldNotBuy();
         }
     }
 

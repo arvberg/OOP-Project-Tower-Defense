@@ -88,7 +88,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
 
-        this.resourceHandler = new ResourceHandler(this);
+        this.resourceHandler = new ResourceHandler();
         this.resources = resourceHandler.getResources();
 
         this.attackHandler = new AttackHandler(enemies, projectiles, towers);
@@ -457,5 +457,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     @Override
     public void onTowerPending() {
+    }
+
+    @Override
+    public void onCouldNotBuy() {
     }
 }

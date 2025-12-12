@@ -264,6 +264,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
     @Override
     public void onButtonClicked() {
+        soundManager.playSound("ui_button_click");
     }
 
     @Override
@@ -285,11 +286,18 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         soundManager.playSound("sell_tower");
     }
 
+
+
     @Override
     public void onTowerDeselected() {
     }
 
     @Override
     public void onTowerPending() {
+    }
+
+    @Override
+    public void onCouldNotBuy() {
+        soundManager.playSound("invalid_click");
     }
 }

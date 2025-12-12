@@ -1,16 +1,12 @@
 package com.IONA.TowerDefense.controller;
 
 import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
-import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.view.Draw;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
