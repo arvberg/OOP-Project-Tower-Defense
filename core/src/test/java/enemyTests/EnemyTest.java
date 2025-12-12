@@ -89,13 +89,13 @@ public class EnemyTest {
 
     @Test
     void testSetHitBox(){
-        enemy.setToNewSegment(new Vector2(0, 0), Direction.NORTH, 0);
+        enemy.setToNewSegment(new Vector2(9f, 9f), Direction.NORTH, 0);
         enemy.setHitBox(2f, 2f);
 
         Rectangle box = enemy.getHitBox();
 
-        assertEquals(9f, box.width, 0.001f);
-        assertEquals(9f, box.y, 0.001f);
+        assertEquals(9f - 1, box.x, 0.001f);
+        assertEquals(9f - 1, box.y, 0.001f);
         assertEquals(2f, box.height);
         assertEquals(2f, box.width);
 

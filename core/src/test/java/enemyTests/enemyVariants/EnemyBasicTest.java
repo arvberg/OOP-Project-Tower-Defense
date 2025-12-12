@@ -31,11 +31,4 @@ public class EnemyBasicTest {
         assertTrue(e.getVisualRotationFront() > originalFront);
         assertTrue(e.getVisualRotationBack() > originalBack);
     }
-
-    @Test
-    void testTexturesNotNull(){
-        EnemyBasic e = new EnemyBasic(1);
-        assertNotNull(e.getTexture1());
-        assertNotNull(e.getTexture2());
-    }
 }

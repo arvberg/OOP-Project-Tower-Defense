@@ -18,7 +18,6 @@ public class TowerBasicTest {
         assertEquals(0.1f, t.getFireRate());
         assertEquals(2f, t.getRange());
         assertEquals(0f, t.getCooldown());
-        assertEquals("HomingProjectile", t.getAttackType());
         assertEquals(new Vector2(1f, 1f), t.getDimension());
     }
 

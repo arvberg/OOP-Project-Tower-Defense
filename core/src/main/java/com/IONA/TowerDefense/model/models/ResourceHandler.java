@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResourceHandler {
-    private final GameModel model;
     private final List<Resource> resources;
     private int money; // Players money
     private int lives; // Players health
     private int score; // Players current score
 
-    public ResourceHandler(GameModel model){
-        this.model = model;
+    public ResourceHandler(){
         this.resources = new ArrayList<>();
         this.lives = 100;
         this.money = 100;

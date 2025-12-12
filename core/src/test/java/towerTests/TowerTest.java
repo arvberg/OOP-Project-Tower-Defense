@@ -1,9 +1,8 @@
 package towerTests;
 
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
-import com.IONA.TowerDefense.model.units.interfaces.Targetable;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,15 +24,9 @@ public class TowerTest {
             fireRate = 1f;
             cooldown = 0;
             range = 3f;
-            attackStrategy = ;
+            attackStrategy = new ProjectileAttackStrategy();
             targetingStrategy = new TargetLeadingStrategy();
         }
-
-        @Override
-        public void attack(Targetable target, long time){}
-
-        @Override
-        public void fire(){}
     }
 
     @BeforeEach
@@ -55,10 +48,10 @@ public class TowerTest {
     @Test
     void testCooldownDecreases(){
         tower.resetCooldown();
-        tower.update(0.5f);
+        tower.updateCooldown(0.5f);
         assertFalse(tower.canShoot());
 
-        tower.update(0.5f);
+        tower.updateCooldown(0.5f);
         assertTrue(tower.canShoot());
     }
 
@@ -81,7 +74,7 @@ public class TowerTest {
 
         List<Enemy> result = tower.getTargets(enemies);
         assertEquals(1, result.size());
-        assertEquals(e1, result.get(0));
+        assertEquals(e1, result.getFirst());
     }
 
     private static class EnemyBasicDud extends Enemy{
@@ -90,7 +83,7 @@ public class TowerTest {
         }
 
         @Override
-        public void move(float dt){};
+        public void move(float dt){}
     }
 
 }
