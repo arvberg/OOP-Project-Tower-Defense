@@ -9,6 +9,7 @@ import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.view.Draw;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 
@@ -116,15 +117,9 @@ public class InputHandler {
         return true;
     }
 
-    public void notifyPlaceTower() {
+    public void notifyButtonClicked() {
         for (InputListener l : listeners) {
-            l.onTowerPlaced();
-        }
-    }
-
-    public void notifyTowerClicked() {
-        for (InputListener l : listeners) {
-            l.onTowerClick();
+            l.onButtonClicked();
         }
     }
 
@@ -134,12 +129,7 @@ public class InputHandler {
         }
     }
 
-
-    public void addAttackListener(InputListener l) {
-        listeners.add(l);
-    }
-
-    public void removeAttackListener(InputListener l) {
-        listeners.remove(l);
+    public void addAttackListener(InputListener listener) {
+        listeners.add(listener);
     }
 }

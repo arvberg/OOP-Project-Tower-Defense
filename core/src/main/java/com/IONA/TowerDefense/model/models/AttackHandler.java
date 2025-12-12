@@ -15,18 +15,16 @@ import java.util.List;
 
 public class AttackHandler {
 
-    private final GameModel model;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
     private final ProjectileFactory projectileFactory;
     private final List<AttackListener> listeners = new ArrayList<>();
 
-    public AttackHandler(GameModel model) {
-        this.model = model;
-        this.enemies = model.getEnemies();
-        this.projectiles = model.getProjectiles();
-        this.towers = model.getTowers();
+    public AttackHandler(List<Enemy> enemies, List<Projectile> projectiles, List<Tower> towers) {
+        this.enemies = enemies;
+        this.projectiles = projectiles;
+        this.towers = towers;
         this.projectileFactory = new ProjectileFactory();
     }
 
@@ -189,5 +187,4 @@ public class AttackHandler {
     public void removeAttackListener(AttackListener l) {
         listeners.remove(l);
     }
-
 }

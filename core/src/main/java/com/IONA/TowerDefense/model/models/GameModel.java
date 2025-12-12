@@ -1,10 +1,8 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
-import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
@@ -17,6 +15,7 @@ import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
+import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
@@ -30,7 +29,7 @@ import java.util.List;
 
 
 // Main model class to for communication with controller
-public class GameModel implements EnemyDeathListener, AttackListener {
+public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
     private GameState gameState = GameState.RUNNING;
 
     private final List<Tower> towers;
@@ -59,11 +58,6 @@ public class GameModel implements EnemyDeathListener, AttackListener {
     private final int difficulty;
 
     private final TowerFactory towerFactory;
-    private boolean towerSelected = false;
-    private boolean buyingState = false;
-
-    private Tower pendingTower = null;
-    private Tower selectedTower = null;
 
     private final TowerMenu towerMenu;
 
@@ -93,12 +87,12 @@ public class GameModel implements EnemyDeathListener, AttackListener {
         this.resourceHandler = new ResourceHandler(this);
         this.resources = resourceHandler.getResources();
 
-        this.attackHandler = new AttackHandler(this);
+        this.attackHandler = new AttackHandler(enemies, projectiles, towers);
         attackHandler.addAttackListener(this);
         this.enemyHandler = new EnemyHandler(enemies, path);
 
-        this.towerHandler = new TowerHandler(this);
-        this.upgradeHandler = new UpgradeHandler(this);
+        this.towerHandler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler);
+        this.upgradeHandler = new UpgradeHandler();
 
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
@@ -211,13 +205,6 @@ public class GameModel implements EnemyDeathListener, AttackListener {
     }
     // Add and remove from list
 
-    public void addTower(Tower tower) {
-        towerHandler.addTower(tower);
-    }
-
-    public void removeTower(Tower tower) {
-        towerHandler.removeTower(tower);
-    }
 
     public void removeEnemy(Enemy enemy) {
         enemyHandler.removeEnemy(enemy);
@@ -265,7 +252,7 @@ public class GameModel implements EnemyDeathListener, AttackListener {
         // placera genom towerHandler
         towerHandler.placeTower(selectedPoint);
 
-        Tower tower = getSelectedTower();
+        Tower tower = towerHandler.getSelectedTower();
         // Minska pengar genom resourceHandler
         if (tower != null) {
             resourceHandler.spendMoney(tower.getCost());
@@ -289,10 +276,42 @@ public class GameModel implements EnemyDeathListener, AttackListener {
     }
 
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
-        if (resourceHandler.getMoney() >= upgrade.getCost() && selectedTower != null) {
+        if (resourceHandler.getMoney() >= upgrade.getCost() && towerHandler.getSelectedTower() != null) {
             upgradeHandler.upgrade(tower, upgrade);
             resourceHandler.spendMoney(tower.getCost());
         }
+    }
+
+    public Tower getSelectedTower() {
+        return towerHandler.getSelectedTower();
+    }
+
+    public void setSelectedTower(Tower tower) {
+        towerHandler.setSelectedTower(tower);
+    }
+
+    public boolean isTowerSelected() {
+        return towerHandler.isTowerSelected();
+    }
+
+    public void setTowerSelected(Boolean bool) {
+        towerHandler.setTowerSelected(bool);
+    }
+
+    public boolean isBuyingState() {
+        return towerHandler.isBuyingState();
+    }
+
+    public void setBuyingState(Boolean bool) {
+        towerHandler.setBuyingState(bool);
+    }
+
+    public Tower getPendingTower() {
+        return towerHandler.getPendingTower();
+    }
+
+    public void setPendingTower(Tower tower) {
+        towerHandler.setPendingTower(tower);
     }
 
     public void enemyDeath(Enemy enemy) {
@@ -339,42 +358,11 @@ public class GameModel implements EnemyDeathListener, AttackListener {
         return towerMenu.items;
     }
 
-    public boolean isBuyingState() {
-        return buyingState;
-    }
-
-    public void setBuyingState(Boolean bool) {
-        this.buyingState = bool;
-    }
-
-    public Tower getPendingTower() {
-        return pendingTower;
-    }
-
-    public void setPendingTower(Tower tower) {
-        this.pendingTower = tower;
-    }
-
-    public Tower getSelectedTower() {
-        return selectedTower;
-    }
-
-    public void setSelectedTower(Tower tower) {
-        this.selectedTower = tower;
-    }
-
-    public boolean isTowerSelected() {
-        return towerSelected;
-    }
-
-    public void setTowerSelected(Boolean bool) {
-        this.towerSelected = bool;
-    }
 
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
-        if (pendingTower != null && buyingState) {
-            pendingTower.setPosition(mousePos);
+        if (towerHandler.getPendingTower() != null && towerHandler.isBuyingState()) {
+            towerHandler.getPendingTower().setPosition(mousePos);
         }
     }
 
@@ -387,7 +375,6 @@ public class GameModel implements EnemyDeathListener, AttackListener {
         int moneyGained = enemy.getMoney();
         resourceHandler.gainMoney(moneyGained);
         resourceHandler.updateMoneyResource();
-        enemyHandler.removeEnemy(enemy);
     }
 
     public WaveGenerator getGenerator() {
@@ -401,6 +388,10 @@ public class GameModel implements EnemyDeathListener, AttackListener {
 
     public UpgradeHandler getUpgradeHandler() {
         return this.upgradeHandler;
+    }
+
+    public TowerHandler getTowerHandler() {
+        return towerHandler;
     }
 
 
@@ -432,4 +423,25 @@ public class GameModel implements EnemyDeathListener, AttackListener {
     }
 
 
+    @Override
+    public void onTowerSelected() {
+    }
+
+    @Override
+    public void onTowerPlaced() {
+
+    }
+
+    @Override
+    public void onTowerSold() {
+
+    }
+
+    @Override
+    public void onTowerDeselected() {
+    }
+
+    @Override
+    public void onTowerPending() {
+    }
 }

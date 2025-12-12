@@ -11,6 +11,7 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
+import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.map.BackgroundDrawer;
@@ -47,7 +48,7 @@ import java.util.Map;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
-public class Draw implements EnemyDeathListener, AttackListener, InputListener {
+public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
@@ -74,7 +75,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener {
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
         gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
-
+        soundManager.load();
     }
 
     public void resize(int w, int h) {
@@ -252,10 +253,19 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener {
     @Override
     public void onEnemyDeath(Enemy enemy) {
         soundManager.playSound("enemy_basic_death");
+        System.out.println("sound is playing");
     }
 
     @Override
-    public void onTowerClick() {
+    public void onButtonClicked() {
+    }
+
+    @Override
+    public void onInvalidClick() {
+    }
+
+    @Override
+    public void onTowerSelected() {
         soundManager.playSound("click_tower");
     }
 
@@ -265,7 +275,15 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener {
     }
 
     @Override
-    public void onInvalidClick() {
+    public void onTowerSold() {
+        soundManager.playSound("sell_tower");
+    }
 
+    @Override
+    public void onTowerDeselected() {
+    }
+
+    @Override
+    public void onTowerPending() {
     }
 }

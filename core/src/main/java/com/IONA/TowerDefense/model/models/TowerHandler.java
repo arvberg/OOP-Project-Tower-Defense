@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model.models;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
+import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.badlogic.gdx.Game;
@@ -12,26 +13,33 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TowerHandler {
 
     private final List<Tower> towers;
-    private final GameModel model;
     private final TowerFactory factory;
     private final Path path;
     private final List<Decoration> decorations;
+    private final List<TowerListener> listeners = new ArrayList<>();
+    private final ResourceHandler resourceHandler;
+
+    private boolean towerSelected = false;
+    private boolean buyingState = false;
+
+    private Tower pendingTower = null;
+    private Tower selectedTower = null;
 
     private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
 
-    public TowerHandler (GameModel model) {
-        this.model = model;
-        this.towers = model.getTowers();
-        this.factory = model.getTowerFactory();
-        this.path = model.getPath();
-        this.decorations = model.getDecor();
+    public TowerHandler (List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler) {
+        this.towers = towers;
+        this.factory = factory;
+        this.path = path;
+        this.decorations = decor;
+        this.resourceHandler = resourceHandler;
     }
-
 
     public void selectTower(Vector2 selectedPoint) {
         Tower clickedTower = null;
@@ -50,43 +58,45 @@ public class TowerHandler {
         if (clickedTower == null) {
             deselectTower();
             // selecta nytt torn om vi trycker på ett torn
-        } else if (model.getSelectedTower() != clickedTower) {
-            model.setSelectedTower(clickedTower);
-            model.setTowerSelected(true);
-            System.out.println("Tower selected at: " + model.getSelectedTower().getPosition());
+        } else if (selectedTower != clickedTower) {
+            setSelectedTower(clickedTower);
+            setTowerSelected(true);
+            notifyTowerClickedEvent();
+            System.out.println("Tower selected at: " + selectedTower.getPosition());
         }
     }
 
     public void placeTower (Vector2 selectedPoint) {
-        Tower pendingTower = model.getPendingTower();
 
         if (pendingTower != null && !overlaps(pendingTower)) {
             pendingTower.setPosition(selectedPoint);
             towers.add(pendingTower);
 
-            model.setSelectedTower(pendingTower);
-            model.setTowerSelected(true);
-            System.out.println("Selected tower: " + model.getSelectedTower());
+            setSelectedTower(pendingTower);
+            setTowerSelected(true);
+            System.out.println("Selected tower: " + selectedTower);
 
-            model.setPendingTower(null);
-            model.setBuyingState(false);
+            setPendingTower(null);
+            setBuyingState(false);
+            notifyTowerPlacedEvent();
             System.out.println("tower placed");
         }
     }
 
     public void deselectTower () {
-        model.setSelectedTower(null);
-        model.setTowerSelected(false);
+        setSelectedTower(null);
+        setTowerSelected(false);
+        notifyTowerDeselectedEvent();
         System.out.println("Tower deselected");
     }
 
     public void buyTower (String tower) {
         Tower newTower = factory.createTower(tower);
 
-        if (model.getMoney() >= newTower.getCost()) {
-                model.deselectTower();
-                model.setBuyingState(true);
-                model.setPendingTower(newTower);
+        if (resourceHandler.getMoney() >= newTower.getCost()) {
+                deselectTower();
+                setBuyingState(true);
+                setPendingTower(newTower);
         }
         else {
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
@@ -94,8 +104,9 @@ public class TowerHandler {
     }
 
     public void sellTower (Tower tower) {
-        if (model.getSelectedTower() != null) {
+        if (selectedTower != null) {
             towers.remove(tower);
+            notifyTowerSoldEvent();
         }
     }
 
@@ -169,4 +180,69 @@ public class TowerHandler {
             towers.remove(i);
         }
     }
+
+    public Tower getSelectedTower() {
+        return selectedTower;
+    }
+
+    public void setSelectedTower(Tower tower) {
+        this.selectedTower = tower;
+    }
+
+    public boolean isTowerSelected() {
+        return towerSelected;
+    }
+
+    public void setTowerSelected(Boolean bool) {
+        this.towerSelected = bool;
+    }
+
+    public boolean isBuyingState() {
+        return buyingState;
+    }
+
+    public void setBuyingState(Boolean bool) {
+        this.buyingState = bool;
+    }
+
+    public Tower getPendingTower() {
+        return pendingTower;
+    }
+
+    public void setPendingTower(Tower tower) {
+        this.pendingTower = tower;
+    }
+
+    public void addTowerListener(TowerListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(TowerListener listener) {
+        listeners.remove(listener);
+    }
+
+    public void notifyTowerClickedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSelected();
+        }
+    }
+
+    public void notifyTowerPlacedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerPlaced();
+        }
+    }
+
+    public void notifyTowerSoldEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSold();
+        }
+    }
+
+    public void notifyTowerDeselectedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerDeselected();
+        }
+    }
+
 }

@@ -33,6 +33,7 @@ public class EnemyHandler {
                 moveAlongPath(enemy, delta);
             }
         }
+        removeDeadEnemies();
     }
 
     public void moveAlongPath(Enemy enemy, float delta) {
@@ -95,7 +96,10 @@ public class EnemyHandler {
 
     public void removeDeadEnemies() {
         for (int i = enemies.size() - 1; i >= 0; i--) {
-            if (enemies.get(i).getHp() <= 0) {
+            Enemy e = enemies.get(i);
+            if (e.getHp() <= 0) {
+                notifyEnemyDeathEvent(e);
+                enemies.remove(i);      // <-- detta saknas!
             }
         }
     }
