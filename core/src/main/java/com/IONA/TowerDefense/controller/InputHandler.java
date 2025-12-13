@@ -90,12 +90,8 @@ public class InputHandler {
 
             if (clickedTower != null) {
                 model.selectTower(pos);
-                upgradeMenu.setMenuPosition(model.getSelectedTower().getX() - upgradeMenu.getWidth()/2, model.getSelectedTower().getY() + model.getSelectedTower().getDimension().y);
-                upgradeMenu.setTowerIsClicked(true);
             } else {
                 model.deselectTower();
-                upgradeMenu.setTowerIsClicked(false);
-                upgradeMenu.setMenuPosition(16,9);
             }
         }
     }

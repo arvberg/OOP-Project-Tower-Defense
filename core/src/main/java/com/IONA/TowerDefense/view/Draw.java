@@ -182,7 +182,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         }
 
         for (Button b : model.getInGameButtons()){
-            System.out.println("Buttons:" + model.getInGameButtons());
             DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
         }

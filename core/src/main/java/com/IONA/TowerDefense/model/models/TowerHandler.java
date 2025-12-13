@@ -56,6 +56,8 @@ public class TowerHandler {
 
             if (distance <= TOWER_SELECTION_RADIUS) {
                 clickedTower = tower;
+                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
+                upgradeMenu.setTowerIsClicked(true);
                 if(!tower.getHasCurrentUpgradeMenu()) {
                     upgradeMenu.clearGridItems();
                     upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2());
@@ -67,7 +69,9 @@ public class TowerHandler {
         }
         // Om vi klickar utanför ett torn
         if (clickedTower == null) {
+
             deselectTower();
+
             // selecta nytt torn om vi trycker på ett torn
         } else if (selectedTower != clickedTower) {
             setSelectedTower(clickedTower);
@@ -99,6 +103,9 @@ public class TowerHandler {
         setTowerSelected(false);
         notifyTowerDeselectedEvent();
         System.out.println("Tower deselected");
+        upgradeMenu.clearGridItems();
+        upgradeMenu.setTowerIsClicked(false);
+        upgradeMenu.setMenuPosition(16,9);
     }
 
     public void buyTower (String tower) {

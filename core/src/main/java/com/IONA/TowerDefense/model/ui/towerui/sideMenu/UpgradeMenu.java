@@ -37,12 +37,13 @@ public class UpgradeMenu extends Menu {
     }
 
     public void clearGridItems(){
-        for(Button item: items){
-            model.removeButton(item);
-            items.remove(item);
+        for(Button b: items){
+            model.removeButton(b);
+        }
+        items.clear();
         }
 
-    }
+
 
     public void toggle() {
     }
@@ -50,12 +51,12 @@ public class UpgradeMenu extends Menu {
     @Override
     public void setMenuPosition(float x, float y){
         if(x + width > 16) {
-            menuPosition.x = 16-width;
-            menuPosition.y = y;
+            this.menuPosition.x = 16-width;
+            this.menuPosition.y = y;
         }
         else{
-            menuPosition.x = x;
-            menuPosition.y = y;
+            this.menuPosition.x = x;
+            this.menuPosition.y = y;
         }
     }
 
@@ -81,10 +82,10 @@ public class UpgradeMenu extends Menu {
         int rows = 3;
         int cols = 2;
 
-        float xLeft  = menuPosition.x + width / 3.5f;
-        float xRight = menuPosition.x + width - width / 3.5f;
-        float yTop   = menuPosition.y + height - height / 3.5f;
-        float yStep  = height / 5.2f;
+        float xLeft  = menuPosition.x + width * 0.2f;
+        float xRight = menuPosition.x + width * 0.8f;
+        float yTop   = menuPosition.y + height * 0.9f;
+        float yStep  = height * 0.33f;
 
         // 0 = tom, 1 = FireRate, 2 = Range, 3 = Sell
         int[][] layout = {
@@ -103,6 +104,8 @@ public class UpgradeMenu extends Menu {
                 float y = yTop - r * yStep;
 
                 Button button = null;
+
+                System.out.println("x: " + x);
 
                 switch (cellType) {
                     case 1:

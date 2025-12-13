@@ -24,7 +24,6 @@ public final class UpgradeMenuItemButtonDrawer implements DrawableButton {
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
-        System.out.println("Position: " + button.getButtonPosition() + " Width and height: " + button.getHeight() + " " + button.getWidth() );
         p = button.getButtonPosition();
         batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
     }
