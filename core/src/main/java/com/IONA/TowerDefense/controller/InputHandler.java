@@ -108,8 +108,6 @@ public class InputHandler {
                 model.selectTower(pos);
             } else {
                 model.deselectTower();
-                upgradeMenu.setTowerIsClicked(false);
-                upgradeMenu.setMenuPosition(16,9);
             }
         }
     }
