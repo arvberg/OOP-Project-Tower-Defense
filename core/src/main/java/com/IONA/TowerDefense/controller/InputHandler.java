@@ -67,9 +67,18 @@ public class InputHandler {
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
         }
-        for (Button t : upgradeMenuItems){
+
+        if(!upgradeMenuItems.isEmpty()){
+            upgradeMenuItems.get(0).isClicked(pos);
+            upgradeMenuItems.get(1).isClicked(pos);
+            upgradeMenuItems.get(2).isClicked(pos);
+        }
+        /*
+        for (Button t : upgradeMenuItems) {
             t.isClicked(pos);
         }
+      */
+
 
         if(!upgradeMenuItems.isEmpty()){
             upgradeMenuItems.get(0).isClicked(pos);
