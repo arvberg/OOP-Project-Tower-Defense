@@ -58,11 +58,10 @@ public class TowerHandler {
                 clickedTower = tower;
                 upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
                 upgradeMenu.setTowerIsClicked(true);
-                if(!tower.getHasCurrentUpgradeMenu()) {
-                    upgradeMenu.clearGridItems();
-                    upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2());
-                    tower.setHasCurrentUpgradeMenu(true);
-                }
+                upgradeMenu.clearGridItems();
+                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2());
+                tower.setHasCurrentUpgradeMenu(true);
+
 
                 break; // break om torn hittat
             }
@@ -123,6 +122,7 @@ public class TowerHandler {
 
     public void sellTower (Tower tower) {
         if (selectedTower != null) {
+            deselectTower();
             towers.remove(tower);
             notifyTowerSoldEvent();
         }

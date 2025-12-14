@@ -27,7 +27,7 @@ public class UpgradeMenu extends Menu {
     float slideSpeed = 10f;
 
     public UpgradeMenu(float x, float y, GameModel model) {
-        super(x, y, 3, 3);
+        super(x, y, 3, 2.5f);
 
         this.openX = x-width;
         this.targetX = x;
@@ -84,8 +84,8 @@ public class UpgradeMenu extends Menu {
 
         float xLeft  = menuPosition.x + width * 0.2f;
         float xRight = menuPosition.x + width * 0.8f;
-        float yTop   = menuPosition.y + height * 0.9f;
-        float yStep  = height * 0.33f;
+        float yTop   = menuPosition.y + height * 0.8f;
+        float yStep  = height * 0.26f;
 
         // 0 = tom, 1 = FireRate, 2 = Range, 3 = Sell
         int[][] layout = {
@@ -109,10 +109,10 @@ public class UpgradeMenu extends Menu {
 
                 switch (cellType) {
                     case 1:
-                        button = new UpgradeMenuItem(x, y, model, upgradePath1.peek());
+                        button = new UpgradeMenuItem(x, y, model, upgradePath1);
                         break;
                     case 2:
-                        button = new UpgradeMenuItem(x, y, model, upgradePath2.peek());
+                        button = new UpgradeMenuItem(x, y, model, upgradePath2);
                         break;
                     case 3:
                         button = new SellButton(x, y, model);

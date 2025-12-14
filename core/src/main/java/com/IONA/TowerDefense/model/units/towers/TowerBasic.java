@@ -26,8 +26,8 @@ public class TowerBasic extends Tower {
         attackStrategy = new ProjectileAttackStrategy();
         //targetingStrategy = new TargetAllStrategy();
         targetingStrategy = new TargetNearestStrategy();
-        upgradePath1.add(new FireRateUpgrade(100));
-        upgradePath2.add(new RangeUpgrade(100));
+        upgradePath1.add(new FireRateUpgrade(1));
+        upgradePath2.add(new RangeUpgrade(1));
     }
 }
 

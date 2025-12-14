@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -64,9 +65,18 @@ public class InputHandler {
         for (TowerMenuItem t : towerMenuItems) {
             t.isClicked(pos);
         }
-        for (Button t : upgradeMenuItems){
+
+        if(!upgradeMenuItems.isEmpty()){
+            upgradeMenuItems.get(0).isClicked(pos);
+            upgradeMenuItems.get(1).isClicked(pos);
+            upgradeMenuItems.get(2).isClicked(pos);
+        }
+        /*
+        for (Button t : upgradeMenuItems) {
             t.isClicked(pos);
         }
+      */
+
 
         /*
         for (Button u : upgradeMenuItems){
