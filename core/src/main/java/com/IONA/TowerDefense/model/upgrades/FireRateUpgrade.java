@@ -12,7 +12,7 @@ public class FireRateUpgrade implements TowerUpgrade {
 
     @Override
     public String getName() {
-        return "SpeedUpgrade";
+        return "FireRateUpgrade";
     }
 
     @Override
