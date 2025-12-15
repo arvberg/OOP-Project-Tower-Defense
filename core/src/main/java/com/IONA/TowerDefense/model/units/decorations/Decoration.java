@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.units.decorations;
 
 import com.IONA.TowerDefense.model.units.Unit;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +14,7 @@ public class Decoration extends Unit {
     public Rectangle hitBox;
 
     public Decoration(){
-        this.texture = new Texture("libgdx.png");
+        this.texture = new Texture(Assets.ENEMY_BASIC_BACK);
     }
 
     @Override
