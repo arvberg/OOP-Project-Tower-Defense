@@ -17,11 +17,11 @@ public class EnemyBasic extends Enemy{
 
     public EnemyBasic(int difficulty){
         super(difficulty);
-        hp = 400 + 200*difficulty;
-        maxHp = 400 + 200*difficulty;
-        speed = 2.53f;
-        money = 25;
-        damage = 10;
+        hp = 100 + 25*difficulty;
+        maxHp = 100 + 25*difficulty;
+        speed = 1.3f + 0.1f*difficulty;
+        money = 10 - 2*difficulty;
+        damage = 10 + 2*difficulty;
         width = 0.5f;
         height = 0.5f;
         setHitBox(width,height);

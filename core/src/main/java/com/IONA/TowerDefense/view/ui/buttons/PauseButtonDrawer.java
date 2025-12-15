@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.model.ui.buttonui.PauseButton;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,7 @@ public final class PauseButtonDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE shared by all instances
-    private static final Texture TEXTURE = new Texture("Pause_button_temp_01.png");
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_PAUSEBUTTON);
 
     public PauseButtonDrawer(PauseButton button) {
         this.button = button;

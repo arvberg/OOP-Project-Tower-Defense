@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,7 @@ public final class SellButtonDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE — byt filnamnet senare när du har riktig sell-knapp
-    private static final Texture TEXTURE = new Texture("Playbutton.png");
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_PLAYBUTTON);
 
     public SellButtonDrawer(SellButton button) {
         this.button = button;

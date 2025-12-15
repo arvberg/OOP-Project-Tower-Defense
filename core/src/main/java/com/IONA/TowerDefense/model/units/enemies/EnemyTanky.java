@@ -7,15 +7,21 @@ import com.badlogic.gdx.math.Vector2;
 public class EnemyTanky extends Enemy{
     public EnemyTanky(int difficulty, float width, float height){
         super(difficulty);
-        hp = 1000 + 250 * difficulty;
-        maxHp = 1000 + 250 * difficulty;
-
-        speed = .1f * difficulty;
-        money = 50;
-        damage = 5;
-        this.hitBox = new Rectangle();
-        hitBox.setPosition(width/2, height/2);
+        hp = 250 + 50*difficulty;
+        maxHp = 250 + 50*difficulty;
+        speed = 1f + 0.1f*difficulty;
+        money = 20 - 2*difficulty;
+        damage = 18 + 6*difficulty;
+        width = 0.5f;
+        height = 0.5f;
+        setHitBox(width,height);
 
         this.healthBar = createHealthBar(hp, new Vector2(position), 1f, 0.15f);
     }
+
+    @Override
+    public void move(float delta) {
+        super.move(delta); // behåll all logik från Enemy.update()
+    }
+
 }

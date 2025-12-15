@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenuItem;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,7 @@ public final class UpgradeMenuItemButtonDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE
-    private static final Texture TEXTURE = new Texture("TowerBasic.png");
+    private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
 
     public UpgradeMenuItemButtonDrawer(UpgradeMenuItem button) {
         this.button = button;

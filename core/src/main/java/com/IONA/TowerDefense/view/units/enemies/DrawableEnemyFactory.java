@@ -12,7 +12,7 @@ public final class DrawableEnemyFactory {
     public static DrawableEnemy create(Enemy enemy){
         return switch (enemy){
             case EnemyBasic e -> new EnemyBasicDrawer(e);
-            //case EnemyFast e   -> new EnemyFastDrawer(e);
+            case EnemyFast e   -> new EnemyFastDrawer(e);
             //case EnemyTanky e   -> new EnemyTankDrawer(e);
             default -> throw new IllegalStateException("Unexpected value: " + enemy);
         };

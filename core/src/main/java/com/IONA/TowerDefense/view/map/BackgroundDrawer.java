@@ -1,10 +1,11 @@
 package com.IONA.TowerDefense.view.map;
 
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BackgroundDrawer {
-    private static Texture backgroundTextureStarter = new Texture("Background_03.png");
+    private static Texture backgroundTextureStarter = new Texture(Assets.BACKGROUND_BASIC);
     public BackgroundDrawer(){
     }
 

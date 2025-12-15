@@ -75,7 +75,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
-        gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
+        gameOverTexture = new Texture(Assets.OVERLAY_GAMEOVER);
         soundManager.load();
     }
 
@@ -223,13 +223,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         ExitButtonDrawer.disposeStatic();
         RestartButtonDrawer.disposeStatic();
         SellButtonDrawer.disposeStatic();
-        SideMenuToggleButtonDrawer.disposeStatic();
         SpeedUpButtonDrawer.disposeStatic();
         TowerMenuItemButtonDrawer.disposeStatic();
         TowerMenuItemButtonDrawer.disposeStatic();
-        TowerMenuToggleButtonDrawer.disposeStatic();
         UpgradeMenuItemButtonDrawer.disposeStatic();
-        UpgradeMenuToggleButtonDrawer.disposeStatic();
         // lägg till fler
     }
 

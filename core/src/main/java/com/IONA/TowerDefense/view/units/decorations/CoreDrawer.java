@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.units.decorations;
 
 import com.IONA.TowerDefense.model.units.decorations.Core;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,7 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 public final class CoreDrawer implements DrawableDecoration {
 
 
-    private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal("atlas/core_animation.atlas"));
+    private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal(Assets.ANIMATION_ATLAS_CORE));
     private static final Animation<TextureAtlas.AtlasRegion> CORE_ANIMATION;
 
     static {

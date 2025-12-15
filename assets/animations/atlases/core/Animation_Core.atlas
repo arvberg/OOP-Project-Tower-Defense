@@ -1,5 +1,5 @@
 
-core_animation.png
+Animation_Core.png
 size: 8192, 8192
 format: RGBA8888
 filter: Nearest, Nearest
@@ -460,7 +460,7 @@ Core_01
   offset: 0, 0
   index: 64
 
-core_animation2.png
+Animation_Core2.png
 size: 8192, 8192
 format: RGBA8888
 filter: Nearest, Nearest
@@ -921,7 +921,7 @@ Core_01
   offset: 0, 0
   index: 129
 
-core_animation3.png
+Animation_Core3.png
 size: 8192, 8192
 format: RGBA8888
 filter: Nearest, Nearest
