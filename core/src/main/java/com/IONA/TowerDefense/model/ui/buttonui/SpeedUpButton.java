@@ -19,13 +19,6 @@ public class SpeedUpButton extends Button{
     }
 
     @Override
-    public void isClicked(Vector2 pos){
-        if (bounds.contains(pos)){
-            onClick();
-        }
-    }
-
-    @Override
     public void onClick(){
         System.out.println("Speeding Up!");
         this.fastForward = !this.fastForward;

@@ -17,13 +17,6 @@ public class SellButton extends Button {
     }
 
     @Override
-    public void isClicked(Vector2 pos) {
-        if (bounds.contains(pos)) {
-            onClick();
-        }
-    }
-
-    @Override
     public void onClick() {
         if (model.isTowerSelected()) {
             model.sellTower(model.getSelectedTower());

@@ -12,13 +12,6 @@ public class PauseButton extends Button {
     }
 
     @Override
-    public void isClicked(Vector2 pos){
-        if (bounds.contains(pos)) {
-            onClick();
-        }
-    }
-
-    @Override
     public void onClick(){
         if (model.getGameState() == GameState.RUNNING){
             model.setGameState(GameState.PAUSED);

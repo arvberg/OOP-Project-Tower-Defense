@@ -17,13 +17,6 @@ public class ExitButton extends Button {
     }
 
     @Override
-    public void isClicked(Vector2 pos){
-        if (bounds.contains(pos)){
-            onClick();
-        }
-    }
-
-    @Override
     public void onClick() {
         Gdx.app.exit();
     }

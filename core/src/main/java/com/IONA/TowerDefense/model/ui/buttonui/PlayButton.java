@@ -21,13 +21,6 @@ public class PlayButton extends Button {
     }
 
     @Override
-    public void isClicked(Vector2 pos) {
-        if (bounds.contains(pos)) {
-            onClick();
-        }
-    }
-
-    @Override
     public void onClick() {
         System.out.println("Start button pressed!");
 
