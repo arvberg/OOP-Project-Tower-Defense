@@ -34,6 +34,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
+    private final UpgradeHandler upgradeHandler;
     private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
     private final List<Enemy> deadEnemies;
@@ -51,9 +52,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
+    private final TargetingStrategyToggleButton targetingStrategyToggleButton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
-    private final UpgradeHandler upgradeHandler;
     private int score; // Players current score
     private final int difficulty;
 
@@ -72,8 +73,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public GameModel () {
 
         this.towerMenu = new TowerMenu(12,7.5f,this);
-        this.infoMenu = new InfoMenu(5, 5, this);
-        this.upgradeMenu = new UpgradeMenu(5, 5, this);
+        this.infoMenu = new InfoMenu(16, 9, this);
+        this.upgradeMenu = new UpgradeMenu(16, 9, this);
         this.towers = new ArrayList<>();
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
@@ -95,7 +96,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         attackHandler.addAttackListener(this);
         this.enemyHandler = new EnemyHandler(enemies, path);
 
-        this.towerHandler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler);
+        this.towerHandler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler, upgradeMenu);
         this.upgradeHandler = new UpgradeHandler();
 
         this.inGameButtons = new ArrayList<>();
@@ -106,6 +107,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.speedUpButton = new SpeedUpButton(500f, 0);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5, 5, this);
+        this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5, this);
+
 
         inGameButtons.add(playbutton);
         inGameButtons.add(speedUpButton);
@@ -365,6 +368,10 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return towerMenu.items;
     }
 
+    public List<Button> getUpgradeMenuItems(){
+        return upgradeMenu.items;
+    }
+
 
     // Make pendingTower follow mouse position after buyTower
     public void updateTowerFollowingMouse(Vector2 mousePos) {
@@ -420,6 +427,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return null;
     }
 
+    public void addButton(Button button){ inGameButtons.add(button);}
+    public void removeButton(Button button){inGameButtons.remove(button);}
+
     @Override
     public void onProjectileFired() {
         // gör nåt
@@ -457,5 +467,13 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     @Override
     public void onTowerPending() {
+    }
+
+    @Override
+    public void onCouldNotBuy() {
+    }
+
+    public TargetingStrategyToggleButton getTargetingToggleButton() {
+        return targetingStrategyToggleButton;
     }
 }

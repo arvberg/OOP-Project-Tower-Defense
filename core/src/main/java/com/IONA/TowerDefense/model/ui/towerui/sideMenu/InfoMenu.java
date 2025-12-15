@@ -97,10 +97,10 @@ public class InfoMenu extends Menu {
 
                 switch (cellType) {
                     case 1:
-                        button = new UpgradeMenuItem(x, y, model, new FireRateUpgrade(50));
+                        button = new SellButton(x, y, model);
                         break;
                     case 2:
-                        button = new UpgradeMenuItem(x, y, model, new RangeUpgrade(50));
+                        button = new SellButton(x, y, model);
                         break;
                     case 3:
                         button = new SellButton(x, y, model);

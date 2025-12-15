@@ -6,8 +6,10 @@ import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 
@@ -25,7 +27,7 @@ public class UpgradeMenu extends Menu {
     float slideSpeed = 10f;
 
     public UpgradeMenu(float x, float y, GameModel model) {
-        super(x, y, 3, 3);
+        super(x, y, 3, 2.5f);
 
         this.openX = x-width;
         this.targetX = x;
@@ -34,18 +36,27 @@ public class UpgradeMenu extends Menu {
         this.items = new ArrayList<>();
     }
 
+    public void clearGridItems(){
+        for(Button b: items){
+            model.removeButton(b);
+        }
+        items.clear();
+        }
+
+
+
     public void toggle() {
     }
 
     @Override
     public void setMenuPosition(float x, float y){
         if(x + width > 16) {
-            menuPosition.x = 16-width;
-            menuPosition.y = y;
+            this.menuPosition.x = 16-width;
+            this.menuPosition.y = y;
         }
         else{
-            menuPosition.x = x;
-            menuPosition.y = y;
+            this.menuPosition.x = x;
+            this.menuPosition.y = y;
         }
     }
 
@@ -66,23 +77,21 @@ public class UpgradeMenu extends Menu {
         //TODO
     }
 
-    public void createGridItems(List<Button> buttons) {
+    public void createGridItems(Deque<TowerUpgrade> upgradePath1, Deque<TowerUpgrade> upgradePath2) {
 
-        int rows = 5;
+        int rows = 3;
         int cols = 2;
 
-        float xLeft  = menuPosition.x + width / 3.5f;
-        float xRight = menuPosition.x + width - width / 3.5f;
-        float yTop   = menuPosition.y + height - height / 12f;
-        float yStep  = height / 5.2f;
+        float xLeft  = menuPosition.x + width * 0.2f;
+        float xRight = menuPosition.x + width * 0.8f;
+        float yTop   = menuPosition.y + height * 0.8f;
+        float yStep  = height * 0.26f;
 
         // 0 = tom, 1 = FireRate, 2 = Range, 3 = Sell
         int[][] layout = {
-            {1, 2},
-            {0, 0},
-            {0, 0},
-            {0, 0},
-            {3, 0}   // Sell-knapp längst ner vänster
+            {1, 0},
+            {2, 0},
+            {3, 0}// Sell-knapp längst ner vänster
         };
 
         for (int r = 0; r < rows; r++) {
@@ -96,12 +105,14 @@ public class UpgradeMenu extends Menu {
 
                 Button button = null;
 
+                System.out.println("x: " + x);
+
                 switch (cellType) {
                     case 1:
-                        button = new UpgradeMenuItem(x, y, model, new FireRateUpgrade(50));
+                        button = new UpgradeMenuItem(x, y, model, upgradePath1);
                         break;
                     case 2:
-                        button = new UpgradeMenuItem(x, y, model, new RangeUpgrade(50));
+                        button = new UpgradeMenuItem(x, y, model, upgradePath2);
                         break;
                     case 3:
                         button = new SellButton(x, y, model);
@@ -109,26 +120,16 @@ public class UpgradeMenu extends Menu {
                 }
 
                 if (button != null) {
-                    buttons.add(button);
+                    model.addButton(button);
                     items.add(button);
                 }
             }
         }
     }
 
-    private void moveItemNegative(float oldX, float newX) {
-        float diff = Math.abs(oldX - newX);
-        for (Button item : items) {
-            item.setButtonPosition(item.getButtonPosition().x - diff, item.getButtonPosition().y);
-        }
-    }
 
-    private void moveItemPositive(float oldX, float newX) {
-        float diff = Math.abs(oldX - newX);
-        for (Button item : items) {
-            item.setButtonPosition(item.getButtonPosition().x + diff, item.getButtonPosition().y);
-        }
-    }
+
+
 
 
 

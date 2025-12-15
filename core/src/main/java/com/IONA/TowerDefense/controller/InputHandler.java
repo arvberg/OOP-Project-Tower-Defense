@@ -1,16 +1,13 @@
 package com.IONA.TowerDefense.controller;
 
 import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
-import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.view.Draw;
-import com.badlogic.gdx.Input;
+import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -23,7 +20,9 @@ public class InputHandler {
     private final RestartButton restartButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
+    private final TargetingStrategyToggleButton targetingToggleButton;
     private final List<TowerMenuItem> towerMenuItems;
+    private final List<Button> upgradeMenuItems;
     private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
     private final List<Tower> towers;
@@ -38,7 +37,9 @@ public class InputHandler {
         this.restartButton = model.getRestartButton();
         this.speedUpButton = model.getSpeedUpButton();
         this.pauseButton = model.getPauseButton();
+        this.targetingToggleButton = model.getTargetingToggleButton();
         this.towerMenuItems = model.getTowerMenuItems();
+        this.upgradeMenuItems = model.getUpgradeMenuItems();
         this.infoMenu = model.getInfoMenu();
         this.upgradeMenu = model.getUpgradeMenu();
         this.model = model;
@@ -67,6 +68,18 @@ public class InputHandler {
             t.isClicked(pos);
         }
 
+        if(!upgradeMenuItems.isEmpty()){
+            upgradeMenuItems.get(0).isClicked(pos);
+            upgradeMenuItems.get(1).isClicked(pos);
+            upgradeMenuItems.get(2).isClicked(pos);
+        }
+        /*
+        for (Button t : upgradeMenuItems) {
+            t.isClicked(pos);
+        }
+      */
+
+
         /*
         for (Button u : upgradeMenuItems){
             u.isClicked(pos);
@@ -74,6 +87,7 @@ public class InputHandler {
          */
 
         speedUpButton.isClicked(pos);
+        targetingToggleButton.isClicked(pos);
 
         // Om spelaren har ett torn redo att placera
         if (model.isBuyingState()) {
@@ -89,8 +103,6 @@ public class InputHandler {
 
             if (clickedTower != null) {
                 model.selectTower(pos);
-                upgradeMenu.setMenuPosition(model.getSelectedTower().getX() - upgradeMenu.getWidth()/2, model.getSelectedTower().getY() + model.getSelectedTower().getDimension().y);
-                upgradeMenu.setTowerIsClicked(true);
             } else {
                 model.deselectTower();
                 upgradeMenu.setTowerIsClicked(false);

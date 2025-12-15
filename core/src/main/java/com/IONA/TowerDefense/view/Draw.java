@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.view;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.InfoMenu;
@@ -10,16 +11,15 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
-import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
-import com.IONA.TowerDefense.model.units.interfaces.InputListener;
-import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
+import com.IONA.TowerDefense.model.units.interfaces.*;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.map.BackgroundDrawer;
 import com.IONA.TowerDefense.view.map.PathDrawer;
 import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.ui.buttons.*;
+import com.IONA.TowerDefense.view.ui.menues.DrawableMenu;
+import com.IONA.TowerDefense.view.ui.menues.DrawableMenuFactory;
 import com.IONA.TowerDefense.view.units.decorations.CoreDrawer;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
@@ -33,8 +33,6 @@ import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 import com.IONA.TowerDefense.view.units.towers.DrawableTowerFactory;
 import com.IONA.TowerDefense.view.units.towers.TowerBasicDrawer;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -50,7 +48,7 @@ import java.util.Map;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
-public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener {
+public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener, UpgradeListener {
     private final GameModel model;
     private SpriteBatch batch;
     private FitViewport viewport;
@@ -60,6 +58,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
     private final Map<Decoration, DrawableDecoration> decorationViews = new HashMap<>();
     private final Map<Button, DrawableButton> buttonViews = new HashMap<>();
+    private final Map<Menu, DrawableMenu> menuViews = new HashMap<>();
 
     private final SoundManager soundManager = new SoundManager();
 
@@ -110,6 +109,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         return buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
     }
 
+    private DrawableMenu getDrawableMenu(Menu m){
+        return menuViews.computeIfAbsent(m, DrawableMenuFactory::create);
+    }
+
     public void draw() {
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
@@ -134,20 +137,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        TowerMenu towerMenu = model.getTowerMenu();
-        TowerMenuDrawer.drawTowerMenu(towerMenu, batch);
-
-
-        InfoMenu infoMenu = model.getInfoMenu();
-        InfoMenuDrawer.drawInfoMenu(infoMenu, batch);
-
-
-
-        for (Button b : model.getInGameButtons()){
-            DrawableButton view = getDrawableButton(b);
-            view.draw(batch, shapeRenderer, delta);
-        }
-
         List<Resource> resources = model.getResources();
         ResourceDrawer.drawResources(resources,batch);
 
@@ -168,13 +157,12 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             }
         }
 
-        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
-        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu,batch);
-
         for(Tower t: model.getTowers()){
             DrawableTower view = getDrawableTower(t);
             view.draw(batch, shapeRenderer, delta);
 
+            // DrawableUpgrade Uview = getDrawableUpgrade(t.getUpgradeList)
+            // Uview.draw(batch, shapeRenderer, delta)
             if (model.isTowerSelected() && model.getSelectedTower() == t) {
                 view.drawRange(batch);
             }
@@ -182,6 +170,16 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         for(Projectile p: model.getProjectiles()){
             DrawableProjectile view = getDrawableProjectile(p);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for(Menu m: model.getMenus()){
+            DrawableMenu view = getDrawableMenu(m);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for (Button b : model.getInGameButtons()){
+            DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
         }
 
@@ -211,6 +209,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         decorationViews.entrySet().removeIf(d -> !model.getDecor().contains(d.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getInGameButtons().contains(b.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getGameOverButtons().contains(b.getKey()));
+        menuViews.entrySet().removeIf(m-> !model.getMenus().contains(m.getKey()));
 
     }
 
@@ -264,6 +263,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
     @Override
     public void onButtonClicked() {
+        soundManager.playSound("ui_button_click");
     }
 
     @Override
@@ -285,11 +285,23 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         soundManager.playSound("sell_tower");
     }
 
+
+
     @Override
     public void onTowerDeselected() {
     }
 
     @Override
     public void onTowerPending() {
+    }
+
+    @Override
+    public void onCouldNotBuy() {
+        soundManager.playSound("invalid_click");
+    }
+
+    @Override
+    public void onUpgrade() {
+        soundManager.playSound("tower_upgraded");
     }
 }
