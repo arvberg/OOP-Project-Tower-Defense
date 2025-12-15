@@ -22,12 +22,15 @@ public class UpgradeMenuItem extends Button {
         super(x-xOrigin,y-yOrigin, width, height);  // 1x1 world units
         this.model = model;
         this.upgrades = upgrades;
-        this.nextUpgrade = upgrades.pop();
+        this.nextUpgrade = upgrades.peek();
         this.bounds = new Rectangle(x-xOrigin, y-yOrigin, width, height);
 
     }
 
-    public TowerUpgrade getUpgrade(){return this.nextUpgrade;}
+    public TowerUpgrade getLatestUpgrade(){return this.nextUpgrade;}
+    public TowerUpgrade getNextUpgrade(){
+            return this.upgrades.peek();
+    }
 
     @Override
     public void isClicked(Vector2 pos) {
@@ -38,11 +41,13 @@ public class UpgradeMenuItem extends Button {
 
     @Override
     public void onClick() {
+        if(upgrades.size() >= 2){nextUpgrade = upgrades.pop();}
+        else{nextUpgrade = upgrades.peek();}
         if (model.isTowerSelected()) {
             model.upgradeTower(model.getSelectedTower(), nextUpgrade);
             System.out.println("Upgraded");
         }
-        if(!upgrades.isEmpty()){nextUpgrade = upgrades.pop();}
+
 
     }
 
