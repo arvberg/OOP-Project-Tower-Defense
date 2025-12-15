@@ -53,7 +53,7 @@ public class TowerMenu extends Menu {
                     towerType = "TowerBasic";
                     break;
                 case 1:
-                    towerType = "TowerBasic";
+                    towerType = "TowerPulse";
                     break;
                 case 2:
                     towerType = "TowerBasic";

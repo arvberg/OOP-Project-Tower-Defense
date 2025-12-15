@@ -88,9 +88,6 @@ public abstract class Tower extends Unit {
             return this.currentTarget;
     }
 
-    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        this.targetingStrategy = targetingStrategy;
-    }
 
     public List<Enemy> getTargets(List<Enemy> enemies) {
         return targetingStrategy.pick(enemies, this);
@@ -193,5 +190,7 @@ public abstract class Tower extends Unit {
     public void setAttackStrategy(AttackStrategy attackStrategy) {
         this.attackStrategy = attackStrategy;
     }
+
+    public abstract void setTargetingStrategy(TargetingStrategy targetingStrategy);
 }
 

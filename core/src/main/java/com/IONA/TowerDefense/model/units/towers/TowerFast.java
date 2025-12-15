@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,5 +19,10 @@ public class TowerFast extends Tower{
         cooldown = 0f;
         targetingStrategy = new TargetLeadingStrategy();
         targetingStrategy = new TargetLeadingStrategy();
+    }
+
+    @Override
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+
     }
 }

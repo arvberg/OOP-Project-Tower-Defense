@@ -11,8 +11,8 @@ public class TowerFactory {
         if (type.equalsIgnoreCase("TowerBasic")) {
             return new TowerBasic();
         }
-        else if (type.equalsIgnoreCase("TowerFast")) {
-            return new TowerFast();
+        else if (type.equalsIgnoreCase("TowerPulse")) {
+            return new TowerPulse();
         }
         else {
             throw new IllegalArgumentException("Unknown tower");

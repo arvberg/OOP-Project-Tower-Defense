@@ -33,5 +33,8 @@ public class TowerMenuItem extends Button {
     }
 
 
+    public String getName() {
+        return towerType;
+    }
 }
 

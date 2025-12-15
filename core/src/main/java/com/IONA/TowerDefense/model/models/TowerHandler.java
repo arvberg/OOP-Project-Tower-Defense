@@ -113,6 +113,7 @@ public class TowerHandler {
         setTowerSelected(false);
         notifyTowerDeselectedEvent();
         System.out.println("Tower deselected");
+        // ev använd observer pattern med upgradehandler
         upgradeMenu.clearGridItems();
         upgradeMenu.setTowerIsClicked(false);
         upgradeMenu.setMenuPosition(16,9);
