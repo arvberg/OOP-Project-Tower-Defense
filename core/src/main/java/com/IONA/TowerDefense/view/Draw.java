@@ -6,6 +6,7 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.*;
@@ -17,6 +18,7 @@ import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.ui.buttons.*;
 import com.IONA.TowerDefense.view.ui.menues.DrawableMenu;
 import com.IONA.TowerDefense.view.ui.menues.DrawableMenuFactory;
+import com.IONA.TowerDefense.view.ui.menues.UpgradeMenuDrawer;
 import com.IONA.TowerDefense.view.units.decorations.CoreDrawer;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
@@ -163,9 +165,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
                 batch.setColor(Color.WHITE);
             }
         }
-
-        UpgradeMenu upgradeMenu = model.getUpgradeMenu();
-        UpgradeMenuDrawer.drawUpgradeMenu(upgradeMenu,batch);
 
         for(Tower t: model.getTowers()){
             DrawableTower view = getDrawableTower(t);

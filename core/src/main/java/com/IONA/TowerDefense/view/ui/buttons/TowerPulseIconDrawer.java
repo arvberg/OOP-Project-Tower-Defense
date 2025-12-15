@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.view.ui.buttons;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenuItem;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerPulse;
+import com.IONA.TowerDefense.view.Assets;
 import com.IONA.TowerDefense.view.units.towers.TowerPulseDrawer;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,7 +18,7 @@ public final class TowerPulseIconDrawer implements DrawableButton {
         private final float dimensionY;
 
         // STATIC TEXTURE shared by all instances
-        private static final Texture TEXTURE = new Texture("Virus_front.png");
+        private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
 
         public TowerPulseIconDrawer(TowerMenuItem tower) {
             this.tower = tower;

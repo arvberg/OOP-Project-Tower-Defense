@@ -2,11 +2,7 @@ package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.view.Drawable;
 
-public sealed interface DrawableButton extends Drawable permits PauseButtonDrawer, PlayButtonDrawer,
-    RestartButtonDrawer, SellButtonDrawer, SpeedUpButtonDrawer,
-    TowerMenuItemButtonDrawer,
-    UpgradeMenuItemButtonDrawer, ExitButtonDrawer, RangeUpgradeDrawer, FireRateUpgradeDrawer
-   ,TargetingToggleButtonDrawer
+public sealed interface DrawableButton extends Drawable permits ExitButtonDrawer, FireRateUpgradeDrawer, PauseButtonDrawer, PlayButtonDrawer, RangeUpgradeDrawer, RestartButtonDrawer, SellButtonDrawer, SpeedUpButtonDrawer, TargetingToggleButtonDrawer, TowerBasicIconDrawer, TowerMenuItemButtonDrawer, TowerMissileIconDrawer, TowerPulseIconDrawer, UpgradeMenuItemButtonDrawer
 
 {
 }
