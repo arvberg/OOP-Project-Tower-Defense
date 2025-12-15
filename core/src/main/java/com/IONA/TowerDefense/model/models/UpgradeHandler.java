@@ -14,6 +14,7 @@ public class UpgradeHandler {
     public UpgradeHandler() {
     }
 
+
     /**
      * Försöker applicera en upgrade på ett torn.
      */

@@ -3,17 +3,33 @@ package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.Deque;
 
 public class UpgradeMenuItem extends Button {
 
     private final GameModel model;
-    private final TowerUpgrade upgrade;
+    private TowerUpgrade nextUpgrade;
+    private Deque<TowerUpgrade> upgrades;
+    private static final float width = 0.6f;
+    private static final float height = 0.6f;
+    private static final float xOrigin = width/2;
+    private static final float yOrigin = height/2;
 
-    public UpgradeMenuItem(float x, float y, GameModel model, TowerUpgrade upgrade) {
-        super(x-.9f/2, y-.9f/2, .9f, .9f);  // 1x1 world units
+    public UpgradeMenuItem(float x, float y, GameModel model, Deque<TowerUpgrade> upgrades) {
+        super(x-xOrigin,y-yOrigin, width, height);  // 1x1 world units
         this.model = model;
-        this.upgrade = upgrade;
+        this.upgrades = upgrades;
+        this.nextUpgrade = upgrades.peek();
+        this.bounds = new Rectangle(x-xOrigin, y-yOrigin, width, height);
+
+    }
+
+    public TowerUpgrade getLatestUpgrade(){return this.nextUpgrade;}
+    public TowerUpgrade getNextUpgrade(){
+            return this.upgrades.peek();
     }
 
     @Override
@@ -25,10 +41,14 @@ public class UpgradeMenuItem extends Button {
 
     @Override
     public void onClick() {
+        if(upgrades.size() >= 2){nextUpgrade = upgrades.pop();}
+        else{nextUpgrade = upgrades.peek();}
         if (model.isTowerSelected()) {
-            model.upgradeTower(model.getSelectedTower(), upgrade);
+            model.upgradeTower(model.getSelectedTower(), nextUpgrade);
             System.out.println("Upgraded");
         }
+
+
     }
 
 
