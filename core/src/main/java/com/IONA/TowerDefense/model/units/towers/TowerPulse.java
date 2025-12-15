@@ -21,6 +21,8 @@ public class TowerPulse extends Tower{
         fireRate = 0.1f;
         range = 2f;
         baseRange = 2f;
+        rotationSpeed = 0f;
+        aimingMargin = 1f;
         cooldown = 0f;
         attackStrategy = new AreaAttackStrategy();
         targetingStrategy = new TargetAllStrategy();

@@ -7,7 +7,7 @@ import com.IONA.TowerDefense.model.units.interfaces.Movable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class Projectile extends Unit implements Movable {
+public class ProjectileBasic extends Projectile implements Movable {
     protected int damage;
     protected float speed;
     protected Vector2 position;
@@ -15,9 +15,10 @@ public class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
-    private String projectileType = "Homing";
+    private String projectileType = "Basic";
 
-    public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
+    public ProjectileBasic (int damage, float speed, Vector2 position, Vector2 dxdy) {
+        super(damage,speed,position,dxdy);
         this.damage = damage;
         this.speed = speed;
         this.position = position;
@@ -30,7 +31,10 @@ public class Projectile extends Unit implements Movable {
         this.position.y = newY;
     }
 
-    public void move(float delta){
+    @Override
+    public void move(float delta) {
+        position.x += dxdy.x * speed * delta;
+        position.y += dxdy.y * speed * delta;
     }
 
     public Vector2 getPosition() {

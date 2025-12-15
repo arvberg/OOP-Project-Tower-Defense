@@ -18,10 +18,12 @@ public abstract class Tower extends Unit {
     protected float projectileSpeed;
     protected float fireRate;
     protected float baseFireRate;
+    protected float rotationSpeed;
     protected int cost;
     protected float range;
     protected float baseRange;
     protected float cooldown;
+    protected float aimingMargin;
     protected Enemy currentTarget;
     protected Vector2 direction = new Vector2(0,0);
     protected float angleDeg;
@@ -155,6 +157,14 @@ public abstract class Tower extends Unit {
         return isAiming;
     }
 
+    public float getAimingMargin() {
+        return aimingMargin;
+    }
+
+    public void setAimingMargin(float margin) {
+        this.aimingMargin = margin;
+    }
+
     public void setIsAiming(boolean isAiming) {
         this.isAiming = isAiming;
     }
@@ -169,6 +179,10 @@ public abstract class Tower extends Unit {
 
     public float getCooldown() {
         return cooldown;
+    }
+
+    public float getRotationSpeed() {
+        return rotationSpeed;
     }
 
     public boolean canShoot() {

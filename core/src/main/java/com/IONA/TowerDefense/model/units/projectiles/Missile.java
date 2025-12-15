@@ -1,13 +1,13 @@
 package com.IONA.TowerDefense.model.units.projectiles;
 
-import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.units.Unit;
+import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Movable;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class Projectile extends Unit implements Movable {
+import java.util.List;
+
+public class Missile extends Projectile implements Movable {
     protected int damage;
     protected float speed;
     protected Vector2 position;
@@ -15,9 +15,10 @@ public class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
-    private String projectileType = "Homing";
+    private float lifeSpan = 0;
 
-    public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
+    public Missile(int damage, float speed, Vector2 position, Vector2 dxdy) {
+        super(damage, speed, position, dxdy);
         this.damage = damage;
         this.speed = speed;
         this.position = position;
@@ -30,7 +31,13 @@ public class Projectile extends Unit implements Movable {
         this.position.y = newY;
     }
 
-    public void move(float delta){
+    @Override
+    public void move(float delta) {
+        lifeSpan += 0.2f;
+        Vector2 newDir = VectorUtils.direction(position, enemyTarget.getPosition());
+        setDir(newDir.x, newDir.y);
+        position.x += dxdy.x * (speed + lifeSpan) * delta;
+        position.y += dxdy.y * (speed + lifeSpan) * delta;
     }
 
     public Vector2 getPosition() {
@@ -82,9 +89,5 @@ public class Projectile extends Unit implements Movable {
 
     public boolean isDestroyed() {
         return destroyed;
-    }
-
-    public String getProjectileType() {
-        return projectileType;
     }
 }

@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model.models;
 import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
+import com.IONA.TowerDefense.model.units.projectiles.Missile;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -71,7 +72,7 @@ public class AttackHandler {
             return;
         }
 
-        float rotationSpeed = 10;
+        float rotationSpeed = tower.getRotationSpeed();
 
         Enemy target = targets.get(0);
         tower.setCurrentTarget(target);
@@ -97,16 +98,21 @@ public class AttackHandler {
         float dy = newDir.y - desiredDir.y;
         float distSq = dx * dx + dy * dy;
 
-        boolean aimingDone = distSq < 0.001f;
+        boolean aimingDone = distSq < tower.getAimingMargin();
         tower.setIsAiming(aimingDone);
 
     }
 
     public void updateProjectiles(float delta) {
         for (Projectile projectile : projectiles) {
+            if (projectile instanceof Missile && projectile.getEnemyTarget() == null) {
+                projectile.setEnemyTarget(enemies.getFirst());
+            }
+
             if (projectile.isDestroyed()) {
                 continue;
             }
+
             projectile.move(delta);
             projectileHit(projectile, enemies);
         }
@@ -127,24 +133,6 @@ public class AttackHandler {
         return enemiesInRadius;
     }
 
-    public void updateHomingProjectile(Projectile p) {
-        Enemy target = p.getEnemyTarget();
-        if (target == null) {
-            return;
-        }
-
-        float distance = VectorUtils.distance(target.getPosition(), p.getPosition());
-
-        if (distance < 0.1f) {
-            p.setPosition(target.getX(), target.getY());
-            p.setDestroyed(true);
-            target.takeDamage(p.getDamage());
-            return;
-        }
-
-        Vector2 dir = VectorUtils.direction(p.getPosition(), target.getPosition());
-        p.setDir(dir.x, dir.y);
-    }
 
     public boolean isHit(Projectile projectile, Enemy enemy) {
         Rectangle hitbox = enemy.getHitBox();

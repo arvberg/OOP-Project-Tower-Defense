@@ -14,6 +14,9 @@ public class TowerFactory {
         else if (type.equalsIgnoreCase("TowerPulse")) {
             return new TowerPulse();
         }
+        else if (type.equalsIgnoreCase("TowerMissile")) {
+            return new TowerMissile();
+        }
         else {
             throw new IllegalArgumentException("Unknown tower");
         }

@@ -13,6 +13,7 @@ public class DrawableTowerIconFactory {
         return switch (item.getName()){
             case "TowerBasic" -> new TowerBasicIconDrawer(item);
             case "TowerPulse" -> new TowerPulseIconDrawer(item);
+            case "TowerMissile" -> new TowerMissileIconDrawer(item);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         };
     }
