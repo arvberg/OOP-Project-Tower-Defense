@@ -98,6 +98,7 @@ public class TowerHandler {
             towers.add(pendingTower);
 
             setSelectedTower(pendingTower);
+            selectTower(selectedPoint);
             setTowerSelected(true);
             System.out.println("Selected tower: " + selectedTower);
 
@@ -138,6 +139,13 @@ public class TowerHandler {
             deselectTower();
             towers.remove(tower);
             notifyTowerSoldEvent();
+        }
+    }
+
+    public void cancelBuy () {
+        if (pendingTower != null) {
+            setBuyingState(false);
+            setPendingTower(null);
         }
     }
 

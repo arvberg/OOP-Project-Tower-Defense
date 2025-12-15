@@ -6,10 +6,7 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
-import com.IONA.TowerDefense.model.ui.towerui.sideMenu.InfoMenu;
-import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.*;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -145,6 +142,16 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
+        for(Menu m: model.getMenus()){
+            DrawableMenu view = getDrawableMenu(m);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for (Button b : model.getInGameButtons()){
+            DrawableButton view = getDrawableButton(b);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
         if (model.isBuyingState() && model.getPendingTower() != null) {
             Tower t = model.getPendingTower();
             DrawableTower view = getDrawableTower(t);
@@ -176,15 +183,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        for(Menu m: model.getMenus()){
-            DrawableMenu view = getDrawableMenu(m);
-            view.draw(batch, shapeRenderer, delta);
-        }
-
-        for (Button b : model.getInGameButtons()){
-            DrawableButton view = getDrawableButton(b);
-            view.draw(batch, shapeRenderer, delta);
-        }
 
         if (model.getGameState() == GameState.GAME_OVER) {
             fadeTimer += Gdx.graphics.getDeltaTime();
