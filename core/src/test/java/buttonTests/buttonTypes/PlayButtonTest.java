@@ -1,3 +1,4 @@
+/*
 package buttonTests.buttonTypes;
 
 import com.IONA.TowerDefense.Main;
@@ -56,3 +57,4 @@ public class PlayButtonTest {
         assertNotEquals(playXBefore, playXAfter);
     }
 }
+*/

@@ -1,32 +1,11 @@
 package com.IONA.TowerDefense.model.ui.buttonui;
 
-import com.IONA.TowerDefense.model.models.GameModel;
-import com.badlogic.gdx.math.Vector2;
+import com.IONA.TowerDefense.model.input.GameAction;
+import com.badlogic.gdx.Game;
 
-public class SpeedUpButton extends Button{
-
-    private boolean fastForward;
-    private int multiplier;
+public class SpeedUpButton extends Button {
 
     public SpeedUpButton(float x, float y) {
-        super(x, y, 1, 1);
-        this.fastForward = true;
-        this.multiplier = 1;
-    }
-
-    public int getMultiplier() {
-        return this.multiplier;
-    }
-
-    @Override
-    public void onClick(){
-        System.out.println("Speeding Up!");
-        this.fastForward = !this.fastForward;
-        if (fastForward){
-            this.multiplier = 2;
-        }
-        else{
-            this.multiplier = 1;
-        }
+        super(x, y, 1f, 1f, GameAction.SPEED_TOGGLE);
     }
 }

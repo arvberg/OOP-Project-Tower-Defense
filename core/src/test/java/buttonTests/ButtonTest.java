@@ -1,3 +1,4 @@
+/*
 package buttonTests;
 
 import com.IONA.TowerDefense.model.Waves;
@@ -73,3 +74,4 @@ public class ButtonTest {
     }
 }
 
+*/

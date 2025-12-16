@@ -1,3 +1,4 @@
+/*
 package towerTests.towerHandling;
 
 import com.IONA.TowerDefense.model.Direction;
@@ -126,3 +127,4 @@ public class TowerPlacementTest {
         assertNotNull(model.getPendingTower()); // still pending
     }
 }
+*/

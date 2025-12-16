@@ -18,9 +18,6 @@ public class DrawableButtonFactory {
             case RestartButton b -> new RestartButtonDrawer(b);
             case SellButton b -> new SellButtonDrawer(b);
             case SpeedUpButton b -> new SpeedUpButtonDrawer(b);
-            case TowerMenuToggleButton b -> new TowerMenuToggleButtonDrawer(b);
-            case UpgradeMenuToggleButton b -> new UpgradeMenuToggleButtonDrawer(b);
-            case SideMenuToggleButton b -> new SideMenuToggleButtonDrawer(b);
             case TowerMenuItem b -> new TowerMenuItemButtonDrawer(b);
             case UpgradeMenuItem b -> DrawableUpgradeFactory.create(b);
             case ExitButton b -> new ExitButtonDrawer(b);

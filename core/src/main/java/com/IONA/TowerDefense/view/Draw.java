@@ -179,6 +179,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         }
 
         for (Button b : model.getInGameButtons()){
+            if (!b.isVisible()) continue;
             DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
         }
@@ -189,6 +190,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             batch.setColor(1f, 1f, 1f, alpha);
             batch.draw(gameOverTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
             for (Button b : model.getGameOverButtons()){
+                if (!b.isVisible()) continue;
                 DrawableButton view = getDrawableButton(b);
                 view.draw(batch, shapeRenderer, delta);
             }
@@ -223,13 +225,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         ExitButtonDrawer.disposeStatic();
         RestartButtonDrawer.disposeStatic();
         SellButtonDrawer.disposeStatic();
-        SideMenuToggleButtonDrawer.disposeStatic();
         SpeedUpButtonDrawer.disposeStatic();
         TowerMenuItemButtonDrawer.disposeStatic();
         TowerMenuItemButtonDrawer.disposeStatic();
-        TowerMenuToggleButtonDrawer.disposeStatic();
         UpgradeMenuItemButtonDrawer.disposeStatic();
-        UpgradeMenuToggleButtonDrawer.disposeStatic();
         // lägg till fler
     }
 

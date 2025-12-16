@@ -97,13 +97,13 @@ public class InfoMenu extends Menu {
 
                 switch (cellType) {
                     case 1:
-                        button = new SellButton(x, y, model);
+                        button = new SellButton(x, y);
                         break;
                     case 2:
-                        button = new SellButton(x, y, model);
+                        button = new SellButton(x, y);
                         break;
                     case 3:
-                        button = new SellButton(x, y, model);
+                        button = new SellButton(x, y);
                         break;
                 }
 

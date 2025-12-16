@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.model.models;
 import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.WaveGenerator;
+import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
@@ -21,6 +22,7 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -30,7 +32,7 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
-    private GameState gameState = GameState.RUNNING;
+    private GameState gameState = GameState.START;
 
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
@@ -47,7 +49,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final List<Resource> resources;
     private final List<Decoration> decorations;
     private Path path;
-    private final PlayButton playbutton;
+
+    private final ActionHandler actionHandler;
+    private final PlayButton playButton;
     private final ExitButton exitButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
@@ -84,7 +88,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.generator = new WaveGenerator(0, this);
         this.core = new Core();
 
-        this.inGameButtons = new ArrayList<>();
         this.background = "Starter map";
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
@@ -99,18 +102,20 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.towerHandler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler, upgradeMenu);
         this.upgradeHandler = new UpgradeHandler();
 
+        this.actionHandler = new ActionHandler(this);
+
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
         this.menus = new ArrayList<>();
-        this.playbutton = new PlayButton(0, 0, this);
-        this.exitButton = new ExitButton(500f, 5f);
-        this.speedUpButton = new SpeedUpButton(500f, 0);
+        this.playButton = new PlayButton(0, 0);
+        this.exitButton = new ExitButton(10f, 3f);
+        this.speedUpButton = new SpeedUpButton(0, 0);
         this.pauseButton = new PauseButton(10, 0);
-        this.restartButton = new RestartButton(5, 5, this);
-        this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5, this);
+        this.restartButton = new RestartButton(5f, 3f);
+        this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5);
 
 
-        inGameButtons.add(playbutton);
+        inGameButtons.add(playButton);
         inGameButtons.add(speedUpButton);
         inGameButtons.add(pauseButton);
         gameOverButtons.add(restartButton);
@@ -123,6 +128,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         menus.add(upgradeMenu);
 
         placeCore(core);
+        updateButtonLayout();
     }
 
     public void update(){
@@ -138,7 +144,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
         if (generator.WaveCleared()){
             generator.WaveReward();
-            playbutton.toggleButton();
+            playButton.setVisible(true);
+            setGameState(GameState.START);
+            updateButtonLayout();
         }
     }
 
@@ -179,8 +187,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         if (resourceHandler.getLives() <= 0 && getGameState() != GameState.GAME_OVER) {
             setGameState(GameState.GAME_OVER);
             System.out.println("Game Over!");
-            getPlayButton().toggleButton();
-            getExitButton().toggleButton();
+            updateButtonLayout();
+            restartButton.setVisible(true);
+            exitButton.setVisible(true);
         }
     }
 
@@ -190,9 +199,13 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         attackHandler.removeAllProjectiles();
         resourceHandler.resetResources();
         generator.resetWaves();
+
         setGameState(GameState.START);
-        exitButton.toggleButton();
+        //exitButton.setVisible(true);
+        updateButtonLayout();
     }
+
+    public void handleAction(GameAction action, Button sourceButton) { actionHandler.handleAction(action, sourceButton); }
 
     public GameState getGameState() {
         return gameState;
@@ -204,6 +217,13 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public void updateEnemies(float delta) {
         enemyHandler.updateEnemies(delta);
+    }
+
+    void updateButtonLayout(){
+        boolean running = gameState == GameState.RUNNING;
+
+        playButton.setVisible(!running);
+        speedUpButton.setVisible(running);
     }
 
     public TowerMenu getTowerMenu(){return this.towerMenu; }
@@ -339,7 +359,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
 
     public PlayButton getPlayButton(){
-        return playbutton;
+        return playButton;
     }
 
     public ExitButton getExitButton(){
