@@ -97,22 +97,58 @@ public class AttackHandler {
 
         boolean aimingDone = distSq < tower.getAimingMargin();
         tower.setIsAiming(aimingDone);
-
     }
 
     public void updateProjectiles(float delta) {
-        for (Projectile projectile : projectiles) {
-            if (projectile instanceof Missile && projectile.getEnemyTarget() == null) {
-                projectile.setEnemyTarget(enemies.getFirst());
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            Projectile p = projectiles.get(i);
+
+            if (p.isDestroyed()) continue;
+
+            if (p instanceof Missile missile) {
+                handleMissileTarget(missile);
             }
 
-            if (projectile.isDestroyed()) {
-                continue;
-            }
-
-            projectile.move(delta);
-            projectileHit(projectile, enemies);
+            p.move(delta);
+            projectileHit(p, enemies);
         }
+    }
+
+    private void handleMissileTarget(Missile missile) {
+
+        Enemy target = missile.getEnemyTarget();
+
+        if (target == null || target.isDead() || !enemies.contains(target)) {
+
+            Enemy newTarget = findNewTarget(missile);
+
+            missile.setEnemyTarget(newTarget);
+
+            if (newTarget == null) {
+                missile.setDestroyed(true);
+            }
+        }
+    }
+
+    private Enemy findNewTarget(Missile missile) {
+        Enemy closest = null;
+        float minDistSq = Float.MAX_VALUE;
+
+        Vector2 pos = missile.getPosition();
+
+        for (Enemy e : enemies) {
+            if (e.isDead()) continue;
+
+            float dx = e.getPosition().x - pos.x;
+            float dy = e.getPosition().y - pos.y;
+            float distSq = dx * dx + dy * dy;
+
+            if (distSq < minDistSq) {
+                minDistSq = distSq;
+                closest = e;
+            }
+        }
+        return closest;
     }
 
     public boolean withinRadius(Enemy enemy, Tower tower) {

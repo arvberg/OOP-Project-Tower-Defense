@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class TowerPulseDrawer implements DrawableTower {
 
-    private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
+    private static final Texture TEXTURE = new Texture(Assets.TOWER_PUSLE_BODY);
     private static final Texture TEXTURE_BARREL = new Texture(Assets.TOWER_BASIC_BARREL);
     private static final Texture TEXTURE_RANGE = new Texture(Assets.TOWER_RANGE);
 

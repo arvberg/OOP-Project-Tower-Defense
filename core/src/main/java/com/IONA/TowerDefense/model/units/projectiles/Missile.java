@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Missile extends Projectile implements Movable {
     private float acceleration = 0;
+    private float turnSpeed = 5f;
 
     public Missile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         super(damage, speed, position, dxdy);
@@ -20,8 +21,18 @@ public class Missile extends Projectile implements Movable {
     @Override
     public void move(float delta) {
         acceleration += 0.2f;
-        Vector2 newDir = VectorUtils.direction(position, enemyTarget.getPosition());
-        setDir(newDir.x, newDir.y);
+
+        if (enemyTarget != null) {
+            Vector2 desiredDir = VectorUtils.direction(position, enemyTarget.getPosition());
+            Vector2 currentDir = new Vector2(dxdy).nor();
+
+            float xNew = currentDir.x + (desiredDir.x - currentDir.x) * turnSpeed * delta;
+            float yNew = currentDir.y + (desiredDir.y - currentDir.y) * turnSpeed * delta;
+
+            Vector2 smoothedDir = new Vector2(xNew, yNew).nor();
+            setDir(smoothedDir.x, smoothedDir.y);
+        }
+
         position.x += dxdy.x * (speed + acceleration) * delta;
         position.y += dxdy.y * (speed + acceleration) * delta;
     }

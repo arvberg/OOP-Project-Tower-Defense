@@ -137,4 +137,7 @@
             return healthBar;
         }
 
+        public boolean isDead() {
+            return hp <= 0;
+        }
     }

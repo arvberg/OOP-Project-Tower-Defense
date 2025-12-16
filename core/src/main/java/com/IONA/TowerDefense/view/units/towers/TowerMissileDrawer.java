@@ -11,12 +11,12 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class TowerMissileDrawer implements DrawableTower {
 
-    private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
-    private static final Texture TEXTURE_BARREL = new Texture(Assets.TOWER_BASIC_BARREL);
+    private static final Texture TEXTURE = new Texture(Assets.TOWER_MISSILE_BODY);
     private static final Texture TEXTURE_RANGE = new Texture(Assets.TOWER_RANGE);
 
-    private static final TextureRegion TEXTURE_BARREL_R = new TextureRegion(TEXTURE_BARREL);
     private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
+    private static final TextureRegion BODY_REGION_R = new TextureRegion(TEXTURE);
+
 
     private final TowerMissile tower;
     private Vector2 p;
@@ -37,22 +37,13 @@ public final class TowerMissileDrawer implements DrawableTower {
         angleDeg = tower.getAngleDeg();
 
         batch.draw(
-            TEXTURE,
+            BODY_REGION_R,
             p.x - dimensionX / 2f,
             p.y - dimensionY / 2f,
-            dimensionX,
-            dimensionY
+            dimensionX /2f,
+            dimensionY /2f, dimensionX, dimensionY,1f, 1f,angleDeg - 90
         );
 
-        batch.draw(
-            TEXTURE_BARREL_R,
-            p.x - dimensionX / 2f,
-            p.y - dimensionY / 2f,
-            dimensionX / 2f, dimensionY / 2f,
-            dimensionX, dimensionY,
-            1f, 1f,
-            angleDeg - 90
-        );
     }
 
     public void drawPendingTower(SpriteBatch batch) {
@@ -66,15 +57,6 @@ public final class TowerMissileDrawer implements DrawableTower {
             dimensionY
         );
 
-        batch.draw(
-            TEXTURE_BARREL_R,
-            p.x - dimensionX / 2f,
-            p.y - dimensionY / 2f,
-            dimensionX / 2f, dimensionY / 2f,
-            dimensionX, dimensionY,
-            1f, 1f,
-            angleDeg - 90
-        );
     }
 
 
@@ -101,7 +83,6 @@ public final class TowerMissileDrawer implements DrawableTower {
 
     public static void disposeStatic() {
         TEXTURE.dispose();
-        TEXTURE_BARREL.dispose();
         TEXTURE_RANGE.dispose();
     }
 }

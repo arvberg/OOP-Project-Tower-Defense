@@ -21,6 +21,14 @@ public class Assets {
     public static final String TOWER_BASIC_BODY = "towers/Tower_Basic_Body.png";
     public static final String TOWER_RANGE = "towers/Tower_Range.png";
 
+    public static final String TOWER_MISSILE_BODY = "towers/Tower_Missile_body.png";
+
+    public static final String TOWER_PUSLE_BODY = "towers/Tower_Pulse_body.png";
+
+
+
+
+
     // PROJECTILES
     public static final String PROJECTILE_BASIC = "projectiles/Projectile_Basic.png";
 
