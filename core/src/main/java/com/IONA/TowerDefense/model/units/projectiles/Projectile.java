@@ -32,6 +32,12 @@ public class Projectile extends Unit implements Movable {
     public void move(float delta){
     }
 
+    public boolean outOfBounds(Vector2 position, Vector2 worldDimensions) {
+        boolean outOfWidth = position.x < 0 || position.x > worldDimensions.x;
+        boolean outOfHeight = position.y < 0 || position.y > worldDimensions.y;
+        return outOfWidth && outOfHeight;
+    }
+
     public Vector2 getPosition() {
         return new Vector2(position.x, position.y);
     }
