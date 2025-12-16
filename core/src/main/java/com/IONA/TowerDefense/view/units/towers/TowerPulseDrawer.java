@@ -39,7 +39,6 @@ public final class TowerPulseDrawer implements DrawableTower, AttackListener {
     private float dimensionX;
     private float dimensionY;
     private float angleDeg;
-    private float stateTime = 0f;
     private float range;
 
     public TowerPulseDrawer(TowerPulse tower){
