@@ -15,16 +15,19 @@ public class SoundManager implements Disposable {
 
     public void load() {
         // FX
+        // Tower
         sounds.put("place_tower", Gdx.audio.newSound(Gdx.files.internal("audio/place_tower.wav")));
         sounds.put("sell_tower", Gdx.audio.newSound(Gdx.files.internal("audio/sell_tower.wav")));
         sounds.put("click_tower", Gdx.audio.newSound(Gdx.files.internal("audio/click_tower.wav")));
         sounds.put("tower_upgraded", Gdx.audio.newSound(Gdx.files.internal("audio/tower_upgraded.wav")));
 
-
+        // UI
         sounds.put("invalid_click", Gdx.audio.newSound(Gdx.files.internal("audio/invalid_click.wav")));
         sounds.put("ui_button_click", Gdx.audio.newSound(Gdx.files.internal("audio/ui_button_click.wav")));
 
         sounds.put("fire", Gdx.audio.newSound(Gdx.files.internal("audio/fire_temp.wav")));
+        sounds.put("pulse", Gdx.audio.newSound(Gdx.files.internal("audio/pulse.wav")));
+
 
         sounds.put("enemy_basic_death", Gdx.audio.newSound(Gdx.files.internal("audio/enemy_basic_death.wav")));
 

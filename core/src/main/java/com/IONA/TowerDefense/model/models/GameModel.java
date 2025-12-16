@@ -432,6 +432,11 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         // gör nåt
     }
 
+    @Override
+    public void onPulseActivated() {
+
+    }
+
     public EnemyHandler getEnemyhandler() {
         return enemyHandler;
     }

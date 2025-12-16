@@ -266,6 +266,11 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     @Override
+    public void onPulseActivated() {
+        soundManager.playSound("pulse");
+    }
+
+    @Override
     public void onEnemyDeath(Enemy enemy) {
         soundManager.playSound("enemy_basic_death");
         System.out.println("sound is playing");
