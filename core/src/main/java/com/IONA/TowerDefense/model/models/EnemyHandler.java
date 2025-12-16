@@ -16,6 +16,7 @@ import static com.IONA.TowerDefense.Main.model;
 
 public class EnemyHandler {
 
+    //
     private final List<Enemy> enemies;
     private Path path;
 
@@ -71,7 +72,7 @@ public class EnemyHandler {
             Enemy e = enemies.get(i);
             if (e.getHp() <= 0) {
                 notifyEnemyDeathEvent(e);
-                enemies.remove(i); 
+                enemies.remove(i);
             }
         }
     }
