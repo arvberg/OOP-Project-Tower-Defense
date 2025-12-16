@@ -10,7 +10,7 @@ public class PathDrawer {
 
     public static void drawPath(ShapeRenderer shapeRenderer){
         shapeRenderer.setColor(Color.valueOf("#EEE4E0"));
-        float width = 0.6f;
+        float width = 0.5f;
         for (int i = 0; i < model.getPath().getSegments().size() - 1; i++) {
             Vector2 a = model.getPath().getSegment(i).getStartPosition();
             Vector2 b = model.getPath().getSegment(i).getEndForDraw(width);

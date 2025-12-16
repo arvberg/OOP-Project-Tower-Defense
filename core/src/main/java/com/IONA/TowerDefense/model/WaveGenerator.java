@@ -4,6 +4,7 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.model.units.enemies.EnemyFast;
+import com.IONA.TowerDefense.model.units.enemies.EnemyTanky;
 import com.badlogic.gdx.utils.Timer;
 
 public class WaveGenerator {
@@ -43,6 +44,10 @@ public class WaveGenerator {
                     }
                     if(e.getEnemyType().equals("2")) {
                         Enemy enemy = new EnemyFast(GameDiff);
+                        model.addEnemy(enemy);
+                    }
+                    if(e.getEnemyType().equals("3")) {
+                        Enemy enemy = new EnemyTanky(GameDiff);
                         model.addEnemy(enemy);
                     }
 

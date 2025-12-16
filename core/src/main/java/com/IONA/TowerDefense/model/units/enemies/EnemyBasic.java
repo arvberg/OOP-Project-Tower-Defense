@@ -22,8 +22,8 @@ public class EnemyBasic extends Enemy{
         speed = 1.3f + 0.1f*difficulty;
         money = 10 - 2*difficulty;
         damage = 10 + 2*difficulty;
-        width = 0.5f;
-        height = 0.5f;
+        width = 0.40f;
+        height = 0.40f;
         setHitBox(width,height);
 
         this.healthBar = createHealthBar(hp, new Vector2(position), 1f, 0.15f);
