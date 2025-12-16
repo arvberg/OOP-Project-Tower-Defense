@@ -1,27 +1,32 @@
 package com.IONA.TowerDefense.view.ui;
 
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Fonts {
-    public static BitmapFont resourceFont;
 
-    public static void load(){
+    public static BitmapFont GOTHIC_FONT;
 
+    public static void load() {
+        Texture texture = new Texture(Gdx.files.internal(Assets.FONT_GOTHIC_PNG));
+        texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
-        resourceFont = new BitmapFont(Gdx.files.internal("fonts/Century_Gothic_01.fnt"));
+        GOTHIC_FONT = new BitmapFont(
+            Gdx.files.internal(Assets.FONT_GOTHIC_FNT)
+        );
 
-        float desiredWorldHeight = .5f;
-        float glyphPixelHeight = 32f;
+        GOTHIC_FONT.setUseIntegerPositions(false);
+        GOTHIC_FONT.getData().setScale(1f); // VIKTIGT, mer om detta nedan
+    }
 
-        float scale = desiredWorldHeight / glyphPixelHeight;
-
-        resourceFont.getData().setScale(scale);
-        resourceFont.setUseIntegerPositions(false);
+    public static void dispose() {
+        GOTHIC_FONT.dispose();
     }
 }

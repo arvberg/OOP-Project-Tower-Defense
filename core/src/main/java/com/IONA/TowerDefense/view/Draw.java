@@ -273,6 +273,9 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     @Override
     public void onProjectileFired() {
         soundManager.playSound("fire");
+        for (AttackListener l : attackListeners) {
+            l.onProjectileFired();
+        }
     }
 
     @Override

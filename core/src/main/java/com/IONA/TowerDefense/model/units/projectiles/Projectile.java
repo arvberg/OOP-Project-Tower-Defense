@@ -65,6 +65,10 @@ public class Projectile extends Unit implements Movable {
         this.dxdy.y = newDy;
     }
 
+    public Vector2 getDir(){
+        return this.dxdy;
+    }
+
     public float getX() {
         return position.x;
     }

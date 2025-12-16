@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public final class TowerBasicDrawer implements DrawableTower, AttackListener {
@@ -23,15 +24,15 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
     private static final TextureRegion TEXTURE_BARREL_R = new TextureRegion(TEXTURE_BARREL);
     private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
 
-    private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal(Assets.ANIMATION_ATLAS_PULSE));
-    private static final Animation<TextureAtlas.AtlasRegion> PULSE_ANIMATION;
+    private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal(Assets.ANIMATION_ATLAS_TOWERBASICFIRE));
+    private static final Animation<TextureAtlas.AtlasRegion> TOWERBASICFIRE_ANIMATION;
 
     private boolean pulseActive = false;
     private float pulseTime = 0f;
 
     static {
-        PULSE_ANIMATION = new Animation<>(0.01f, ATLAS.findRegions("animation-collections-Animation_AoE_Pulse"));
-        PULSE_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
+        TOWERBASICFIRE_ANIMATION = new Animation<>(0.01f, ATLAS.findRegions("animation-collections-Animation_TowerBasic_Fire"));
+        TOWERBASICFIRE_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
     }
 
     private final TowerBasic tower;
@@ -55,11 +56,29 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
         if (pulseActive) {
             pulseTime += delta;
 
-            TextureRegion frame = PULSE_ANIMATION.getKeyFrame(pulseTime);
+            TextureRegion frame = TOWERBASICFIRE_ANIMATION.getKeyFrame(pulseTime);
 
-            // Gör animation här inne
+            float distance = 0.66f;
 
-            if (PULSE_ANIMATION.isAnimationFinished(pulseTime)) {
+            float width = 0.2f;
+            float height = 0.2f;
+
+            float x = p.x + MathUtils.cosDeg(angleDeg) * distance;
+            float y = p.y + MathUtils.sinDeg(angleDeg) * distance;
+
+            batch.draw(
+                frame,
+                x - width / 2f,
+                y - height / 2f,
+                width / 2f,
+                height / 2f,
+                width, height,
+                0.6f, 3f,
+                angleDeg-90
+            );
+
+
+            if (TOWERBASICFIRE_ANIMATION.isAnimationFinished(pulseTime)) {
                 pulseActive = false;
             }
         }

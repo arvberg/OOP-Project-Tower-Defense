@@ -16,8 +16,8 @@ import com.badlogic.gdx.math.Vector2;
 public class TowerBasic extends Tower {
 
     public TowerBasic() {
-        dimension = new Vector2(1f, 1f);
-        damage = 50;
+        dimension = new Vector2(0.8f, 0.8f);
+        damage = 5;
         projectileSpeed = 8;
         baseFireRate = 0.01f;
         cost = 50;
