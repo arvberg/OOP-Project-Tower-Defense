@@ -11,7 +11,10 @@ import java.awt.*;
 
 public final class TowerMenuDrawer implements DrawableMenu {
 
+
+
     private static final Texture TEXTURE = new Texture(Assets.MENU_TOWERMENU);
+
 
     private final TowerMenu towerMenu;
 
@@ -21,8 +24,12 @@ public final class TowerMenuDrawer implements DrawableMenu {
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+        return;
+        /*
         batch.draw(TEXTURE, towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y,
             towerMenu.getWidth(), towerMenu.getHeight() );
+
+         */
     }
 
     public static void disposeStatic() {

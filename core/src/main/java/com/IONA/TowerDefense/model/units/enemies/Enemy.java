@@ -71,6 +71,17 @@
             this.dir = direction;
         }
 
+        public float getDegreeDirection() {
+            switch (dir) {
+                case WEST:  return 0f;
+                case NORTH: return 270f;
+                case EAST:  return 180f;
+                case SOUTH: return 90f;
+                default:    return 0f; // säker fallback
+                }
+        }
+
+
         public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
 
             return switch (direction) {
