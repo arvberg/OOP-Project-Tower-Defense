@@ -55,8 +55,14 @@ public class Assets {
 
     // ANIMATIONS_ATLASES
     public static final String ANIMATION_ATLAS_CORE = "animations/atlases/core/Animation_Core.atlas";
+    public static final String ANIMATION_ATLAS_BUG = "animations/atlases/bug/Animation_Bug.atlas";
+
 
     // ANIMATIONS_PNGCOLLECTIONS
     public static final String ANIMATION_COLLECTION_CORE = "animations/collections/core";
+
+    // FONTS
+    public static final String FONT_GOTHIC_PNG = "fonts/century_01_0.png";
+    public static final String FONT_GOTHIC_FNT = "fonts/century_01.fnt";
 
 }
