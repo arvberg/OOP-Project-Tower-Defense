@@ -1,0 +1,236 @@
+
+Animation_Pulse.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 1370
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 0
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 1028
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 1
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 1370
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 2
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 686
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 3
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 1028
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 4
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 1370
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 5
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 6
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 686
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 7
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 1028
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 8
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1028, 1370
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 9
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 10
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 11
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 686
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 12
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1028, 1028
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 13
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1370, 1370
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 14
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 15
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 16
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1028, 686
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 17
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1370, 1028
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 18
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 19
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1028, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 20
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1370, 686
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 21
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1028, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 22
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1370, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 23
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1370, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 24
+
+Animation_Pulse2.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 25
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 2, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 26
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 27
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 344, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 28
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 29
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 686, 2
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 30
+animation-collections-Animation_AoE_Pulse
+  rotate: false
+  xy: 1028, 344
+  size: 340, 340
+  orig: 340, 340
+  offset: 0, 0
+  index: 31
