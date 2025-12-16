@@ -1,16 +1,20 @@
 package com.IONA.TowerDefense.view.units.towers;
 
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.view.Assets;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public final class TowerBasicDrawer implements DrawableTower {
+public final class TowerBasicDrawer implements DrawableTower, AttackListener {
 
     private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
     private static final Texture TEXTURE_BARREL = new Texture(Assets.TOWER_BASIC_BARREL);
@@ -18,6 +22,17 @@ public final class TowerBasicDrawer implements DrawableTower {
 
     private static final TextureRegion TEXTURE_BARREL_R = new TextureRegion(TEXTURE_BARREL);
     private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
+
+    private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal(Assets.ANIMATION_ATLAS_PULSE));
+    private static final Animation<TextureAtlas.AtlasRegion> PULSE_ANIMATION;
+
+    private boolean pulseActive = false;
+    private float pulseTime = 0f;
+
+    static {
+        PULSE_ANIMATION = new Animation<>(0.01f, ATLAS.findRegions("animation-collections-Animation_AoE_Pulse"));
+        PULSE_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
+    }
 
     private final TowerBasic tower;
     private Vector2 p;
@@ -36,6 +51,18 @@ public final class TowerBasicDrawer implements DrawableTower {
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
         angleDeg = tower.getAngleDeg();
+
+        if (pulseActive) {
+            pulseTime += delta;
+
+            TextureRegion frame = PULSE_ANIMATION.getKeyFrame(pulseTime);
+
+            // Gör animation här inne
+
+            if (PULSE_ANIMATION.isAnimationFinished(pulseTime)) {
+                pulseActive = false;
+            }
+        }
 
         batch.draw(
             TEXTURE,
@@ -104,5 +131,15 @@ public final class TowerBasicDrawer implements DrawableTower {
         TEXTURE.dispose();
         TEXTURE_BARREL.dispose();
         TEXTURE_RANGE.dispose();
+    }
+
+    @Override
+    public void onProjectileFired() {
+        pulseActive = true;
+        pulseTime = 0f;
+    }
+
+    @Override
+    public void onPulseActivated() {
     }
 }
