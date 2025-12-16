@@ -31,9 +31,6 @@
         protected int damage;
         protected int difficulty;
 
-        private List<EnemyDeathListener>  deathListeners = new ArrayList<>();
-
-
         public Enemy(int difficulty){
             this.difficulty = difficulty;
         }
@@ -44,13 +41,6 @@
 
         public void move(float delta) {
 
-            if (position == null) {
-                position = new Vector2(0, 2);
-            }
-
-            if (dir == null) {
-                dir = Direction.NORTH;
-            }
              // sekunder per frame
              // speed = units per sekund
             switch (dir) {

@@ -12,7 +12,9 @@ public class Fonts {
     public static BitmapFont resourceFont;
 
     public static void load(){
-        resourceFont = new BitmapFont(Gdx.files.internal("fonts/VT323.fnt"));
+
+
+        resourceFont = new BitmapFont(Gdx.files.internal("fonts/century_01.fnt"));
 
         float desiredWorldHeight = .5f;
         float glyphPixelHeight = 32f;

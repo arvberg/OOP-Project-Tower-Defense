@@ -37,7 +37,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final UpgradeHandler upgradeHandler;
     private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
-    private final List<Enemy> deadEnemies;
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
@@ -79,7 +78,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
-        this.deadEnemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
         this.generator = new WaveGenerator(0, this);
         this.core = new Core();
@@ -171,7 +169,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
                 int currentLives = resourceHandler.getLives();
                 resourceHandler.setLives(currentLives - e.getDamageNumber());
                 resourceHandler.updateHpResource();
-                removeEnemy(e);
+                enemyHandler.removeEnemy(e);
                 System.out.println("Health: " + resourceHandler.getLives());
                 // Set Game Over state
             }
@@ -214,11 +212,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.path = path;
     }
     // Add and remove from list
-
-
-    public void removeEnemy(Enemy enemy) {
-        enemyHandler.removeEnemy(enemy);
-    }
 
     // Getters for all lists
     public List<Tower> getTowers() {
