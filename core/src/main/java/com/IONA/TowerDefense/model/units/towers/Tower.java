@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+import java.util.Vector;
 
 public abstract class Tower extends Unit {
     protected int damage;
@@ -40,8 +41,8 @@ public abstract class Tower extends Unit {
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
 
     public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
+
     public boolean getHasCurrentUpgradeMenu(){return this.hasCurrentUpgradeMenu;}
-    public void setAngleDeg(float angleDeg){this.angleDeg = angleDeg;}
 
     public Deque<TowerUpgrade> getUpgradePath1() {
         return upgradePath1;
@@ -52,20 +53,8 @@ public abstract class Tower extends Unit {
     }
 
     public float getAngleDeg() {
-
-        float dx = this.getDirection().x;
-        float dy = this.getDirection().y;
-
-        float radians = (float) Math.atan2(dy, dx);
-        float degrees = (float) Math.toDegrees(radians);
-
-        if (degrees < 0) {
-            degrees += 360f;
-        }
-
-        return degrees;
+        return VectorUtils.angleFromDirection(direction);
     }
-
 
     public boolean isAiming() {
         if (currentTarget == null) {

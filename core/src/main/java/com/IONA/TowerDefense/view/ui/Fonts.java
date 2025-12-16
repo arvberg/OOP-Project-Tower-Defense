@@ -14,7 +14,7 @@ public class Fonts {
     public static void load(){
 
 
-        resourceFont = new BitmapFont(Gdx.files.internal("fonts/century_01.fnt"));
+        resourceFont = new BitmapFont(Gdx.files.internal("fonts/Century_Gothic_01.fnt"));
 
         float desiredWorldHeight = .5f;
         float glyphPixelHeight = 32f;
