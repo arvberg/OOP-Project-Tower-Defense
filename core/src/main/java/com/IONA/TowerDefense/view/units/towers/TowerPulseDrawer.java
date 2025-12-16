@@ -4,15 +4,26 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerPulse;
 import com.IONA.TowerDefense.view.Assets;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
 public final class TowerPulseDrawer implements DrawableTower {
 
-    private static final Texture TEXTURE = new Texture(Assets.TOWER_PUSLE_BODY);
+    private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal(Assets.ANIMATION_ATLAS_PULSE));
+    private static final Animation<TextureAtlas.AtlasRegion> PULSE_ANIMATION;
+
+    static {
+        PULSE_ANIMATION = new Animation<>(0.02f, ATLAS.findRegions("animation-collections-Animation_AoE_Pulse"));
+        PULSE_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
+    }
+
+    private static final Texture TEXTURE = new Texture(Assets.TOWER_PULSE_BODY);
     private static final Texture TEXTURE_BARREL = new Texture(Assets.TOWER_BASIC_BARREL);
     private static final Texture TEXTURE_RANGE = new Texture(Assets.TOWER_RANGE);
 
@@ -24,6 +35,8 @@ public final class TowerPulseDrawer implements DrawableTower {
     private float dimensionX;
     private float dimensionY;
     private float angleDeg;
+    private float stateTime = 0f;
+    private float range;
 
     public TowerPulseDrawer(TowerPulse tower){
         this.tower = tower;
@@ -31,11 +44,24 @@ public final class TowerPulseDrawer implements DrawableTower {
         this.dimensionX = tower.getDimension().x;
         this.dimensionY = tower.getDimension().y;
         this.angleDeg = tower.getAngleDeg();
+        this.range = tower.getRange();
     }
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+        range = tower.getRange();
         angleDeg = tower.getAngleDeg();
+        stateTime += Gdx.graphics.getDeltaTime();
+        TextureRegion frame = PULSE_ANIMATION.getKeyFrame(stateTime);
+
+        batch.draw(
+            frame,
+            p.x - range,
+            p.y - range,
+            range*2,
+            range*2
+        );
+
 
         batch.draw(
             TEXTURE,
@@ -45,15 +71,8 @@ public final class TowerPulseDrawer implements DrawableTower {
             dimensionY
         );
 
-        batch.draw(
-            TEXTURE_BARREL_R,
-            p.x - dimensionX / 2f,
-            p.y - dimensionY / 2f,
-            dimensionX / 2f, dimensionY / 2f,
-            dimensionX, dimensionY,
-            1f, 1f,
-            angleDeg - 90
-        );
+
+
     }
 
     public void drawPendingTower(SpriteBatch batch) {

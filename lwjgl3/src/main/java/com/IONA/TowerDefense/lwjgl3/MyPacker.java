@@ -14,9 +14,9 @@ public class MyPacker {
 
         TexturePacker.process(
             settings,
-            "assets/animations/collections/bug",
-            "assets/animations/atlases/bug",
-            "Animation_Bug"
+            "assets/animations/collections/pulse",
+            "assets/animations/atlases/pulse",
+            "Animation_Pulse"
         );
 
         System.out.println("✔ Atlas packed!");

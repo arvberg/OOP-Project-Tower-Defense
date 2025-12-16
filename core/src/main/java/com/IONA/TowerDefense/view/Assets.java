@@ -21,12 +21,9 @@ public class Assets {
     public static final String TOWER_BASIC_BODY = "towers/Tower_Basic_Body.png";
     public static final String TOWER_RANGE = "towers/Tower_Range.png";
 
-    public static final String TOWER_MISSILE_BODY = "towers/Tower_Missile_body.png";
+    public static final String TOWER_MISSILE_BODY = "towers/Tower_Missile_Body.png";
 
-    public static final String TOWER_PUSLE_BODY = "towers/Tower_Pulse_body.png";
-
-
-
+    public static final String TOWER_PULSE_BODY = "towers/Tower_Pulse_Body.png";
 
 
     // PROJECTILES
@@ -56,6 +53,7 @@ public class Assets {
     // ANIMATIONS_ATLASES
     public static final String ANIMATION_ATLAS_CORE = "animations/atlases/core/Animation_Core.atlas";
     public static final String ANIMATION_ATLAS_BUG = "animations/atlases/bug/Animation_Bug.atlas";
+    public static final String ANIMATION_ATLAS_PULSE = "animations/atlases/pulse/Animation_Pulse.atlas";
 
 
     // ANIMATIONS_PNGCOLLECTIONS
