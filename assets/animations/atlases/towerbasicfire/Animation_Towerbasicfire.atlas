@@ -1,0 +1,48 @@
+
+Animation_Towerbasicfire.png
+size: 512, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+animation-collections-Animation_TowerBasic_Fire
+  rotate: false
+  xy: 2, 2
+  size: 75, 192
+  orig: 75, 192
+  offset: 0, 0
+  index: 0
+animation-collections-Animation_TowerBasic_Fire
+  rotate: false
+  xy: 2, 2
+  size: 75, 192
+  orig: 75, 192
+  offset: 0, 0
+  index: 5
+animation-collections-Animation_TowerBasic_Fire
+  rotate: false
+  xy: 79, 2
+  size: 75, 192
+  orig: 75, 192
+  offset: 0, 0
+  index: 1
+animation-collections-Animation_TowerBasic_Fire
+  rotate: false
+  xy: 156, 2
+  size: 75, 192
+  orig: 75, 192
+  offset: 0, 0
+  index: 2
+animation-collections-Animation_TowerBasic_Fire
+  rotate: false
+  xy: 233, 2
+  size: 75, 192
+  orig: 75, 192
+  offset: 0, 0
+  index: 3
+animation-collections-Animation_TowerBasic_Fire
+  rotate: false
+  xy: 310, 2
+  size: 75, 192
+  orig: 75, 192
+  offset: 0, 0
+  index: 4
