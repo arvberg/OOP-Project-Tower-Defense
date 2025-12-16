@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.view.units.towers;
 
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerPulse;
@@ -13,13 +14,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public final class TowerPulseDrawer implements DrawableTower {
+public final class TowerPulseDrawer implements DrawableTower, AttackListener {
 
     private static final TextureAtlas ATLAS = new TextureAtlas(Gdx.files.internal(Assets.ANIMATION_ATLAS_PULSE));
     private static final Animation<TextureAtlas.AtlasRegion> PULSE_ANIMATION;
 
+    private boolean pulseActive = false;
+    private float pulseTime = 0f;
+
     static {
-        PULSE_ANIMATION = new Animation<>(0.02f, ATLAS.findRegions("animation-collections-Animation_AoE_Pulse"));
+        PULSE_ANIMATION = new Animation<>(0.01f, ATLAS.findRegions("animation-collections-Animation_AoE_Pulse"));
         PULSE_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
     }
 
@@ -48,20 +52,28 @@ public final class TowerPulseDrawer implements DrawableTower {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
+
         range = tower.getRange();
-        angleDeg = tower.getAngleDeg();
-        stateTime += Gdx.graphics.getDeltaTime();
-        TextureRegion frame = PULSE_ANIMATION.getKeyFrame(stateTime);
+        p = tower.getPosition();
 
-        batch.draw(
-            frame,
-            p.x - range,
-            p.y - range,
-            range*2,
-            range*2
-        );
+        if (pulseActive) {
+            pulseTime += delta;
 
+            TextureRegion frame = PULSE_ANIMATION.getKeyFrame(pulseTime);
+
+            batch.draw(
+                frame,
+                p.x - range,
+                p.y - range,
+                range * 2,
+                range * 2
+            );
+
+            if (PULSE_ANIMATION.isAnimationFinished(pulseTime)) {
+                pulseActive = false;
+            }
+        }
 
         batch.draw(
             TEXTURE,
@@ -70,9 +82,6 @@ public final class TowerPulseDrawer implements DrawableTower {
             dimensionX,
             dimensionY
         );
-
-
-
     }
 
     public void drawPendingTower(SpriteBatch batch) {
@@ -123,5 +132,16 @@ public final class TowerPulseDrawer implements DrawableTower {
         TEXTURE.dispose();
         TEXTURE_BARREL.dispose();
         TEXTURE_RANGE.dispose();
+    }
+
+    @Override
+    public void onProjectileFired() {
+
+    }
+
+    @Override
+    public void onPulseActivated() {
+        pulseActive = true;
+        pulseTime = 0f;
     }
 }

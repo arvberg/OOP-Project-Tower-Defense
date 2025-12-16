@@ -43,6 +43,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,6 +64,9 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private final Map<Resource, DrawableResource> resourceViews = new HashMap<>();
 
     private final SoundManager soundManager = new SoundManager();
+
+    private final List<AttackListener> attackListeners = new ArrayList<>();
+    private final List<TowerListener> towerListeners = new ArrayList<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -100,7 +104,13 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     private DrawableTower getDrawableTower(Tower t){
-        return towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
+        DrawableTower view = towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
+
+        if (view instanceof AttackListener l && !attackListeners.contains(l)) {
+            attackListeners.add(l);
+        }
+
+        return view;
     }
 
     private DrawableProjectile getDrawableProjectile(Projectile p){
@@ -268,6 +278,9 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     @Override
     public void onPulseActivated() {
         soundManager.playSound("pulse");
+        for (AttackListener l : attackListeners) {
+            l.onPulseActivated();
+        }
     }
 
     @Override
