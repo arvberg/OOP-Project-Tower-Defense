@@ -185,7 +185,7 @@ public abstract class Tower extends Unit {
         return rotationSpeed;
     }
 
-    public boolean canShoot() {
+    public boolean hasCooledDown() {
         return cooldown <= 0f;
     }
 

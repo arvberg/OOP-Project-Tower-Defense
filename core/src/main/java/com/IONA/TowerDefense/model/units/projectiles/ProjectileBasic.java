@@ -26,69 +26,9 @@ public class ProjectileBasic extends Projectile implements Movable {
         this.destroyed = false;
     }
 
-    public void setPosition(float newX, float newY) {
-        this.position.x = newX;
-        this.position.y = newY;
-    }
-
     @Override
     public void move(float delta) {
         position.x += dxdy.x * speed * delta;
         position.y += dxdy.y * speed * delta;
-    }
-
-    public Vector2 getPosition() {
-        return new Vector2(position.x, position.y);
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public float getSpeed() {
-        return speed;
-    }
-
-    @Override
-    public void setPosition(Vector2 position) {
-        this.position.x = position.x;
-        this.position.y = position.y;
-    }
-
-    public void setDir(float newDx, float newDy) {
-        this.dxdy.x = newDx;
-        this.dxdy.y = newDy;
-    }
-
-    public float getX() {
-        return position.x;
-    }
-
-    public float getY() {
-        return position.y;
-    }
-
-    public Enemy getEnemyTarget() {
-        return enemyTarget;
-    }
-
-    public void setEnemyTarget(Enemy enemyTarget) {
-        this.enemyTarget = enemyTarget;
-    }
-
-    public void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
-    }
-
-    public boolean isDestroyed() {
-        return destroyed;
-    }
-
-    public String getProjectileType() {
-        return projectileType;
     }
 }

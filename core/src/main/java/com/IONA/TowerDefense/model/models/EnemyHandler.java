@@ -66,34 +66,6 @@ public class EnemyHandler {
         enemies.clear();
     }
 
-    /*
-    public void moveEnemies(float delta) {
-
-        if (!enemies.isEmpty()) {
-
-            for (Enemy enemy : enemies) {
-                int segmentIdx = enemy.getSegmentIndex();
-                Segment segment = path.getSegment(segmentIdx);
-
-                Direction enemyDirection = segment.getDirection();
-                enemy.move(delta);
-
-                Vector2 segmentEndPoint = segment.getEnd();
-                Vector2 enemyCoorPoint = new Vector2(enemy.getPosition().x, enemy.getPosition().y);
-
-
-                if (enemy.outsideSegment(enemyCoorPoint, segmentEndPoint, enemyDirection)) {
-                    int nextIdx = segmentIdx + 1;
-                    Segment nextSegment = path.getSegment(nextIdx);
-
-                    enemy.setToNewSegment(nextSegment.getStartPosition(), nextSegment.getDirection(), nextIdx);
-                }
-            }
-        }
-    }
-
-     */
-
     public void removeDeadEnemies() {
         for (int i = enemies.size() - 1; i >= 0; i--) {
             Enemy e = enemies.get(i);

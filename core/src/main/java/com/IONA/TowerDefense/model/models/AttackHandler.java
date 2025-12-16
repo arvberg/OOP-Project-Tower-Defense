@@ -4,7 +4,6 @@ import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.projectiles.Missile;
-import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
@@ -19,14 +18,12 @@ public class AttackHandler {
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
-    private final ProjectileFactory projectileFactory;
     private final List<AttackListener> listeners = new ArrayList<>();
 
     public AttackHandler(List<Enemy> enemies, List<Projectile> projectiles, List<Tower> towers) {
         this.enemies = enemies;
         this.projectiles = projectiles;
         this.towers = towers;
-        this.projectileFactory = new ProjectileFactory();
     }
 
     public void update(float delta) {
@@ -55,7 +52,7 @@ public class AttackHandler {
                 tower.setCurrentTarget(null);
             }
 
-            if (hasTargets && tower.canShoot() && tower.getIsAiming()) {
+            if (hasTargets && tower.hasCooledDown() && tower.getIsAiming()) {
                 AttackStrategy strategy = tower.getAttackStrategy();
                 strategy.attack(tower, targets, projectiles);
                 notifyProjectileFired();
