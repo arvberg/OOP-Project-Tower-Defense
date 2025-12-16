@@ -15,7 +15,6 @@ public class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
-    private String projectileType = "Homing";
 
     public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         this.damage = damage;
@@ -84,7 +83,4 @@ public class Projectile extends Unit implements Movable {
         return destroyed;
     }
 
-    public String getProjectileType() {
-        return projectileType;
-    }
 }

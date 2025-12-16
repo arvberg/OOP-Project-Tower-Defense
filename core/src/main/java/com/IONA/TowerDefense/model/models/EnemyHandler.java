@@ -71,7 +71,7 @@ public class EnemyHandler {
             Enemy e = enemies.get(i);
             if (e.getHp() <= 0) {
                 notifyEnemyDeathEvent(e);
-                enemies.remove(i);      // <-- detta saknas!
+                enemies.remove(i); 
             }
         }
     }
