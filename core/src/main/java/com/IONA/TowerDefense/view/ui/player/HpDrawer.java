@@ -26,6 +26,7 @@ public final class HpDrawer implements DrawableResource{
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
+        font.setColor(223f, 207f, 190f, 1f);
         font.draw(batch, (hp.getTextBar() + "/100 HP"), p.x, p.y);
     }
 }
