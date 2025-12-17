@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenuItem;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -15,7 +16,7 @@ public final class RangeUpgradeDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE shared by all instances
-    private static final Texture TEXTURE = new Texture("Pause_button_temp_01.png");
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_PAUSEBUTTON);
 
     public RangeUpgradeDrawer(UpgradeMenuItem item) {
         this.item = item;

@@ -15,4 +15,9 @@ public class TowerMenuItem extends Button {
     public String getTowerType() {
         return towerType;
     }
+
+
+    public String getName() {
+        return towerType;
+    }
 }

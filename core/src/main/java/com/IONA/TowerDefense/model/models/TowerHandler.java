@@ -96,6 +96,7 @@ public class TowerHandler {
             towers.add(pendingTower);
 
             setSelectedTower(pendingTower);
+            selectTower(selectedPoint);
             setTowerSelected(true);
             System.out.println("Selected tower: " + selectedTower);
 
@@ -111,6 +112,7 @@ public class TowerHandler {
         setTowerSelected(false);
         notifyTowerDeselectedEvent();
         System.out.println("Tower deselected");
+        // ev använd observer pattern med upgradehandler
         upgradeMenu.clearGridItems();
         upgradeMenu.setTowerIsClicked(false);
         upgradeMenu.setMenuPosition(16,9);
@@ -135,6 +137,13 @@ public class TowerHandler {
             deselectTower();
             towers.remove(tower);
             notifyTowerSoldEvent();
+        }
+    }
+
+    public void cancelBuy () {
+        if (pendingTower != null) {
+            setBuyingState(false);
+            setPendingTower(null);
         }
     }
 

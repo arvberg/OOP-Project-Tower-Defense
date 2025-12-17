@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.units.enemies;
 
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 public final class EnemyBasicDrawer implements DrawableEnemy {
 
-    private static final Texture TEXTURE_FRONT = new Texture("Virus_front.png");
-    private static final Texture TEXTURE_BACK = new Texture("Virus_green_back.png");
+    private static final Texture TEXTURE_FRONT = new Texture(Assets.ENEMY_BASIC_FRONT);
+    private static final Texture TEXTURE_BACK = new Texture(Assets.ENEMY_BASIC_BACK);
 
     private static final TextureRegion TEXTURE_FRONT_R = new TextureRegion(TEXTURE_FRONT);
     private static final TextureRegion TEXTURE_BACK_R = new TextureRegion(TEXTURE_BACK);

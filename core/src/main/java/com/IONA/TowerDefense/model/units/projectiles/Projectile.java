@@ -30,9 +30,7 @@ public class Projectile extends Unit implements Movable {
         this.position.y = newY;
     }
 
-    public void move(float delta) {
-        position.x += dxdy.x * speed * delta;
-        position.y += dxdy.y * speed * delta;
+    public void move(float delta){
     }
 
     public Vector2 getPosition() {

@@ -25,7 +25,7 @@ public class InfoMenu extends Menu {
     float slideSpeed = 10f;
 
     public InfoMenu(float x, float y, GameModel model) {
-        super(x, y, 3, 3);
+        super(x, y, 2.8f, 3.7f);
 
         this.openX = x-width;
         this.targetX = x;

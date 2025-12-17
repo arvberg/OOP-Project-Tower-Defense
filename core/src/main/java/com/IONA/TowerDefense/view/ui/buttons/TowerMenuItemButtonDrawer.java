@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenuItem;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,7 @@ public final class TowerMenuItemButtonDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE
-    private static final Texture TEXTURE = new Texture("TowerButton_Placeholder.png");
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_TOWERICON_TOWERBASIC);
 
     public TowerMenuItemButtonDrawer(TowerMenuItem button) {
         this.button = button;

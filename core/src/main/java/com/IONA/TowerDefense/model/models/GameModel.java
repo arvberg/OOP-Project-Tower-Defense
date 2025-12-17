@@ -305,6 +305,10 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         resourceHandler.updateMoneyResource();
     }
 
+    public void cancelTowerBuy() {
+        towerHandler.cancelBuy();
+    }
+
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
         if (resourceHandler.getMoney() >= upgrade.getCost() && towerHandler.getSelectedTower() != null) {
             upgradeHandler.upgrade(tower, upgrade);

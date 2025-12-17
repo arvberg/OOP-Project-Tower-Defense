@@ -6,10 +6,8 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
-import com.IONA.TowerDefense.model.ui.towerui.sideMenu.InfoMenu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.*;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -20,6 +18,7 @@ import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.ui.buttons.*;
 import com.IONA.TowerDefense.view.ui.menues.DrawableMenu;
 import com.IONA.TowerDefense.view.ui.menues.DrawableMenuFactory;
+import com.IONA.TowerDefense.view.ui.menues.UpgradeMenuDrawer;
 import com.IONA.TowerDefense.view.units.decorations.CoreDrawer;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
@@ -75,7 +74,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         batch = new SpriteBatch();
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
-        gameOverTexture = new Texture("Game_over_overlay_screen_01.png");
+        gameOverTexture = new Texture(Assets.OVERLAY_GAMEOVER);
         soundManager.load();
     }
 
@@ -142,6 +141,16 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         for (Enemy e : model.getEnemies()) {
             DrawableEnemy view = getDrawableEnemy(e);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for(Menu m: model.getMenus()){
+            DrawableMenu view = getDrawableMenu(m);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        for (Button b : model.getInGameButtons()){
+            DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
         }
 

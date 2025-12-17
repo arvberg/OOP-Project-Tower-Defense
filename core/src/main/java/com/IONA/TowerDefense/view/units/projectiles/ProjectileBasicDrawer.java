@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.view.units.projectiles;
 
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -11,7 +12,7 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
     private final Projectile projectile;
     private Vector2 p;
 
-    private static final Texture TEXTURE = new Texture("Projectile_basic_01.png");
+    private static final Texture TEXTURE = new Texture(Assets.PROJECTILE_BASIC);
 
     public ProjectileBasicDrawer(Projectile projectile){
         this.projectile = projectile;

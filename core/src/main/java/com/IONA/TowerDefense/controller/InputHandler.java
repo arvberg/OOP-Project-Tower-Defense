@@ -69,6 +69,59 @@ public class InputHandler {
             return;
         }
 
+        if (model.getGameState() == GameState.PAUSED) {
+            return;
+        }
+
+        // Först UI-kontroller
+
+        playButton.isClicked(pos);
+        for (TowerMenuItem t : towerMenuItems) {
+            t.isClicked(pos);
+        }
+
+        if(!upgradeMenuItems.isEmpty()){
+            upgradeMenuItems.get(0).isClicked(pos);
+            upgradeMenuItems.get(1).isClicked(pos);
+            upgradeMenuItems.get(2).isClicked(pos);
+        }
+        /*
+        for (Button t : upgradeMenuItems) {
+            t.isClicked(pos);
+        }
+      */
+
+
+        if(!upgradeMenuItems.isEmpty()){
+            upgradeMenuItems.get(0).isClicked(pos);
+            upgradeMenuItems.get(1).isClicked(pos);
+            upgradeMenuItems.get(2).isClicked(pos);
+        }
+        /*
+        for (Button t : upgradeMenuItems) {
+            t.isClicked(pos);
+        }
+      */
+
+
+        /*
+        for (Button u : upgradeMenuItems){
+            u.isClicked(pos);
+        }
+         */
+
+        speedUpButton.isClicked(pos);
+        targetingToggleButton.isClicked(pos);
+
+        // Om spelaren har ett torn redo att placera
+        if (model.isBuyingState()) {
+            if (clickedOnGameArea(pos)) {
+                model.placeTower(pos);
+            }// Tornet placeras
+            return; // Avsluta, vi ska inte välja torn ännu
+        }
+
+        // Endast välj torn om man INTE håller på att placera ett nytt
         if (clickedOnGameArea(pos)) {
             Tower clicked = model.getTowerAt(pos);
             if (clicked != null) {

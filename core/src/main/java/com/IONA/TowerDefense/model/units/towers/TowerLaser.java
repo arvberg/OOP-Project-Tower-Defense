@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.model.units.towers;
 
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.LaserAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,4 +28,8 @@ public class TowerLaser extends Tower{
     }
 
 
+    @Override
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+
+    }
 }
