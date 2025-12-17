@@ -60,6 +60,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
     private final Map<Decoration, DrawableDecoration> decorationViews = new HashMap<>();
     private final Map<Button, DrawableButton> buttonViews = new HashMap<>();
+    private final Map<Button, DrawableButton> itemViews = new HashMap<>();
     private final Map<Menu, DrawableMenu> menuViews = new HashMap<>();
     private final Map<Resource, DrawableResource> resourceViews = new HashMap<>();
 
@@ -171,15 +172,23 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        for(Menu m: model.getMenus()){
+        for (Menu m : model.getMenus()) {
             DrawableMenu view = getDrawableMenu(m);
-            view.draw(batch, shapeRenderer, delta);
+                view.draw(batch, shapeRenderer, delta);
         }
 
         for (Button b : model.getInGameButtons()){
             DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
         }
+
+        if (!model.isBuyingState()) {
+            for (Button b : model.getTowerItemButtons()) {
+                DrawableButton view = getDrawableButton(b);
+                view.draw(batch, shapeRenderer, delta);
+            }
+        }
+
 
         if (model.isBuyingState() && model.getPendingTower() != null) {
             Tower t = model.getPendingTower();
@@ -228,8 +237,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        List<Enemy> enemies = model.getEnemies();
-        HealthBarDrawer.drawHealthBar(enemies, shapeRenderer);
+        for (Enemy e : model.getEnemies()) {
+            DrawableEnemy view = getDrawableEnemy(e);
+            view.drawHealthBar(shapeRenderer, delta);
+        }
         shapeRenderer.end();
 
         // Ta bort enemies och torn ifall de är döda/sålda.
@@ -239,6 +250,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         decorationViews.entrySet().removeIf(d -> !model.getDecor().contains(d.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getInGameButtons().contains(b.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getGameOverButtons().contains(b.getKey()));
+        itemViews.entrySet().removeIf(b -> !model.getTowerItemButtons().contains(b.getKey()));
         menuViews.entrySet().removeIf(m-> !model.getMenus().contains(m.getKey()));
         resourceViews.entrySet().removeIf(r -> !model.getResources().contains(r.getKey()));
 

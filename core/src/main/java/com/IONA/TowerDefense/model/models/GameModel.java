@@ -40,6 +40,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
+    private List<Button> towerItemButtons;
     private List<Menu> menus;
 
     //private final List<Resource> resources;
@@ -83,6 +84,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.core = new Core();
 
         this.inGameButtons = new ArrayList<>();
+        this.towerItemButtons = new ArrayList<>();
         this.background = "Starter map";
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
@@ -113,7 +115,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         inGameButtons.add(pauseButton);
         gameOverButtons.add(restartButton);
         gameOverButtons.add(exitButton);
-        towerMenu.createGridItems(inGameButtons);
+        towerMenu.createGridItems(towerItemButtons);
 
         // används för att inte kunna placera torn på menues.
         menus.add(towerMenu);
@@ -332,8 +334,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public List<Button> getInGameButtons() { return inGameButtons;}
 
-    public List<Button> getGameOverButtons() { return gameOverButtons; }
+    public List<Button> getTowerItemButtons() { return towerItemButtons;}
 
+    public List<Button> getGameOverButtons() { return gameOverButtons; }
 
     public PlayButton getPlayButton(){
         return playbutton;

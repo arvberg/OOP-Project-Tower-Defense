@@ -14,7 +14,6 @@ public class HealthBar {
         this.width = width;
         this.height = height;
 
-
     }
 
     public int getCurrentHealth() {
