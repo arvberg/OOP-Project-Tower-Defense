@@ -65,5 +65,7 @@ public class Assets {
     // FONTS
     public static final String FONT_GOTHIC_PNG = "fonts/Century_Gothic_01_0.png";
     public static final String FONT_GOTHIC_FNT = "fonts/Century_Gothic_01.fnt";
+    public static final String FONT_GOTHIC_BOLD_PNG = "fonts/Century_Gothic_Bold_0.png";
+    public static final String FONT_GOTHIC_BOLD_FNT = "fonts/Century_Gothic_Bold.fnt";
 
 }

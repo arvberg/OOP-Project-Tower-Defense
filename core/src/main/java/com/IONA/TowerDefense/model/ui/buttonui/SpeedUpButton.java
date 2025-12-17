@@ -9,7 +9,7 @@ public class SpeedUpButton extends Button{
     private int multiplier;
 
     public SpeedUpButton(float x, float y) {
-        super(x, y, 1, 1);
+        super(x, y, 0.8f, 0.8f);
         this.fastForward = true;
         this.multiplier = 1;
     }

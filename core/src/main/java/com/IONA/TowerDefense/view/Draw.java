@@ -149,9 +149,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         batch.begin();
 
-        BitmapFont font = Fonts.GOTHIC_FONT;
-        font.setColor(1,0,0,1);
-        font.draw(batch, "TEST",5f,5f);
 
         for(Decoration d: model.getDecor()){
             DrawableDecoration view = getDrawableDecoration(d);
@@ -254,6 +251,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         TowerMenuItemButtonDrawer.disposeStatic();
         TowerMenuItemButtonDrawer.disposeStatic();
         UpgradeMenuItemButtonDrawer.disposeStatic();
+        Fonts.dispose();
 
         // lägg till fler
     }

@@ -41,11 +41,11 @@ public abstract class Button {
     public void toggleButton() {
         buttonLocked = !buttonLocked;
         if (buttonLocked) {
-            model.getPlayButton().setButtonPosition(lockedX, 0);
-            model.getSpeedUpButton().setButtonPosition(0, 0);
+            model.getPlayButton().setButtonPosition(lockedX, 0.2f);
+            model.getSpeedUpButton().setButtonPosition(14.8f, 0.2f);
         } else {
-            model.getPlayButton().setButtonPosition(0,0);
-            model.getSpeedUpButton().setButtonPosition(lockedX, 0);
+            model.getPlayButton().setButtonPosition(14.8f,0.2f);
+            model.getSpeedUpButton().setButtonPosition(lockedX, 0.2f);
         }
     }
 
