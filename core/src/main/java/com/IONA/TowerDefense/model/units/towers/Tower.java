@@ -34,6 +34,18 @@ public abstract class Tower extends Unit {
 
     protected Vector2 dimension;
 
+    /*
+    update
+    if hasDetected
+        if rotating
+            setDesiredAngle
+                if | angle-desiredangle | < 0.1
+                    setIsAiming = true
+                else
+        if
+
+     */
+
     protected TargetingStrategy targetingStrategy;
     protected AttackStrategy attackStrategy;
 
@@ -54,15 +66,6 @@ public abstract class Tower extends Unit {
 
     public float getAngleDeg() {
         return VectorUtils.angleFromDirection(direction);
-    }
-
-    public boolean isAiming() {
-        if (currentTarget == null) {
-            return false;
-        }
-        Vector2 direction = this.direction;
-        Vector2 directionToTarget = VectorUtils.direction(this.position, currentTarget.getPosition());
-        return (direction.x - directionToTarget.x < 0.1f) && (direction.y - directionToTarget.y < 0.1f);
     }
 
     public boolean getHasDetected() {
@@ -140,6 +143,10 @@ public abstract class Tower extends Unit {
 
     public Vector2 getDirection() {
         return direction;
+    }
+
+    public boolean isAimingAtCurrentTarget(Enemy enemy) {
+        return true; // change, continue here
     }
 
     public boolean getIsAiming() {
