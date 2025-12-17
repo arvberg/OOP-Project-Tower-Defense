@@ -138,7 +138,4 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
         pulseTime = 0f;
     }
 
-    @Override
-    public void onPulseActivated() {
-    }
 }

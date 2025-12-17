@@ -178,9 +178,13 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         if (model.isBuyingState() && model.getPendingTower() != null) {
             Tower t = model.getPendingTower();
+            Menu m = model.getTowerMenu();
             DrawableTower view = getDrawableTower(t);
+            DrawableMenu menu = getDrawableMenu(m);
             view.drawPendingTower(batch);
             view.drawRange(batch);
+            menu.drawCancelTower(batch);
+
             if (model.overlaps(model.getPendingTower())) {
                 batch.setColor(Color.RED);
                 view.drawRange(batch);
@@ -286,16 +290,11 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     @Override
     public void onEnemyDeath(Enemy enemy) {
         soundManager.playSound("enemy_basic_death");
-        System.out.println("sound is playing");
     }
 
     @Override
     public void onButtonClicked() {
         soundManager.playSound("ui_button_click");
-    }
-
-    @Override
-    public void onInvalidClick() {
     }
 
     @Override
@@ -313,15 +312,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         soundManager.playSound("sell_tower");
     }
 
-
-
-    @Override
-    public void onTowerDeselected() {
-    }
-
-    @Override
-    public void onTowerPending() {
-    }
 
     @Override
     public void onCouldNotBuy() {

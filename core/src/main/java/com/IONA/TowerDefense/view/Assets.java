@@ -28,6 +28,8 @@ public class Assets {
 
     // PROJECTILES
     public static final String PROJECTILE_BASIC = "projectiles/Projectile_Basic.png";
+    public static final String PROJECTILE_MISSILE = "projectiles/Projectile_Cursor.png";
+
 
     // BUTTONS
     public static final String BUTTON_PLAYBUTTON = "ui/buttons/Button_Playbutton.png";
@@ -49,6 +51,8 @@ public class Assets {
     public static final String MENU_INFOMENU_TOWERBASIC = "ui/menues/Menu_Infomenu_Towerbasic.png";
     public static final String MENU_TOWERMENU = "ui/menues/Menu_Towermenu.png";
     public static final String MENU_UPGRADEMENU = "ui/menues/Menu_Upgrademenu.png";
+    public static final String MENU_TOWERMENU_CANCEL = "ui/menues/Cancel_Button.png";
+
 
     // ANIMATIONS_ATLASES
     public static final String ANIMATION_ATLAS_CORE = "animations/atlases/core/Animation_Core.atlas";
