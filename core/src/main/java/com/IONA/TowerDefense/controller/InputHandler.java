@@ -1,13 +1,12 @@
 package com.IONA.TowerDefense.controller;
 
-import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.view.ui.buttons.UpgradeMenuItemButtonDrawer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class InputHandler {
     public void checkInput(Vector2 pos) {
 
         List<Button> buttons =
-            model.getGameState() == GameState.GAME_OVER
+            model.getGameState() == GameStateEnum.GAME_OVER
             ? model.getGameOverButtons() : model.getInGameButtons();
 
 
@@ -76,7 +75,7 @@ public class InputHandler {
             }
         }
 
-        if (model.getGameState() == GameState.GAME_OVER) {
+        if (model.getGameState() == GameStateEnum.GAME_OVER) {
             return; // block all other input
         }
 
@@ -85,7 +84,7 @@ public class InputHandler {
             return;
         }
 
-        if (model.getGameState() == GameState.PAUSED) {
+        if (model.getGameState() == GameStateEnum.PAUSED) {
             return;
         }
 

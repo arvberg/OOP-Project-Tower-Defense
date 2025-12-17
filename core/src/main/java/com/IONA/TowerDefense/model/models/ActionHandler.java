@@ -1,7 +1,7 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
@@ -46,7 +46,7 @@ public class ActionHandler {
         }
 
         generator.SpawnNextWave();
-        model.setGameState(GameState.RUNNING);
+        model.setState(model.getRunningState());
         model.updateButtonLayout();
     }
 
@@ -55,11 +55,7 @@ public class ActionHandler {
     }
 
     private void togglePause() {
-        if (model.getGameState() == GameState.RUNNING) {
-            model.setGameState(GameState.PAUSED);
-        } else if (model.getGameState() == GameState.PAUSED) {
-            model.setGameState(GameState.RUNNING);
-        }
+        model.togglePause();
     }
 
 

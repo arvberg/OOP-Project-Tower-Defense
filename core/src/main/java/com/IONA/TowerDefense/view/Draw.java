@@ -1,8 +1,6 @@
 package com.IONA.TowerDefense.view;
 
-import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.units.towers.TowerBasic;
-import com.IONA.TowerDefense.model.units.towers.TowerPulse;
+import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.view.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
@@ -229,7 +227,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        if (model.getGameState() == GameState.GAME_OVER) {
+        if (model.getGameState() == GameStateEnum.GAME_OVER) {
             fadeTimer += Gdx.graphics.getDeltaTime();
             float alpha = Math.min(fadeTimer / fadeDuration, 1f);
             batch.setColor(1f, 1f, 1f, alpha);
