@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class SoundManager implements Disposable {
     private static final HashMap<String, Sound> sounds = new HashMap<>();
     private static final HashMap<String, Music> musics = new HashMap<>();
+    private static final HashMap<String, Float> soundVolumes = new HashMap<>();
     private static float soundVolume = 0.75f;
     private static float musicVolume = 0.4f;
 

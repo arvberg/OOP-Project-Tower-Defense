@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.view.units.towers;
 
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.VectorUtils;
+import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.view.Assets;

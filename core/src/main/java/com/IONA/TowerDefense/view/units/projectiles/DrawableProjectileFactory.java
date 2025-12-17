@@ -3,7 +3,9 @@ package com.IONA.TowerDefense.view.units.projectiles;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
+import com.IONA.TowerDefense.model.units.projectiles.Missile;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.projectiles.ProjectileBasic;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
 import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
 
@@ -14,8 +16,8 @@ public class DrawableProjectileFactory {
     // TILLFÄLLIGT Unit, ska senare vara Projectile och case ProjectileBasic
     public static DrawableProjectile create(Unit projectile){
         return switch (projectile){
-            case Projectile p -> new ProjectileBasicDrawer(p);
-            //case EnemyFast e   -> new EnemyFastDrawer(e);
+            case ProjectileBasic p -> new ProjectileBasicDrawer(p);
+            case Missile p -> new ProjectileMissileDrawer(p);
             //case EnemyTanky e   -> new EnemyTankDrawer(e);
             default -> throw new IllegalStateException("Unexpected value: " + projectile);
         };
