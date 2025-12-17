@@ -13,8 +13,10 @@ public class Assets {
     // ENEMIES
     public static final String ENEMY_BASIC_FRONT = "enemies/Enemy_Basic_Front.png";
     public static final String ENEMY_BASIC_BACK = "enemies/Enemy_Basic_Back.png";
+    public static final String ENEMY_BASIC_EYE = "enemies/Enemy_Basic_Eye.png";
     public static final String ENEMY_FAST = "enemies/Enemy_Fast.png";
     public static final String ENEMY_TANKY = "enemies/Enemy_Tanky.png";
+
 
     // TOWERS
     public static final String TOWER_BASIC_BARREL = "towers/Tower_Basic_Barrel.png";

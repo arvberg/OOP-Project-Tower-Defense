@@ -97,7 +97,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
             p.y - dimensionY / 2f,
             dimensionX / 2f, dimensionY / 2f,
             dimensionX, dimensionY,
-            1f, 1f,
+            0.255f, 0.75f,
             angleDeg - 90
         );
     }
