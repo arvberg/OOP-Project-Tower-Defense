@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+import java.util.Vector;
 
 public abstract class Tower extends Unit {
     protected int damage;
@@ -33,6 +34,18 @@ public abstract class Tower extends Unit {
 
     protected Vector2 dimension;
 
+    /*
+    update
+    if hasDetected
+        if rotating
+            setDesiredAngle
+                if | angle-desiredangle | < 0.1
+                    setIsAiming = true
+                else
+        if
+
+     */
+
     protected TargetingStrategy targetingStrategy;
     protected AttackStrategy attackStrategy;
 
@@ -40,8 +53,8 @@ public abstract class Tower extends Unit {
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
 
     public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
+
     public boolean getHasCurrentUpgradeMenu(){return this.hasCurrentUpgradeMenu;}
-    public void setAngleDeg(float angleDeg){this.angleDeg = angleDeg;}
 
     public Deque<TowerUpgrade> getUpgradePath1() {
         return upgradePath1;
@@ -52,28 +65,7 @@ public abstract class Tower extends Unit {
     }
 
     public float getAngleDeg() {
-
-        float dx = this.getDirection().x;
-        float dy = this.getDirection().y;
-
-        float radians = (float) Math.atan2(dy, dx);
-        float degrees = (float) Math.toDegrees(radians);
-
-        if (degrees < 0) {
-            degrees += 360f;
-        }
-
-        return degrees;
-    }
-
-
-    public boolean isAiming() {
-        if (currentTarget == null) {
-            return false;
-        }
-        Vector2 direction = this.direction;
-        Vector2 directionToTarget = VectorUtils.direction(this.position, currentTarget.getPosition());
-        return (direction.x - directionToTarget.x < 0.1f) && (direction.y - directionToTarget.y < 0.1f);
+        return VectorUtils.angleFromDirection(direction);
     }
 
     public boolean getHasDetected() {
@@ -153,6 +145,10 @@ public abstract class Tower extends Unit {
         return direction;
     }
 
+    public boolean isAimingAtCurrentTarget(Enemy enemy) {
+        return true; // change, continue here
+    }
+
     public boolean getIsAiming() {
         return isAiming;
     }
@@ -185,7 +181,7 @@ public abstract class Tower extends Unit {
         return rotationSpeed;
     }
 
-    public boolean canShoot() {
+    public boolean hasCooledDown() {
         return cooldown <= 0f;
     }
 

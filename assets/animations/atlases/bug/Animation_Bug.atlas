@@ -1,0 +1,209 @@
+
+Animation_Bug.png
+size: 2048, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+animations-collections-bug-Bug
+  rotate: false
+  xy: 2, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 0
+animations-collections-bug-Bug
+  rotate: false
+  xy: 2, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 1
+animations-collections-bug-Bug
+  rotate: false
+  xy: 204, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 2
+animations-collections-bug-Bug
+  rotate: false
+  xy: 2, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 3
+animations-collections-bug-Bug
+  rotate: false
+  xy: 204, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 4
+animations-collections-bug-Bug
+  rotate: false
+  xy: 406, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 5
+animations-collections-bug-Bug
+  rotate: false
+  xy: 204, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 6
+animations-collections-bug-Bug
+  rotate: false
+  xy: 406, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 7
+animations-collections-bug-Bug
+  rotate: false
+  xy: 608, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 8
+animations-collections-bug-Bug
+  rotate: false
+  xy: 406, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 9
+animations-collections-bug-Bug
+  rotate: false
+  xy: 608, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 10
+animations-collections-bug-Bug
+  rotate: false
+  xy: 810, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 11
+animations-collections-bug-Bug
+  rotate: false
+  xy: 608, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 12
+animations-collections-bug-Bug
+  rotate: false
+  xy: 810, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 13
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1012, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 14
+animations-collections-bug-Bug
+  rotate: false
+  xy: 810, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 15
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1012, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 16
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1214, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 17
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1012, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 18
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1214, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 19
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1416, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 20
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1214, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 21
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1416, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 22
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1618, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 23
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1416, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 24
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1618, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 25
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1820, 572
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 26
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1618, 2
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 27
+animations-collections-bug-Bug
+  rotate: false
+  xy: 1820, 287
+  size: 200, 283
+  orig: 200, 283
+  offset: 0, 0
+  index: 28

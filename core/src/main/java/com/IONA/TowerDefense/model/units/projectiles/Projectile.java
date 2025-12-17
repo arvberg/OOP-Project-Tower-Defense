@@ -15,7 +15,6 @@ public class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
-    private String projectileType = "Homing";
 
     public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         this.damage = damage;
@@ -31,6 +30,12 @@ public class Projectile extends Unit implements Movable {
     }
 
     public void move(float delta){
+    }
+
+    public boolean outOfBounds(Vector2 position, Vector2 worldDimensions) {
+        boolean outOfWidth = position.x < 0 || position.x > worldDimensions.x;
+        boolean outOfHeight = position.y < 0 || position.y > worldDimensions.y;
+        return outOfWidth && outOfHeight;
     }
 
     public Vector2 getPosition() {
@@ -60,6 +65,10 @@ public class Projectile extends Unit implements Movable {
         this.dxdy.y = newDy;
     }
 
+    public Vector2 getDir(){
+        return this.dxdy;
+    }
+
     public float getX() {
         return position.x;
     }
@@ -84,7 +93,4 @@ public class Projectile extends Unit implements Movable {
         return destroyed;
     }
 
-    public String getProjectileType() {
-        return projectileType;
-    }
 }

@@ -10,7 +10,9 @@ public interface Movable {
 
     float getSpeed();
 
-    void setPosition(Vector2 position);
+    default void setPosition(Vector2 position) {
+    }
 
-    void move(float delta);
+    default void move(float delta) {
+    }
 }

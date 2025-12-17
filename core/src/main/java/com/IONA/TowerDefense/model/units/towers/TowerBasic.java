@@ -17,16 +17,16 @@ public class TowerBasic extends Tower {
 
     public TowerBasic() {
         dimension = new Vector2(0.8f, 0.8f);
-        damage = 50;
+        damage = 5;
         projectileSpeed = 8;
-        baseFireRate = 0.1f;
+        baseFireRate = 0.01f;
         cost = 50;
-        fireRate = 0.1f;
-        range = 1.8f;
+        fireRate = 0.55f;
+        range = 2f;
         baseRange = 2f;
         cooldown = 0f;
-        rotationSpeed = 10f;
-        aimingMargin = 0.001f;
+        rotationSpeed = 20f;
+        aimingMargin = 1f;
         attackStrategy = new ProjectileAttackStrategy();
         targetingStrategy = new TargetLeadingStrategy();
         upgradePath1.add(new FireRateUpgrade(1));
@@ -39,6 +39,7 @@ public class TowerBasic extends Tower {
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
         this.targetingStrategy = targetingStrategy;
     }
+
 }
 
 

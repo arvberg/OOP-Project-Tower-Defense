@@ -13,4 +13,18 @@ public final class VectorUtils {
     public static Vector2 direction(Vector2 from, Vector2 to) {
         return new Vector2(to.x - from.x, to.y - from.y).nor();
     }
+
+    public static float angleFromDirection(Vector2 direction) {
+        float dx = direction.x;
+        float dy = direction.y;
+
+        float radians = (float) Math.atan2(dy, dx);
+        float degrees = (float) Math.toDegrees(radians);
+
+        if (degrees < 0) {
+            degrees += 360f;
+        }
+
+        return degrees;
+    }
 }

@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenuItem;
-import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

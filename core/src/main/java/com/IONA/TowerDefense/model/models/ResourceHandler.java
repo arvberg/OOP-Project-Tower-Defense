@@ -23,14 +23,14 @@ public class ResourceHandler {
 
         resources.add(new ResourceHP(
             lives,
-            new Vector2(1.5f, 1.5f),
+            new Vector2(13f, 0.7f),
             3f,
             1f
         ));
 
         resources.add(new ResourceMoney(
             money,
-            new Vector2(5.5f, 1.5f),
+            new Vector2(13f, 1f),
             3f,
             1f));
     }

@@ -1,12 +1,13 @@
 package com.IONA.TowerDefense.view;
 
 import com.IONA.TowerDefense.model.GameState;
-import com.IONA.TowerDefense.model.audio.SoundManager;
+import com.IONA.TowerDefense.model.units.towers.TowerBasic;
+import com.IONA.TowerDefense.model.units.towers.TowerPulse;
+import com.IONA.TowerDefense.view.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
-import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.*;
@@ -18,7 +19,8 @@ import com.IONA.TowerDefense.view.ui.*;
 import com.IONA.TowerDefense.view.ui.buttons.*;
 import com.IONA.TowerDefense.view.ui.menues.DrawableMenu;
 import com.IONA.TowerDefense.view.ui.menues.DrawableMenuFactory;
-import com.IONA.TowerDefense.view.ui.menues.UpgradeMenuDrawer;
+import com.IONA.TowerDefense.view.ui.player.DrawableResource;
+import com.IONA.TowerDefense.view.ui.player.DrawableResourceFactory;
 import com.IONA.TowerDefense.view.units.decorations.CoreDrawer;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecoration;
 import com.IONA.TowerDefense.view.units.decorations.DrawableDecorationFactory;
@@ -41,6 +43,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +60,14 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private final Map<Projectile, DrawableProjectile> projectileViews = new HashMap<>();
     private final Map<Decoration, DrawableDecoration> decorationViews = new HashMap<>();
     private final Map<Button, DrawableButton> buttonViews = new HashMap<>();
+    private final Map<Button, DrawableButton> itemViews = new HashMap<>();
     private final Map<Menu, DrawableMenu> menuViews = new HashMap<>();
+    private final Map<Resource, DrawableResource> resourceViews = new HashMap<>();
 
     private final SoundManager soundManager = new SoundManager();
+
+    private final List<AttackListener> attackListeners = new ArrayList<>();
+    private final List<TowerListener> towerListeners = new ArrayList<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -75,6 +83,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
         gameOverTexture = new Texture(Assets.OVERLAY_GAMEOVER);
+        Fonts.load();
         soundManager.load();
     }
 
@@ -92,8 +101,18 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         return enemyViews.computeIfAbsent(e, DrawableEnemyFactory::create);
     }
 
+    private DrawableResource getDrawableResource(Resource r){
+        return resourceViews.computeIfAbsent(r, DrawableResourceFactory::create);
+    }
+
     private DrawableTower getDrawableTower(Tower t){
-        return towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
+        DrawableTower view = towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
+
+        if (view instanceof AttackListener l && !attackListeners.contains(l)) {
+            attackListeners.add(l);
+        }
+
+        return view;
     }
 
     private DrawableProjectile getDrawableProjectile(Projectile p){
@@ -131,22 +150,28 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         batch.begin();
 
+
         for(Decoration d: model.getDecor()){
             DrawableDecoration view = getDrawableDecoration(d);
             view.draw(batch, shapeRenderer, delta);
         }
 
-        List<Resource> resources = model.getResources();
-        ResourceDrawer.drawResources(resources,batch);
+        for (Resource r: model.getResources()){
+            DrawableResource view = getDrawableResource(r);
+            view.draw(batch, shapeRenderer, delta);
+        }
+
+        //List<Resource> resources = model.getResources();
+        //ResourceDrawer.drawResources(resources,batch);
 
         for (Enemy e : model.getEnemies()) {
             DrawableEnemy view = getDrawableEnemy(e);
             view.draw(batch, shapeRenderer, delta);
         }
 
-        for(Menu m: model.getMenus()){
+        for (Menu m : model.getMenus()) {
             DrawableMenu view = getDrawableMenu(m);
-            view.draw(batch, shapeRenderer, delta);
+                view.draw(batch, shapeRenderer, delta);
         }
 
         for (Button b : model.getInGameButtons()){
@@ -154,11 +179,23 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
+        if (!model.isBuyingState()) {
+            for (Button b : model.getTowerItemButtons()) {
+                DrawableButton view = getDrawableButton(b);
+                view.draw(batch, shapeRenderer, delta);
+            }
+        }
+
+
         if (model.isBuyingState() && model.getPendingTower() != null) {
             Tower t = model.getPendingTower();
+            Menu m = model.getTowerMenu();
             DrawableTower view = getDrawableTower(t);
+            DrawableMenu menu = getDrawableMenu(m);
             view.drawPendingTower(batch);
             view.drawRange(batch);
+            menu.drawCancelTower(batch);
+
             if (model.overlaps(model.getPendingTower())) {
                 batch.setColor(Color.RED);
                 view.drawRange(batch);
@@ -170,8 +207,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             DrawableTower view = getDrawableTower(t);
             view.draw(batch, shapeRenderer, delta);
 
-            // DrawableUpgrade Uview = getDrawableUpgrade(t.getUpgradeList)
-            // Uview.draw(batch, shapeRenderer, delta)
+
             if (model.isTowerSelected() && model.getSelectedTower() == t) {
                 view.drawRange(batch);
             }
@@ -209,8 +245,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         batch.end();
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        List<Enemy> enemies = model.getEnemies();
-        HealthBarDrawer.drawHealthBar(enemies, shapeRenderer);
+        for (Enemy e : model.getEnemies()) {
+            DrawableEnemy view = getDrawableEnemy(e);
+            view.drawHealthBar(shapeRenderer, delta);
+        }
         shapeRenderer.end();
 
         // Ta bort enemies och torn ifall de är döda/sålda.
@@ -220,7 +258,9 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         decorationViews.entrySet().removeIf(d -> !model.getDecor().contains(d.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getInGameButtons().contains(b.getKey()));
         buttonViews.entrySet().removeIf(b -> !model.getGameOverButtons().contains(b.getKey()));
+        itemViews.entrySet().removeIf(b -> !model.getTowerItemButtons().contains(b.getKey()));
         menuViews.entrySet().removeIf(m-> !model.getMenus().contains(m.getKey()));
+        resourceViews.entrySet().removeIf(r -> !model.getResources().contains(r.getKey()));
 
     }
 
@@ -238,6 +278,8 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         TowerMenuItemButtonDrawer.disposeStatic();
         TowerMenuItemButtonDrawer.disposeStatic();
         UpgradeMenuItemButtonDrawer.disposeStatic();
+        Fonts.dispose();
+
         // lägg till fler
     }
 
@@ -259,23 +301,29 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     @Override
-    public void onProjectileFired() {
+    public void onProjectileFired(Tower tower) {
         soundManager.playSound("fire");
+        for (AttackListener l : attackListeners) {
+            l.onProjectileFired(tower);
+        }
+    }
+
+    @Override
+    public void onPulseActivated(Tower tower) {
+        soundManager.playSound("pulse");
+        for (AttackListener l : attackListeners) {
+            l.onPulseActivated(tower);
+        }
     }
 
     @Override
     public void onEnemyDeath(Enemy enemy) {
         soundManager.playSound("enemy_basic_death");
-        System.out.println("sound is playing");
     }
 
     @Override
     public void onButtonClicked() {
         soundManager.playSound("ui_button_click");
-    }
-
-    @Override
-    public void onInvalidClick() {
     }
 
     @Override
@@ -293,15 +341,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         soundManager.playSound("sell_tower");
     }
 
-
-
-    @Override
-    public void onTowerDeselected() {
-    }
-
-    @Override
-    public void onTowerPending() {
-    }
 
     @Override
     public void onCouldNotBuy() {
