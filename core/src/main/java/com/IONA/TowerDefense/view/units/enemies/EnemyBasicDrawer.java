@@ -12,9 +12,11 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
 
     private static final Texture TEXTURE_FRONT = new Texture(Assets.ENEMY_BASIC_FRONT);
     private static final Texture TEXTURE_BACK = new Texture(Assets.ENEMY_BASIC_BACK);
+    private static final Texture TEXTURE_EYE = new Texture(Assets.ENEMY_BASIC_EYE);
 
     private static final TextureRegion TEXTURE_FRONT_R = new TextureRegion(TEXTURE_FRONT);
     private static final TextureRegion TEXTURE_BACK_R = new TextureRegion(TEXTURE_BACK);
+    private static final TextureRegion TEXTURE_EYE_R = new TextureRegion(TEXTURE_EYE);
 
     private final Rectangle hb;
     private final EnemyBasic enemy;
@@ -28,6 +30,7 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
         float rotationFront = enemy.getVisualRotationFront();
         float rotationBack = enemy.getVisualRotationBack();
+
 
         batch.draw(
             TEXTURE_BACK_R,
@@ -45,6 +48,15 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
             hb.width, hb.height,
             1.5f, 1.5f,
             rotationFront
+        );
+
+        batch.draw(
+            TEXTURE_EYE_R,
+            hb.x, hb.y,
+            hb.width/2f, hb.height/2f,
+            hb.width, hb.height,
+            1.5f,1.5f,
+            0
         );
     }
 

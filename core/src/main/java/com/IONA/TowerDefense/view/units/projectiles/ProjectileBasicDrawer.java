@@ -27,7 +27,7 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
         p = projectile.getPosition();
         float angleDeg = VectorUtils.angleFromDirection(projectile.getDir());
-        float distance = 0.38f;
+        float distance = 0.48f;
 
         float width = 0.2f;
         float height = 0.2f;
@@ -42,7 +42,7 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
             width / 2f,
             height / 2f,
             width, height,
-            0.5f, 1.5f,
+            0.4f, 1.3f,
             angleDeg-90
         );
     }

@@ -59,7 +59,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
 
             TextureRegion frame = TOWERBASICFIRE_ANIMATION.getKeyFrame(pulseTime);
 
-            float distance = 0.66f;
+            float distance = 0.70f;
 
             float width = 0.2f;
             float height = 0.2f;
@@ -74,7 +74,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
                 width / 2f,
                 height / 2f,
                 width, height,
-                0.6f, 3f,
+                0.86f, 3.2f,
                 angleDeg-90
             );
 
@@ -98,8 +98,8 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
             p.y - dimensionY / 2f,
             dimensionX / 2f, dimensionY / 2f,
             dimensionX, dimensionY,
-            1f, 1f,
-            angleDeg - 90
+            1.3f, 1.3f,
+            angleDeg-90
         );
     }
 
@@ -120,8 +120,8 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
             p.y - dimensionY / 2f,
             dimensionX / 2f, dimensionY / 2f,
             dimensionX, dimensionY,
-            1f, 1f,
-            angleDeg - 90
+            1.3f, 1.3f,
+            angleDeg
         );
     }
 
