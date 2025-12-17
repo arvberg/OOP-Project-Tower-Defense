@@ -21,7 +21,7 @@ public class TowerBasic extends Tower {
         projectileSpeed = 8;
         baseFireRate = 0.01f;
         cost = 50;
-        fireRate = 0.05f;
+        fireRate = 0.55f;
         range = 2f;
         baseRange = 2f;
         cooldown = 0f;
