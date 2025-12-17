@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.view.units.towers;
 
 import com.IONA.TowerDefense.model.units.towers.TowerMissile;
-import com.IONA.TowerDefense.model.units.towers.TowerPulse;
 import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -43,7 +42,6 @@ public final class TowerMissileDrawer implements DrawableTower {
             dimensionX /2f,
             dimensionY /2f, dimensionX, dimensionY,1f, 1f,angleDeg - 90
         );
-
     }
 
     public void drawPendingTower(SpriteBatch batch) {

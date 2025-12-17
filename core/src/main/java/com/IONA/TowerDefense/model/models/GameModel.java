@@ -427,15 +427,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public void addButton(Button button){ inGameButtons.add(button);}
     public void removeButton(Button button){inGameButtons.remove(button);}
 
-    @Override
-    public void onProjectileFired() {
-        // gör nåt
-    }
-
-    @Override
-    public void onPulseActivated() {
-
-    }
 
     public EnemyHandler getEnemyhandler() {
         return enemyHandler;

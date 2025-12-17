@@ -93,16 +93,6 @@ public final class TowerPulseDrawer implements DrawableTower, AttackListener {
             dimensionX,
             dimensionY
         );
-
-        batch.draw(
-            TEXTURE_BARREL_R,
-            p.x - dimensionX / 2f,
-            p.y - dimensionY / 2f,
-            dimensionX / 2f, dimensionY / 2f,
-            dimensionX, dimensionY,
-            1f, 1f,
-            angleDeg - 90
-        );
     }
 
 
@@ -133,14 +123,12 @@ public final class TowerPulseDrawer implements DrawableTower, AttackListener {
         TEXTURE_RANGE.dispose();
     }
 
-    @Override
-    public void onProjectileFired() {
-
-    }
 
     @Override
-    public void onPulseActivated() {
-        pulseActive = true;
-        pulseTime = 0f;
+    public void onPulseActivated(Tower firingTower) {
+        if (this.tower == firingTower) {
+            pulseActive = true;
+            pulseTime = 0f;
+        }
     }
 }

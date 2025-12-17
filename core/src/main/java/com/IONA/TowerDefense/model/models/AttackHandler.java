@@ -6,6 +6,7 @@ import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.projectiles.Missile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.TowerBasic;
 import com.IONA.TowerDefense.model.units.towers.TowerPulse;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.badlogic.gdx.math.Rectangle;
@@ -58,10 +59,10 @@ public class AttackHandler {
                 strategy.attack(tower, targets, projectiles);
                 tower.resetCooldown();
                 if (tower instanceof TowerPulse) {
-                    notifyPulseActivated();
+                    notifyPulseActivated(tower);
                 }
                 else {
-                    notifyProjectileFired();
+                    notifyProjectileFired(tower);
                 }
             }
 
@@ -202,15 +203,15 @@ public class AttackHandler {
     }
 
 
-    public void notifyProjectileFired() {
+    public void notifyProjectileFired(Tower tower) {
         for (AttackListener l : listeners) {
-            l.onProjectileFired();
+            l.onProjectileFired(tower);
         }
     }
 
-    public void notifyPulseActivated() {
+    public void notifyPulseActivated(Tower tower) {
         for (AttackListener l : listeners) {
-            l.onPulseActivated();
+            l.onPulseActivated(tower);
         }
     }
 

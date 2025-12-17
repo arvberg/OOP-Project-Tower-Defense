@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model.audio;
+package com.IONA.TowerDefense.view.audio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;

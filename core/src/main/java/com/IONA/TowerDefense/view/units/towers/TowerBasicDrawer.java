@@ -154,12 +154,10 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
     }
 
     @Override
-    public void onProjectileFired() {
-        pulseActive = true;
-        pulseTime = 0f;
-    }
-
-    @Override
-    public void onPulseActivated() {
+    public void onProjectileFired(Tower firingTower) {
+        if (this.tower == firingTower) {
+            pulseActive = true;
+            pulseTime = 0f;
+        }
     }
 }
