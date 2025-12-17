@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
+import com.IONA.TowerDefense.view.ui.buttons.UpgradeMenuItemButtonDrawer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -50,12 +51,27 @@ public class InputHandler {
 
         List<Button> buttons =
             model.getGameState() == GameState.GAME_OVER
-            ? model.getGameOverButtons()
-            : model.getInGameButtons();
+            ? model.getGameOverButtons() : model.getInGameButtons();
+
+
 
         for (Button button : buttons) {
             if (button.isClicked(pos)) {
                 model.handleAction(button.getAction(), button);
+                return;
+            }
+        }
+
+        for (TowerMenuItem item : towerMenuItems) {
+            if (item.isClicked(pos)) {
+                model.handleAction(item.getAction(), item);
+                return;
+            }
+        }
+
+        for (Button item : upgradeMenuItems) {
+            if (item.isClicked(pos)) {
+                model.handleAction(item.getAction(), item);
                 return;
             }
         }
@@ -74,10 +90,12 @@ public class InputHandler {
         }
 
         // Först UI-kontroller
-
         playButton.isClicked(pos);
-        for (TowerMenuItem t : towerMenuItems) {
-            t.isClicked(pos);
+
+        if(!upgradeMenuItems.isEmpty()){
+            upgradeMenuItems.get(0).isClicked(pos);
+            upgradeMenuItems.get(1).isClicked(pos);
+            upgradeMenuItems.get(2).isClicked(pos);
         }
 
         if(!upgradeMenuItems.isEmpty()){
@@ -85,30 +103,7 @@ public class InputHandler {
             upgradeMenuItems.get(1).isClicked(pos);
             upgradeMenuItems.get(2).isClicked(pos);
         }
-        /*
-        for (Button t : upgradeMenuItems) {
-            t.isClicked(pos);
-        }
-      */
 
-
-        if(!upgradeMenuItems.isEmpty()){
-            upgradeMenuItems.get(0).isClicked(pos);
-            upgradeMenuItems.get(1).isClicked(pos);
-            upgradeMenuItems.get(2).isClicked(pos);
-        }
-        /*
-        for (Button t : upgradeMenuItems) {
-            t.isClicked(pos);
-        }
-      */
-
-
-        /*
-        for (Button u : upgradeMenuItems){
-            u.isClicked(pos);
-        }
-         */
 
         speedUpButton.isClicked(pos);
         targetingToggleButton.isClicked(pos);
