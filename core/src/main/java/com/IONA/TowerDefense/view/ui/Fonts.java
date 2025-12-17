@@ -23,7 +23,7 @@ public class Fonts {
         );
 
         GOTHIC_FONT.setUseIntegerPositions(false);
-        GOTHIC_FONT.getData().setScale(1f); // VIKTIGT, mer om detta nedan
+        GOTHIC_FONT.getData().setScale(0.002f); //
     }
 
     public static void dispose() {

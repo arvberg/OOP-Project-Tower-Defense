@@ -63,7 +63,7 @@ public class Assets {
     public static final String ANIMATION_COLLECTION_CORE = "animations/collections/core";
 
     // FONTS
-    public static final String FONT_GOTHIC_PNG = "fonts/century_01_0.png";
-    public static final String FONT_GOTHIC_FNT = "fonts/century_01.fnt";
+    public static final String FONT_GOTHIC_PNG = "fonts/Century_Gothic_01_0.png";
+    public static final String FONT_GOTHIC_FNT = "fonts/Century_Gothic_01.fnt";
 
 }

@@ -15,7 +15,6 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void create() {
-        Fonts.load();
         model = new GameModel();
         painter = new Draw(model);
         painter.create();

@@ -17,7 +17,7 @@ public final class MoneyDrawer implements DrawableResource {
 
     private final ResourceMoney money;
     private final Vector2 p;
-    private final BitmapFont font;
+    private BitmapFont font;
 
     public MoneyDrawer(ResourceMoney money) {
         this.money = money;

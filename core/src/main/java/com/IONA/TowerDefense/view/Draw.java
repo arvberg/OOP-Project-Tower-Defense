@@ -82,6 +82,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         viewport = new FitViewport(16,9);
         shapeRenderer = new ShapeRenderer();
         gameOverTexture = new Texture(Assets.OVERLAY_GAMEOVER);
+        Fonts.load();
         soundManager.load();
     }
 
@@ -148,6 +149,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         batch.begin();
 
+        BitmapFont font = Fonts.GOTHIC_FONT;
+        font.setColor(1,0,0,1);
+        font.draw(batch, "TEST",5f,5f);
+
         for(Decoration d: model.getDecor()){
             DrawableDecoration view = getDrawableDecoration(d);
             view.draw(batch, shapeRenderer, delta);
@@ -158,8 +163,8 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        List<Resource> resources = model.getResources();
-        ResourceDrawer.drawResources(resources,batch);
+        //List<Resource> resources = model.getResources();
+        //ResourceDrawer.drawResources(resources,batch);
 
         for (Enemy e : model.getEnemies()) {
             DrawableEnemy view = getDrawableEnemy(e);
