@@ -55,7 +55,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final TargetingStrategyToggleButton targetingStrategyToggleButton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
-    private int score; // Players current score
     private final int difficulty;
 
     private final TowerFactory towerFactory;
@@ -441,32 +440,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public UpgradeMenu getUpgradeMenu(){
         return this.upgradeMenu;
-    }
-
-    @Override
-    public void onTowerSelected() {
-    }
-
-    @Override
-    public void onTowerPlaced() {
-
-    }
-
-    @Override
-    public void onTowerSold() {
-
-    }
-
-    @Override
-    public void onTowerDeselected() {
-    }
-
-    @Override
-    public void onTowerPending() {
-    }
-
-    @Override
-    public void onCouldNotBuy() {
     }
 
     public TargetingStrategyToggleButton getTargetingToggleButton() {
