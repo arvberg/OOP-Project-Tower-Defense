@@ -227,11 +227,13 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             view.draw(batch, shapeRenderer, delta);
         }
 
-        if (model.getGameState() == GameStateEnum.GAME_OVER) {
+        if (model.getState() == model.getGameOverState()) {
             fadeTimer += Gdx.graphics.getDeltaTime();
             float alpha = Math.min(fadeTimer / fadeDuration, 1f);
+
             batch.setColor(1f, 1f, 1f, alpha);
             batch.draw(gameOverTexture, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+
             for (Button b : model.getGameOverButtons()){
                 if (!b.isVisible()) continue;
                 DrawableButton view = getDrawableButton(b);

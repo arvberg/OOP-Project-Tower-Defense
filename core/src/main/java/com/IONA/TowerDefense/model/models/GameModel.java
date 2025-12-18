@@ -211,7 +211,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         //exitButton.setVisible(true);
         updateButtonLayout();
         */
-
     }
 
     public void handleAction(GameAction action, Button sourceButton) { actionHandler.handleAction(action, sourceButton); }

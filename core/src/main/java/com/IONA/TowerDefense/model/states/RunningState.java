@@ -41,53 +41,7 @@ public class RunningState implements GameState {
         }
     }
 
-    @Override
-    public void handleInput(Vector2 pos) {
-        // Hantera in-game knappar
-        for (Button b : model.getInGameButtons()) {
-            if (b.isClicked(pos)) {
-                model.handleAction(b.getAction(), b);
-                return;
-            }
-        }
 
-        for (TowerMenuItem item : model.getTowerMenuItems()) {
-            if (item.isClicked(pos)) {
-                model.handleAction(item.getAction(), item);
-                return;
-            }
-        }
-
-        if (model.isBuyingState() && clickedOnGameArea(pos)) {
-            model.placeTower(pos);
-            return;
-        }
-
-        // Torn-select
-        if (clickedOnGameArea(pos)) {
-            Tower clicked = model.getTowerAt(pos);
-            if (clicked != null) {
-                model.selectTower(pos);
-            } else {
-                model.deselectTower();
-            }
-        }
-    }
-
-    @Override
-    public void handleHover(Vector2 mousePos) {
-        model.updateTowerFollowingMouse(mousePos);
-    }
-
-    private boolean clickedOnGameArea(Vector2 pos) {
-        for (Button b : model.getInGameButtons()) {
-            if (b.contains(pos.x, pos.y)) return false;
-        }
-        for (var menu : model.getMenus()) {
-            if (menu.contains(pos.x, pos.y)) return false;
-        }
-        return true;
-    }
 
     @Override
     public void toggle() {

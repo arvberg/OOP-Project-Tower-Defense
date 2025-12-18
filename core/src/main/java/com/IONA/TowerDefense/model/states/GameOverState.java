@@ -1,7 +1,9 @@
 package com.IONA.TowerDefense.model.states;
 
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameOverState implements GameState {
 
@@ -15,6 +17,8 @@ public class GameOverState implements GameState {
     public void enter() {
         model.getRestartButton().setVisible(true);
         model.getExitButton().setVisible(true);
+        model.getPlayButton().setVisible(false);
+        model.getSpeedUpButton().setVisible(false);
     }
 
     @Override
@@ -22,6 +26,16 @@ public class GameOverState implements GameState {
         // inget gameplay
     }
 
+    @Override
+    public void handleInput(GameModel model, Vector2 pos) {
+        // Endast knappar i gameOver-buttons kan klickas
+        for (Button b : model.getGameOverButtons()) {
+            if (b.isClicked(pos)) {
+                model.handleAction(b.getAction(), b);
+                return;
+            }
+        }
+    }
     @Override
     public void exit() {
     }

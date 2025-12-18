@@ -6,7 +6,6 @@ public class StartState implements GameState {
 
     private GameModel model;
 
-
     public StartState(GameModel model) {
         this.model = model;
     }
@@ -14,6 +13,7 @@ public class StartState implements GameState {
     @Override
     public void enter() {
         model.getPlayButton().setVisible(true);
+        model.getSpeedUpButton().setVisible(false);
     }
 
     @Override
