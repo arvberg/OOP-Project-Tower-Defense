@@ -60,6 +60,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
+    private final CancelButton cancelButton;
     private final TargetingStrategyToggleButton targetingStrategyToggleButton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
@@ -116,6 +117,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.speedUpButton = new SpeedUpButton(0, 0);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5f, 3f);
+        this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y);
         this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5);
 
 
@@ -228,7 +230,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     }
 
     public void updateButtonLayout(){
-        boolean running = gameState == GameStateEnum.RUNNING;
+        boolean running = currentState == runningState;
 
         playButton.setVisible(!running);
         speedUpButton.setVisible(running);

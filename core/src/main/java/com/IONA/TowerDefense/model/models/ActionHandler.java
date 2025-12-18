@@ -34,6 +34,7 @@ public class ActionHandler {
                     model.upgradeTower(model.getSelectedTower(), item.consumeUpgrade());
                 }
             }
+            case CANCEL_TOWER -> model.cancelTowerBuy();
         }
     }
 
