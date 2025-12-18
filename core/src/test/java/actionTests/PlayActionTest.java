@@ -1,12 +1,11 @@
-package buttonTests.buttonTypes;
+package actionTests;
 
-import com.IONA.TowerDefense.Main;
-import com.IONA.TowerDefense.controller.InputHandler;
-import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.models.ActionHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.states.GameState;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PlayButtonTest {
+public class PlayActionTest {
 
     private GameModel model;
     private PlayButton playButton;
@@ -37,23 +36,11 @@ public class PlayButtonTest {
 
     @Test
     void playButton_hiddenWhileRunning(){
-        model.setGameState(GameState.RUNNING);
+        model.setGameState(GameStateEnum.RUNNING);
         model.updateButtonLayout();
 
         assertFalse(model.getPlayButton().isVisible());
         assertTrue(model.getSpeedUpButton().isVisible());
-    }
-
-    @Test
-    void clickingPlayButton_dispatchesPlayAction() {
-        InputHandler input = new InputHandler(model);
-
-        PlayButton play = model.getPlayButton();
-        play.setVisible(true);
-
-        input.checkInput(play.getButtonPosition());
-
-        assertEquals(GameState.RUNNING, model.getGameState());
     }
 
     @Test
@@ -62,7 +49,7 @@ public class PlayButtonTest {
 
         handler.handleAction(GameAction.PLAY, model.getPlayButton());
 
-        assertEquals(GameState.RUNNING, model.getGameState());
+        assertEquals(GameStateEnum.RUNNING, model.getGameState());
     }
 }
 

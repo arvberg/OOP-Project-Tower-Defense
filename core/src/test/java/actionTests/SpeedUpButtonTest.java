@@ -1,4 +1,4 @@
-package buttonTests.buttonTypes;
+package actionTests;
 
 public class SpeedUpButtonTest {
 }
