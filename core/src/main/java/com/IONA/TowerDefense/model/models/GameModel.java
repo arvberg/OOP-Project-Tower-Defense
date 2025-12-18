@@ -219,7 +219,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         enemyHandler.updateEnemies(delta);
     }
 
-    void updateButtonLayout(){
+    public void updateButtonLayout(){
         boolean running = gameState == GameState.RUNNING;
 
         playButton.setVisible(!running);

@@ -1,6 +1,7 @@
 package towerTests;
 
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
@@ -26,6 +27,11 @@ public class TowerTest {
             range = 3f;
             attackStrategy = new ProjectileAttackStrategy();
             targetingStrategy = new TargetLeadingStrategy();
+        }
+
+        @Override
+        public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+
         }
     }
 

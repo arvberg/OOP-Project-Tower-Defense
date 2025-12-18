@@ -5,6 +5,7 @@ import com.IONA.TowerDefense.model.models.AttackHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.models.TowerHandler;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
@@ -21,6 +22,11 @@ public class TowerAngleTest {
         public SampleTower(float x, float y) {
             this.position = new Vector2(x, y);
             this.dimension = new Vector2(1, 1);
+        }
+
+        @Override
+        public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+
         }
     }
 

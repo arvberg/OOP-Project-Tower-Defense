@@ -6,7 +6,10 @@ import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.models.ResourceHandler;
 import com.IONA.TowerDefense.model.models.TowerHandler;
+import com.IONA.TowerDefense.model.models.UpgradeHandler;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.badlogic.gdx.math.Vector2;
@@ -21,11 +24,16 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TowerSelectionTest {
     private GameModel model;
     private TowerHandler handler;
+    private Tower tower;
 
     private static class SampleTower extends Tower {
         public SampleTower(float x, float y) {
             this.position = new Vector2(x, y);
             this.dimension = new Vector2(1, 1);
+        }
+
+        @Override
+        public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
         }
     }
 
@@ -34,37 +42,25 @@ public class TowerSelectionTest {
         Waves.TEST_MODE = true;
         Decoration.TEST_MODE = true;
 
-
         model = new GameModel();
         model.getTowers().clear();
 
-        ArrayList<Segment> segments = new ArrayList<>();
-        ArrayList<Decoration> decorations = new ArrayList<>();
-        ArrayList<Tower> towers = new ArrayList<>();
+        tower = new SampleTower(5, 5);
+        model.getTowers().add(tower);
 
-        TowerFactory towerFactory = new TowerFactory();
-        Path path = new Path(segments);
-        ResourceHandler resourceHandler = new ResourceHandler();
-
-        handler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler);
+        handler = model.getTowerHandler();
     }
 
     @Test
     void testSelectTower(){
-        Tower t = new SampleTower(5, 5);
-        model.getTowers().add(t);
-
         handler.selectTower(new Vector2(5, 5));
 
-        assertEquals(t, model.getSelectedTower());
+        assertEquals(tower, model.getSelectedTower());
         assertTrue(model.isTowerSelected());
     }
 
     @Test
     void testDeselectOnClick(){
-        Tower t = new SampleTower(5, 5);
-        model.getTowers().add(t);
-
         handler.selectTower(new Vector2(0, 0));
 
         assertNull(model.getSelectedTower());
@@ -73,13 +69,11 @@ public class TowerSelectionTest {
 
     @Test
     void testSelectNewTower(){
-        Tower t1 = new SampleTower(5, 5);
         Tower t2 = new SampleTower(6, 6);
-        model.getTowers().add(t1);
         model.getTowers().add(t2);
 
         handler.selectTower(new Vector2(5, 5));
-        assertEquals(t1, model.getSelectedTower());
+        assertEquals(tower, model.getSelectedTower());
 
         handler.selectTower(new Vector2(6, 6));
         assertEquals(t2, model.getSelectedTower());

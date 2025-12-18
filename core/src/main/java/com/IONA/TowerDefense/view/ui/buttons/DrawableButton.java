@@ -2,7 +2,8 @@ package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.view.Drawable;
 
-public sealed interface DrawableButton extends Drawable permits ExitButtonDrawer,
+public sealed interface DrawableButton extends Drawable permits
+    ExitButtonDrawer,
     FireRateUpgradeDrawer,
     PauseButtonDrawer,
     PlayButtonDrawer,
