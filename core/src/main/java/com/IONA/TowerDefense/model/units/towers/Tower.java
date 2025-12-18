@@ -93,6 +93,14 @@ public abstract class Tower extends Unit {
         return deltaDirection < aimingMargin;
     }
 
+    public Vector2 getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public Vector2 getDesiredDirection() {
+        return desiredDirection;
+    }
+
     public float getRange(){
         return range;
     }
@@ -109,6 +117,14 @@ public abstract class Tower extends Unit {
 
     public int getDamage() {
         return damage;
+    }
+
+    public void setDesiredDirection(Vector2 desiredDirection) {
+        this.desiredDirection = desiredDirection;
+    }
+
+    public void setCurrentDirection(Vector2 currentDirection) {
+        this.currentDirection = currentDirection;
     }
 
     public void setDamage(int damage) {
@@ -141,6 +157,10 @@ public abstract class Tower extends Unit {
 
     public void updateCooldown(float delta){
         cooldown -= delta;
+    }
+
+    public void setAimingMargin(float aimingMargin) {
+        this.aimingMargin = aimingMargin;
     }
 
     public AttackStrategy getAttackStrategy() {

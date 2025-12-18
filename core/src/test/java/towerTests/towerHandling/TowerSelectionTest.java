@@ -6,7 +6,9 @@ import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.models.ResourceHandler;
 import com.IONA.TowerDefense.model.models.TowerHandler;
+import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.badlogic.gdx.math.Vector2;
@@ -27,6 +29,16 @@ public class TowerSelectionTest {
             this.position = new Vector2(x, y);
             this.dimension = new Vector2(1, 1);
         }
+
+        @Override
+        public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+            this.targetingStrategy = targetingStrategy;
+        }
+
+        @Override
+        public boolean canAttack() {
+            return false; // inte relevant för selection-test
+        }
     }
 
     @BeforeEach
@@ -45,8 +57,9 @@ public class TowerSelectionTest {
         TowerFactory towerFactory = new TowerFactory();
         Path path = new Path(segments);
         ResourceHandler resourceHandler = new ResourceHandler();
+        UpgradeMenu upgradeMenu = new UpgradeMenu(1,1,model);
 
-        handler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler);
+        handler = new TowerHandler(towers, towerFactory, path, decorations, resourceHandler, upgradeMenu);
     }
 
     @Test

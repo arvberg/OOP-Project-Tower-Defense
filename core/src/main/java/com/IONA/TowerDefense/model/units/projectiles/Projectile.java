@@ -7,7 +7,7 @@ import com.IONA.TowerDefense.model.units.interfaces.Movable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class Projectile extends Unit implements Movable {
+public abstract class Projectile extends Unit implements Movable {
     protected int damage;
     protected float speed;
     protected Vector2 position;
@@ -29,13 +29,12 @@ public class Projectile extends Unit implements Movable {
         this.position.y = newY;
     }
 
-    public void move(float delta){
-    }
+    public abstract void move(float delta);
 
-    public boolean outOfBounds(Vector2 position, Vector2 worldDimensions) {
+    public boolean outOfBounds(Vector2 worldDimensions) {
         boolean outOfWidth = position.x < 0 || position.x > worldDimensions.x;
         boolean outOfHeight = position.y < 0 || position.y > worldDimensions.y;
-        return outOfWidth && outOfHeight;
+        return outOfWidth || outOfHeight;
     }
 
     public Vector2 getPosition() {

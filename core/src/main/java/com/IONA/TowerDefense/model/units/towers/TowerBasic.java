@@ -27,7 +27,7 @@ public class TowerBasic extends Tower implements Rotatable {
         baseRange = 2f;
         cooldown = 0f;
         rotationSpeed = 20f;
-        aimingMargin = 1f;
+        aimingMargin = 0.5f;
         currentDirection = new Vector2(0,0);
         desiredDirection = new Vector2(0,0);
         attackStrategy = new ProjectileAttackStrategy();
@@ -67,6 +67,9 @@ public class TowerBasic extends Tower implements Rotatable {
         return rotationSpeed;
     }
 
+    public TargetingStrategy getTargetingStrategy() {
+        return targetingStrategy;
+    }
 }
 
 
