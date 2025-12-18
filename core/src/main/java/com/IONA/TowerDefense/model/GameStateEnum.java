@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.model;
 
-public enum GameState {
+public enum GameStateEnum {
     TITLE,
     START,
     RUNNING,

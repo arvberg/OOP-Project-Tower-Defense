@@ -27,8 +27,6 @@ public class GameController {
         towerHandler.addTowerListener(view);
         upgradeHandler.addUpgradeListener(view);
 
-        inputHandler.addAttackListener(view);
-
     }
 
     public void update() {

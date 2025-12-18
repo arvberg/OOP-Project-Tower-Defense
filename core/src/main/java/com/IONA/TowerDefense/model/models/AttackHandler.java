@@ -4,9 +4,10 @@ import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.projectiles.Missile;
-import com.IONA.TowerDefense.model.units.projectiles.ProjectileFactory;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
+import com.IONA.TowerDefense.model.units.towers.TowerBasic;
+import com.IONA.TowerDefense.model.units.towers.TowerPulse;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -19,14 +20,12 @@ public class AttackHandler {
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private final List<Tower> towers;
-    private final ProjectileFactory projectileFactory;
     private final List<AttackListener> listeners = new ArrayList<>();
 
     public AttackHandler(List<Enemy> enemies, List<Projectile> projectiles, List<Tower> towers) {
         this.enemies = enemies;
         this.projectiles = projectiles;
         this.towers = towers;
-        this.projectileFactory = new ProjectileFactory();
     }
 
     public void update(float delta) {
@@ -55,12 +54,18 @@ public class AttackHandler {
                 tower.setCurrentTarget(null);
             }
 
-            if (hasTargets && tower.canShoot() && tower.getIsAiming()) {
+            if (hasTargets && tower.hasCooledDown() && tower.getIsAiming()) {
                 AttackStrategy strategy = tower.getAttackStrategy();
                 strategy.attack(tower, targets, projectiles);
-                notifyProjectileFired();
                 tower.resetCooldown();
+                if (tower instanceof TowerPulse) {
+                    notifyPulseActivated(tower);
+                }
+                else {
+                    notifyProjectileFired(tower);
+                }
             }
+
         }
     }
 
@@ -100,22 +105,58 @@ public class AttackHandler {
 
         boolean aimingDone = distSq < tower.getAimingMargin();
         tower.setIsAiming(aimingDone);
-
     }
 
     public void updateProjectiles(float delta) {
-        for (Projectile projectile : projectiles) {
-            if (projectile instanceof Missile && projectile.getEnemyTarget() == null) {
-                projectile.setEnemyTarget(enemies.getFirst());
+        for (int i = projectiles.size() - 1; i >= 0; i--) {
+            Projectile p = projectiles.get(i);
+
+            if (p.isDestroyed()) continue;
+
+            if (p instanceof Missile missile) {
+                handleMissileTarget(missile);
             }
 
-            if (projectile.isDestroyed()) {
-                continue;
-            }
-
-            projectile.move(delta);
-            projectileHit(projectile, enemies);
+            p.move(delta);
+            projectileHit(p, enemies);
         }
+    }
+
+    private void handleMissileTarget(Missile missile) {
+
+        Enemy target = missile.getEnemyTarget();
+
+        if (target == null || target.isDead() || !enemies.contains(target)) {
+
+            Enemy newTarget = findNewTarget(missile);
+
+            missile.setEnemyTarget(newTarget);
+
+            if (newTarget == null) {
+                missile.setDestroyed(true);
+            }
+        }
+    }
+
+    private Enemy findNewTarget(Missile missile) {
+        Enemy closest = null;
+        float minDistSq = Float.MAX_VALUE;
+
+        Vector2 pos = missile.getPosition();
+
+        for (Enemy e : enemies) {
+            if (e.isDead()) continue;
+
+            float dx = e.getPosition().x - pos.x;
+            float dy = e.getPosition().y - pos.y;
+            float distSq = dx * dx + dy * dy;
+
+            if (distSq < minDistSq) {
+                minDistSq = distSq;
+                closest = e;
+            }
+        }
+        return closest;
     }
 
     public boolean withinRadius(Enemy enemy, Tower tower) {
@@ -162,9 +203,15 @@ public class AttackHandler {
     }
 
 
-    public void notifyProjectileFired() {
+    public void notifyProjectileFired(Tower tower) {
         for (AttackListener l : listeners) {
-            l.onProjectileFired();
+            l.onProjectileFired(tower);
+        }
+    }
+
+    public void notifyPulseActivated(Tower tower) {
+        for (AttackListener l : listeners) {
+            l.onPulseActivated(tower);
         }
     }
 

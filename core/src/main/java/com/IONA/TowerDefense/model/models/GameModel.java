@@ -1,12 +1,13 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.GameState;
+import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.PathFactory;
 import com.IONA.TowerDefense.model.map.Segment;
+import com.IONA.TowerDefense.model.states.*;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.decorations.Core;
@@ -22,7 +23,6 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -32,34 +32,38 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
-    private GameState gameState = GameState.START;
+    private GameStateEnum gameState = GameStateEnum.START;
+    private GameState currentState;
+    private GameState startState = new StartState(this);
+    private GameState runningState = new RunningState(this);
+    private GameState pausedState = new PauseState(this);
+    private GameState gameOverState = new GameOverState(this);
 
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
     private final UpgradeHandler upgradeHandler;
     private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
-    private final List<Enemy> deadEnemies;
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
+    private List<Button> towerItemButtons;
     private List<Menu> menus;
 
     //private final List<Resource> resources;
     private final List<Resource> resources;
     private final List<Decoration> decorations;
     private Path path;
-
     private final ActionHandler actionHandler;
     private final PlayButton playButton;
     private final ExitButton exitButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
+    private final CancelButton cancelButton;
     private final TargetingStrategyToggleButton targetingStrategyToggleButton;
     private final AttackHandler attackHandler;
     private final EnemyHandler enemyHandler;
-    private int score; // Players current score
     private final int difficulty;
 
     private final TowerFactory towerFactory;
@@ -83,11 +87,12 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.towerFactory = new TowerFactory();
         this.projectiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
-        this.deadEnemies = new ArrayList<>();
         this.decorations = new ArrayList<>();
         this.generator = new WaveGenerator(0, this);
         this.core = new Core();
 
+        this.inGameButtons = new ArrayList<>();
+        this.towerItemButtons = new ArrayList<>();
         this.background = "Starter map";
         this.difficulty = 0;
         this.path = PathFactory.examplePath2();
@@ -107,11 +112,12 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
         this.menus = new ArrayList<>();
-        this.playButton = new PlayButton(0, 0);
+        this.playButton = new PlayButton(14.8f, 0.2f);
         this.exitButton = new ExitButton(10f, 3f);
         this.speedUpButton = new SpeedUpButton(0, 0);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5f, 3f);
+        this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y);
         this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5);
 
 
@@ -120,7 +126,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         inGameButtons.add(pauseButton);
         gameOverButtons.add(restartButton);
         gameOverButtons.add(exitButton);
-        towerMenu.createGridItems(inGameButtons);
+        towerMenu.createGridItems(towerItemButtons);
 
         // används för att inte kunna placera torn på menues.
         menus.add(towerMenu);
@@ -129,25 +135,34 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
         placeCore(core);
         updateButtonLayout();
+
+
+        this.currentState = startState;
+        currentState.enter();
     }
 
-    public void update(){
-        if (gameState == GameState.PAUSED){
-            return;
+    public void update() {
+        // All logik styrs av state-klassen
+        if (currentState != null) {
+            currentState.update(HeartBeat.delta);
         }
-        //System.out.println("updating!");
-        updateEnemies(HeartBeat.delta);
-        coreDamaged();
-        attackHandler.update(HeartBeat.delta);
-        towerMenu.update(HeartBeat.delta);
-        infoMenu.update(HeartBeat.delta);
+    }
 
-        if (generator.WaveCleared()){
-            generator.WaveReward();
-            playButton.setVisible(true);
-            setGameState(GameState.START);
-            updateButtonLayout();
+    public void setState(GameState newState) {
+        if (currentState != null) {
+            currentState.exit();
         }
+
+        currentState = newState;
+        currentState.enter();
+    }
+
+    public GameState getState() {
+        return currentState;
+    }
+
+    public void togglePause() {
+        currentState.toggle();
     }
 
     public String getBackground(){return this.background;}
@@ -179,39 +194,34 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
                 int currentLives = resourceHandler.getLives();
                 resourceHandler.setLives(currentLives - e.getDamageNumber());
                 resourceHandler.updateHpResource();
-                removeEnemy(e);
+                enemyHandler.removeEnemy(e);
                 System.out.println("Health: " + resourceHandler.getLives());
                 // Set Game Over state
             }
         }
-        if (resourceHandler.getLives() <= 0 && getGameState() != GameState.GAME_OVER) {
-            setGameState(GameState.GAME_OVER);
-            System.out.println("Game Over!");
-            updateButtonLayout();
-            restartButton.setVisible(true);
-            exitButton.setVisible(true);
-        }
     }
 
     public void restartGame() {
-        enemyHandler.removeAllEnemies();
+        currentState.restartGame();
+        /*enemyHandler.removeAllEnemies();
         towerHandler.removeAllTowers();
         attackHandler.removeAllProjectiles();
         resourceHandler.resetResources();
         generator.resetWaves();
 
-        setGameState(GameState.START);
+        setGameState(GameStateEnum.START);
         //exitButton.setVisible(true);
         updateButtonLayout();
+        */
     }
 
     public void handleAction(GameAction action, Button sourceButton) { actionHandler.handleAction(action, sourceButton); }
 
-    public GameState getGameState() {
+    public GameStateEnum getGameState() {
         return gameState;
     }
 
-    public void setGameState(GameState state) {
+    public void setGameState(GameStateEnum state) {
         this.gameState = state;
     }
 
@@ -220,7 +230,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     }
 
     public void updateButtonLayout(){
-        boolean running = gameState == GameState.RUNNING;
+        boolean running = currentState == runningState;
 
         playButton.setVisible(!running);
         speedUpButton.setVisible(running);
@@ -234,11 +244,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.path = path;
     }
     // Add and remove from list
-
-
-    public void removeEnemy(Enemy enemy) {
-        enemyHandler.removeEnemy(enemy);
-    }
 
     // Getters for all lists
     public List<Tower> getTowers() {
@@ -348,19 +353,11 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         towerHandler.setPendingTower(tower);
     }
 
-    public void enemyDeath(Enemy enemy) {
-        if (getGameState() != GameState.RUNNING) {
-            return;
-        }
-        int moneyGained = enemy.getMoney();
-        resourceHandler.gainMoney(moneyGained);
-        resourceHandler.updateMoneyResource();
-    }
-
     public List<Button> getInGameButtons() { return inGameButtons;}
 
-    public List<Button> getGameOverButtons() { return gameOverButtons; }
+    public List<Button> getTowerItemButtons() { return towerItemButtons;}
 
+    public List<Button> getGameOverButtons() { return gameOverButtons; }
 
     public PlayButton getPlayButton(){
         return playButton;
@@ -454,10 +451,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public void addButton(Button button){ inGameButtons.add(button);}
     public void removeButton(Button button){inGameButtons.remove(button);}
 
-    @Override
-    public void onProjectileFired() {
-        // gör nåt
-    }
 
     public EnemyHandler getEnemyhandler() {
         return enemyHandler;
@@ -471,33 +464,27 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return this.upgradeMenu;
     }
 
-    @Override
-    public void onTowerSelected() {
-    }
-
-    @Override
-    public void onTowerPlaced() {
-
-    }
-
-    @Override
-    public void onTowerSold() {
-
-    }
-
-    @Override
-    public void onTowerDeselected() {
-    }
-
-    @Override
-    public void onTowerPending() {
-    }
-
-    @Override
-    public void onCouldNotBuy() {
-    }
-
     public TargetingStrategyToggleButton getTargetingToggleButton() {
         return targetingStrategyToggleButton;
+    }
+
+    public GameState getStartState() {
+        return startState;
+    }
+
+    public GameState getRunningState() {
+        return runningState;
+    }
+
+    public GameState getPausedState() {
+        return pausedState;
+    }
+
+    public GameState getGameOverState() {
+        return gameOverState;
+    }
+
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
     }
 }

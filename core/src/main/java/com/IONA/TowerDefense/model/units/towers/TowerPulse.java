@@ -14,11 +14,11 @@ public class TowerPulse extends Tower{
 
     public TowerPulse() {
         dimension = new Vector2(1f, 1f);
-        damage = 50;
+        damage = 35;
         projectileSpeed = 8;
         baseFireRate = 0.1f;
         cost = 50;
-        fireRate = 0.1f;
+        fireRate = 0.5f;
         range = 2f;
         baseRange = 2f;
         rotationSpeed = 0f;

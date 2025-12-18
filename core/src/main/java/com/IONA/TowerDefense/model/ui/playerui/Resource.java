@@ -19,7 +19,7 @@ public class Resource {
         this.position = new Vector2(position);
         this.width = width;
         this.height = height;
-        this.font = Fonts.resourceFont;
+        //this.font = Fonts.GOTHIC_FONT;
         this.textBar = String.valueOf(this.currentResource);
     }
 
