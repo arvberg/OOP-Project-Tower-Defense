@@ -13,6 +13,7 @@ public class TowerMenu extends Menu {
     public List<TowerMenuItem> items;
     private GameModel model;
 
+
     public TowerMenu(float x, float y, GameModel model) {
         super(x, y, 4, 1.5f);
         this.model = model;
@@ -64,7 +65,7 @@ public class TowerMenu extends Menu {
                 default:
                     towerType = "TowerBasic";
             }
-            TowerMenuItem item = new TowerMenuItem(x, y, towerType, model);
+            TowerMenuItem item = new TowerMenuItem(x, y, towerType);
             buttons.add(item);
             items.add(item);
         }

@@ -24,7 +24,7 @@ public class Main extends ApplicationAdapter {
 
     @Override
     public void render() {
-        HeartBeat.delta = Gdx.graphics.getDeltaTime() * model.getSpeedUpButton().getMultiplier();
+        HeartBeat.delta = Gdx.graphics.getDeltaTime() * HeartBeat.getSpeedMultiplier();
         input();    // All input endast
         logic();    // Uppdatera spelvärlden
         draw();     // Måla

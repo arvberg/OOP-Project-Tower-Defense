@@ -1,75 +1,64 @@
 package com.IONA.TowerDefense.model.ui.buttonui;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.IONA.TowerDefense.model.input.GameAction;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import static com.IONA.TowerDefense.Main.model;
-
 public abstract class Button {
-    private final Vector2 buttonPosition;
-    public float width;
-    public float height;
-    protected Rectangle bounds;
-    public Texture texture;
-    private boolean isHovered = false;
 
-    private boolean buttonLocked = false;
-    private final float lockedX;
+    protected final Rectangle bounds;
+    protected final Vector2 position;
+    protected final float width;
+    protected final float height;
+    private final GameAction action;
+    private boolean visible = true;
 
-    public Button(float x, float y, float width, float height){
-        this.buttonPosition = new Vector2(x, y);
+    protected Button(float x, float y, float width, float height, GameAction action) {
+        this.position = new Vector2(x, y);
         this.width = width;
         this.height = height;
         this.bounds = new Rectangle(x, y, width, height);
-        this.lockedX = 500f;
+        this.action = action;
     }
 
-
-    public void isClicked(Vector2 pos){
-        if(bounds.contains(pos)){
-            onClick();
-        }
+    public boolean isClicked(Vector2 pos) {
+        return visible && bounds.contains(pos);
     }
 
-    public void setButtonPosition(float x, float y) {
-        buttonPosition.set(x, y);
+    public GameAction getAction(){
+        return action;
+    }
+
+    public void setPosition(float x, float y) {
+        position.set(x, y);
         bounds.setPosition(x, y);
     }
 
-    public void toggleButton() {
-        buttonLocked = !buttonLocked;
-        if (buttonLocked) {
-            model.getPlayButton().setButtonPosition(lockedX, 0);
-            model.getSpeedUpButton().setButtonPosition(0, 0);
-        } else {
-            model.getPlayButton().setButtonPosition(0,0);
-            model.getSpeedUpButton().setButtonPosition(lockedX, 0);
-        }
+    public Vector2 getButtonPosition() {
+        return position;
     }
-
-    public Vector2 getButtonPosition(){
-        return buttonPosition;
-    }
-
-    public abstract void onClick();
 
     public boolean contains(float x, float y) {
-        return bounds.contains(x, y);
+        return visible && bounds.contains(x, y);
     }
 
-    public boolean isHovered() {
-        return isHovered;
+    public void setVisible(boolean visible){
+        this.visible = visible;
     }
 
-    public void setHovered(boolean hovered) {
-        this.isHovered = hovered;
+    public void setButtonPosition(float x, float y) {
+        position.set(x, y);
     }
 
-    public float getWidth(){return this.width;}
+    public float getWidth(){
+        return width;
+    }
 
-    public float getHeight(){return this.height;}
+    public float getHeight(){
+        return height;
+    }
 
-
+    public boolean isVisible(){
+        return visible;
+    }
 }

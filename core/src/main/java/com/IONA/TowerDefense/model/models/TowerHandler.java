@@ -25,7 +25,6 @@ import java.util.List;
 public class TowerHandler {
 
     private final List<Tower> towers;
-    private final TowerFactory factory;
     private final Path path;
     private final List<Decoration> decorations;
     private final List<TowerListener> listeners = new ArrayList<>();
@@ -46,7 +45,6 @@ public class TowerHandler {
 
     public TowerHandler (List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler, UpgradeMenu upgradeMenu) {
         this.towers = towers;
-        this.factory = factory;
         this.path = path;
         this.decorations = decor;
         this.resourceHandler = resourceHandler;
@@ -121,7 +119,7 @@ public class TowerHandler {
     }
 
     public void buyTower (String tower) {
-        Tower newTower = factory.createTower(tower);
+        Tower newTower = TowerFactory.createTower(tower);
 
         if (resourceHandler.getMoney() >= newTower.getCost()) {
                 deselectTower();
@@ -223,8 +221,8 @@ public class TowerHandler {
     }
 
     public void removeAllTowers() {
-        for (int i = towers.size() - 1; i >= 0; i--) {
-            towers.remove(i);
+        if (!towers.isEmpty()) {
+            towers.subList(0, towers.size()).clear();
         }
     }
 

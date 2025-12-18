@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Array;
 
 public class Waves {
+    public static boolean TEST_MODE = false;
 
     protected static class Enemy {
         private String type;
@@ -26,6 +27,11 @@ public class Waves {
     public Array<Wave> waveslist;
 
     public static Waves load() {
+        if (TEST_MODE) {
+            Waves w = new Waves();
+            w.waveslist = new Array<>();
+            return w;
+        }
         Json json = new Json();
         return json.fromJson(Waves.class, Gdx.files.internal("WaveDatabase.json"));
     }

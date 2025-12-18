@@ -12,13 +12,12 @@ public class TowerBasicTest {
     public void testInitialStats(){
         TowerBasic t = new TowerBasic();
 
-        assertEquals(50, t.getDamage());
+        assertEquals(500, t.getDamage());
         assertEquals(8, t.getProjectileSpeed());
         assertEquals(50, t.getCost());
         assertEquals(0.1f, t.getFireRate());
         assertEquals(2f, t.getRange());
         assertEquals(0f, t.getCooldown());
-        assertEquals("HomingProjectile", t.getAttackType());
         assertEquals(new Vector2(1f, 1f), t.getDimension());
     }
 

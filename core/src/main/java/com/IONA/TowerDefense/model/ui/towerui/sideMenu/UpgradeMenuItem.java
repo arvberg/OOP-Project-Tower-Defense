@@ -1,55 +1,25 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
-import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 import java.util.Deque;
 
 public class UpgradeMenuItem extends Button {
 
-    private final GameModel model;
-    private TowerUpgrade nextUpgrade;
-    private Deque<TowerUpgrade> upgrades;
-    private static final float width = 0.6f;
-    private static final float height = 0.6f;
-    private static final float xOrigin = width/2;
-    private static final float yOrigin = height/2;
+    private final Deque<TowerUpgrade> upgrades;
 
-    public UpgradeMenuItem(float x, float y, GameModel model, Deque<TowerUpgrade> upgrades) {
-        super(x-xOrigin,y-yOrigin, width, height);  // 1x1 world units
-        this.model = model;
+    public UpgradeMenuItem(float x, float y, Deque<TowerUpgrade> upgrades) {
+        super(x - .3f, y - .3f, .6f, .6f, GameAction.UPGRADE_TOWER);
         this.upgrades = upgrades;
-        this.nextUpgrade = upgrades.peek();
-        this.bounds = new Rectangle(x-xOrigin, y-yOrigin, width, height);
-
     }
 
-    public TowerUpgrade getLatestUpgrade(){return this.nextUpgrade;}
-    public TowerUpgrade getNextUpgrade(){
-            return this.upgrades.peek();
+    public TowerUpgrade getNextUpgrade() {
+        return upgrades.peek();
     }
 
-    @Override
-    public void isClicked(Vector2 pos) {
-        if(bounds.contains(pos)) {
-            onClick();
-        }
+    public TowerUpgrade consumeUpgrade() {
+        return upgrades.size() > 1 ? upgrades.pop() : upgrades.peek();
     }
-
-    @Override
-    public void onClick() {
-        if(upgrades.size() >= 2){nextUpgrade = upgrades.pop();}
-        else{nextUpgrade = upgrades.peek();}
-        if (model.isTowerSelected()) {
-            model.upgradeTower(model.getSelectedTower(), nextUpgrade);
-            System.out.println("Upgraded");
-        }
-
-
-    }
-
-
 }

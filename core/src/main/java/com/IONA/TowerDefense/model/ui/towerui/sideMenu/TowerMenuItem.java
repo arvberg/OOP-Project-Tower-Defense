@@ -1,40 +1,19 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
-import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.badlogic.gdx.math.Vector2;
 
 public class TowerMenuItem extends Button {
 
-    private final String towerType; //
-    private final GameModel model;
+    private final String towerType;
 
-    public TowerMenuItem(float x, float y, String towerType, GameModel model) {
-        super(x-.92f/2, y-1.476f/2, .92f, 1.476f);  // 1x1 world units
+    public TowerMenuItem(float x, float y, String towerType) {
+        super(x - .9f / 2, y - .9f / 2, .9f, 1.1f, GameAction.BUY_TOWER);
         this.towerType = towerType;
-        this.model = model;
     }
 
-    @Override
-    public void isClicked(Vector2 pos) {
-        if(bounds.contains(pos)) {
-            onClick();
-        }
-    }
-
-    public boolean inBound(Vector2 pos){
-        return bounds.contains(pos);
-    }
-
-    @Override
-    public void onClick() {
-        System.out.println("Clicked tower: " + towerType);
-        if (model.getPendingTower() != null) {
-            model.cancelTowerBuy();
-        }
-        else {
-            model.buyTower(towerType);
-        }
+    public String getTowerType() {
+        return towerType;
     }
 
 
@@ -42,4 +21,3 @@ public class TowerMenuItem extends Button {
         return towerType;
     }
 }
-

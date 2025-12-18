@@ -109,13 +109,13 @@ public class UpgradeMenu extends Menu {
 
                 switch (cellType) {
                     case 1:
-                        button = new UpgradeMenuItem(x, y, model, upgradePath1);
+                        button = new UpgradeMenuItem(x, y, upgradePath1);
                         break;
                     case 2:
-                        button = new UpgradeMenuItem(x, y, model, upgradePath2);
+                        button = new UpgradeMenuItem(x, y, upgradePath2);
                         break;
                     case 3:
-                        button = new SellButton(x, y, model);
+                        button = new SellButton(x, y);
                         break;
                 }
 

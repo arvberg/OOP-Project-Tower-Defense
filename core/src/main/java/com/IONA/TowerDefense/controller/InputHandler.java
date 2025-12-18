@@ -7,7 +7,6 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
-import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -47,13 +46,26 @@ public class InputHandler {
     }
 
 
-    public void checkInput(Vector2 pos){
+    public void checkInput(Vector2 pos) {
 
-        pauseButton.isClicked(pos);
+        List<Button> buttons =
+            model.getGameState() == GameState.GAME_OVER
+            ? model.getGameOverButtons()
+            : model.getInGameButtons();
+
+        for (Button button : buttons) {
+            if (button.isClicked(pos)) {
+                model.handleAction(button.getAction(), button);
+                return;
+            }
+        }
 
         if (model.getGameState() == GameState.GAME_OVER) {
-            restartButton.isClicked(pos);
-            exitButton.isClicked(pos);
+            return; // block all other input
+        }
+
+        if (model.isBuyingState() && clickedOnGameArea(pos)) {
+            model.placeTower(pos);
             return;
         }
 
@@ -111,9 +123,8 @@ public class InputHandler {
 
         // Endast välj torn om man INTE håller på att placera ett nytt
         if (clickedOnGameArea(pos)) {
-            Tower clickedTower = model.getTowerAt(pos); // returnerar null om ingen torn på pos
-
-            if (clickedTower != null) {
+            Tower clicked = model.getTowerAt(pos);
+            if (clicked != null) {
                 model.selectTower(pos);
             } else {
                 model.deselectTower();
@@ -121,12 +132,13 @@ public class InputHandler {
         }
     }
 
+
     // Handle input for mouse hovering
     public void updateMouse(Vector2 worldMousePos) {
         model.updateTowerFollowingMouse(worldMousePos);
 
         for (TowerMenuItem item : towerMenuItems) {
-                if(item.inBound(worldMousePos)){
+                if(item.isClicked(worldMousePos)){
                     infoMenu.setMenuPosition(item.getButtonPosition().x - infoMenu.getWidth()/2 + item.getWidth()/2, item.getButtonPosition().y - infoMenu.getHeight());
                     infoMenu.setHoveredState(true);
                     break;

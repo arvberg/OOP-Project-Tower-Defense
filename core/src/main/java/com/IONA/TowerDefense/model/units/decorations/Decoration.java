@@ -7,14 +7,19 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Decoration extends Unit {
+    public static boolean TEST_MODE = false;
     protected Vector2 position = new Vector2();
     public Texture texture;
     public float width;
     public float height;
     public Rectangle hitBox;
 
-    public Decoration(){
-        this.texture = new Texture(Assets.ENEMY_BASIC_BACK);
+    public Decoration() {
+        if (!TEST_MODE) {
+            this.texture = new Texture(Assets.ENEMY_BASIC_BACK);
+        } else {
+            this.texture = null;
+        }
     }
 
     @Override
@@ -23,7 +28,7 @@ public class Decoration extends Unit {
         setHitBox(width, height);
     }
 
-    public Vector2 getPosition(){
+    public Vector2 getPosition() {
         return position;
     }
 
@@ -35,7 +40,7 @@ public class Decoration extends Unit {
         return height;
     }
 
-    public Rectangle getHitBox(){
+    public Rectangle getHitBox() {
         return hitBox;
     }
 
@@ -46,8 +51,8 @@ public class Decoration extends Unit {
     public void setHitBox(float width, float height) {
 
 
-        float newX = (position.x - width/2);
-        float newY = (position.y - height/2);
+        float newX = (position.x - width / 2);
+        float newY = (position.y - height / 2);
 
 
         if (hitBox == null) {

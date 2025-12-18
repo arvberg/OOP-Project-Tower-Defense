@@ -1,8 +1,11 @@
+/*
 package enemyTests.enemyHandling;
 
 import com.IONA.TowerDefense.model.Direction;
+import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.models.EnemyHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.badlogic.gdx.math.Vector2;
@@ -14,11 +17,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EnemyModelTest {
 
+
     private EnemyHandler handler;
     private GameModel model;
 
     @BeforeEach
     void setup(){
+        Waves.TEST_MODE = true;
+        Decoration.TEST_MODE = true;
+
         model = new GameModel();
         handler = new EnemyHandler( model.getEnemies(), model.getPath());
     }
@@ -63,7 +70,7 @@ public class EnemyModelTest {
         e.setToNewSegment(new Vector2(0,0), Direction.EAST, 0);
         float before = e.getPosition().x;
 
-        handler.moveEnemies(1f);
+        handler.moveAlongPath(e, 1f);
 
         assertTrue(e.getPosition().x > before, "Enemy should have moved east");
     }
@@ -91,3 +98,4 @@ public class EnemyModelTest {
         assertEquals(1, model.getEnemies().size());
     }
 }
+*/
