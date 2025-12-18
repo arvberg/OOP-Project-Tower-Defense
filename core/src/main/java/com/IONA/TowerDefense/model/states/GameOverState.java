@@ -23,7 +23,9 @@ public class GameOverState implements GameState {
 
     @Override
     public void update(float delta) {
-        // inget gameplay
+        model.updateEnemies(delta);
+        model.coreDamaged();
+
     }
 
     @Override

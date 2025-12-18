@@ -114,7 +114,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.menus = new ArrayList<>();
         this.playButton = new PlayButton(14.8f, 0.2f);
         this.exitButton = new ExitButton(10f, 3f);
-        this.speedUpButton = new SpeedUpButton(0, 0);
+        this.speedUpButton = new SpeedUpButton(14.8f, 0.2f);
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5f, 3f);
         this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y);

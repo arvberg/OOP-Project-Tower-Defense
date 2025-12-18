@@ -172,10 +172,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
                 view.draw(batch, shapeRenderer, delta);
         }
 
-        for (Button b : model.getInGameButtons()){
-            DrawableButton view = getDrawableButton(b);
-            view.draw(batch, shapeRenderer, delta);
-        }
 
         if (!model.isBuyingState()) {
             for (Button b : model.getTowerItemButtons()) {
