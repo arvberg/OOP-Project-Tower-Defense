@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model.ui.buttonui;
+package com.IONA.TowerDefense.controller.buttonui;
 
 import com.IONA.TowerDefense.model.input.GameAction;
 

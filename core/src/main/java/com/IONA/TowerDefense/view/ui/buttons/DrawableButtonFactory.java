@@ -1,11 +1,7 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
-import com.IONA.TowerDefense.model.ui.buttonui.*;
+import com.IONA.TowerDefense.controller.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
-import com.IONA.TowerDefense.model.units.enemies.Enemy;
-import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
-import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
-import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
 
 public class DrawableButtonFactory {
 

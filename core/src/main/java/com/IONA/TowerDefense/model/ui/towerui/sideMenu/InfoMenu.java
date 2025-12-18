@@ -2,10 +2,8 @@ package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
-import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
-import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
+import com.IONA.TowerDefense.controller.buttonui.Button;
+import com.IONA.TowerDefense.controller.buttonui.SellButton;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
 import com.IONA.TowerDefense.model.input.GameAction;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.controller.buttonui.Button;
 
 public class TowerMenuItem extends Button {
 

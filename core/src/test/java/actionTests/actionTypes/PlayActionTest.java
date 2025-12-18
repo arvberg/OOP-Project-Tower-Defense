@@ -1,12 +1,12 @@
-package actionTests;
+package actionTests.actionTypes;
 
-import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.model.Waves;
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.models.ActionHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.states.GameState;
-import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
+import com.IONA.TowerDefense.model.states.RunningState;
+import com.IONA.TowerDefense.model.states.StartState;
+import com.IONA.TowerDefense.controller.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PlayActionTest {
 
     private GameModel model;
-    private PlayButton playButton;
 
     @BeforeEach
     void setup() {
@@ -24,8 +23,6 @@ public class PlayActionTest {
         Decoration.TEST_MODE = true;
 
         GameModel model = new GameModel();
-
-        playButton = model.getPlayButton();
     }
 
     @Test
@@ -36,7 +33,7 @@ public class PlayActionTest {
 
     @Test
     void playButton_hiddenWhileRunning(){
-        model.setGameState(GameStateEnum.RUNNING);
+        model.setState(model.getRunningState());
         model.updateButtonLayout();
 
         assertFalse(model.getPlayButton().isVisible());
@@ -47,9 +44,11 @@ public class PlayActionTest {
     void playAction_startGame(){
         ActionHandler handler = new ActionHandler(model);
 
+        assertInstanceOf(StartState.class, model.getState());
+
         handler.handleAction(GameAction.PLAY, model.getPlayButton());
 
-        assertEquals(GameStateEnum.RUNNING, model.getGameState());
+        assertInstanceOf(RunningState.class, model.getState());
     }
 }
 

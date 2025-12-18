@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
+import com.IONA.TowerDefense.controller.buttonui.*;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.map.Path;
@@ -11,7 +12,6 @@ import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.units.decorations.Core;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
@@ -29,13 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// Main model class to for communication with controller
+// Main model class for communication with controller
 public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
     private GameState currentState;
-    private GameState startState = new StartState(this);
-    private GameState runningState = new RunningState(this);
-    private GameState pausedState = new PauseState(this);
-    private GameState gameOverState = new GameOverState(this);
+    private final GameState startState = new StartState(this);
+    private final GameState runningState = new RunningState(this);
+    private final GameState pausedState = new PauseState(this);
+    private final GameState gameOverState = new GameOverState(this);
 
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
@@ -44,9 +44,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
     private List<Button> inGameButtons;
-    private List<Button> gameOverButtons;
-    private List<Button> towerItemButtons;
-    private List<Menu> menus;
+    private final List<Button> gameOverButtons;
+    private final List<Button> towerItemButtons;
+    private final List<Menu> menus;
 
     //private final List<Resource> resources;
     private final List<Resource> resources;
@@ -222,16 +222,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public void restartGame() {
         currentState.restartGame();
-        /*enemyHandler.removeAllEnemies();
-        towerHandler.removeAllTowers();
-        attackHandler.removeAllProjectiles();
-        resourceHandler.resetResources();
-        generator.resetWaves();
-
-        setGameState(GameStateEnum.START);
-        //exitButton.setVisible(true);
-        updateButtonLayout();
-        */
     }
 
     public void handleAction(GameAction action, Button sourceButton) { actionHandler.handleAction(action, sourceButton); }

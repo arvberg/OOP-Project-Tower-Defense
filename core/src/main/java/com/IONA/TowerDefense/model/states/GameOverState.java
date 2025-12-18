@@ -1,8 +1,7 @@
 package com.IONA.TowerDefense.model.states;
 
 import com.IONA.TowerDefense.model.models.GameModel;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.badlogic.gdx.Game;
+import com.IONA.TowerDefense.controller.buttonui.Button;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameOverState implements GameState {

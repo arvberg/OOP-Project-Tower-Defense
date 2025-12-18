@@ -1,6 +1,6 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
-import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
+import com.IONA.TowerDefense.controller.buttonui.SellButton;
 import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
