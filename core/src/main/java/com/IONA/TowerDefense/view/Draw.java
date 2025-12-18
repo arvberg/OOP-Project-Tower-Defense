@@ -1,6 +1,5 @@
 package com.IONA.TowerDefense.view;
 
-import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.view.audio.SoundManager;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
