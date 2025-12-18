@@ -29,7 +29,8 @@ public class TowerBasic extends Tower {
         rotationSpeed = 20f;
         aimingMargin = 1f;
         attackStrategy = new ProjectileAttackStrategy();
-        targetingStrategy = new TargetLeadingStrategy();
+        targetingStrategies.add(new TargetLeadingStrategy());
+        targetingStrategies.add(new TargetNearestStrategy());
         upgradePath1.add(new RangeUpgrade(40));
         upgradePath2.add(new RangeUpgrade(40));
         upgradePath3.add(new RangeUpgrade(40));

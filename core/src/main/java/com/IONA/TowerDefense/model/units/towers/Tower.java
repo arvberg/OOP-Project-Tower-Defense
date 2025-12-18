@@ -8,10 +8,8 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Vector;
+import java.lang.annotation.Target;
+import java.util.*;
 
 public abstract class Tower extends Unit {
     protected int damage;
@@ -32,6 +30,7 @@ public abstract class Tower extends Unit {
     protected boolean isAiming;
     protected boolean hasCurrentUpgradeMenu = false;
     protected String towerType;
+    protected List<TargetingStrategy> targetingStrategies = new ArrayList<>();
 
     protected Vector2 dimension;
 
@@ -53,6 +52,10 @@ public abstract class Tower extends Unit {
     protected final Deque<TowerUpgrade> upgradePath1 = new ArrayDeque<>();
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
     protected final Deque<TowerUpgrade> upgradePath3 = new ArrayDeque<>();
+
+    public List<TargetingStrategy> getTargetingStrategies(){
+        return this.targetingStrategies;
+    }
 
     public String getTowerType(){ return this.towerType; }
 

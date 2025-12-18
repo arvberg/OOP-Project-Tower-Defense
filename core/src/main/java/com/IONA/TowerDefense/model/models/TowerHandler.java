@@ -36,7 +36,7 @@ public class TowerHandler {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
-    private final List<TargetingStrategy> targetingStrategies = new ArrayList<>();
+    //private final List<TargetingStrategy> targetingStrategies = new ArrayList<>();
     private int currentStrategyIndex = 0;
 
     private UpgradeMenu upgradeMenu;
@@ -48,9 +48,6 @@ public class TowerHandler {
         this.path = path;
         this.decorations = decor;
         this.resourceHandler = resourceHandler;
-        targetingStrategies.add(new TargetAllStrategy());
-        targetingStrategies.add(new TargetLeadingStrategy());
-        targetingStrategies.add(new TargetNearestStrategy());
         this.upgradeMenu = upgradeMenu;
     }
 
@@ -94,7 +91,6 @@ public class TowerHandler {
 
         if (pendingTower != null && !overlaps(pendingTower)) {
             //System.out.println(pendingTower.getTargetingStrategy().getStrategy());
-            notifyTowerStrategyEvent(pendingTower.getTargetingStrategy().getStrategy());
             pendingTower.setPosition(selectedPoint);
             towers.add(pendingTower);
 
@@ -102,8 +98,6 @@ public class TowerHandler {
             selectTower(selectedPoint);
             setTowerSelected(true);
             System.out.println("Selected tower: " + selectedTower);
-
-
 
             setPendingTower(null);
             setBuyingState(false);
@@ -127,7 +121,6 @@ public class TowerHandler {
 
     public void buyTower (String tower) {
         Tower newTower = TowerFactory.createTower(tower);
-
         if (resourceHandler.getMoney() >= newTower.getCost()) {
                 deselectTower();
                 setBuyingState(true);
@@ -213,8 +206,8 @@ public class TowerHandler {
 
 
     public void toggleTargetingStrategy() {
-        currentStrategyIndex = (currentStrategyIndex + 1) % targetingStrategies.size();
-        TargetingStrategy currentStrategy = targetingStrategies.get(currentStrategyIndex);
+        currentStrategyIndex = (currentStrategyIndex + 1) % selectedTower.getTargetingStrategies().size();
+        TargetingStrategy currentStrategy = selectedTower.get(currentStrategyIndex);
         selectedTower.setTargetingStrategy(currentStrategy);
         System.out.println("New strategy: " + currentStrategy);
 

@@ -41,7 +41,7 @@ public final class TargetingToggleButtonDrawer implements DrawableButton, TowerL
     @Override
     public void onTowerStrategyToggle(String strategy) {
         this.currentStrategy = strategy;
-        System.out.println(currentStrategy);
+        System.out.println("toggle");
     }
     public static void disposeStatic() {
         if (TEXTURE != null) TEXTURE.dispose();

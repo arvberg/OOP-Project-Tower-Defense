@@ -158,6 +158,8 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
         if (this.tower == firingTower) {
             pulseActive = true;
             pulseTime = 0f;
+
         }
+        System.out.println("fire");
     }
 }
