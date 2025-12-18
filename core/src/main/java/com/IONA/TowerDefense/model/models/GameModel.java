@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.model.models;
 
 import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.GameStateEnum;
 import com.IONA.TowerDefense.model.WaveGenerator;
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.map.Path;
@@ -32,7 +31,6 @@ import java.util.List;
 
 // Main model class to for communication with controller
 public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
-    private GameStateEnum gameState = GameStateEnum.START;
     private GameState currentState;
     private GameState startState = new StartState(this);
     private GameState runningState = new RunningState(this);
@@ -141,6 +139,27 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         currentState.enter();
     }
 
+    public void startGame() {
+
+        if (generator.getWaveNr() == 3) {
+            generator.setGameDiff(generator.getGameDiff() + 1);
+            generator.resetWaves();
+        }
+
+        generator.SpawnNextWave();
+        setState(getRunningState());
+        updateButtonLayout();
+    }
+
+    public void exitGame() {
+            com.badlogic.gdx.Gdx.app.exit();
+    }
+
+    public void toggleSpeed() {
+        HeartBeat.toggleSpeed();
+    }
+
+
     public void update() {
         // All logik styrs av state-klassen
         if (currentState != null) {
@@ -217,13 +236,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public void handleAction(GameAction action, Button sourceButton) { actionHandler.handleAction(action, sourceButton); }
 
-    public GameStateEnum getGameState() {
-        return gameState;
-    }
-
-    public void setGameState(GameStateEnum state) {
-        this.gameState = state;
-    }
 
     public void updateEnemies(float delta) {
         enemyHandler.updateEnemies(delta);
@@ -487,4 +499,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public EnemyHandler getEnemyHandler() {
         return enemyHandler;
     }
+
+    public void toggleTargetingStrategy() {
+        towerHandler.toggleTargetingStrategy();
+    }
+
 }
