@@ -17,7 +17,6 @@ public final class TowerMissileDrawer implements DrawableTower {
     private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
     private static final TextureRegion BODY_REGION_R = new TextureRegion(TEXTURE);
 
-
     private final TowerMissile tower;
     private Vector2 p;
     private float dimensionX;
@@ -43,7 +42,6 @@ public final class TowerMissileDrawer implements DrawableTower {
             dimensionX /2f,
             dimensionY /2f, dimensionX, dimensionY,1f, 1f,angleDeg - 90
         );
-
     }
 
     public void drawPendingTower(SpriteBatch batch) {

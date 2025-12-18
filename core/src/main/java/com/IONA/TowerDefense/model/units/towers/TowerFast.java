@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class TowerFast extends Tower{
+public class TowerFast extends Tower implements Rotatable{
 
     public TowerFast() {
         dimension = new Vector2(1f, 1f);
@@ -22,7 +22,30 @@ public class TowerFast extends Tower{
     }
 
     @Override
-    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+    public void rotateTower(float delta) {
+        float r = rotationSpeed * delta;
+        float xNew = currentDirection.x + (desiredDirection.x - currentDirection.x) * r;
+        float yNew = currentDirection.y + (desiredDirection.y - currentDirection.y) * r;
+        this.currentDirection = new Vector2(xNew, yNew).nor();
+    }
 
+    @Override
+    public boolean canAttack() {
+        return hasCooledDown() && isAiming();
+    }
+
+    @Override
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+        this.targetingStrategy = targetingStrategy;
+    }
+
+    @Override
+    public void setDesiredDirection(Vector2 desiredDirection) {
+        this.desiredDirection = desiredDirection;
+    }
+
+    @Override
+    public float getRotationSpeed() {
+        return rotationSpeed;
     }
 }

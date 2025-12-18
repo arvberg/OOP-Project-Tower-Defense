@@ -24,7 +24,8 @@ public class TowerMissile extends Tower{
         baseRange = 2f;
         cooldown = 0f;
         rotationSpeed = 5f;
-        aimingMargin = 0.01f;
+        currentDirection = new Vector2(0,0);
+        desiredDirection = new Vector2(0,0);
         attackStrategy = new HomingAttackStrategy();
         targetingStrategy = new TargetNearestStrategy();
         upgradePath1.add(new FireRateUpgrade(1));
@@ -35,6 +36,11 @@ public class TowerMissile extends Tower{
 
     @Override
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        // Ska inte användas. Pulse-tower ska endast kunna skjuta på ett sätt
+        this.targetingStrategy = targetingStrategy;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return hasCooledDown() && isAiming();
     }
 }

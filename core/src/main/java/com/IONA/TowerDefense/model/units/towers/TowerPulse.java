@@ -15,14 +15,14 @@ public class TowerPulse extends Tower{
     public TowerPulse() {
         dimension = new Vector2(1f, 1f);
         damage = 35;
-        projectileSpeed = 8;
         baseFireRate = 0.1f;
         cost = 50;
         fireRate = 0.5f;
         range = 2f;
         baseRange = 2f;
         rotationSpeed = 0f;
-        aimingMargin = 1f;
+        currentDirection = new Vector2(0,0);
+        desiredDirection = new Vector2(0,0);
         cooldown = 0f;
         attackStrategy = new AreaAttackStrategy();
         targetingStrategy = new TargetAllStrategy();
@@ -34,6 +34,11 @@ public class TowerPulse extends Tower{
 
     @Override
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        // Ska inte användas. Pulse-tower ska endast kunna skjuta på ett sätt
+        return;
+    }
+
+    @Override
+    public boolean canAttack() {
+        return hasCooledDown();
     }
 }
