@@ -19,6 +19,7 @@ public class TowerFast extends Tower{
         cooldown = 0f;
         targetingStrategy = new TargetLeadingStrategy();
         targetingStrategy = new TargetLeadingStrategy();
+        towerType = "TowerFast";
     }
 
     @Override

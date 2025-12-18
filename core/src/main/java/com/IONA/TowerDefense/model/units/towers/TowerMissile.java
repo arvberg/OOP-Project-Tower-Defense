@@ -31,6 +31,7 @@ public class TowerMissile extends Tower{
         upgradePath2.add(new RangeUpgrade(1));
         upgradePath2.add(new FireRateUpgrade(1));
         upgradePath2.add(new MaxUpgrade(0));
+        towerType = "TowerMissile";
     }
 
     @Override

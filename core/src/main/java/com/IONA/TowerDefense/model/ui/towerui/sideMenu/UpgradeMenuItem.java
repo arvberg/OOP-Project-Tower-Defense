@@ -10,8 +10,8 @@ public class UpgradeMenuItem extends Button {
 
     private final Deque<TowerUpgrade> upgrades;
 
-    public UpgradeMenuItem(float x, float y, Deque<TowerUpgrade> upgrades) {
-        super(x - .3f, y - .3f, .6f, .6f, GameAction.UPGRADE_TOWER);
+    public UpgradeMenuItem(float x, float y, Deque<TowerUpgrade> upgrades, UpgradeMenu menu) {
+        super(x , y , menu.getWidth()-0.8f, 0.4f, GameAction.UPGRADE_TOWER);
         this.upgrades = upgrades;
     }
 
@@ -20,6 +20,9 @@ public class UpgradeMenuItem extends Button {
     }
 
     public TowerUpgrade consumeUpgrade() {
-        return upgrades.size() > 1 ? upgrades.pop() : upgrades.peek();
+        TowerUpgrade nextUpgrade = upgrades.size() > 1 ? upgrades.pop() : upgrades.peek();
+        assert nextUpgrade != null;
+        nextUpgrade.incrementCost(2f);
+        return nextUpgrade;
     }
 }

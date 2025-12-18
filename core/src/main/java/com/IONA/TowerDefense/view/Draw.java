@@ -124,7 +124,11 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     private DrawableButton getDrawableButton(Button b){
-        return buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
+        DrawableButton view = buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
+        if(view instanceof TowerListener towerListener && !towerListeners.contains(towerListener)){
+            towerListeners.add(towerListener);
+        }
+        return view;
     }
 
     private DrawableMenu getDrawableMenu(Menu m){
@@ -177,6 +181,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         for (Button b : model.getInGameButtons()){
             DrawableButton view = getDrawableButton(b);
             view.draw(batch, shapeRenderer, delta);
+
         }
 
         if (!model.isBuyingState()) {
@@ -332,6 +337,12 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     @Override
+    public void onTowerDeselected(){}
+
+    @Override
+    public void onTowerSwitched(){menuViews.clear();}
+
+    @Override
     public void onTowerPlaced() {
         soundManager.playSound("place_tower");
     }
@@ -351,4 +362,12 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     public void onUpgrade() {
         soundManager.playSound("tower_upgraded");
     }
+
+    @Override
+    public void onTowerStrategyToggle(String strategy){
+    for(TowerListener t: towerListeners){
+        t.onTowerStrategyToggle(strategy);
+    }
+    }
+
 }

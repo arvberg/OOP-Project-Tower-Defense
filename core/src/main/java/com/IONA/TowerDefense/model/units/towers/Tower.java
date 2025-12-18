@@ -31,6 +31,7 @@ public abstract class Tower extends Unit {
     protected boolean hasDetected;
     protected boolean isAiming;
     protected boolean hasCurrentUpgradeMenu = false;
+    protected String towerType;
 
     protected Vector2 dimension;
 
@@ -51,6 +52,9 @@ public abstract class Tower extends Unit {
 
     protected final Deque<TowerUpgrade> upgradePath1 = new ArrayDeque<>();
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
+    protected final Deque<TowerUpgrade> upgradePath3 = new ArrayDeque<>();
+
+    public String getTowerType(){ return this.towerType; }
 
     public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
 
@@ -63,6 +67,8 @@ public abstract class Tower extends Unit {
     public Deque<TowerUpgrade> getUpgradePath2() {
         return upgradePath2;
     }
+
+    public Deque<TowerUpgrade> getUpgradePath3() {return upgradePath3;}
 
     public float getAngleDeg() {
         return VectorUtils.angleFromDirection(direction);
@@ -106,6 +112,8 @@ public abstract class Tower extends Unit {
     public int getCost(){
         return cost;
     }
+
+    public TargetingStrategy getTargetingStrategy(){return this.targetingStrategy;}
 
     public float getRange(){
         return range;

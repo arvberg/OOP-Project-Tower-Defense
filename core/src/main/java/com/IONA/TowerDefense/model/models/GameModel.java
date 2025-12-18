@@ -121,10 +121,11 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         gameOverButtons.add(exitButton);
         towerMenu.createGridItems(towerItemButtons);
 
+
         // används för att inte kunna placera torn på menues.
         menus.add(towerMenu);
         menus.add(infoMenu);
-        menus.add(upgradeMenu);
+        //menus.add(upgradeMenu);
 
         placeCore(core);
         updateButtonLayout();
@@ -306,7 +307,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
         if (resourceHandler.getMoney() >= upgrade.getCost() && towerHandler.getSelectedTower() != null) {
             upgradeHandler.upgrade(tower, upgrade);
-            resourceHandler.spendMoney(tower.getCost());
+            resourceHandler.spendMoney(upgrade.getCost());
+            resourceHandler.updateMoneyResource();
+
         }
     }
 

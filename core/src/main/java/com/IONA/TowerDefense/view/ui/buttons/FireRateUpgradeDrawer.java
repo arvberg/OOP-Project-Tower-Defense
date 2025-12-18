@@ -15,7 +15,7 @@ public final class FireRateUpgradeDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE shared by all instances
-    private static final Texture TEXTURE = new Texture(Assets.BUTTON_PLAYBUTTON);
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_UPGRADE_BASEUPGRADE);
 
     public FireRateUpgradeDrawer(UpgradeMenuItem item) {
         this.item = item;

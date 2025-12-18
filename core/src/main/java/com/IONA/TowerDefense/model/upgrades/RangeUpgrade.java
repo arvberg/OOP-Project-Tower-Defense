@@ -5,10 +5,15 @@ import org.w3c.dom.ranges.Range;
 
 public class RangeUpgrade implements TowerUpgrade{
 
-    private final int cost;
+    private int cost;
 
     public RangeUpgrade(int cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public void incrementCost(float f){
+        this.cost = (int)(cost*f);
     }
 
     @Override
@@ -18,7 +23,7 @@ public class RangeUpgrade implements TowerUpgrade{
 
     @Override
     public int getCost() {
-        return cost;
+        return this.cost;
     }
 
     @Override

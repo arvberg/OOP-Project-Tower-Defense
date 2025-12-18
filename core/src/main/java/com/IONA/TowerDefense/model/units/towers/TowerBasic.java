@@ -12,6 +12,7 @@ import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import org.w3c.dom.ranges.Range;
 
 public class TowerBasic extends Tower {
 
@@ -29,10 +30,10 @@ public class TowerBasic extends Tower {
         aimingMargin = 1f;
         attackStrategy = new ProjectileAttackStrategy();
         targetingStrategy = new TargetLeadingStrategy();
-        upgradePath1.add(new FireRateUpgrade(1));
-        upgradePath2.add(new RangeUpgrade(1));
-        upgradePath2.add(new FireRateUpgrade(1));
-        upgradePath2.add(new MaxUpgrade(0));
+        upgradePath1.add(new RangeUpgrade(40));
+        upgradePath2.add(new RangeUpgrade(40));
+        upgradePath3.add(new RangeUpgrade(40));
+        towerType = "TowerBasic";
     }
 
     @Override

@@ -64,13 +64,13 @@ public class TowerHandler {
             float distance = center.dst(selectedPoint);
 
             if (distance <= TOWER_SELECTION_RADIUS) {
-                clickedTower = tower;
-                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
-                upgradeMenu.setTowerIsClicked(true);
-                upgradeMenu.clearGridItems();
-                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2());
-                tower.setHasCurrentUpgradeMenu(true);
 
+                clickedTower = tower;
+                notifyTowerSwitchedEvent();
+                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
+                upgradeMenu.setTowerIsClicked(true,clickedTower.getTowerType());
+                upgradeMenu.clearGridItems();
+                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2(), clickedTower.getUpgradePath3());
 
                 break; // break om torn hittat
             }
@@ -82,6 +82,7 @@ public class TowerHandler {
 
             // selecta nytt torn om vi trycker på ett torn
         } else if (selectedTower != clickedTower) {
+
             setSelectedTower(clickedTower);
             setTowerSelected(true);
             notifyTowerClickedEvent();
@@ -92,6 +93,8 @@ public class TowerHandler {
     public void placeTower (Vector2 selectedPoint) {
 
         if (pendingTower != null && !overlaps(pendingTower)) {
+            //System.out.println(pendingTower.getTargetingStrategy().getStrategy());
+            notifyTowerStrategyEvent(pendingTower.getTargetingStrategy().getStrategy());
             pendingTower.setPosition(selectedPoint);
             towers.add(pendingTower);
 
@@ -100,10 +103,14 @@ public class TowerHandler {
             setTowerSelected(true);
             System.out.println("Selected tower: " + selectedTower);
 
+
+
             setPendingTower(null);
             setBuyingState(false);
             notifyTowerPlacedEvent();
             System.out.println("tower placed");
+
+
         }
     }
 
@@ -114,7 +121,7 @@ public class TowerHandler {
         System.out.println("Tower deselected");
         // ev använd observer pattern med upgradehandler
         upgradeMenu.clearGridItems();
-        upgradeMenu.setTowerIsClicked(false);
+        upgradeMenu.setTowerIsClicked(false,"");
         upgradeMenu.setMenuPosition(16,9);
     }
 
@@ -210,6 +217,8 @@ public class TowerHandler {
         TargetingStrategy currentStrategy = targetingStrategies.get(currentStrategyIndex);
         selectedTower.setTargetingStrategy(currentStrategy);
         System.out.println("New strategy: " + currentStrategy);
+
+        notifyTowerStrategyEvent(currentStrategy.getStrategy());
     }
 
     public void addTower(Tower tower) {
@@ -272,6 +281,12 @@ public class TowerHandler {
         }
     }
 
+    public void notifyTowerSwitchedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSwitched();
+        }
+    }
+
     public void notifyTowerPlacedEvent() {
         for (TowerListener l : listeners) {
             l.onTowerPlaced();
@@ -295,5 +310,12 @@ public class TowerHandler {
             l.onTowerDeselected();
         }
     }
+
+    public void notifyTowerStrategyEvent(String strategy) {
+        for (TowerListener l : listeners) {
+            l.onTowerStrategyToggle(strategy);
+        }
+    }
+
 
 }
