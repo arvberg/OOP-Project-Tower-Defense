@@ -68,14 +68,6 @@ public abstract class Projectile extends Unit implements Movable {
         return this.dxdy;
     }
 
-    public float getX() {
-        return position.x;
-    }
-
-    public float getY() {
-        return position.y;
-    }
-
     public Enemy getEnemyTarget() {
         return enemyTarget;
     }
