@@ -176,5 +176,9 @@ public abstract class Tower extends Unit {
     }
 
     public abstract void setTargetingStrategy(TargetingStrategy targetingStrategy);
+
+    public float getBaseDamage() {
+        return baseDamage;
+    }
 }
 
