@@ -4,17 +4,10 @@ import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -102,7 +95,7 @@ public class TowerHandler {
             setPendingTower(null);
             setBuyingState(false);
             notifyTowerPlacedEvent();
-            System.out.println("tower placed");
+            System.out.println("tower placed: " + selectedTower);
 
 
         }
@@ -207,10 +200,9 @@ public class TowerHandler {
 
     public void toggleTargetingStrategy() {
         currentStrategyIndex = (currentStrategyIndex + 1) % selectedTower.getTargetingStrategies().size();
-        TargetingStrategy currentStrategy = selectedTower.get(currentStrategyIndex);
+        TargetingStrategy currentStrategy = selectedTower.getTargetingStrategyAtIndex(currentStrategyIndex);
         selectedTower.setTargetingStrategy(currentStrategy);
         System.out.println("New strategy: " + currentStrategy);
-
         notifyTowerStrategyEvent(currentStrategy.getStrategy());
     }
 

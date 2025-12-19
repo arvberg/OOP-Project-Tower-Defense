@@ -34,8 +34,5 @@ public class TowerMissile extends Tower{
         towerType = "TowerMissile";
     }
 
-    @Override
-    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        // Ska inte användas. Pulse-tower ska endast kunna skjuta på ett sätt
-    }
+
 }

@@ -18,7 +18,7 @@ public final class TargetingToggleButtonDrawer implements DrawableButton, TowerL
     private final float dimensionX;
     private final float dimensionY;
     private BitmapFont font;
-    private String currentStrategy = "";
+    private String currentStrategy = "Leading";
 
     // STATIC TEXTURE — byt filnamnet senare när du har riktig sell-knapp
     private static final Texture TEXTURE = new Texture(Assets.BUTTON_TARGETTINGBUTTON);

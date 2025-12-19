@@ -8,7 +8,6 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
-import java.lang.annotation.Target;
 import java.util.*;
 
 public abstract class Tower extends Unit {
@@ -116,7 +115,9 @@ public abstract class Tower extends Unit {
         return cost;
     }
 
-    public TargetingStrategy getTargetingStrategy(){return this.targetingStrategy;}
+    public TargetingStrategy getTargetingStrategyAtIndex(int index){return targetingStrategies.get(index);}
+
+    public TargetingStrategy getCurrentTargetingStrategy(){return this.targetingStrategy;}
 
     public float getRange(){
         return range;
@@ -212,6 +213,8 @@ public abstract class Tower extends Unit {
         this.attackStrategy = attackStrategy;
     }
 
-    public abstract void setTargetingStrategy(TargetingStrategy targetingStrategy);
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy){
+        this.targetingStrategy = targetingStrategy;
+    };
 }
 

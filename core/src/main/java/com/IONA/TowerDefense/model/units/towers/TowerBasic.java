@@ -29,18 +29,15 @@ public class TowerBasic extends Tower {
         rotationSpeed = 20f;
         aimingMargin = 1f;
         attackStrategy = new ProjectileAttackStrategy();
-        targetingStrategies.add(new TargetLeadingStrategy());
+        targetingStrategies.add(new TargetLeadingStrategy()); // The order that you add strategies is very important.
         targetingStrategies.add(new TargetNearestStrategy());
+        targetingStrategy = targetingStrategies.getFirst();
         upgradePath1.add(new RangeUpgrade(40));
         upgradePath2.add(new RangeUpgrade(40));
         upgradePath3.add(new RangeUpgrade(40));
         towerType = "TowerBasic";
     }
 
-    @Override
-    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        this.targetingStrategy = targetingStrategy;
-    }
 
 }
 
