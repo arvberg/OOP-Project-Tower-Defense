@@ -7,7 +7,10 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Manages the player's resources, including money, lives, and score.
+ * Updates visual representations of resources through {@link Resource} objects.
+ */
 public class ResourceHandler {
     private final List<Resource> resources;
     private int money; // Players money
@@ -17,7 +20,7 @@ public class ResourceHandler {
     public ResourceHandler() {
         this.resources = new ArrayList<>();
         this.lives = 100;
-        this.money = 1000;
+        this.money = 160;
         this.score = 0;
 
 
@@ -35,6 +38,10 @@ public class ResourceHandler {
             1f));
     }
 
+
+    /**
+     * Updates the health (HP) display for all ResourceHP objects.
+     */
     public void updateHpResource() {
         for (Resource r : resources) {
             if (r instanceof ResourceHP && lives >= 0) {
@@ -43,7 +50,9 @@ public class ResourceHandler {
             }
         }
     }
-
+    /**
+     * Updates the money display for all ResourceMoney objects.
+     */
     public void updateMoneyResource() {
         for (Resource r : resources) {
             if (r instanceof ResourceMoney) {
@@ -53,6 +62,15 @@ public class ResourceHandler {
         }
     }
 
+    public void resetResources() {
+        this.lives = 100;
+        this.money = 100;
+        updateHpResource();
+        updateMoneyResource();
+    }
+
+    ///  Getters and Setters
+    ///
     public int getMoney() {
         return money;
     }
@@ -78,11 +96,6 @@ public class ResourceHandler {
         return resources;
     }
 
-    public void resetResources() {
-        this.lives = 100;
-        this.money = 100;
-        updateHpResource();
-        updateMoneyResource();
-    }
+
 
 }

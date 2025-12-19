@@ -3,7 +3,14 @@ package com.IONA.TowerDefense.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Array;
-
+/**
+ * Waves handles loading and storing the game's wave configurations.
+ *
+ * Responsibilities:
+ * - Load waves from a JSON file (or create an empty structure in TEST_MODE).
+ * - Store a list of Wave objects, each containing a sequence of Enemy configurations.
+ * - Provide access to enemy type and spawn delay via the Enemy inner class.
+ */
 public class Waves {
     public static boolean TEST_MODE = false;
 

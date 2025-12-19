@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles all enemy-related logic, including movement along a path and notifying listeners of enemy deaths.
+ */
 public class EnemyHandler {
 
     private final List<Enemy> enemies;
@@ -22,6 +25,11 @@ public class EnemyHandler {
         this.path = path;
     }
 
+    /**
+     * Updates all enemies by moving them along the path and removing dead ones.
+     *
+     * @param delta the time elapsed since the last update
+     */
     public void updateEnemies(float delta) {
 
         for (Enemy enemy : enemies) {
@@ -32,6 +40,13 @@ public class EnemyHandler {
         removeDeadEnemies();
     }
 
+    /**
+     * Moves a single enemy along its current path segment. If the enemy reaches
+     * the end of the segment, it moves to the next segment.
+     *
+     * @param enemy the enemy to move
+     * @param delta the time elapsed since the last update
+     */
     public void moveAlongPath(Enemy enemy, float delta) {
         int segmentIdx = enemy.getSegmentIndex();
         Segment segment = path.getSegment(segmentIdx);
@@ -65,7 +80,9 @@ public class EnemyHandler {
     public void removeAllEnemies() {
         enemies.clear();
     }
-
+    /**
+     * Removes enemies that are dead (hp <= 0) and notifies listeners.
+     */
     public void removeDeadEnemies() {
         for (int i = enemies.size() - 1; i >= 0; i--) {
             Enemy e = enemies.get(i);
@@ -79,7 +96,11 @@ public class EnemyHandler {
     public void addAttackListener(EnemyDeathListener l) {
         listeners.add(l);
     }
-
+    /**
+     * Notifies all registered listeners that an enemy has died.
+     *
+     * @param enemy the enemy that died
+     */
     public void notifyEnemyDeathEvent(Enemy enemy) {
         for (EnemyDeathListener e : listeners) {
             e.onEnemyDeath(enemy);

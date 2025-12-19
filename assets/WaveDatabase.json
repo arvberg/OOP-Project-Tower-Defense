@@ -5,22 +5,14 @@
     {   // Som innehåller Waves objekt.
       "id": 0,
       "enemies":[   // Varje Wave objekt har ett id och en lista av enemies
-        {"type": "1", "delay": 0.1},   // Varje enemy har en type och en difficulty.
-        {"type": "1", "delay": 0.1},
-        {"type": "1", "delay": 0.1},
-        {"type": "1", "delay": 0.1},
-        {"type": "1", "delay": 0.1},
-        {"type": "2", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "3", "delay": 1},
-        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1},   // Varje enemy har en type och en difficulty.
         {"type": "1", "delay": 1},
         {"type": "1", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "3", "delay": 1},
         {"type": "1", "delay": 1},
-        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "1", "delay": 1},
         {"type": "1", "delay": 1}
+
       ]
     },
 
@@ -37,27 +29,19 @@
         {"type": "1", "delay": 1},
         {"type": "1", "delay": 1},
         {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "1", "delay": 1},
         {"type": "1", "delay": 1}
-
       ]
     },
 
     {
       "id": 2,
       "enemies":[
+        {"type": "2", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "2", "delay": 3},
         {"type": "1", "delay": 1},
         {"type": "2", "delay": 1},
         {"type": "1", "delay": 1},
@@ -65,26 +49,74 @@
         {"type": "1", "delay": 1},
         {"type": "2", "delay": 1},
         {"type": "1", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "1", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
-        {"type": "2", "delay": 1},
         {"type": "2", "delay": 1}
 
       ]
-    }
+    },
 
+    {
+      "id": 3,
+      "enemies":[
+        {"type": "3", "delay": 1},
+        {"type": "3", "delay": 4},
+        {"type": "3", "delay": 4}
+      ]
+    },
+
+    {
+      "id": 4,
+      "enemies":[
+        {"type": "1", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "3", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "3", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "3", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "3", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "3", "delay": 1},
+        {"type": "2", "delay": 1},
+        {"type": "1", "delay": 1}
+
+      ]
+    },
+
+    {
+      "id": 5,
+      "enemies":[
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1}
+      ]
+    }
   ]
 
 }

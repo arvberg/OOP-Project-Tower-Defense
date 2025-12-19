@@ -4,6 +4,14 @@ import com.IONA.TowerDefense.model.input.GameAction;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Represents a clickable UI button in the game.
+ * <p>
+ * Each button has a position, dimensions, visibility state, and an associated
+ * {@link GameAction} that is triggered when the button is clicked.
+ * The class handles basic input detection (clicks and hover checks) and
+ * position updates.
+ */
 public abstract class Button {
 
     protected final Rectangle bounds;
@@ -24,6 +32,8 @@ public abstract class Button {
     public boolean isClicked(Vector2 pos) {
         return visible && bounds.contains(pos);
     }
+
+    public boolean isHovered(Vector2 pos){ return visible && bounds.contains(pos);}
 
     public GameAction getAction() {
         return action;

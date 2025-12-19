@@ -4,6 +4,14 @@ import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Button;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Represents the paused state of the game.
+ * <p>
+ * While in this state, the game logic is halted and only UI buttons
+ * (such as resume or exit) can be interacted with. No tower placement
+ * or enemy updates occur. Toggling the state resumes the game by
+ * switching back to the running state.
+ */
 public class PauseState implements GameState {
 
     private GameModel model;

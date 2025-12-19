@@ -1,12 +1,15 @@
 package com.IONA.TowerDefense.model.units.projectiles;
 
-import com.IONA.TowerDefense.HeartBeat;
-import com.IONA.TowerDefense.model.units.Unit;
-import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Movable;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * ProjectileBasic is a simple straight-moving projectile.
+ * <p>
+ * It travels in a fixed direction at a constant speed and deals damage
+ * to enemies it hits. This class represents the most basic projectile
+ * behavior used by towers.
+ */
 public class ProjectileBasic extends Projectile implements Movable {
 
     public ProjectileBasic(int damage, float speed, Vector2 position, Vector2 dxdy) {

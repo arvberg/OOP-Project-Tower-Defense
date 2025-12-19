@@ -42,7 +42,7 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
             width / 2f,
             height / 2f,
             width, height,
-            0.4f, 1.3f,
+            0.6f, 1.3f,
             angleDeg - 90
         );
     }

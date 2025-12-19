@@ -14,17 +14,29 @@ import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
 import com.badlogic.gdx.math.Vector2;
-
+/**
+ * TowerMissile is a homing missile tower that targets the nearest enemy.
+ * <p>
+ * This tower fires slow but powerful projectiles that track enemies,
+ * making it effective against single high-value targets. It has a long range
+ * and moderate rotation speed to aim at moving enemies.
+ * <p>
+ * TowerMissile supports upgrades along multiple paths, including fire rate,
+ * range, and maximum damage enhancements.
+ * <p>
+ * The tower can attack only when it has cooled down and is properly aimed
+ * at its target.
+ */
 public class TowerMissile extends Tower implements Rotatable {
 
     public TowerMissile() {
         dimension = new Vector2(1f, 1f);
-        damage = 35;
-        baseDamage = 35;
+        damage = 80;
+        baseDamage = 80;
         projectileSpeed = 2;
-        baseFireRate = 1f;
-        cost = 50;
-        fireRate = 1f;
+        baseFireRate = 2f;
+        cost = 300;
+        fireRate = 2f;
         range = 8f;
         baseRange = 2f;
         cooldown = 0f;

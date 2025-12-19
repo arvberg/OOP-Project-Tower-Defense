@@ -4,7 +4,13 @@ import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenuItem;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenuItem;
 import com.IONA.TowerDefense.view.units.towers.TowerBasicDrawer;
 import com.IONA.TowerDefense.view.units.towers.TowerPulseDrawer;
-
+/**
+ * Factory class for creating drawable tower icon buttons.
+ * <p>
+ * Converts a TowerMenuItem into the corresponding DrawableButton representation
+ * for the UI. Each tower type has its own icon drawer. Throws an exception
+ * if an unknown tower type is provided.
+ */
 public class DrawableTowerIconFactory {
 
     private DrawableTowerIconFactory() {

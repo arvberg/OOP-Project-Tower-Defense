@@ -9,7 +9,18 @@ import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.*;
-
+/**
+ * Abstract base class representing a tower in the game.
+ * <p>
+ * Towers are units that can attack enemies using a specific
+ * AttackStrategy and select targets based on a TargetingStrategy.
+ * Each tower has properties such as damage, range, fire rate,
+ * projectile speed, and upgrade paths. Towers can rotate towards
+ * targets and manage cooldowns between attacks.
+ * <p>
+ * Subclasses must implement the `canAttack()` method to define
+ * specific attack conditions for different tower types.
+ */
 public abstract class Tower extends Unit {
 
     protected int damage;

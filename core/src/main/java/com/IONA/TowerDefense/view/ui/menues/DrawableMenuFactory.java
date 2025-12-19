@@ -4,7 +4,12 @@ import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.InfoMenu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenu;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
-
+/**
+ * Factory class for creating drawable representations of menus.
+ *
+ * Converts a given Menu instance into its corresponding DrawableMenu implementation.
+ * Supports TowerMenu, UpgradeMenu, and InfoMenu. Throws an exception for unknown types.
+ */
 public final class DrawableMenuFactory {
 
     private DrawableMenuFactory() {

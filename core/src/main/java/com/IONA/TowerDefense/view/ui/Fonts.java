@@ -9,7 +9,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PixmapPacker;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-
+/**
+ * Centralized font manager for the game.
+ *
+ * Loads, scales, and provides access to multiple sizes of default and bold Gothic fonts.
+ * Also handles proper texture filtering for smooth rendering and disposes all fonts when no longer needed.
+ */
 public class Fonts {
 
     public static BitmapFont GOTHIC_FONT_DEFAULT_1;

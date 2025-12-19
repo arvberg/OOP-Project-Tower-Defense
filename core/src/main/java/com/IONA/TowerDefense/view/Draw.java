@@ -43,7 +43,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.*;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
-
+/**
+ * Handles rendering and input for the TowerDefense game.
+ * Converts game model objects into drawable representations and manages the drawing lifecycle.
+ */
 public class Draw implements EnemyDeathListener, AttackListener, InputListener, TowerListener, UpgradeListener {
     private final GameModel model;
     private SpriteBatch batch;
@@ -62,6 +65,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
     private final Set<AttackListener> attackListeners = new HashSet<>();
     private final Set<TowerListener> towerListeners = new HashSet<>();
+    private final Set<InputListener> inputListeners = new HashSet<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -72,7 +76,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     public Draw(GameModel model) {
         this.model = model;
     }
-
+    /**
+     * Initializes rendering resources such as SpriteBatch, ShapeRenderer, viewport,
+     * loads fonts, textures, and sound assets.
+     */
     public void create() {
 
         batch = new SpriteBatch();
@@ -83,15 +90,33 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         soundManager.load();
     }
 
+    /**
+     * Updates viewport size on window resize.
+     * @param w new width
+     * @param h new height
+     */
     public void resize(int w, int h) {
         viewport.update(w, h, true);
     }
-
+    /**
+     * Converts screen coordinates to world coordinates.
+     * @param screenX x-position on screen
+     * @param screenY y-position on screen
+     * @return position in world coordinates
+     */
     public Vector2 toWorld(float screenX, float screenY) {
         Vector3 v = new Vector3(screenX, screenY, 0);
         viewport.unproject(v);
         return new Vector2(v.x, v.y);
     }
+
+    /**
+     * Helper methods for retrieving drawable representations of game objects.
+     * Each method checks if a drawable already exists in the corresponding map;
+     * if not, it creates one via the appropriate factory and stores it.
+     * Additionally, towers and buttons that implement listener interfaces are
+     * automatically registered to the relevant listener sets.
+     */
 
     private DrawableEnemy getDrawableEnemy(Enemy e) {
         return enemyViews.computeIfAbsent(e, DrawableEnemyFactory::create);
@@ -126,6 +151,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
             towerListeners.add(l);
         }
 
+        if (view instanceof InputListener l && !inputListeners.contains(l)){
+            inputListeners.add(l);
+        }
+
         return view;
     }
 
@@ -133,7 +162,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private DrawableMenu getDrawableMenu(Menu m) {
         return menuViews.computeIfAbsent(m, DrawableMenuFactory::create);
     }
-
+    /**
+     * Main draw loop: renders background, path, towers, enemies, projectiles, UI, menus, and resources.
+     * Handles pending towers, tower selection, Game Over fading, and cleanup of destroyed objects.
+     */
     public void draw() {
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
@@ -257,7 +289,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         }
         shapeRenderer.end();
 
-        // Ta bort enemies och torn ifall de är döda/sålda.
+        /// cleanup destroyed objects
         enemyViews.entrySet().removeIf(e -> !model.getEnemies().contains(e.getKey()));
         towerViews.entrySet().removeIf(t -> !model.getTowers().contains(t.getKey()));
         projectileViews.entrySet().removeIf(p -> !model.getProjectiles().contains(p.getKey()));
@@ -271,7 +303,9 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
 
     }
-
+    /**
+     * Disposes static resources used by drawer classes.
+     */
     public void disposeDrawers() {
         TowerBasicDrawer.disposeStatic();
         EnemyBasicDrawer.disposeStatic();
@@ -292,15 +326,12 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     public void dispose() {
-        // Först disposa alla Drawer-resurser
         disposeDrawers();
 
-        // Sedan dispose:a batch och shapeRenderer
         if (batch != null) batch.dispose();
         if (shapeRenderer != null) shapeRenderer.dispose();
         if (gameOverTexture != null) gameOverTexture.dispose();
 
-        // Rensa mapparna
         towerViews.clear();
         enemyViews.clear();
         projectileViews.clear();
@@ -308,6 +339,9 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         buttonViews.clear();
     }
 
+    ///
+    /// Event callbacks for AttackListener, EnemyDeathListener, InputListener, TowerListener, UpgradeListener
+    ///
     @Override
     public void onProjectileFired(Tower tower) {
         soundManager.playSound("fire");
@@ -374,9 +408,14 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     public void onTowerStrategyToggle(String strategy) {
         for (TowerListener t : towerListeners) {
             t.onTowerStrategyToggle(strategy);
-
         }
+    }
 
+    @Override
+    public void onButtonHovered(String s){
+        for(InputListener l: inputListeners){
+            l.onButtonHovered(s);
+        }
     }
 
 }

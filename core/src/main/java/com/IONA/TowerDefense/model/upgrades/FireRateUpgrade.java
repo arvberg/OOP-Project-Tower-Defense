@@ -1,7 +1,15 @@
 package com.IONA.TowerDefense.model.upgrades;
 
 import com.IONA.TowerDefense.model.units.towers.Tower;
-
+/**
+ * FireRateUpgrade represents an upgrade that increases a Tower's attack speed.
+ *
+ * This upgrade can be applied to any Tower. When applied, it reduces the Tower's fire rate
+ * (time between shots) by a fraction of the difference between the current fire rate
+ * and a calculated maximum improvement rate. This results in faster attacks as upgrades are applied.
+ *
+ * The cost of the upgrade can be incremented over time using the incrementCost() method.
+ */
 public class FireRateUpgrade implements TowerUpgrade {
 
     private int cost;

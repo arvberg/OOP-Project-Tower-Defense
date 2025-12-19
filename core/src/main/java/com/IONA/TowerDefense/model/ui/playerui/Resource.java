@@ -1,10 +1,13 @@
 package com.IONA.TowerDefense.model.ui.playerui;
 
-import com.IONA.TowerDefense.view.ui.Fonts;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.Color;
-
+/**
+ * Represents a player resource in the game, such as health (HP) or money.
+ * <p>
+ * Each resource has a current value, a position for rendering on screen,
+ * dimensions, a text representation, and a color for drawing.
+ */
 public class Resource {
     private int currentResource;
     protected Vector2 position;

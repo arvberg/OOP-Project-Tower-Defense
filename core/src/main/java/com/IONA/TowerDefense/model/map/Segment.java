@@ -4,6 +4,15 @@ import com.IONA.TowerDefense.model.Direction;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+
+/**
+ * Represents a straight segment of a path in the game.
+ * <p>
+ * Each segment has a start position, a direction (NORTH, SOUTH, EAST, WEST),
+ * a length, and a fixed width. The segment can calculate its end position
+ * based on its direction and length, which is useful for moving enemies
+ * along the path and for rendering the path visually.
+ */
 public class Segment {
 
     private final Vector2 start;

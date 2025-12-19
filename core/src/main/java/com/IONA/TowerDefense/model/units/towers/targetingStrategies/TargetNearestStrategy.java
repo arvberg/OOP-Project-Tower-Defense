@@ -7,7 +7,12 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * TargetNearestStrategy selects the single enemy closest to the tower.
+ * <p>
+ * Among all enemies within range, the enemy with the shortest distance
+ * to the tower is chosen as the target.
+ */
 public class TargetNearestStrategy implements TargetingStrategy {
     String name = "Nearest";
 
