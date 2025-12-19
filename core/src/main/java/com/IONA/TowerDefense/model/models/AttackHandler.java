@@ -31,7 +31,7 @@ public class AttackHandler {
     private final List<AttackListener> listeners = new ArrayList<>();
 
     private static final Vector2 IDLE_DIRECTION = new Vector2(-1f, 0f);
-    private final Vector2 mapDimensions = new Vector2(16f, 9f);
+    private final Vector2 projectileBounderies = new Vector2(20f, 12f);
 
     /**
      * Creates a new AttackHandler with references to the game's towers, enemies, and projectiles.
@@ -137,7 +137,7 @@ public class AttackHandler {
             Projectile p = projectiles.get(i);
             if (p == null) continue;
 
-            if (p.outOfBounds(mapDimensions)) {
+            if (p.outOfBounds(projectileBounderies)) {
                 p.setDestroyed(true);
             }
 
@@ -208,7 +208,9 @@ public class AttackHandler {
 
     public boolean isHit(Projectile projectile, Enemy enemy) {
         Rectangle hitbox = enemy.getHitBox();
-        return hitbox != null && hitbox.contains(projectile.getX(), projectile.getY());
+        float projectileX = projectile.getPosition().x;
+        float projectileY = projectile.getPosition().y;
+        return hitbox != null && hitbox.contains(projectileX, projectileY);
     }
 
     public void projectileHit(Projectile projectile, List<Enemy> enemies) {

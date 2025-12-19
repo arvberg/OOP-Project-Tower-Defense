@@ -184,7 +184,9 @@ public abstract class Tower extends Unit {
         this.targetingStrategy = targetingStrategy;
     }
 
-    ;
+    public TargetingStrategy getTargetingStrategy() {
+        return targetingStrategy;
+    }
 
     public float getBaseDamage() {
         return baseDamage;

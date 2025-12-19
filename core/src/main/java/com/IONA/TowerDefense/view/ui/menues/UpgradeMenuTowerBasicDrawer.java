@@ -37,7 +37,8 @@ public final class UpgradeMenuTowerBasicDrawer implements DrawableMenu {
             font1.setColor(0.859f, 0.824f, 0.773f, 1f);
             font1.draw(batch, "Anti-Malware", x + 0.2f, y + height - 0.2f);
             font2.setColor(0.859f, 0.824f, 0.773f, 1f);
-            font2.draw(batch, "UPGRADES", x + 0.2f, y + height - 0.8f);
+            font2.draw(batch, "UPGRADES", x+0.2f,y+height-0.8f);
+            font2.draw(batch, "TARGET" , x+0.2f, y+height-2.75f);
 
         }
 

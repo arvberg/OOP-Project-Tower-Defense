@@ -5,6 +5,7 @@ import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.ui.buttonui.TargetingStrategyToggleButton;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
@@ -39,17 +40,29 @@ public class UpgradeMenu extends Menu {
 
 
     @Override
-    public void setMenuPosition(float x, float y) {
-        if (x < 0) {
+    public void setMenuPosition(float x, float y){
+        if(x < 0) {
             menuPosition.x = 0.2f;
-        } else if (x + width > 16) {
-            menuPosition.x = 16 - width - 0.2f;
-        } else {
+        }
+        else if(x+width>16){
+            menuPosition.x = 16-width-0.2f;
+        }
+        else{
             menuPosition.x = x;
         }
-        if (y + height > 9) {
-            menuPosition.y = y - 1.35f * height;
-        } else {
+        if(y+height > 9){
+
+            if(y - 1.35*height > 0){menuPosition.y = y - 1.35f*height;}
+
+            else{ menuPosition.y = 0.66f*height;
+                if(menuPosition.x == 0.2f){menuPosition.x = 1.2f;}
+                else{menuPosition.x = menuPosition.x+2.4f;}}
+
+            if(x+width>16){
+                menuPosition.x = menuPosition.x-4f;
+            }
+        }
+        else{
             menuPosition.y = y;
         }
     }
@@ -81,7 +94,7 @@ public class UpgradeMenu extends Menu {
     }
 
 
-    public void createGridItems(Deque<TowerUpgrade> upgradePath1, Deque<TowerUpgrade> upgradePath2, Deque<TowerUpgrade> upgradePath3) {
+    public void createGridItems(Deque<TowerUpgrade> upgradePath1, Deque<TowerUpgrade> upgradePath2, Deque<TowerUpgrade> upgradePath3, String targetingStrategy) {
 
         int rows = 5;
         int cols = 3;
@@ -134,7 +147,7 @@ public class UpgradeMenu extends Menu {
 
                         break;
                     case 4:
-                        button = new TargetingStrategyToggleButton(x, y);
+                        button = new TargetingStrategyToggleButton(x, y, targetingStrategy);
                         break;
                     case 5:
                         button = new SellButton(x, y, this);

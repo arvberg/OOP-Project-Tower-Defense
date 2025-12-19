@@ -11,8 +11,8 @@ import com.badlogic.gdx.math.Vector2;
  * toward the target using a turn speed, allowing it to follow moving enemies.
  */
 public class Missile extends Projectile implements Movable {
-    private float acceleration = 0;
     private float turnSpeed = 5f;
+    private float acceleration = 8f;
 
     public Missile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         super(damage, speed, position, dxdy);
@@ -21,6 +21,7 @@ public class Missile extends Projectile implements Movable {
         this.position = position;
         this.dxdy = dxdy;
         this.destroyed = false;
+        lifeSpan = 5f;
     }
 
     @Override
