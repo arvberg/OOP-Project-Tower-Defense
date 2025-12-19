@@ -14,6 +14,7 @@ public class DrawableUpgradeFactory {
             case "RangeUpgrade" -> new RangeUpgradeDrawer(item);
             case "FireRateUpgrade" -> new FireRateUpgradeDrawer(item);
             case "MaxUpgrade" -> new UpgradeMenuItemButtonDrawer(item);
+            case "DamageUpgrade" -> new DamageUpgradeDrawer(item);
             default -> throw new IllegalStateException("Unexpected value: " + item);
         };
     }

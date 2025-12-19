@@ -12,6 +12,7 @@ public final class UpgradeMenuTowerMissileDrawer implements DrawableMenu {
 
     private final UpgradeMenu upgradeMenu;
 
+
     public UpgradeMenuTowerMissileDrawer(UpgradeMenu upgradeMenu) {
         this.upgradeMenu = upgradeMenu;
     }

@@ -11,7 +11,7 @@ public class UpgradeMenuItem extends Button {
     private final Deque<TowerUpgrade> upgrades;
 
     public UpgradeMenuItem(float x, float y, Deque<TowerUpgrade> upgrades, UpgradeMenu menu) {
-        super(x, y, menu.getWidth() - 0.6f, 0.4f, GameAction.UPGRADE_TOWER);
+        super(x, y, menu.getWidth() - 0.4f, 0.4f, GameAction.UPGRADE_TOWER);
         this.upgrades = upgrades;
     }
 

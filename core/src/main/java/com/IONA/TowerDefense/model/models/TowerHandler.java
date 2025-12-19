@@ -60,7 +60,7 @@ public class TowerHandler {
                 upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth() / 2, clickedTower.getY() + clickedTower.getDimension().y);
                 upgradeMenu.setTowerIsClicked(true, clickedTower.getTowerType());
                 upgradeMenu.clearGridItems();
-                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2(), clickedTower.getUpgradePath3());
+                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2(), clickedTower.getUpgradePath3(), clickedTower.getTargetingStrategy().getStrategy());
 
                 break; // break om torn hittat
             }

@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttac
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
+import com.IONA.TowerDefense.model.upgrades.DamageUpgrade;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
@@ -38,7 +39,7 @@ public class TowerBasic extends Tower implements Rotatable {
         targetingStrategy = targetingStrategies.getFirst();
         upgradePath1.add(new RangeUpgrade(40));
         upgradePath2.add(new FireRateUpgrade(40));
-        upgradePath3.add(new RangeUpgrade(40));
+        upgradePath3.add(new DamageUpgrade(40));
         towerType = "TowerBasic";
     }
 
@@ -65,9 +66,7 @@ public class TowerBasic extends Tower implements Rotatable {
         this.desiredDirection = desiredDirection;
     }
 
-    public TargetingStrategy getTargetingStrategy() {
-        return targetingStrategy;
-    }
+
 }
 
 

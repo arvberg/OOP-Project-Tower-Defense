@@ -5,6 +5,7 @@ import com.IONA.TowerDefense.model.ui.Menu;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.ui.buttonui.TargetingStrategyToggleButton;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
@@ -93,7 +94,7 @@ public class UpgradeMenu extends Menu {
     }
 
 
-    public void createGridItems(Deque<TowerUpgrade> upgradePath1, Deque<TowerUpgrade> upgradePath2, Deque<TowerUpgrade> upgradePath3) {
+    public void createGridItems(Deque<TowerUpgrade> upgradePath1, Deque<TowerUpgrade> upgradePath2, Deque<TowerUpgrade> upgradePath3, String targetingStrategy) {
 
         int rows = 5;
         int cols = 3;
@@ -146,7 +147,7 @@ public class UpgradeMenu extends Menu {
 
                         break;
                     case 4:
-                        button = new TargetingStrategyToggleButton(x, y);
+                        button = new TargetingStrategyToggleButton(x, y, targetingStrategy);
                         break;
                     case 5:
                         button = new SellButton(x, y, this);

@@ -116,7 +116,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.pauseButton = new PauseButton(10, 0);
         this.restartButton = new RestartButton(5f, 3f);
         this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y);
-        this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5);
+        this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(0, 0, "");
 
 
         inGameButtons.add(playButton);
