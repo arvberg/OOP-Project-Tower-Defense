@@ -55,6 +55,8 @@ public class Assets {
 
     // BUTTONS_TOWERICONS
     public static final String BUTTON_TOWERICON_TOWERBASIC = "ui/buttons/towericons/Button_Towericon_Towerbasic.png";
+    public static final String BUTTON_TOWERICON_TOWERPULSE = "ui/buttons/towericons/Button_Towericon_Towerpulse.png";
+    public static final String BUTTON_TOWERICON_TOWERMISSILE = "ui/buttons/towericons/Button_Towericon_Towermissile.png";
 
     // MENUES
     public static final String MENU_INFOMENU_TOWERBASIC = "ui/menues/Menu_Infomenu_Towerbasic.png";

@@ -15,7 +15,7 @@ public final class TowerMissileIconDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE shared by all instances
-    private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_TOWERICON_TOWERMISSILE);
 
     public TowerMissileIconDrawer(TowerMenuItem tower) {
         this.tower = tower;

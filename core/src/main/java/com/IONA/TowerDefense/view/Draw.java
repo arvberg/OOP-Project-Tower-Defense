@@ -403,7 +403,6 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     public void onTowerStrategyToggle(String strategy) {
         for (TowerListener t : towerListeners) {
             t.onTowerStrategyToggle(strategy);
-
         }
 
     }
