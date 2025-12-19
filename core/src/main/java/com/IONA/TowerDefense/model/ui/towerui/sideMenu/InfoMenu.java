@@ -1,10 +1,8 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.Menu;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
-import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 

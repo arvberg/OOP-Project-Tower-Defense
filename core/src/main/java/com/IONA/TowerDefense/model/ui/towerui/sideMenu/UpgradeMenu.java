@@ -1,10 +1,10 @@
 package com.IONA.TowerDefense.model.ui.towerui.sideMenu;
 
+import com.IONA.TowerDefense.controller.buttonui.SellButton;
+import com.IONA.TowerDefense.controller.buttonui.TargetingStrategyToggleButton;
 import com.IONA.TowerDefense.model.models.GameModel;
+import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.Menu;
-import com.IONA.TowerDefense.model.ui.buttonui.Button;
-import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
-import com.IONA.TowerDefense.model.ui.buttonui.TargetingStrategyToggleButton;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;

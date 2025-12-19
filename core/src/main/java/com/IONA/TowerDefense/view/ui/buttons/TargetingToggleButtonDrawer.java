@@ -1,8 +1,6 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
-import com.IONA.TowerDefense.model.ui.buttonui.SellButton;
-import com.IONA.TowerDefense.model.ui.buttonui.SpeedUpButton;
-import com.IONA.TowerDefense.model.ui.buttonui.TargetingStrategyToggleButton;
+import com.IONA.TowerDefense.controller.buttonui.TargetingStrategyToggleButton;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.view.Assets;
 import com.IONA.TowerDefense.view.ui.Fonts;

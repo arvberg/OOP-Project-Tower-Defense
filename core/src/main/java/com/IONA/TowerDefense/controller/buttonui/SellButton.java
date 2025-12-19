@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.controller.buttonui;
 
 import com.IONA.TowerDefense.model.input.GameAction;
+import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 
 public class SellButton extends Button {
