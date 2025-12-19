@@ -16,6 +16,7 @@ public class ProjectileBasic extends Projectile implements Movable {
         this.position = position;
         this.dxdy = dxdy;
         destroyed = false;
+        lifeSpan = 5f;
     }
 
     @Override

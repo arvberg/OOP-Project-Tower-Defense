@@ -8,17 +8,8 @@ import static java.lang.Math.abs;
 
 
 public class Missile extends Projectile implements Movable {
-    private float acceleration = 0;
     private float turnSpeed = 5f;
-    private float lifeTime = 0f;
-
-    public void update(float delta) {
-        this.move(delta);
-        lifeTime += delta;
-        if (lifeTime > 10) {
-            this.setDestroyed(true);
-        }
-    }
+    private float acceleration = 8f;
 
     public Missile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         super(damage, speed, position, dxdy);
@@ -27,6 +18,7 @@ public class Missile extends Projectile implements Movable {
         this.position = position;
         this.dxdy = dxdy;
         this.destroyed = false;
+        lifeSpan = 5f;
     }
 
     @Override

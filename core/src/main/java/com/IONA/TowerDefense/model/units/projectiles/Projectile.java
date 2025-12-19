@@ -15,6 +15,8 @@ public abstract class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
+    protected float lifeTime = 0;
+    protected float lifeSpan;
 
     public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         this.damage = damage;
@@ -24,9 +26,16 @@ public abstract class Projectile extends Unit implements Movable {
         this.destroyed = false;
     }
 
-    public void setPosition(float newX, float newY) {
-        this.position.x = newX;
-        this.position.y = newY;
+    public void update(float delta) {
+        move(delta);
+        updateLifeTime(delta);
+    }
+
+    public void updateLifeTime(float delta) {
+        lifeTime += delta;
+        if (lifeTime > lifeSpan) {
+            setDestroyed(true);
+        }
     }
 
     public abstract void move(float delta);
@@ -35,6 +44,11 @@ public abstract class Projectile extends Unit implements Movable {
         boolean outOfWidth = position.x < 0 || position.x > worldDimensions.x;
         boolean outOfHeight = position.y < 0 || position.y > worldDimensions.y;
         return outOfWidth || outOfHeight;
+    }
+
+    public void setPosition(float newX, float newY) {
+        this.position.x = newX;
+        this.position.y = newY;
     }
 
     public Vector2 getPosition() {

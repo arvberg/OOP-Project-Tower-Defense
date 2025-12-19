@@ -24,7 +24,7 @@ public class AttackHandler {
     private final List<AttackListener> listeners = new ArrayList<>();
 
     private static final Vector2 IDLE_DIRECTION = new Vector2(-1f, 0f);
-    private final Vector2 mapDimensions = new Vector2(16f, 9f);
+    private final Vector2 projectileBounderies = new Vector2(20f, 12f);
 
     public AttackHandler(List<Enemy> enemies, List<Projectile> projectiles, List<Tower> towers) {
         this.enemies = enemies;
@@ -94,7 +94,7 @@ public class AttackHandler {
             Projectile p = projectiles.get(i);
             if (p == null) continue;
 
-            if (p.outOfBounds(mapDimensions)) {
+            if (p.outOfBounds(projectileBounderies)) {
                 p.setDestroyed(true);
             }
 
