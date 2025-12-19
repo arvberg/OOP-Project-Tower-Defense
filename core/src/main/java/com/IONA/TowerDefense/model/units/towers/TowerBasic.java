@@ -7,6 +7,7 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttac
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetStrongestStrategy;
 import com.IONA.TowerDefense.model.upgrades.DamageUpgrade;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
@@ -36,6 +37,7 @@ public class TowerBasic extends Tower implements Rotatable {
         attackStrategy = new ProjectileAttackStrategy();
         targetingStrategies.add(new TargetLeadingStrategy()); // The order that you add strategies is very important.
         targetingStrategies.add(new TargetNearestStrategy());
+        targetingStrategies.add(new TargetStrongestStrategy());
         targetingStrategy = targetingStrategies.getFirst();
         upgradePath1.add(new RangeUpgrade(40));
         upgradePath2.add(new FireRateUpgrade(40));

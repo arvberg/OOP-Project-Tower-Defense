@@ -6,7 +6,10 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.AreaAttackStrat
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.HomingAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetStrongestStrategy;
+import com.IONA.TowerDefense.model.upgrades.DamageUpgrade;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
@@ -30,11 +33,13 @@ public class TowerMissile extends Tower implements Rotatable {
         currentDirection = new Vector2(0, 0);
         desiredDirection = new Vector2(0, 0);
         attackStrategy = new HomingAttackStrategy();
-        targetingStrategy = new TargetNearestStrategy();
-        upgradePath1.add(new FireRateUpgrade(1));
-        upgradePath2.add(new RangeUpgrade(1));
-        upgradePath2.add(new FireRateUpgrade(1));
-        upgradePath2.add(new MaxUpgrade(0));
+        targetingStrategies.add(new TargetLeadingStrategy()); // The order that you add strategies is very important.
+        targetingStrategies.add(new TargetNearestStrategy());
+        targetingStrategies.add(new TargetStrongestStrategy());
+        targetingStrategy = targetingStrategies.getFirst();
+        upgradePath1.add(new RangeUpgrade(100));
+        upgradePath2.add(new FireRateUpgrade(250));
+        upgradePath3.add(new DamageUpgrade(80));
         towerType = "TowerMissile";
     }
 

@@ -43,10 +43,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final List<Button> inGameButtons;
     private final List<Button> gameOverButtons;
     private final List<Menu> menus;
-    private List<Button> inGameButtons;
-    private List<Button> gameOverButtons;
     private List<Button> towerItemButtons;
-    private List<Menu> menus;
+
 
     // private final List<Resource> resources;
     private final List<Resource> resources;
@@ -114,7 +112,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
         this.actionHandler = new ActionHandler(this);
 
-        this.inGameButtons = new ArrayList<>();
         this.gameOverButtons = new ArrayList<>();
         this.menus = new ArrayList<>();
         this.playButton = new PlayButton(14.8f, 0.2f);
