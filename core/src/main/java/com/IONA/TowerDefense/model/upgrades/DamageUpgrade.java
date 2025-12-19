@@ -4,7 +4,8 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 
 public class DamageUpgrade implements TowerUpgrade {
 
-    private final int cost;
+
+    private int cost;
 
     public DamageUpgrade(int cost) {
         this.cost = cost;
@@ -24,6 +25,11 @@ public class DamageUpgrade implements TowerUpgrade {
     public boolean canApply(Tower tower) {
         return true;
     }
+
+    @Override
+    public void incrementCost(float f){
+        this.cost = (int)(cost*f);
+    };
 
     @Override
     public void apply(Tower tower) {
