@@ -8,7 +8,12 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.projectiles.ProjectileBasic;
 import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
 import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
-
+/**
+ * Factory class for creating drawable representations of projectiles.
+ *
+ * Converts a given projectile (ProjectileBasic or Missile) into its corresponding
+ * DrawableProjectile implementation for rendering purposes.
+ */
 public class DrawableProjectileFactory {
 
     private DrawableProjectileFactory() {

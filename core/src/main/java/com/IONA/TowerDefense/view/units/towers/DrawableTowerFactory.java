@@ -9,7 +9,12 @@ import com.IONA.TowerDefense.view.ui.buttons.DrawableButton;
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * Factory class for creating drawable representations of towers.
+ *
+ * Converts a given Tower instance into its corresponding DrawableTower implementation.
+ * Caches created views to ensure each tower has a single drawable instance.
+ */
 public final class DrawableTowerFactory {
 
     private static final Map<Tower, DrawableTower> existingViews = new HashMap<>();

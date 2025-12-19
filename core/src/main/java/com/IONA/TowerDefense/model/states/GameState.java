@@ -8,6 +8,19 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Represents a state in the Tower Defense game.
+ * <p>
+ * GameState defines the behavior of the game during different phases,
+ * such as start, running, paused, or game over. Each concrete state
+ * can override the default methods to handle entering the state,
+ * updating game logic, processing input, handling hover events,
+ * toggling pause, responding to enemy deaths, restarting, or exiting the game.
+ * <p>
+ * Default implementations provide basic input handling for UI buttons,
+ * tower selection, and tower placement, which can be reused or overridden
+ * by specific states.
+ */
 public interface GameState {
 
     default void enter() {
@@ -58,6 +71,7 @@ public interface GameState {
 
     default void handleHover(GameModel model, Vector2 pos) {
         model.updateTowerFollowingMouse(pos);
+        model.updateHover(pos);
     }
 
     default void toggle() {

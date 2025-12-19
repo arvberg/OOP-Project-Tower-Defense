@@ -2,7 +2,15 @@ package com.IONA.TowerDefense.model.upgrades;
 
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import org.w3c.dom.ranges.Range;
-
+/**
+ * RangeUpgrade represents an upgrade that increases a Tower's attack range.
+ *
+ * This upgrade can be applied to any Tower. When applied, it increases the Tower's range
+ * by a fraction of the difference between the current range and a calculated maximum range,
+ * allowing the tower to reach enemies farther away.
+ *
+ * The cost of the upgrade can be incremented over time using the incrementCost() method.
+ */
 public class RangeUpgrade implements TowerUpgrade {
 
     private int cost;

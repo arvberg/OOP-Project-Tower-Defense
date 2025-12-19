@@ -8,7 +8,13 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
-
+/**
+ * HomingAttackStrategy fires homing missiles at target enemies.
+ * <p>
+ * Each attack creates a missile that continuously adjusts its direction
+ * toward its assigned enemy, allowing it to track moving targets.
+ * The missile’s damage and speed are determined by the firing tower.
+ */
 public class HomingAttackStrategy implements AttackStrategy {
 
     @Override

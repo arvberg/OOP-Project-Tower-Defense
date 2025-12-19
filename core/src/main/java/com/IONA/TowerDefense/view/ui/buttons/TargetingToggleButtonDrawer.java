@@ -2,6 +2,7 @@ package com.IONA.TowerDefense.view.ui.buttons;
 
 import com.IONA.TowerDefense.controller.buttonui.TargetingStrategyToggleButton;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
+import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.view.Assets;
 import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.graphics.Texture;

@@ -1,9 +1,15 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
-import com.IONA.TowerDefense.model.ui.HealthBar;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+
+/**
+ * EnemyTanky represents a slow, high-HP enemy.
+ * <p>
+ * Extends the abstract Enemy class. Compared to EnemyBasic and EnemyFast,
+ * this enemy has significantly higher health, lower speed, and higher damage.
+ * Designed to test the player's ability to handle durable, slow-moving targets.
+ */
 public class EnemyTanky extends Enemy {
     public EnemyTanky(int difficulty) {
         super(difficulty);

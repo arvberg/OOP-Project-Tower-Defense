@@ -1,22 +1,20 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.Direction;
 import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.Unit;
-import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Rectangle;
 
 import javax.swing.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.IONA.TowerDefense.HeartBeat.delta;
-import static java.lang.Math.abs;
-
+/**
+ * Abstract base class for all enemy types in the game.
+ * <p>
+ * An Enemy has health, speed, damage, money reward, position, direction, and a hitbox.
+ * It can move along a path, take damage, and update its health bar accordingly.
+ * Concrete enemy types should extend this class and set specific attributes like hp, speed, and reward.
+ */
 public abstract class Enemy extends Unit {
     protected HealthBar healthBar;
     protected Direction dir;

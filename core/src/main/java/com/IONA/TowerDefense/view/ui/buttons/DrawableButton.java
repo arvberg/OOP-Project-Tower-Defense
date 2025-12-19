@@ -1,7 +1,13 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
+import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.view.Drawable;
-
+/**
+ * Marker interface for all button types that can be drawn in the UI.
+ * <p>
+ * Only the specified classes are permitted to implement this interface,
+ * ensuring type safety and consistent rendering behavior for UI buttons.
+ */
 public sealed interface DrawableButton extends Drawable permits
     ExitButtonDrawer,
     FireRateUpgradeDrawer,

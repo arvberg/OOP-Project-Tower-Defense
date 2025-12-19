@@ -3,7 +3,12 @@ package com.IONA.TowerDefense.view.ui.player;
 import com.IONA.TowerDefense.model.ui.playerui.Resource;
 import com.IONA.TowerDefense.model.ui.playerui.ResourceHP;
 import com.IONA.TowerDefense.model.ui.playerui.ResourceMoney;
-
+/**
+ * Factory class for creating drawable representations of player resources.
+ *
+ * Converts a Resource instance into its corresponding DrawableResource implementation.
+ * Supports ResourceMoney and ResourceHP. Throws an exception for unknown types.
+ */
 public final class DrawableResourceFactory {
 
     private DrawableResourceFactory() {

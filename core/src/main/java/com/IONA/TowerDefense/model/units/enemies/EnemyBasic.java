@@ -1,12 +1,13 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
-import com.IONA.TowerDefense.model.ui.HealthBar;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-import static com.IONA.TowerDefense.HeartBeat.delta;
-
+/**
+ * EnemyBasic represents a simple, standard enemy type in the game.
+ * <p>
+ * Extends the abstract Enemy class and sets default stats such as HP, speed,
+ * reward money, damage, and size. Also adds visual rotation effects for front and back parts.
+ */
 public class EnemyBasic extends Enemy {
 
     private float visualRotationFront = 0;
@@ -21,7 +22,7 @@ public class EnemyBasic extends Enemy {
         maxHp = 100 + 25 * difficulty;
         speed = 1.3f + 0.1f * difficulty;
         money = 10 - 2 * difficulty;
-        damage = 100 + 2 * difficulty;
+        damage = 10 + 2 * difficulty;
         width = 0.40f;
         height = 0.40f;
         setHitBox(width, height);

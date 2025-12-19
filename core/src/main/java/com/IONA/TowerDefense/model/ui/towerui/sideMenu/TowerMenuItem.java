@@ -8,7 +8,7 @@ public class TowerMenuItem extends Button {
     private final String towerType;
 
     public TowerMenuItem(float x, float y, String towerType) {
-        super(x - .9f / 2, y - .9f / 2, .9f, 1.1f, GameAction.BUY_TOWER);
+        super(x - 1.2f / 2, y - 1.2f / 2, 1.2f, 1.2f, GameAction.BUY_TOWER);
         this.towerType = towerType;
     }
 

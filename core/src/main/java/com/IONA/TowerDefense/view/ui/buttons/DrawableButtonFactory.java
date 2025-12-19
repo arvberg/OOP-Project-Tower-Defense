@@ -11,7 +11,14 @@ import com.IONA.TowerDefense.view.units.towers.DrawableTower;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Factory class for creating drawable UI button representations.
+ * <p>
+ * Maintains a cache of existing DrawableButton instances to ensure that each
+ * logical Button object is associated with a single DrawableButton view.
+ * Uses a switch expression to instantiate the correct drawable type based
+ * on the specific Button subclass.
+ */
 public class DrawableButtonFactory {
 
     private static final Map<Button, DrawableButton> existingViews = new HashMap<>();
@@ -29,7 +36,7 @@ public class DrawableButtonFactory {
             case RestartButton b -> new RestartButtonDrawer(b);
             case SellButton b -> new SellButtonDrawer(b);
             case SpeedUpButton b -> new SpeedUpButtonDrawer(b);
-            case TowerMenuItem b -> new TowerMenuItemButtonDrawer(b);
+            case TowerMenuItem b -> DrawableTowerIconFactory.create(b);
             case UpgradeMenuItem b -> DrawableUpgradeFactory.create(b);
             case ExitButton b -> new ExitButtonDrawer(b);
             case TargetingStrategyToggleButton b -> new TargetingToggleButtonDrawer(b);

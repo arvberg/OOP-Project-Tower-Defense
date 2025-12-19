@@ -10,7 +10,13 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 import java.util.Vector;
-
+/**
+ * ProjectileAttackStrategy fires standard projectiles toward target enemies.
+ * <p>
+ * For each target, a basic projectile is created and launched in the
+ * direction of the enemy. The projectile’s speed and damage are derived
+ * from the firing tower.
+ */
 public class ProjectileAttackStrategy implements AttackStrategy {
 
     @Override
