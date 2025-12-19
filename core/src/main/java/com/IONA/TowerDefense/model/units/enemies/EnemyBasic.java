@@ -22,7 +22,7 @@ public class EnemyBasic extends Enemy {
         maxHp = 100 + 25 * difficulty;
         speed = 1.3f + 0.1f * difficulty;
         money = 10 - 2 * difficulty;
-        damage = 100 + 2 * difficulty;
+        damage = 10 + 2 * difficulty;
         width = 0.40f;
         height = 0.40f;
         setHitBox(width, height);

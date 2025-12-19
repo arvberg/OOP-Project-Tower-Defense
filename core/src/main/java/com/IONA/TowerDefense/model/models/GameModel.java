@@ -159,7 +159,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
      */
     public void startGame() {
 
-        if (generator.getWaveNr() == 3) {
+        if (generator.getWaveNr() == 6) {
             generator.setGameDiff(generator.getGameDiff() + 1);
             generator.resetWaves();
         }

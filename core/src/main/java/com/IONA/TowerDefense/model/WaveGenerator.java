@@ -43,6 +43,7 @@ public class WaveGenerator {
         finishedSpawning = false;
         rewardGiven = false;
 
+        System.out.println("WAVENR:" + WaveNr);
         float cumulativeDelay = 0;
 
         for (Waves.Enemy e : waves.waveslist.get(WaveNr).enemies) {
