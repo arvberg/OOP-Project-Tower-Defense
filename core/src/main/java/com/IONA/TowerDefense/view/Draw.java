@@ -65,6 +65,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
     private final Set<AttackListener> attackListeners = new HashSet<>();
     private final Set<TowerListener> towerListeners = new HashSet<>();
+    private final Set<InputListener> inputListeners = new HashSet<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -148,6 +149,10 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         if (view instanceof TowerListener l && !towerListeners.contains(view)) {
             towerListeners.add(l);
+        }
+
+        if (view instanceof InputListener l && !inputListeners.contains(l)){
+            inputListeners.add(l);
         }
 
         return view;
@@ -404,7 +409,13 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         for (TowerListener t : towerListeners) {
             t.onTowerStrategyToggle(strategy);
         }
+    }
 
+    @Override
+    public void onButtonHovered(String s){
+        for(InputListener l: inputListeners){
+            l.onButtonHovered(s);
+        }
     }
 
 }

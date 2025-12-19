@@ -71,7 +71,7 @@ public interface GameState {
 
     default void handleHover(GameModel model, Vector2 pos) {
         model.updateTowerFollowingMouse(pos);
-
+        model.updateHover(pos);
     }
 
     default void toggle() {

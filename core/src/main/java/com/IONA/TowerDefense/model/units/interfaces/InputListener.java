@@ -1,5 +1,9 @@
 package com.IONA.TowerDefense.model.units.interfaces;
 
 public interface InputListener {
-    void onButtonClicked();
+    default void onButtonClicked() {
+
+    }
+
+    default void onButtonHovered(String s) {}
 }

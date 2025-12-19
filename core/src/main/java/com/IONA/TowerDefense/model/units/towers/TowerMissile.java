@@ -31,12 +31,12 @@ public class TowerMissile extends Tower implements Rotatable {
 
     public TowerMissile() {
         dimension = new Vector2(1f, 1f);
-        damage = 35;
-        baseDamage = 35;
+        damage = 80;
+        baseDamage = 80;
         projectileSpeed = 2;
-        baseFireRate = 1f;
-        cost = 50;
-        fireRate = 1f;
+        baseFireRate = 2f;
+        cost = 300;
+        fireRate = 2f;
         range = 8f;
         baseRange = 2f;
         cooldown = 0f;

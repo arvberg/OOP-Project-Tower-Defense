@@ -16,6 +16,7 @@ import com.IONA.TowerDefense.model.ui.playerui.*;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.AttackListener;
 import com.IONA.TowerDefense.model.units.interfaces.EnemyDeathListener;
+import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.IONA.TowerDefense.model.units.projectiles.Projectile;
@@ -39,7 +40,7 @@ import java.util.List;
  * {@link TowerListener} to respond to in-game events.
  */
 
-public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
+public class GameModel implements EnemyDeathListener, AttackListener, TowerListener, InputListener {
 
     /// --- Game States ---
     private GameState currentState;
@@ -57,6 +58,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final EnemyHandler enemyHandler;
     private final ActionHandler actionHandler;
     private final TowerFactory towerFactory;
+
+    private final List<InputListener> inputListeners = new ArrayList<>();
 
 
     /// --- Game objects ---
@@ -121,7 +124,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.playButton = new PlayButton(14.8f, 0.2f);
         this.exitButton = new ExitButton(10f, 3f);
         this.speedUpButton = new SpeedUpButton(14.8f, 0.2f);
-        this.pauseButton = new PauseButton(10, 0);
+        this.pauseButton = new PauseButton(0f, 0f);
         this.restartButton = new RestartButton(5f, 3f);
         this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y);
         this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5, "");
@@ -262,6 +265,10 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
      * @param action the action to handle
      * @param sourceButton the button that triggered the action
      */
+
+    public void addInputListener(InputListener l){
+        inputListeners.add(l);
+    }
 
     public void handleAction(GameAction action, Button sourceButton) {
         actionHandler.handleAction(action, sourceButton);
@@ -406,6 +413,15 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (towerHandler.getPendingTower() != null && towerHandler.isBuyingState()) {
             towerHandler.getPendingTower().setPosition(mousePos);
+        }
+    }
+
+    public void updateHover(Vector2 mousePos){
+        for(TowerMenuItem item: getTowerMenuItems()){
+            if (item.isHovered(mousePos)) {
+                notifyButtonHovered(item.getTowerType());
+            }
+
         }
     }
     /**
@@ -592,5 +608,12 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public List<Button> getUpgradeMenuItems() {
         return upgradeMenu.items;
     }
+
+    public void notifyButtonHovered(String s){
+        for(InputListener l: inputListeners){
+            l.onButtonHovered(s);
+        }
+    }
+
 
 }

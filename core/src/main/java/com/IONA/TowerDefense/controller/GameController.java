@@ -37,6 +37,8 @@ public class GameController {
         towerHandler.addTowerListener(view);
         upgradeHandler.addUpgradeListener(view);
 
+        model.addInputListener(view);
+
     }
 
     /**

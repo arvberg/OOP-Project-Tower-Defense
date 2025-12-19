@@ -60,6 +60,8 @@ public class Assets {
 
     // MENUES
     public static final String MENU_INFOMENU_TOWERBASIC = "ui/menues/Menu_Infomenu_Towerbasic.png";
+    public static final String MENU_INFOMENU_TOWERMISSILE = "ui/menues/Menu_Infomenu_Towermissile.png";
+    public static final String MENU_INFOMENU_TOWERPULSE = "ui/menues/Menu_Infomenu_Towerpulse.png";
     public static final String MENU_TOWERMENU = "ui/menues/Menu_Towermenu.png";
     public static final String MENU_TOWERMENU_CANCEL = "ui/menues/Cancel_Button.png";
     public static final String MENU_UPGRADEMENU_TOWERBASIC = "ui/menues/Menu_Upgrademenu_TowerBasic.png";

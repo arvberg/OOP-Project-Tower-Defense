@@ -1,5 +1,6 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
+import com.IONA.TowerDefense.model.units.interfaces.InputListener;
 import com.IONA.TowerDefense.view.Drawable;
 /**
  * Marker interface for all button types that can be drawn in the UI.

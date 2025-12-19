@@ -33,6 +33,8 @@ public abstract class Button {
         return visible && bounds.contains(pos);
     }
 
+    public boolean isHovered(Vector2 pos){ return visible && bounds.contains(pos);}
+
     public GameAction getAction() {
         return action;
     }

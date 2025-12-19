@@ -33,7 +33,7 @@ public class TowerBasic extends Tower implements Rotatable {
         damage = baseDamage;
         projectileSpeed = 8;
         baseFireRate = 0.01f;
-        cost = 50;
+        cost = 80;
         fireRate = 0.55f;
         range = 2f;
         baseRange = 2f;

@@ -5,6 +5,6 @@ import com.IONA.TowerDefense.model.input.GameAction;
 public class PauseButton extends Button {
 
     public PauseButton(float x, float y) {
-        super(x, y, 1, 1, GameAction.PAUSE_TOGGLE);
+        super(0.1f, 9f - 0.9f, 0.8f, 0.8f, GameAction.PAUSE_TOGGLE);
     }
 }
