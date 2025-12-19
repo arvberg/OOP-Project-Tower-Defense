@@ -9,27 +9,27 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class TowerBasicIconDrawer implements DrawableButton {
 
-        private final TowerMenuItem tower;
-        private Vector2 p;
-        private final float dimensionX;
-        private final float dimensionY;
+    private final TowerMenuItem tower;
+    private Vector2 p;
+    private final float dimensionX;
+    private final float dimensionY;
 
-        // STATIC TEXTURE shared by all instances
-        private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
+    // STATIC TEXTURE shared by all instances
+    private static final Texture TEXTURE = new Texture(Assets.TOWER_BASIC_BODY);
 
-        public TowerBasicIconDrawer (TowerMenuItem tower) {
-            this.tower = tower;
-            this.dimensionX = tower.getWidth();
-            this.dimensionY = tower.getHeight();
-        }
+    public TowerBasicIconDrawer(TowerMenuItem tower) {
+        this.tower = tower;
+        this.dimensionX = tower.getWidth();
+        this.dimensionY = tower.getHeight();
+    }
 
-        @Override
-        public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
-            p = tower.getButtonPosition();
-            batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
-        }
+    @Override
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
+        p = tower.getButtonPosition();
+        batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
+    }
 
-        public static void disposeStatic() {
-            if (TEXTURE != null) TEXTURE.dispose();
-        }
+    public static void disposeStatic() {
+        if (TEXTURE != null) TEXTURE.dispose();
+    }
 }

@@ -30,8 +30,8 @@ public class TowerBasic extends Tower implements Rotatable {
         cooldown = 0f;
         rotationSpeed = 20f;
         aimingMargin = 0.5f;
-        currentDirection = new Vector2(0,0);
-        desiredDirection = new Vector2(0,0);
+        currentDirection = new Vector2(0, 0);
+        desiredDirection = new Vector2(0, 0);
         attackStrategy = new ProjectileAttackStrategy();
         targetingStrategies.add(new TargetLeadingStrategy()); // The order that you add strategies is very important.
         targetingStrategies.add(new TargetNearestStrategy());
@@ -63,11 +63,6 @@ public class TowerBasic extends Tower implements Rotatable {
     @Override
     public void setDesiredDirection(Vector2 desiredDirection) {
         this.desiredDirection = desiredDirection;
-    }
-
-    @Override
-    public float getRotationSpeed() {
-        return rotationSpeed;
     }
 
     public TargetingStrategy getTargetingStrategy() {

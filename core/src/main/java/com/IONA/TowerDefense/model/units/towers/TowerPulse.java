@@ -10,7 +10,7 @@ import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
-public class TowerPulse extends Tower{
+public class TowerPulse extends Tower {
 
     public TowerPulse() {
         dimension = new Vector2(1f, 1f);
@@ -23,8 +23,8 @@ public class TowerPulse extends Tower{
         range = 2f;
         baseRange = 2f;
         rotationSpeed = 0f;
-        currentDirection = new Vector2(0,0);
-        desiredDirection = new Vector2(0,0);
+        currentDirection = new Vector2(0, 0);
+        desiredDirection = new Vector2(0, 0);
         cooldown = 0f;
         attackStrategy = new AreaAttackStrategy();
         targetingStrategy = new TargetAllStrategy();
@@ -37,7 +37,6 @@ public class TowerPulse extends Tower{
 
     @Override
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        return;
     }
 
     @Override

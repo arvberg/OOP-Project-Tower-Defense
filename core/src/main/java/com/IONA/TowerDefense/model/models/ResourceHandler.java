@@ -14,7 +14,7 @@ public class ResourceHandler {
     private int lives; // Players health
     private int score; // Players current score
 
-    public ResourceHandler(){
+    public ResourceHandler() {
         this.resources = new ArrayList<>();
         this.lives = 100;
         this.money = 1000;
@@ -35,29 +35,29 @@ public class ResourceHandler {
             1f));
     }
 
-    public void updateHpResource(){
-        for (Resource r : resources){
-            if (r instanceof ResourceHP && lives >= 0){
+    public void updateHpResource() {
+        for (Resource r : resources) {
+            if (r instanceof ResourceHP && lives >= 0) {
                 r.setCurrentResource(lives);
                 r.textBar = String.valueOf(lives);
             }
         }
     }
 
-    public void updateMoneyResource(){
-        for (Resource r : resources){
-            if (r instanceof ResourceMoney){
+    public void updateMoneyResource() {
+        for (Resource r : resources) {
+            if (r instanceof ResourceMoney) {
                 r.setCurrentResource(money);
                 r.textBar = String.valueOf(money);
             }
         }
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
 
-    public void gainMoney(int amount){
+    public void gainMoney(int amount) {
         this.money += amount;
         this.score += amount;
     }
@@ -74,9 +74,7 @@ public class ResourceHandler {
         this.lives = Math.max(newLives, 0);
     }
 
-    public int getScore(){ return score; }
-
-    public List<Resource> getResources(){
+    public List<Resource> getResources() {
         return resources;
     }
 

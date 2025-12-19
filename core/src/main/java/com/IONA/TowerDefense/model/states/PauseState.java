@@ -40,5 +40,6 @@ public class PauseState implements GameState {
     }
 
     @Override
-    public void exit() {}
+    public void exit() {
+    }
 }

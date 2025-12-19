@@ -6,8 +6,6 @@ public interface Movable {
 
     Vector2 getPosition();
 
-    float getSpeed();
-
     default void setPosition(Vector2 position) {
     }
 

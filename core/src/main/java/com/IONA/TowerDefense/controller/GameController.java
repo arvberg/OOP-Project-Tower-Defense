@@ -10,7 +10,7 @@ public class GameController {
     private final Draw view;
     private final GameModel model;
 
-    public GameController (GameModel model, Draw view) {
+    public GameController(GameModel model, Draw view) {
         this.view = view;
         this.model = model;
 
@@ -31,12 +31,12 @@ public class GameController {
 
     public void update() {
 
-            float mouseX = Gdx.input.getX();
-            float mouseY = Gdx.input.getY();
-            // View konverterar till world-space
-            Vector2 world = view.toWorld(mouseX, mouseY);
+        float mouseX = Gdx.input.getX();
+        float mouseY = Gdx.input.getY();
+        // View konverterar till world-space
+        Vector2 world = view.toWorld(mouseX, mouseY);
 
-            updateMouse(world);
+        updateMouse(world);
 
         if (Gdx.input.justTouched()) {
             checkInput(world);

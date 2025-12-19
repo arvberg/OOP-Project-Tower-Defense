@@ -16,7 +16,7 @@ import static com.IONA.TowerDefense.Main.model;
 
 public class EnemyHandler {
 
-    //
+
     private final List<Enemy> enemies;
     private Path path;
 
@@ -61,7 +61,9 @@ public class EnemyHandler {
         enemies.add(enemy);
     }
 
-    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
 
     public void removeAllEnemies() {
         enemies.clear();
@@ -79,10 +81,6 @@ public class EnemyHandler {
 
     public void addAttackListener(EnemyDeathListener l) {
         listeners.add(l);
-    }
-
-    public void removeAttackListener(EnemyDeathListener l) {
-        listeners.remove(l);
     }
 
     public void notifyEnemyDeathEvent(Enemy enemy) {

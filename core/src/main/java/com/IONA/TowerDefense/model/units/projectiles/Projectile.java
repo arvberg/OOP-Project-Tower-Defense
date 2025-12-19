@@ -64,7 +64,7 @@ public abstract class Projectile extends Unit implements Movable {
         this.dxdy.y = newDy;
     }
 
-    public Vector2 getDir(){
+    public Vector2 getDir() {
         return this.dxdy;
     }
 

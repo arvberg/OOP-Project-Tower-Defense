@@ -11,14 +11,13 @@ import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
 
 public class DrawableProjectileFactory {
 
-    private DrawableProjectileFactory(){}
+    private DrawableProjectileFactory() {
+    }
 
-    // TILLFÄLLIGT Unit, ska senare vara Projectile och case ProjectileBasic
-    public static DrawableProjectile create(Unit projectile){
-        return switch (projectile){
+    public static DrawableProjectile create(Unit projectile) {
+        return switch (projectile) {
             case ProjectileBasic p -> new ProjectileBasicDrawer(p);
             case Missile p -> new ProjectileMissileDrawer(p);
-            //case EnemyTanky e   -> new EnemyTankDrawer(e);
             default -> throw new IllegalStateException("Unexpected value: " + projectile);
         };
     }

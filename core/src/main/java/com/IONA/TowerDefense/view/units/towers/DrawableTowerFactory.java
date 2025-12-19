@@ -16,13 +16,14 @@ public final class DrawableTowerFactory {
 
     private static final Map<Tower, DrawableTower> existingViews = new HashMap<>();
 
-    private DrawableTowerFactory(){}
+    private DrawableTowerFactory() {
+    }
 
-    public static DrawableTower create(Tower tower){
-        if(existingViews.containsKey(tower)) {
+    public static DrawableTower create(Tower tower) {
+        if (existingViews.containsKey(tower)) {
             return existingViews.get(tower);
         }
-        DrawableTower view = switch (tower){
+        DrawableTower view = switch (tower) {
             case TowerBasic t -> new TowerBasicDrawer(t);
             case TowerPulse t -> new TowerPulseDrawer(t);
             case TowerMissile t -> new TowerMissileDrawer(t);

@@ -20,7 +20,7 @@ public final class UpgradeMenuTowerBasicDrawer implements DrawableMenu {
     private final BitmapFont font1;
     private final BitmapFont font2;
 
-    public UpgradeMenuTowerBasicDrawer(UpgradeMenu upgradeMenu){
+    public UpgradeMenuTowerBasicDrawer(UpgradeMenu upgradeMenu) {
         this.upgradeMenu = upgradeMenu;
         this.font1 = Fonts.GOTHIC_FONT_DEFAULT_8;
         this.font2 = Fonts.GOTHIC_FONT_BOLD_4;
@@ -31,11 +31,11 @@ public final class UpgradeMenuTowerBasicDrawer implements DrawableMenu {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         if (upgradeMenu.towerIsClicked()) {
             batch.draw(TEXTURE, x, y, width, height);
             font1.setColor(0.859f, 0.824f, 0.773f, 1f);
-            font1.draw(batch, "Anti-Malware", x+0.2f, y+height-0.2f);
+            font1.draw(batch, "Anti-Malware", x + 0.2f, y + height - 0.2f);
             font2.setColor(0.859f, 0.824f, 0.773f, 1f);
             font2.draw(batch, "UPGRADES", x+0.2f,y+height-0.8f);
             font2.draw(batch, "TARGET" , x+0.2f, y+height-2.75f);

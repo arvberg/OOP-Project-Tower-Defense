@@ -34,7 +34,6 @@ public class PathFactory {
             new Segment(new Vector2(13.7f, 6.5f), 2.5f, Direction.NORTH)
 
 
-
         ));
     }
 }

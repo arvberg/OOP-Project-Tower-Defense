@@ -12,12 +12,12 @@ public final class InfoMenuDrawer implements DrawableMenu {
 
     private final InfoMenu infoMenu;
 
-    public InfoMenuDrawer(InfoMenu infoMenu){
+    public InfoMenuDrawer(InfoMenu infoMenu) {
         this.infoMenu = infoMenu;
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         if (infoMenu.isHovered()) {
             batch.draw(TEXTURE, infoMenu.getMenuPosition().x, infoMenu.getMenuPosition().y,
                 infoMenu.getWidth(), infoMenu.getHeight());

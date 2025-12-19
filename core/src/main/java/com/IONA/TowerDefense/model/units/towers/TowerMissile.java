@@ -27,8 +27,8 @@ public class TowerMissile extends Tower implements Rotatable {
         cooldown = 0f;
         rotationSpeed = 5f;
         aimingMargin = 1f;
-        currentDirection = new Vector2(0,0);
-        desiredDirection = new Vector2(0,0);
+        currentDirection = new Vector2(0, 0);
+        desiredDirection = new Vector2(0, 0);
         attackStrategy = new HomingAttackStrategy();
         targetingStrategy = new TargetNearestStrategy();
         upgradePath1.add(new FireRateUpgrade(1));
@@ -61,8 +61,4 @@ public class TowerMissile extends Tower implements Rotatable {
         this.desiredDirection = desiredDirection;
     }
 
-    @Override
-    public float getRotationSpeed() {
-        return rotationSpeed;
-    }
 }

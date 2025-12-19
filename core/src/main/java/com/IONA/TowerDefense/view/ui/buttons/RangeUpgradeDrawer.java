@@ -33,7 +33,7 @@ public final class RangeUpgradeDrawer implements DrawableButton {
         p = item.getButtonPosition();
         batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
         font.setColor(0.145f, 0.153f, 0.141f, 1f);
-        font.draw(batch, ("+ RANGE: " + item.getNextUpgrade().getCost() + " byte"), p.x+0.08f, p.y+dimensionY+0.01f);
+        font.draw(batch, ("+ RANGE: " + item.getNextUpgrade().getCost() + " byte"), p.x + 0.08f, p.y + dimensionY + 0.01f);
     }
 
     public static void disposeStatic() {

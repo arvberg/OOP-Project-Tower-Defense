@@ -14,7 +14,6 @@ public class UpgradeHandler {
     public UpgradeHandler() {
     }
 
-
     /**
      * Försöker applicera en upgrade på ett torn.
      */
@@ -23,11 +22,13 @@ public class UpgradeHandler {
         upgrade.apply(tower);
     }
 
+
     public void notifyUpgradeListeners() {
         for (UpgradeListener u : listeners) {
             u.onUpgrade();
         }
     }
+
 
     public void addUpgradeListener(UpgradeListener listener) {
         listeners.add(listener);
