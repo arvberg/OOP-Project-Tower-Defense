@@ -20,7 +20,7 @@ public class ResourceHandler {
     public ResourceHandler() {
         this.resources = new ArrayList<>();
         this.lives = 100;
-        this.money = 1000;
+        this.money = 100;
         this.score = 0;
 
 
