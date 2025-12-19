@@ -37,7 +37,7 @@ public class TowerBasic extends Tower implements Rotatable {
         targetingStrategies.add(new TargetNearestStrategy());
         targetingStrategy = targetingStrategies.getFirst();
         upgradePath1.add(new RangeUpgrade(40));
-        upgradePath2.add(new RangeUpgrade(40));
+        upgradePath2.add(new FireRateUpgrade(40));
         upgradePath3.add(new RangeUpgrade(40));
         towerType = "TowerBasic";
     }

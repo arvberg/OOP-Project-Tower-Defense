@@ -65,7 +65,16 @@ public class UpgradeMenu extends Menu {
             menuPosition.x = x;
         }
         if(y+height > 9){
-            menuPosition.y = y - 1.35f*height;
+
+            if(y - 1.35*height > 0){menuPosition.y = y - 1.35f*height;}
+
+            else{ menuPosition.y = 0.66f*height;
+                if(menuPosition.x == 0.2f){menuPosition.x = 1.2f;}
+                else{menuPosition.x = menuPosition.x+2.4f;}}
+
+            if(x+width>16){
+                menuPosition.x = menuPosition.x-3f;
+            }
         }
         else{
             menuPosition.y = y;
