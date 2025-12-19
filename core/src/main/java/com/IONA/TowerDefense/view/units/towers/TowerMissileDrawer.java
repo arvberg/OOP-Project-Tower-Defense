@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.view.units.towers;
 
 import com.IONA.TowerDefense.model.units.towers.TowerMissile;
-import com.IONA.TowerDefense.model.units.towers.TowerPulse;
 import com.IONA.TowerDefense.view.Assets;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

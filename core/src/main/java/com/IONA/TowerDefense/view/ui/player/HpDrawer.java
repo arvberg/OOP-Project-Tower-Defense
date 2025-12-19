@@ -3,6 +3,7 @@ package com.IONA.TowerDefense.view.ui.player;
 import com.IONA.TowerDefense.model.ui.playerui.ResourceHP;
 import com.IONA.TowerDefense.model.ui.playerui.ResourceMoney;
 import com.IONA.TowerDefense.view.Assets;
+import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,27 +14,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public final class HpDrawer implements DrawableResource{
 
-    private static final Texture TEXTURE = new Texture(Assets.FONT_GOTHIC_PNG);
-    private static final BitmapFont font = new BitmapFont(Gdx.files.internal(Assets.FONT_GOTHIC_FNT),new TextureRegion(TEXTURE));
+    private final ResourceHP hp;
+    private final Vector2 p;
+    private BitmapFont font;
 
-    Vector2 p;
-    ResourceHP hp;
-
-    static {
-        TEXTURE.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-        font.getData().setScale(3f);
-    }
-
-    public HpDrawer(ResourceHP hp){
+    public HpDrawer(ResourceHP hp) {
         this.hp = hp;
         this.p = hp.getPosition();
+        this.font = Fonts.GOTHIC_FONT_BOLD_8;
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
-        String text = hp.getTextBar();
-        font.draw(batch, text, p.x, p.y);
-        font.draw(batch, "ABC", 50, 50);
-
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
+        font.setColor(0.859f, 0.824f, 0.773f, 1f);
+        font.draw(batch, (hp.getTextBar() + "/100 HP"), p.x, p.y);
     }
 }

@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Vector2;
 public class GameController {
 
     private final Draw view;
-    private final InputHandler inputHandler;
+    private final GameModel model;
 
     public GameController (GameModel model, Draw view) {
         this.view = view;
-        this.inputHandler = new InputHandler(model);
+        this.model = model;
 
         AttackHandler attackhandler = model.getAttackHandler();
         EnemyHandler enemyhandler = model.getEnemyhandler();
@@ -27,8 +27,6 @@ public class GameController {
         towerHandler.addTowerListener(view);
         upgradeHandler.addUpgradeListener(view);
 
-        inputHandler.addAttackListener(view);
-
     }
 
     public void update() {
@@ -38,13 +36,22 @@ public class GameController {
             // View konverterar till world-space
             Vector2 world = view.toWorld(mouseX, mouseY);
 
-            inputHandler.updateMouse(world);
+            updateMouse(world);
 
         if (Gdx.input.justTouched()) {
-            inputHandler.checkInput(world);
+            checkInput(world);
         }
 
         // mer logik här
     }
-    // handle all input
+
+    // Hantera musklick
+    public void checkInput(Vector2 pos) {
+        model.getState().handleInput(model, pos);
+    }
+
+    // Hantera mushover
+    public void updateMouse(Vector2 pos) {
+        model.getState().handleHover(model, pos);
+    }
 }

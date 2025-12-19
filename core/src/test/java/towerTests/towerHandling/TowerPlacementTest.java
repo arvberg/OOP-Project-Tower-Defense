@@ -1,4 +1,3 @@
-/*
 package towerTests.towerHandling;
 
 import com.IONA.TowerDefense.model.Direction;
@@ -10,6 +9,7 @@ import com.IONA.TowerDefense.model.models.ResourceHandler;
 import com.IONA.TowerDefense.model.models.TowerHandler;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.IONA.TowerDefense.model.units.interfaces.Targetable;
+import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +30,11 @@ public class TowerPlacementTest {
             this.position = pos;
             this.dimension = new Vector2(1, 1);
             this.cost = 0;
+        }
+
+        @Override
+        public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+
         }
     }
 
@@ -57,7 +62,8 @@ public class TowerPlacementTest {
             new TowerFactory(),
             model.getPath(),
             model.getDecor(),
-            model.getResourceHandler()
+            model.getResourceHandler(),
+            model.getUpgradeMenu()
         );
     }
 
@@ -93,7 +99,8 @@ public class TowerPlacementTest {
             new TowerFactory(),
             model.getPath(),
             model.getDecor(),
-            model.getResourceHandler()
+            model.getResourceHandler(),
+            model.getUpgradeMenu()
         );
 
         Tower t = new SampleTower(new Vector2(1, 0));
@@ -127,4 +134,4 @@ public class TowerPlacementTest {
         assertNotNull(model.getPendingTower()); // still pending
     }
 }
-*/
+

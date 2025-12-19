@@ -1,4 +1,4 @@
-/*
+
 package enemyTests.enemyHandling;
 
 import com.IONA.TowerDefense.model.Direction;
@@ -94,8 +94,9 @@ public class EnemyModelTest {
         handler.addEnemy(b);
 
         b.takeDamage(b.getHp()); // kill one
+        handler.updateEnemies(1f);
 
         assertEquals(1, model.getEnemies().size());
     }
 }
-*/
+

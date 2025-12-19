@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.model.audio;
+package com.IONA.TowerDefense.view.audio;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -11,26 +11,40 @@ public class SoundManager implements Disposable {
     private static final HashMap<String, Sound> sounds = new HashMap<>();
     private static final HashMap<String, Music> musics = new HashMap<>();
     private static final HashMap<String, Float> soundVolumes = new HashMap<>();
-    private static float soundVolume = 0.75f;
+    private static float soundVolume = 1f;
     private static float musicVolume = 0.4f;
 
     public void load() {
         // FX
         // Tower
         sounds.put("place_tower", Gdx.audio.newSound(Gdx.files.internal("audio/place_tower.wav")));
+        soundVolumes.put("place_tower", 0.7f);
+
         sounds.put("sell_tower", Gdx.audio.newSound(Gdx.files.internal("audio/sell_tower.wav")));
+        soundVolumes.put("sell_tower", 0.7f);
+
         sounds.put("click_tower", Gdx.audio.newSound(Gdx.files.internal("audio/click_tower.wav")));
+        soundVolumes.put("click_tower", 0.7f);
+
         sounds.put("tower_upgraded", Gdx.audio.newSound(Gdx.files.internal("audio/tower_upgraded.wav")));
+        soundVolumes.put("tower_upgraded", 0.6f);
 
         // UI
         sounds.put("invalid_click", Gdx.audio.newSound(Gdx.files.internal("audio/invalid_click.wav")));
+        soundVolumes.put("invalid_click", 0.7f);
+
         sounds.put("ui_button_click", Gdx.audio.newSound(Gdx.files.internal("audio/ui_button_click.wav")));
+        soundVolumes.put("ui_button_click", 0.8f);
 
         sounds.put("fire", Gdx.audio.newSound(Gdx.files.internal("audio/fire_temp.wav")));
+        soundVolumes.put("fire", 0.8f);
+
         sounds.put("pulse", Gdx.audio.newSound(Gdx.files.internal("audio/pulse.wav")));
+        soundVolumes.put("pulse", 1f);
 
 
         sounds.put("enemy_basic_death", Gdx.audio.newSound(Gdx.files.internal("audio/enemy_basic_death.wav")));
+        soundVolumes.put("enemy_basic_death", 0.2f);
 
 
         // Music
@@ -38,7 +52,8 @@ public class SoundManager implements Disposable {
 
     public void playSound(String name) {
         if (sounds.containsKey(name)) {
-            sounds.get(name).play(soundVolume);
+            float volume = soundVolumes.getOrDefault(name, soundVolume); // fallback till global volym
+            sounds.get(name).play(volume);
         }
     }
 

@@ -1,9 +1,11 @@
-/*
 package buttonTests.buttonTypes;
 
 import com.IONA.TowerDefense.Main;
+import com.IONA.TowerDefense.controller.InputHandler;
 import com.IONA.TowerDefense.model.GameState;
 import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.model.input.GameAction;
+import com.IONA.TowerDefense.model.models.ActionHandler;
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
@@ -22,39 +24,45 @@ public class PlayButtonTest {
         Waves.TEST_MODE = true;
         Decoration.TEST_MODE = true;
 
-        model = new GameModel();
-        Main.model = model;
+        GameModel model = new GameModel();
 
         playButton = model.getPlayButton();
     }
 
     @Test
-    void clickingPlaySetsGameRunning() {
-        model.setGameState(GameState.START);
+    void playButton_hasAction(){
+        PlayButton button = new PlayButton(0, 0);
+        assertEquals(GameAction.PLAY, button.getAction());
+    }
 
-        playButton.onClick();
+    @Test
+    void playButton_hiddenWhileRunning(){
+        model.setGameState(GameState.RUNNING);
+        model.updateButtonLayout();
+
+        assertFalse(model.getPlayButton().isVisible());
+        assertTrue(model.getSpeedUpButton().isVisible());
+    }
+
+    @Test
+    void clickingPlayButton_dispatchesPlayAction() {
+        InputHandler input = new InputHandler(model);
+
+        PlayButton play = model.getPlayButton();
+        play.setVisible(true);
+
+        input.checkInput(play.getButtonPosition());
 
         assertEquals(GameState.RUNNING, model.getGameState());
     }
 
     @Test
-    void clickingPlayAdvancesWave() {
-        int initialWave = model.getGenerator().getWaveNr();
+    void playAction_startGame(){
+        ActionHandler handler = new ActionHandler(model);
 
-        playButton.onClick();
+        handler.handleAction(GameAction.PLAY, model.getPlayButton());
 
-        assertTrue(model.getGenerator().getWaveNr() > initialWave);
-    }
-
-    @Test
-    void clickingPlayTogglesButtons() {
-        float playXBefore = model.getPlayButton().getButtonPosition().x;
-
-        playButton.onClick();
-
-        float playXAfter = model.getPlayButton().getButtonPosition().x;
-
-        assertNotEquals(playXBefore, playXAfter);
+        assertEquals(GameState.RUNNING, model.getGameState());
     }
 }
-*/
+

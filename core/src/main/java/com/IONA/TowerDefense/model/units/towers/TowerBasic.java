@@ -14,11 +14,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
+
 public class TowerBasic extends Tower implements Rotatable {
 
     public TowerBasic() {
         dimension = new Vector2(0.8f, 0.8f);
         damage = 5;
+        baseDamage = 5;
         projectileSpeed = 8;
         baseFireRate = 0.01f;
         cost = 50;
@@ -31,12 +33,18 @@ public class TowerBasic extends Tower implements Rotatable {
         currentDirection = new Vector2(0,0);
         desiredDirection = new Vector2(0,0);
         attackStrategy = new ProjectileAttackStrategy();
-        targetingStrategy = new TargetLeadingStrategy();
-        upgradePath1.add(new FireRateUpgrade(1));
-        upgradePath2.add(new RangeUpgrade(1));
-        upgradePath2.add(new FireRateUpgrade(1));
-        upgradePath2.add(new MaxUpgrade(0));
+        targetingStrategies.add(new TargetLeadingStrategy()); // The order that you add strategies is very important.
+        targetingStrategies.add(new TargetNearestStrategy());
+        targetingStrategy = targetingStrategies.getFirst();
+        upgradePath1.add(new RangeUpgrade(40));
+        upgradePath2.add(new RangeUpgrade(40));
+        upgradePath3.add(new RangeUpgrade(40));
+        towerType = "TowerBasic";
+    }
 
+    @Override
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+        this.targetingStrategy = targetingStrategy;
     }
 
     @Override
@@ -50,11 +58,6 @@ public class TowerBasic extends Tower implements Rotatable {
     @Override
     public boolean canAttack() {
         return hasCooledDown() && isAiming();
-    }
-
-    @Override
-    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
-        this.targetingStrategy = targetingStrategy;
     }
 
     @Override

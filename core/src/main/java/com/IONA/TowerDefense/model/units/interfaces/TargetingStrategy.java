@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TargetingStrategy {
     List<Enemy> pick(List<Enemy> enemies, Tower tower);
+
+    public String getStrategy();
 }

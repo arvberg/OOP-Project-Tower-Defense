@@ -4,6 +4,7 @@ import com.IONA.TowerDefense.model.ui.playerui.ResourceMoney;
 import com.IONA.TowerDefense.view.Assets;
 import com.IONA.TowerDefense.view.ui.Fonts;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,11 +23,15 @@ public final class MoneyDrawer implements DrawableResource {
     public MoneyDrawer(ResourceMoney money) {
         this.money = money;
         this.p = money.getPosition();
-        this.font = Fonts.GOTHIC_FONT;
+        this.font = Fonts.GOTHIC_FONT_BOLD_8;
     }
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
-        font.draw(batch, money.getTextBar(), p.x, p.y);
+        batch.enableBlending();
+        //batch.setColor(1f, 1f, 1f, 1f);   // ← VIKTIGT
+        font.setColor(0.859f, 0.824f, 0.773f, 1);
+        font.draw(batch, (money.getTextBar() + " bytes"), p.x, p.y);
+
     }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TargetNearestStrategy implements TargetingStrategy {
-
+    String name = "Nearest";
     @Override
     public List<Enemy> pick(List<Enemy> enemies, Tower tower) {
         List<Enemy> result = new ArrayList<>();
@@ -28,4 +28,9 @@ public class TargetNearestStrategy implements TargetingStrategy {
         result.add(closestEnemy);
         return result;
     }
+    @Override
+    public String getStrategy(){
+        return name;
+    }
+
 }

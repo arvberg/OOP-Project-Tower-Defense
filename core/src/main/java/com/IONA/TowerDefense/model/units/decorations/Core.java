@@ -7,7 +7,6 @@ public class Core extends Decoration{
     public Core(){
         this.width = 3.75f;
         this.height = 1.5f;
-        //this.texture = new Texture("Core_temp_01.png");
         setHitBox(0.1f,0.1f);
     }
 

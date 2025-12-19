@@ -8,6 +8,7 @@ public enum GameAction {
     EXIT,
     BUY_TOWER,
     SELL_TOWER,
+    CANCEL_TOWER,
     UPGRADE_TOWER,
     TOGGLE_TARGETING_STRATEGY
 }

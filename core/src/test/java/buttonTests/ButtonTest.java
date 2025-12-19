@@ -1,8 +1,9 @@
-/*
 package buttonTests;
 
 import com.IONA.TowerDefense.model.Waves;
+import com.IONA.TowerDefense.model.input.GameAction;
 import com.IONA.TowerDefense.model.ui.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.buttonui.PlayButton;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +18,7 @@ public class ButtonTest {
 
 
         TestButton(float x, float y, float w, float h) {
-            super(x, y, w, h);
-        }
-
-        @Override
-        public void onClick() {
-            clicked = true;
+            super(x, y, w, h, GameAction.PLAY);
         }
     }
 
@@ -61,17 +57,4 @@ public class ButtonTest {
         assertTrue(b.contains(6, 6));
         assertFalse(b.contains(1, 1));
     }
-
-    @Test
-    void hoverStateIsStored() {
-        TestButton b = new TestButton(0, 0, 1, 1);
-
-        b.setHovered(true);
-        assertTrue(b.isHovered());
-
-        b.setHovered(false);
-        assertFalse(b.isHovered());
-    }
 }
-
-*/

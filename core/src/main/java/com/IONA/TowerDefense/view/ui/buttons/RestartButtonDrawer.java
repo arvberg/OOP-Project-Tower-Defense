@@ -15,7 +15,7 @@ public final class RestartButtonDrawer implements DrawableButton {
     private final float dimensionY;
 
     // STATIC TEXTURE (byt filnamn när du har rätt restart-bild)
-    private static final Texture TEXTURE = new Texture(Assets.BUTTON_PLAYBUTTON);
+    private static final Texture TEXTURE = new Texture(Assets.BUTTON_RESTARTBUTTON);
 
     public RestartButtonDrawer(RestartButton button) {
         this.button = button;

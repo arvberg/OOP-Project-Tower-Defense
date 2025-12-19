@@ -1,7 +1,9 @@
 package com.IONA.TowerDefense.view.units.enemies;
 
+import com.IONA.TowerDefense.model.ui.HealthBar;
 import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
 import com.IONA.TowerDefense.view.Assets;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -19,18 +21,20 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
     private static final TextureRegion TEXTURE_EYE_R = new TextureRegion(TEXTURE_EYE);
 
     private final Rectangle hb;
+    private final HealthBar healthBar;
     private final EnemyBasic enemy;
 
     public EnemyBasicDrawer(EnemyBasic enemy) {
         this.enemy = enemy;
         this.hb = enemy.getHitBox();
+        this.healthBar = enemy.getHealthBar();
+
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer renderer, float delta){
         float rotationFront = enemy.getVisualRotationFront();
         float rotationBack = enemy.getVisualRotationBack();
-
 
         batch.draw(
             TEXTURE_BACK_R,
@@ -58,10 +62,29 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
             1.5f,1.5f,
             0
         );
+
+    }
+
+    @Override
+    public void drawHealthBar(ShapeRenderer renderer, float delta) {
+        float percent = healthBar.getCurrentHealth() / (float) enemy.getMaxHp();
+        if (percent < 1) {
+            float x = enemy.getX() - hb.getWidth();
+            float y = enemy.getY() + hb.getHeight();
+
+            renderer.setColor(Color.BLACK);
+            renderer.rect(x, y, healthBar.width, healthBar.height);
+
+            renderer.setColor(Color.RED);
+            renderer.rect(x, y, healthBar.width * percent, healthBar.height);
+
+            renderer.setColor(Color.WHITE);
+        }
     }
 
     public static void disposeStatic() {
         TEXTURE_FRONT.dispose();
         TEXTURE_BACK.dispose();
     }
+
 }
