@@ -1,6 +1,7 @@
 package com.IONA.TowerDefense.controller.buttonui;
 
 import com.IONA.TowerDefense.model.input.GameAction;
+import com.IONA.TowerDefense.model.ui.Button;
 
 public class PlayButton extends Button {
 

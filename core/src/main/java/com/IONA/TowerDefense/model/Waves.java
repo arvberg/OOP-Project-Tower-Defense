@@ -33,6 +33,7 @@ public class Waves {
             w.waveslist = new Array<>();
             return w;
         }
+
         Json json = new Json();
         return json.fromJson(Waves.class, Gdx.files.internal("WaveDatabase.json"));
     }

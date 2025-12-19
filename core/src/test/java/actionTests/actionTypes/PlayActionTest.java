@@ -22,7 +22,7 @@ public class PlayActionTest {
         Waves.TEST_MODE = true;
         Decoration.TEST_MODE = true;
 
-        GameModel model = new GameModel();
+        model = new GameModel();
     }
 
     @Test

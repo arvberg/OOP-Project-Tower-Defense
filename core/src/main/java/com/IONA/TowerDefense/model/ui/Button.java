@@ -1,4 +1,4 @@
-package com.IONA.TowerDefense.controller.buttonui;
+package com.IONA.TowerDefense.model.ui;
 
 import com.IONA.TowerDefense.model.input.GameAction;
 import com.badlogic.gdx.math.Rectangle;
