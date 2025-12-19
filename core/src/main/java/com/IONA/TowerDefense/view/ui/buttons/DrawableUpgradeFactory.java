@@ -3,7 +3,13 @@ package com.IONA.TowerDefense.view.ui.buttons;
 import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
-
+/**
+ * Factory class for creating drawable upgrade buttons.
+ * <p>
+ * Converts an UpgradeMenuItem into the appropriate DrawableButton for the UI
+ * based on the type of upgrade (e.g., Range, Fire Rate, Max). Throws an exception
+ * if the upgrade type is not recognized.
+ */
 public class DrawableUpgradeFactory {
 
     private DrawableUpgradeFactory() {

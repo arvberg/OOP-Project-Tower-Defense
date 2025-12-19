@@ -1,7 +1,13 @@
 package com.IONA.TowerDefense.model.upgrades;
 
 import com.IONA.TowerDefense.model.units.towers.Tower;
-
+/**
+ * DamageUpgrade represents an upgrade that increases a Tower's damage or attack efficiency.
+ *
+ * This upgrade can be applied to any Tower, and its cost can scale over time.
+ * When applied, it modifies the Tower's firing properties based on a factor
+ * of the difference between the current and base damage.
+ */
 public class DamageUpgrade implements TowerUpgrade {
 
 

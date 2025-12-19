@@ -4,7 +4,12 @@ import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.interfaces.Movable;
 import com.badlogic.gdx.math.Vector2;
 
-
+/**
+ * Missile is a homing projectile that tracks a target enemy.
+ * <p>
+ * It gradually accelerates over time and smoothly adjusts its direction
+ * toward the target using a turn speed, allowing it to follow moving enemies.
+ */
 public class Missile extends Projectile implements Movable {
     private float acceleration = 0;
     private float turnSpeed = 5f;

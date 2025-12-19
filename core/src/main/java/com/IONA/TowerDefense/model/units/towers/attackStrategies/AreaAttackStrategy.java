@@ -5,7 +5,12 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import java.util.List;
-
+/**
+ * AreaAttackStrategy applies damage directly to all enemies within range.
+ * <p>
+ * This strategy does not create projectiles; instead, it instantly damages
+ * every target enemy, making it suitable for pulse or area-of-effect towers.
+ */
 public class AreaAttackStrategy implements AttackStrategy {
 
     @Override

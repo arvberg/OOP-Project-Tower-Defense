@@ -1,7 +1,12 @@
 package com.IONA.TowerDefense.view;
 
 public class Assets {
-
+    /**
+     * Centralized registry for all game asset paths.
+     *
+     * Provides constants for backgrounds, overlays, enemies, towers, projectiles,
+     * buttons, menus, animations, and fonts. Prevents instantiation.
+     */
     private Assets() {
     } // förhindra instansiering
 

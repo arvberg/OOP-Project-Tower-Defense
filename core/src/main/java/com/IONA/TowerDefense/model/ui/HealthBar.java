@@ -1,7 +1,13 @@
 package com.IONA.TowerDefense.model.ui;
 
 import com.badlogic.gdx.math.Vector2;
-
+/**
+ * Represents a health bar UI element in the game.
+ * <p>
+ * A HealthBar tracks the current health of an entity and knows its
+ * position and size for rendering purposes. It does not handle
+ * drawing itself; it is just a data container for health information.
+ */
 public class HealthBar {
     protected int currentHealth;
     protected Vector2 position;

@@ -1,20 +1,26 @@
 package com.IONA.TowerDefense.model.units.towers;
 
-import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
-import com.IONA.TowerDefense.model.units.towers.attackStrategies.AreaAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttackStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
-import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
-import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-
+/**
+ * Concrete implementation of a basic tower in the game.
+ * <p>
+ * TowerBasic is a standard projectile tower with moderate damage,
+ * range, and fire rate. It supports multiple targeting strategies,
+ * such as leading and nearest targeting, and can rotate smoothly
+ * towards its current target.
+ * <p>
+ * The tower also supports upgrades through predefined upgrade paths
+ * that can improve range, fire rate, or other attributes.
+ * <p>
+ * The tower can attack only when it has cooled down and is properly
+ * aimed at a target.
+ */
 public class TowerBasic extends Tower implements Rotatable {
 
     public TowerBasic() {

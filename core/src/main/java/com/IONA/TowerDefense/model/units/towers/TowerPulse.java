@@ -9,7 +9,17 @@ import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
 import com.badlogic.gdx.math.Vector2;
-
+/**
+ * TowerPulse is an area-of-effect (AOE) tower that attacks all enemies within its range.
+ * <p>
+ * This tower uses an AreaAttackStrategy to damage multiple enemies simultaneously,
+ * making it ideal for crowd control rather than single-target focus.
+ * It does not require rotation and can attack as soon as its cooldown is finished.
+ * <p>
+ * TowerPulse supports upgrades for fire rate, range, and maximum damage potential.
+ * <p>
+ * The tower can attack whenever its cooldown has elapsed, without any aiming requirements.
+ */
 public class TowerPulse extends Tower {
 
     public TowerPulse() {

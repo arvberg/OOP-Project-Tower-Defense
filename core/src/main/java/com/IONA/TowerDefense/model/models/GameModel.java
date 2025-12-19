@@ -28,31 +28,52 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The main model class for the Tower Defense game.
+ * <p>
+ * This class manages the game state, resources, towers, enemies, projectiles,
+ * UI elements, and interactions between them. It acts as the core of the
+ * game's Model in an MVC architecture.
+ * <p>
+ * It implements {@link EnemyDeathListener}, {@link AttackListener}, and
+ * {@link TowerListener} to respond to in-game events.
+ */
 
-// Main model class to for communication with controller
 public class GameModel implements EnemyDeathListener, AttackListener, TowerListener {
+
+    /// --- Game States ---
     private GameState currentState;
     private GameState startState = new StartState(this);
     private GameState runningState = new RunningState(this);
     private GameState pausedState = new PauseState(this);
     private GameState gameOverState = new GameOverState(this);
 
+    /// --- Important Handlers ---
     private final List<Tower> towers;
     private final TowerHandler towerHandler;
     private final UpgradeHandler upgradeHandler;
     private final ResourceHandler resourceHandler;
+    private final AttackHandler attackHandler;
+    private final EnemyHandler enemyHandler;
+    private final ActionHandler actionHandler;
+    private final TowerFactory towerFactory;
+
+
+    /// --- Game objects ---
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
+    private final List<Decoration> decorations;
+    private final WaveGenerator generator;
+    private Path path;
+    private final Decoration core;
+
+
+
+    /// --- UI components ---
     private List<Button> inGameButtons;
     private List<Button> gameOverButtons;
     private List<Button> towerItemButtons;
     private List<Menu> menus;
-
-    //private final List<Resource> resources;
-    private final List<Resource> resources;
-    private final List<Decoration> decorations;
-    private Path path;
-    private final ActionHandler actionHandler;
     private final PlayButton playButton;
     private final ExitButton exitButton;
     private final SpeedUpButton speedUpButton;
@@ -60,20 +81,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private final RestartButton restartButton;
     private final CancelButton cancelButton;
     private final TargetingStrategyToggleButton targetingStrategyToggleButton;
-    private final AttackHandler attackHandler;
-    private final EnemyHandler enemyHandler;
-    private final int difficulty;
-
-    private final TowerFactory towerFactory;
-
     private final TowerMenu towerMenu;
     private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
-
-    private final Decoration core;
-
-    private final WaveGenerator generator;
-
     private String background;
 
     public GameModel() {
@@ -92,11 +102,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.inGameButtons = new ArrayList<>();
         this.towerItemButtons = new ArrayList<>();
         this.background = "Starter map";
-        this.difficulty = 0;
         this.path = PathFactory.examplePath2();
 
         this.resourceHandler = new ResourceHandler();
-        this.resources = resourceHandler.getResources();
 
         this.attackHandler = new AttackHandler(enemies, projectiles, towers);
         attackHandler.addAttackListener(this);
@@ -140,6 +148,12 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         currentState.enter();
     }
 
+    /// Game State
+
+    /**
+     * Starts a new game or continues the next wave.
+     * Sets the game state to running and spawns the next wave of enemies.
+     */
     public void startGame() {
 
         if (generator.getWaveNr() == 3) {
@@ -152,15 +166,31 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         updateButtonLayout();
     }
 
+
+    /**
+     * Exits the game application.
+     */
     public void exitGame() {
         com.badlogic.gdx.Gdx.app.exit();
     }
 
+    /**
+     * Restarts the game.
+     */
+    public void restartGame() {
+        currentState.restartGame();
+    }
+
+    /**
+     * Toggles the game's speed (normal / fast-forward).
+     */
     public void toggleSpeed() {
         HeartBeat.toggleSpeed();
     }
 
-
+    /**
+     * Updates the game logic. Delegates update calls to the current game state.
+     */
     public void update() {
         // All logik styrs av state-klassen
         if (currentState != null) {
@@ -168,6 +198,11 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         }
     }
 
+    /**
+     * Sets the current game state, calling exit() on the old state and enter() on the new state.
+     *
+     * @param newState The new game state to switch to.
+     */
     public void setState(GameState newState) {
         if (currentState != null) {
             currentState.exit();
@@ -177,17 +212,16 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         currentState.enter();
     }
 
-    public GameState getState() {
-        return currentState;
-    }
-
+    /**
+     * Returns the current game state.
+     *
+     * @return the current {@link GameState}
+     */
     public void togglePause() {
         currentState.toggle();
     }
 
-    public String getBackground() {
-        return this.background;
-    }
+    /// Core
 
     public void placeCore(Decoration core) {
         Segment last = path.getSegment(path.segmentCount() - 2);
@@ -201,6 +235,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         decorations.add(core);
     }
 
+    /**
+     * Handles damage to the core/base by overlapping enemies.
+     */
     public void coreDamaged() {
         if (decorations.isEmpty()) return;
         Rectangle coreHitbox = decorations.get(0).getHitBox();
@@ -219,19 +256,161 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         }
     }
 
-    public void restartGame() {
-        currentState.restartGame();
-    }
+    /**
+     * Handles an action triggered by a UI button.
+     *
+     * @param action the action to handle
+     * @param sourceButton the button that triggered the action
+     */
 
     public void handleAction(GameAction action, Button sourceButton) {
         actionHandler.handleAction(action, sourceButton);
     }
 
-
+    /**
+     * Updates all enemies with the given delta time.
+     *
+     * @param delta time since last update
+     */
     public void updateEnemies(float delta) {
         enemyHandler.updateEnemies(delta);
     }
 
+    /**
+     * Selects a tower at the given position.
+     *
+     * @param selectedPoint position to select tower
+     */
+    public void selectTower(Vector2 selectedPoint) {
+        towerHandler.selectTower(selectedPoint);
+    }
+
+    /**
+     * Deselects the currently selected tower.
+     */
+    public void deselectTower() {
+        towerHandler.deselectTower();
+    }
+
+
+    /**
+     * Places a tower at the given position and deducts money accordingly.
+     *
+     * @param selectedPoint the position to place the tower
+     */
+
+    public void placeTower(Vector2 selectedPoint) {
+        // placera genom towerHandler
+        towerHandler.placeTower(selectedPoint);
+
+        Tower tower = towerHandler.getSelectedTower();
+        // Minska pengar genom resourceHandler
+        if (tower != null) {
+            resourceHandler.spendMoney(tower.getCost());
+            resourceHandler.updateMoneyResource();
+        }
+    }
+
+    public boolean overlaps(Tower tower) {
+        return towerHandler.overlaps(tower);
+    }
+
+    /**
+     * Buys a tower of the specified type.
+     *
+     * @param tower the type/name of the tower
+     */
+
+    public void buyTower(String tower) {
+        towerHandler.buyTower(tower);
+    }
+
+
+    /**
+     * Sells the specified tower and refunds money.
+     *
+     * @param tower the tower to sell
+     */
+
+    public void sellTower(Tower tower) {
+        towerHandler.sellTower(tower);
+        resourceHandler.gainMoney(tower.getCost());
+        resourceHandler.updateMoneyResource();
+    }
+
+    public void cancelTowerBuy() {
+        towerHandler.cancelBuy();
+    }
+
+    /**
+     * Upgrades the specified tower with the given upgrade if affordable.
+     *
+     * @param tower the tower to upgrade
+     * @param upgrade the upgrade to apply
+     */
+    public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
+        if (resourceHandler.getMoney() >= upgrade.getCost() && towerHandler.getSelectedTower() != null) {
+            upgradeHandler.upgrade(tower, upgrade);
+            resourceHandler.spendMoney(upgrade.getCost());
+            resourceHandler.updateMoneyResource();
+        }
+    }
+
+    /**
+     * Returns the tower at the specified position, if any.
+     *
+     * @param pos position to check
+     * @return the {@link Tower} at that position, or null if none
+     */
+    public Tower getTowerAt(Vector2 pos) {
+        float towerSize = 1.0f;
+
+        for (Tower t : towers) {
+            float centerX = t.getPosition().x;
+            float centerY = t.getPosition().y;
+
+            // Eftersom positionen nu är tornets mitt
+            float halfSize = towerSize / 2f;
+
+            if (pos.x >= centerX - halfSize && pos.x <= centerX + halfSize &&
+                pos.y >= centerY - halfSize && pos.y <= centerY + halfSize) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Called when an enemy dies, granting money to the player.
+     *
+     * @param enemy the enemy that died
+     */
+    @Override
+    public void onEnemyDeath(Enemy enemy) {
+        int moneyGained = enemy.getMoney();
+        resourceHandler.gainMoney(moneyGained);
+        resourceHandler.updateMoneyResource();
+    }
+
+    public void addEnemy(Enemy enemy) {
+        enemyHandler.addEnemy(enemy);
+    }
+
+    ///  UI
+
+    /**
+     * Makes the pending tower follow the mouse position.
+     *
+     * @param mousePos current mouse position
+     */
+    public void updateTowerFollowingMouse(Vector2 mousePos) {
+        if (towerHandler.getPendingTower() != null && towerHandler.isBuyingState()) {
+            towerHandler.getPendingTower().setPosition(mousePos);
+        }
+    }
+    /**
+     * Updates visibility of buttons based on current game state.
+     */
     public void updateButtonLayout() {
         boolean running = currentState == runningState;
 
@@ -239,18 +418,69 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         speedUpButton.setVisible(running);
     }
 
-    public TowerMenu getTowerMenu() {
-        return this.towerMenu;
+
+        /// Getters and setters
+
+    public WaveGenerator getGenerator() {
+        return generator;
     }
 
-    public Path getPath() {
-        return this.path;
+
+    public List<Menu> getMenus() {
+        return menus;
     }
 
-    public void setPath(Path path) {
-        this.path = path;
+    public UpgradeHandler getUpgradeHandler() {
+        return this.upgradeHandler;
     }
-    // Add and remove from list
+
+    public TowerHandler getTowerHandler() {
+        return towerHandler;
+    }
+
+    public void addButton(Button button) {
+        inGameButtons.add(button);
+    }
+
+    public void removeButton(Button button) {
+        inGameButtons.remove(button);
+    }
+
+    public EnemyHandler getEnemyhandler() {
+        return enemyHandler;
+    }
+
+    public InfoMenu getInfoMenu() {
+        return this.infoMenu;
+    }
+
+    public UpgradeMenu getUpgradeMenu() {
+        return this.upgradeMenu;
+    }
+
+    public GameState getStartState() {
+        return startState;
+    }
+
+    public GameState getRunningState() {
+        return runningState;
+    }
+
+    public GameState getPausedState() {
+        return pausedState;
+    }
+
+    public GameState getGameOverState() {
+        return gameOverState;
+    }
+
+    public EnemyHandler getEnemyHandler() {
+        return enemyHandler;
+    }
+
+    public void toggleTargetingStrategy() {
+        towerHandler.toggleTargetingStrategy();
+    }
 
     // Getters for all lists
     public List<Tower> getTowers() {
@@ -270,66 +500,33 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     }
 
     public List<Resource> getResources() {
-        return resources;
-    }
-
-    public int getMoney() {
-        return resourceHandler.getMoney();
+        return resourceHandler.getResources();
     }
 
     public ResourceHandler getResourceHandler() {
         return resourceHandler;
     }
 
-    // Selecting a tower
-    public void selectTower(Vector2 selectedPoint) {
-        towerHandler.selectTower(selectedPoint);
+
+    public String getBackground() {
+        return this.background;
     }
 
-    // Deslecting a tower, used in select when outside of radius
-    public void deselectTower() {
-        towerHandler.deselectTower();
+    public GameState getState() {
+        return currentState;
     }
 
-    // Placing a tower
-    public void placeTower(Vector2 selectedPoint) {
-        // placera genom towerHandler
-        towerHandler.placeTower(selectedPoint);
 
-        Tower tower = towerHandler.getSelectedTower();
-        // Minska pengar genom resourceHandler
-        if (tower != null) {
-            resourceHandler.spendMoney(tower.getCost());
-            resourceHandler.updateMoneyResource();
-        }
+    public TowerMenu getTowerMenu() {
+        return this.towerMenu;
     }
 
-    public boolean overlaps(Tower tower) {
-        return towerHandler.overlaps(tower);
+    public Path getPath() {
+        return this.path;
     }
 
-    // Buy a tower
-    public void buyTower(String tower) {
-        towerHandler.buyTower(tower);
-    }
-
-    public void sellTower(Tower tower) {
-        towerHandler.sellTower(tower);
-        resourceHandler.gainMoney(tower.getCost());
-        resourceHandler.updateMoneyResource();
-    }
-
-    public void cancelTowerBuy() {
-        towerHandler.cancelBuy();
-    }
-
-    public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
-        if (resourceHandler.getMoney() >= upgrade.getCost() && towerHandler.getSelectedTower() != null) {
-            upgradeHandler.upgrade(tower, upgrade);
-            resourceHandler.spendMoney(upgrade.getCost());
-            resourceHandler.updateMoneyResource();
-
-        }
+    public void setPath(Path path) {
+        this.path = path;
     }
 
     public Tower getSelectedTower() {
@@ -394,106 +591,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public List<Button> getUpgradeMenuItems() {
         return upgradeMenu.items;
-    }
-
-
-    // Make pendingTower follow mouse position after buyTower
-    public void updateTowerFollowingMouse(Vector2 mousePos) {
-        if (towerHandler.getPendingTower() != null && towerHandler.isBuyingState()) {
-            towerHandler.getPendingTower().setPosition(mousePos);
-        }
-    }
-
-    public void addEnemy(Enemy enemy) {
-        enemyHandler.addEnemy(enemy);
-    }
-
-    @Override
-    public void onEnemyDeath(Enemy enemy) {
-        int moneyGained = enemy.getMoney();
-        resourceHandler.gainMoney(moneyGained);
-        resourceHandler.updateMoneyResource();
-    }
-
-    public WaveGenerator getGenerator() {
-        return generator;
-    }
-
-
-    public List<Menu> getMenus() {
-        return menus;
-    }
-
-    public UpgradeHandler getUpgradeHandler() {
-        return this.upgradeHandler;
-    }
-
-    public TowerHandler getTowerHandler() {
-        return towerHandler;
-    }
-
-
-    public Tower getTowerAt(Vector2 pos) {
-        float towerSize = 1.0f;
-
-        for (Tower t : towers) {
-            float centerX = t.getPosition().x;
-            float centerY = t.getPosition().y;
-
-            // Eftersom positionen nu är tornets mitt
-            float halfSize = towerSize / 2f;
-
-            if (pos.x >= centerX - halfSize && pos.x <= centerX + halfSize &&
-                pos.y >= centerY - halfSize && pos.y <= centerY + halfSize) {
-                return t;
-            }
-        }
-        return null;
-    }
-
-    public void addButton(Button button) {
-        inGameButtons.add(button);
-    }
-
-    public void removeButton(Button button) {
-        inGameButtons.remove(button);
-    }
-
-
-    public EnemyHandler getEnemyhandler() {
-        return enemyHandler;
-    }
-
-    public InfoMenu getInfoMenu() {
-        return this.infoMenu;
-    }
-
-    public UpgradeMenu getUpgradeMenu() {
-        return this.upgradeMenu;
-    }
-
-    public GameState getStartState() {
-        return startState;
-    }
-
-    public GameState getRunningState() {
-        return runningState;
-    }
-
-    public GameState getPausedState() {
-        return pausedState;
-    }
-
-    public GameState getGameOverState() {
-        return gameOverState;
-    }
-
-    public EnemyHandler getEnemyHandler() {
-        return enemyHandler;
-    }
-
-    public void toggleTargetingStrategy() {
-        towerHandler.toggleTargetingStrategy();
     }
 
 }

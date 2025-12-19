@@ -5,6 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
 
+/**
+ * Factory class for creating example paths in the game.
+ * <p>
+ * Provides predefined {@link Path} objects that can be used
+ * to test or start a level in the Tower Defense game.
+ */
 public class PathFactory {
 
     public static Path examplePath1() {

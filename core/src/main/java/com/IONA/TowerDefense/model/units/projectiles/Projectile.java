@@ -1,12 +1,18 @@
 package com.IONA.TowerDefense.model.units.projectiles;
 
-import com.IONA.TowerDefense.HeartBeat;
 import com.IONA.TowerDefense.model.units.Unit;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.Movable;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Projectile is an abstract base class for all projectiles in the game.
+ * <p>
+ * A projectile represents an attack object fired from a tower that moves
+ * through the game world and damages enemies. The class provides shared
+ * functionality for movement, position handling, damage, and lifecycle
+ * management.
+ */
 public abstract class Projectile extends Unit implements Movable {
     protected int damage;
     protected float speed;

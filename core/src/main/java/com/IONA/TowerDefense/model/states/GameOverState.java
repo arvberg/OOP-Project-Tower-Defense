@@ -5,6 +5,12 @@ import com.IONA.TowerDefense.model.ui.buttonui.Button;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Represents the game state when the player has lost the game.
+ * <p>
+ * This state handles visibility of relevant buttons (restart, exit),
+ * updates enemies and core damage, and manages input specific to the game over screen.
+ */
 public class GameOverState implements GameState {
 
     private GameModel model;

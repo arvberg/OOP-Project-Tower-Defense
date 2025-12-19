@@ -7,6 +7,15 @@ import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Represents the running (active) state of the game.
+ * <p>
+ * In this state, all game logic is active: enemies move along the path,
+ * towers attack, projectiles update, and the core can be damaged.
+ * Player interactions such as placing towers, upgrading, and collecting
+ * rewards are handled. The state also checks for wave completion and
+ * transitions to the start or game over states when appropriate.
+ */
 public class RunningState implements GameState {
     private GameModel model;
 

@@ -6,6 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+
+/**
+ * Represents a static decoration or object in the game world.
+ * <p>
+ * Decorations are a type of Unit but usually non-interactive and do not move.
+ * Each decoration has a position, dimensions, texture, and hitbox for collisions.
+ * The hitbox is automatically centered on the decoration.
+ */
 public class Decoration extends Unit {
     public static boolean TEST_MODE = false;
     protected Vector2 position = new Vector2();

@@ -15,6 +15,10 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles tower-related actions, including placement, selection, buying/selling,
+ * and targeting strategy management. Also manages notifications to {@link TowerListener}s.
+ */
 public class TowerHandler {
 
     private final List<Tower> towers;
@@ -29,7 +33,6 @@ public class TowerHandler {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
-    //private final List<TargetingStrategy> targetingStrategies = new ArrayList<>();
     private int currentStrategyIndex = 0;
 
     private UpgradeMenu upgradeMenu;
@@ -43,7 +46,12 @@ public class TowerHandler {
         this.resourceHandler = resourceHandler;
         this.upgradeMenu = upgradeMenu;
     }
-
+    /**
+     * Selects a tower at the given position.
+     * If no tower is clicked, deselects the currently selected tower.
+     *
+     * @param selectedPoint The point where the player clicked.
+     */
     public void selectTower(Vector2 selectedPoint) {
         Tower clickedTower = null;
         boolean itemsCreated = false;
@@ -80,6 +88,11 @@ public class TowerHandler {
         }
     }
 
+    /**
+     * Places the pending tower at the given position if there are no overlaps.
+     *
+     * @param selectedPoint The position to place the tower.
+     */
     public void placeTower(Vector2 selectedPoint) {
 
         if (pendingTower != null && !overlaps(pendingTower)) {
@@ -100,7 +113,9 @@ public class TowerHandler {
 
         }
     }
-
+    /**
+     * Deselects the currently selected tower and updates the upgrade menu.
+     */
     public void deselectTower() {
         setSelectedTower(null);
         setTowerSelected(false);
@@ -111,7 +126,11 @@ public class TowerHandler {
         upgradeMenu.setTowerIsClicked(false, "");
         upgradeMenu.setMenuPosition(16, 9);
     }
-
+    /**
+     * Starts the buying process for a new tower type if the player has enough money.
+     *
+     * @param tower The type of tower to buy.
+     */
     public void buyTower(String tower) {
         Tower newTower = TowerFactory.createTower(tower);
         if (resourceHandler.getMoney() >= newTower.getCost()) {
@@ -124,6 +143,11 @@ public class TowerHandler {
         }
     }
 
+    /**
+     * Sells the specified tower and notifies listeners.
+     *
+     * @param tower The tower to sell.
+     */
     public void sellTower(Tower tower) {
         if (selectedTower != null) {
             deselectTower();
@@ -131,14 +155,21 @@ public class TowerHandler {
             notifyTowerSoldEvent();
         }
     }
-
+    /**
+     * Cancels the current tower buying process.
+     */
     public void cancelBuy() {
         if (pendingTower != null) {
             setBuyingState(false);
             setPendingTower(null);
         }
     }
-
+    /**
+     * Checks if the given tower overlaps with the path, decorations, or other towers.
+     *
+     * @param tower The tower to check for overlap.
+     * @return True if overlapping, false otherwise.
+     */
     public boolean overlaps(Tower tower) {
 
         Vector2 towerPos = tower.getPosition();
@@ -196,7 +227,9 @@ public class TowerHandler {
         return false;
     }
 
-
+    /**
+     * Toggles the targeting strategy of the selected tower.
+     */
     public void toggleTargetingStrategy() {
         currentStrategyIndex = (currentStrategyIndex + 1) % selectedTower.getTargetingStrategies().size();
         TargetingStrategy currentStrategy = selectedTower.getTargetingStrategyAtIndex(currentStrategyIndex);
@@ -205,12 +238,75 @@ public class TowerHandler {
         notifyTowerStrategyEvent(currentStrategy.getStrategy());
     }
 
+    /**
+     * Notifies listeners that a tower has been selected.
+     */
+    public void notifyTowerClickedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSelected();
+        }
+    }
+    /**
+     * Notifies listeners that the selected tower has been switched.
+     */
+    public void notifyTowerSwitchedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSwitched();
+        }
+    }
+
+    /**
+     * Notifies listeners that a tower has been placed.
+     */
+    public void notifyTowerPlacedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerPlaced();
+        }
+    }
+
+    /**
+     * Notifies listeners that the player could not buy a tower due to insufficient money.
+     */
+    public void notifyNotEnoughMoney() {
+        for (TowerListener l : listeners) {
+            l.onCouldNotBuy();
+        }
+    }
+    /**
+     * Notifies listeners that a tower has been sold.
+     */
+    public void notifyTowerSoldEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSold();
+        }
+    }
+    /**
+     * Notifies listeners that a tower has been deselected.
+     */
+    public void notifyTowerDeselectedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerDeselected();
+        }
+    }
+    /**
+     * Notifies listeners that the targeting strategy of a tower has been changed.
+     *
+     * @param strategy The new targeting strategy name.
+     */
+    public void notifyTowerStrategyEvent(String strategy) {
+        for (TowerListener l : listeners) {
+            l.onTowerStrategyToggle(strategy);
+        }
+    }
+
     public void removeAllTowers() {
         if (!towers.isEmpty()) {
             towers.subList(0, towers.size()).clear();
         }
     }
 
+    ///  Getters and Setters
+    ///
     public Tower getSelectedTower() {
         return selectedTower;
     }
@@ -247,47 +343,6 @@ public class TowerHandler {
         listeners.add(listener);
     }
 
-    public void notifyTowerClickedEvent() {
-        for (TowerListener l : listeners) {
-            l.onTowerSelected();
-        }
-    }
-
-    public void notifyTowerSwitchedEvent() {
-        for (TowerListener l : listeners) {
-            l.onTowerSwitched();
-        }
-    }
-
-    public void notifyTowerPlacedEvent() {
-        for (TowerListener l : listeners) {
-            l.onTowerPlaced();
-        }
-    }
-
-    public void notifyNotEnoughMoney() {
-        for (TowerListener l : listeners) {
-            l.onCouldNotBuy();
-        }
-    }
-
-    public void notifyTowerSoldEvent() {
-        for (TowerListener l : listeners) {
-            l.onTowerSold();
-        }
-    }
-
-    public void notifyTowerDeselectedEvent() {
-        for (TowerListener l : listeners) {
-            l.onTowerDeselected();
-        }
-    }
-
-    public void notifyTowerStrategyEvent(String strategy) {
-        for (TowerListener l : listeners) {
-            l.onTowerStrategyToggle(strategy);
-        }
-    }
 
 
 }

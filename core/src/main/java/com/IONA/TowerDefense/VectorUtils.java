@@ -1,7 +1,12 @@
 package com.IONA.TowerDefense;
 
 import com.badlogic.gdx.math.Vector2;
-
+/**
+ * Utility class for common vector operations.
+ * <p>
+ * Provides methods for calculating distance, direction, and angles between 2D vectors.
+ * All methods are static and stateless.
+ */
 public final class VectorUtils {
 
     public static float distance(Vector2 a, Vector2 b) {

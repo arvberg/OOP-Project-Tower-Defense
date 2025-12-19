@@ -1,11 +1,14 @@
 package com.IONA.TowerDefense.model.ui;
 
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Represents a UI menu in the game, such as tower menus or info panels.
+ * <p>
+ * Each menu has a position, width, height, and bounds for input detection.
+ * It can check if a point (e.g., mouse click) is inside its area.
+ */
 public abstract class Menu {
     public Vector2 menuPosition;
     protected float width;

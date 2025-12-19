@@ -6,7 +6,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
 
 import java.util.HashMap;
-
+/**
+ * Manages loading, playing, and disposing of all game audio, including sound effects and music.
+ */
 public class SoundManager implements Disposable {
     private static final HashMap<String, Sound> sounds = new HashMap<>();
     private static final HashMap<String, Music> musics = new HashMap<>();

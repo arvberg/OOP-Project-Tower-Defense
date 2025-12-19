@@ -1,9 +1,14 @@
 package com.IONA.TowerDefense.model.units.enemies;
 
-import com.IONA.TowerDefense.model.ui.HealthBar;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * EnemyFast represents a lightweight, fast-moving enemy.
+ * <p>
+ * Extends the abstract Enemy class. Compared to EnemyBasic, this enemy has
+ * lower HP, higher speed, and slightly lower damage/reward scaling with difficulty.
+ * Ideal for testing towers against quick targets.
+ */
 public class EnemyFast extends Enemy {
 
     public EnemyFast(int difficulty) {
