@@ -32,7 +32,7 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer renderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer renderer, float delta) {
         float rotationFront = enemy.getVisualRotationFront();
         float rotationBack = enemy.getVisualRotationBack();
 
@@ -57,9 +57,9 @@ public final class EnemyBasicDrawer implements DrawableEnemy {
         batch.draw(
             TEXTURE_EYE_R,
             hb.x, hb.y,
-            hb.width/2f, hb.height/2f,
+            hb.width / 2f, hb.height / 2f,
             hb.width, hb.height,
-            1.5f,1.5f,
+            1.5f, 1.5f,
             0
         );
 

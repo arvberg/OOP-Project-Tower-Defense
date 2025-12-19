@@ -25,9 +25,6 @@ public final class EnemyTankyDrawer implements DrawableEnemy {
         BUG_ANIMATION.setPlayMode(Animation.PlayMode.LOOP);
     }
 
-    //private static final Texture TEXTURE = new Texture(Assets.ENEMY_TANKY);
-    //private static final TextureRegion TEXTURE_R = new TextureRegion(TEXTURE);
-
     private final Rectangle hb;
     private final HealthBar healthBar;
     private final EnemyTanky enemy;
@@ -40,7 +37,7 @@ public final class EnemyTankyDrawer implements DrawableEnemy {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         float currentDir = enemy.getDegreeDirection() + 90f;
         stateTime += Gdx.graphics.getDeltaTime();
         TextureRegion frame = BUG_ANIMATION.getKeyFrame(stateTime);

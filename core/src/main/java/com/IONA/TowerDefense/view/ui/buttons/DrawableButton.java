@@ -8,6 +8,7 @@ public sealed interface DrawableButton extends Drawable permits
     PauseButtonDrawer,
     PlayButtonDrawer,
     RangeUpgradeDrawer,
+    DamageUpgradeDrawer,
     RestartButtonDrawer,
     SellButtonDrawer,
     SpeedUpButtonDrawer,
@@ -16,7 +17,5 @@ public sealed interface DrawableButton extends Drawable permits
     TowerMenuItemButtonDrawer,
     TowerMissileIconDrawer,
     TowerPulseIconDrawer,
-    UpgradeMenuItemButtonDrawer
-
-{
+    UpgradeMenuItemButtonDrawer{
 }

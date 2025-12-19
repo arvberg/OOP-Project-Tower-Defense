@@ -41,7 +41,7 @@ public final class TowerPulseDrawer implements DrawableTower, AttackListener {
     private float angleDeg;
     private float range;
 
-    public TowerPulseDrawer(TowerPulse tower){
+    public TowerPulseDrawer(TowerPulse tower) {
         this.tower = tower;
         this.p = tower.getPosition();
         this.dimensionX = tower.getDimension().x;

@@ -69,7 +69,7 @@ public class Fonts {
 
     }
 
-    private static BitmapFont createFont(float scale){
+    private static BitmapFont createFont(float scale) {
         BitmapFont f = new BitmapFont(Gdx.files.internal(Assets.FONT_GOTHIC_FNT));
         f.setUseIntegerPositions(false);
         f.getData().setScale(scale);
@@ -77,7 +77,7 @@ public class Fonts {
         return f;
     }
 
-    private static BitmapFont createBoldFont(float scale){
+    private static BitmapFont createBoldFont(float scale) {
         BitmapFont f = new BitmapFont(Gdx.files.internal(Assets.FONT_GOTHIC_BOLD_FNT));
         f.setUseIntegerPositions(false);
         f.getData().setScale(scale);

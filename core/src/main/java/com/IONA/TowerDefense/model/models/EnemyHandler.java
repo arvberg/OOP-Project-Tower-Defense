@@ -58,7 +58,9 @@ public class EnemyHandler {
         enemies.add(enemy);
     }
 
-    public void removeEnemy(Enemy enemy) { enemies.remove(enemy); }
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
 
     public void removeAllEnemies() {
         enemies.clear();

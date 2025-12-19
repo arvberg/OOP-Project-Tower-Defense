@@ -1,7 +1,6 @@
 package com.IONA.TowerDefense.model.ui;
 
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -13,7 +12,7 @@ public abstract class Menu {
     protected float height;
     protected Rectangle bounds;
 
-    public Menu(float x, float y, float width, float height){
+    public Menu(float x, float y, float width, float height) {
         this.menuPosition = new Vector2(x, y);
         this.width = width;
         this.height = height;
@@ -28,16 +27,14 @@ public abstract class Menu {
         return height;
     }
 
-    public Vector2 getMenuPosition(){
+    public Vector2 getMenuPosition() {
         return menuPosition;
     }
 
-    public void setMenuPosition(float x, float y){
+    public void setMenuPosition(float x, float y) {
         menuPosition.x = x;
         menuPosition.y = y;
     }
-
-    public abstract void onClick();
 
     public boolean contains(float x, float y) {
         return bounds.contains(x, y);

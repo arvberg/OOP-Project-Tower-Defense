@@ -42,10 +42,10 @@ public class Segment {
 
     public Vector2 getEndForDraw(float w) {
         return switch (direction) {
-            case NORTH -> new Vector2(start.x, start.y + length + w/2);
-            case SOUTH -> new Vector2(start.x, start.y - length - w/2);
-            case EAST -> new Vector2(start.x + length + w/2, start.y);
-            case WEST -> new Vector2(start.x - length - w/2, start.y);
+            case NORTH -> new Vector2(start.x, start.y + length + w / 2);
+            case SOUTH -> new Vector2(start.x, start.y - length - w / 2);
+            case EAST -> new Vector2(start.x + length + w / 2, start.y);
+            case WEST -> new Vector2(start.x - length - w / 2, start.y);
         };
     }
 

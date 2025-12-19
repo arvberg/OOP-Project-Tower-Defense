@@ -7,5 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public sealed interface DrawableTower extends Drawable permits TowerBasicDrawer, TowerMissileDrawer, TowerPulseDrawer {
     void drawPendingTower(SpriteBatch batch);
+
     void drawRange(SpriteBatch batch);
 }

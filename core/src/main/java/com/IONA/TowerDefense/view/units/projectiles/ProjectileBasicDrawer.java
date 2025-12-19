@@ -18,13 +18,13 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
     private static final Texture TEXTURE = new Texture(Assets.PROJECTILE_BASIC);
     private static final TextureRegion TEXTURE_R = new TextureRegion(TEXTURE);
 
-    public ProjectileBasicDrawer(Projectile projectile){
+    public ProjectileBasicDrawer(Projectile projectile) {
         this.projectile = projectile;
         this.p = projectile.getPosition();
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         p = projectile.getPosition();
         float angleDeg = VectorUtils.angleFromDirection(projectile.getDir());
         float distance = 0.48f;
@@ -43,7 +43,7 @@ public final class ProjectileBasicDrawer implements DrawableProjectile {
             height / 2f,
             width, height,
             0.4f, 1.3f,
-            angleDeg-90
+            angleDeg - 90
         );
     }
 

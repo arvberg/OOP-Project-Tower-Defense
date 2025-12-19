@@ -16,25 +16,20 @@ public final class TowerMenuDrawer implements DrawableMenu {
 
     private final TowerMenu towerMenu;
 
-    public TowerMenuDrawer(TowerMenu towerMenu){
+    public TowerMenuDrawer(TowerMenu towerMenu) {
         this.towerMenu = towerMenu;
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
-        return;
-        /*
-        batch.draw(TEXTURE, towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y,
-            towerMenu.getWidth(), towerMenu.getHeight() );
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
 
-         */
     }
 
     @Override
-    public void drawCancelTower(SpriteBatch batch){
+    public void drawCancelTower(SpriteBatch batch) {
 
         batch.draw(TEXTURE_CANCEL, towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y,
-            towerMenu.getWidth(), towerMenu.getHeight() );
+            towerMenu.getWidth(), towerMenu.getHeight());
     }
 
     public static void disposeStatic() {

@@ -9,13 +9,12 @@ import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
 
 public final class DrawableDecorationFactory {
 
-    private DrawableDecorationFactory(){}
+    private DrawableDecorationFactory() {
+    }
 
-    public static DrawableDecoration create(Decoration decoration){
-        return switch (decoration){
+    public static DrawableDecoration create(Decoration decoration) {
+        return switch (decoration) {
             case Core d -> new CoreDrawer(d);
-            //case EnemyFast e   -> new EnemyFastDrawer(e);
-            //case EnemyTanky e   -> new EnemyTankDrawer(e);
             default -> throw new IllegalStateException("Unexpected value: " + decoration);
         };
     }

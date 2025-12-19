@@ -11,8 +11,8 @@ public class FireRateUpgrade implements TowerUpgrade {
     }
 
     @Override
-    public void incrementCost(float f){
-        this.cost = (int)(cost*f);
+    public void incrementCost(float f) {
+        this.cost = (int) (cost * f);
     }
 
     @Override

@@ -4,11 +4,11 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 
 public interface TowerListener {
 
-    default void onTowerStrategyToggle(String strategy){
+    default void onTowerStrategyToggle(String strategy) {
 
     }
 
-    default void onTowerSwitched(){
+    default void onTowerSwitched() {
     }
 
     default void onTowerSelected() {
@@ -23,10 +23,6 @@ public interface TowerListener {
     }
 
     default void onTowerDeselected() {
-
-    }
-
-    default void onTowerPending() {
 
     }
 

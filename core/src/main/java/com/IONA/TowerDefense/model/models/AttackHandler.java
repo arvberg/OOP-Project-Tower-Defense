@@ -167,7 +167,7 @@ public class AttackHandler {
         Rectangle hitbox = enemy.getHitBox();
         float projectileX = projectile.getPosition().x;
         float projectileY = projectile.getPosition().y;
-        return hitbox != null && hitbox.contains(projectileX, projectileY;
+        return hitbox != null && hitbox.contains(projectileX, projectileY);
     }
 
     public void projectileHit(Projectile projectile, List<Enemy> enemies) {
@@ -209,9 +209,5 @@ public class AttackHandler {
 
     public void addAttackListener(AttackListener l) {
         listeners.add(l);
-    }
-
-    public void removeAttackListener(AttackListener l) {
-        listeners.remove(l);
     }
 }

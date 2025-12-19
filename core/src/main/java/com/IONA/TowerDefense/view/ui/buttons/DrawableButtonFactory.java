@@ -14,13 +14,15 @@ import java.util.Map;
 public class DrawableButtonFactory {
 
     private static final Map<Button, DrawableButton> existingViews = new HashMap<>();
-    private DrawableButtonFactory(){}
 
-    public static DrawableButton create(Button button){
-        if(existingViews.containsKey(button)) {
+    private DrawableButtonFactory() {
+    }
+
+    public static DrawableButton create(Button button) {
+        if (existingViews.containsKey(button)) {
             return existingViews.get(button);
         }
-        DrawableButton view = switch (button){
+        DrawableButton view = switch (button) {
             case PauseButton b -> new PauseButtonDrawer(b);
             case PlayButton b -> new PlayButtonDrawer(b);
             case RestartButton b -> new RestartButtonDrawer(b);

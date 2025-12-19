@@ -2,7 +2,8 @@ package com.IONA.TowerDefense.view;
 
 public class Assets {
 
-    private Assets() {} // förhindra instansiering
+    private Assets() {
+    } // förhindra instansiering
 
     // BACKGROUNDS
     public static final String BACKGROUND_BASIC = "backgrounds/Background_Basic.png";
@@ -41,7 +42,6 @@ public class Assets {
     public static final String BUTTON_SELLBUTTON = "ui/buttons/Button_Sellbutton.png";
     public static final String BUTTON_SPEEDUPBUTTON = "ui/buttons/Button_Speedupbutton.png";
     public static final String BUTTON_TARGETTINGBUTTON = "ui/buttons/Button_Toggletargettingbutton.png";
-
 
 
     // BUTTONS_UPGRADES

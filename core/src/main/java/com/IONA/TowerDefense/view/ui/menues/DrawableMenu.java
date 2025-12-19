@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public sealed interface DrawableMenu extends Drawable permits TowerMenuDrawer,
     InfoMenuDrawer, UpgradeMenuTowerBasicDrawer, UpgradeMenuTowerMissileDrawer,
-    UpgradeMenuTowerPulseDrawer
-{
+    UpgradeMenuTowerPulseDrawer {
     default void drawCancelTower(SpriteBatch batch) {
     }
 }

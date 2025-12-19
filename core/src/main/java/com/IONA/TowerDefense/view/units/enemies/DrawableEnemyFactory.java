@@ -7,13 +7,14 @@ import com.IONA.TowerDefense.model.units.enemies.EnemyTanky;
 
 public final class DrawableEnemyFactory {
 
-    private DrawableEnemyFactory(){}
+    private DrawableEnemyFactory() {
+    }
 
-    public static DrawableEnemy create(Enemy enemy){
-        return switch (enemy){
+    public static DrawableEnemy create(Enemy enemy) {
+        return switch (enemy) {
             case EnemyBasic e -> new EnemyBasicDrawer(e);
-            case EnemyFast e   -> new EnemyFastDrawer(e);
-            case EnemyTanky e   -> new EnemyTankyDrawer(e);
+            case EnemyFast e -> new EnemyFastDrawer(e);
+            case EnemyTanky e -> new EnemyTankyDrawer(e);
             default -> throw new IllegalStateException("Unexpected value: " + enemy);
         };
     }

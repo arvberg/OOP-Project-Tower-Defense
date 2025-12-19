@@ -38,21 +38,23 @@ public class WaveGenerator {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    if (e.getEnemyType().equals("1")) {
-                        Enemy enemy = new EnemyBasic(GameDiff);
-                        model.addEnemy(enemy);
+                    if (model.getState() == model.getRunningState()) {
+                        if (e.getEnemyType().equals("1")) {
+                            Enemy enemy = new EnemyBasic(GameDiff);
+                            model.addEnemy(enemy);
+                        }
+                        if (e.getEnemyType().equals("2")) {
+                            Enemy enemy = new EnemyFast(GameDiff);
+                            model.addEnemy(enemy);
+                        }
+                        if (e.getEnemyType().equals("3")) {
+                            Enemy enemy = new EnemyTanky(GameDiff);
+                            model.addEnemy(enemy);
+                        }
+                    } else {
+                        // Reschedule task eller avbryt spawn
                     }
-                    if(e.getEnemyType().equals("2")) {
-                        Enemy enemy = new EnemyFast(GameDiff);
-                        model.addEnemy(enemy);
-                    }
-                    if(e.getEnemyType().equals("3")) {
-                        Enemy enemy = new EnemyTanky(GameDiff);
-                        model.addEnemy(enemy);
-                    }
-
                 }
-
             }, spawnTime);
         }
         Timer.schedule(new Timer.Task() {
@@ -67,7 +69,7 @@ public class WaveGenerator {
     }
 
     public boolean WaveCleared() {
-        if (model.getState() == model.getGameOverState()) {
+        if (model.getState() != model.getGameOverState()) {
             return finishedSpawning &&
                 !rewardGiven &&
                 model.getEnemies().isEmpty();

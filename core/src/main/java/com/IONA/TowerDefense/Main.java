@@ -45,10 +45,6 @@ public class Main extends ApplicationAdapter {
         controller.update();
     }
 
-    private void pauseInput() {
-        controller.update();
-    }
-
     private void logic() {
         model.update();
     }
