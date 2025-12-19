@@ -22,7 +22,6 @@ import com.IONA.TowerDefense.model.units.projectiles.Projectile;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -35,42 +34,44 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     private GameState gameState = GameState.START;
 
     private final List<Tower> towers;
-    private final TowerHandler towerHandler;
-    private final UpgradeHandler upgradeHandler;
-    private final ResourceHandler resourceHandler;
     private final List<Enemy> enemies;
     private final List<Projectile> projectiles;
-    private List<Button> inGameButtons;
-    private List<Button> gameOverButtons;
-    private List<Menu> menus;
+    private final List<Button> inGameButtons;
+    private final List<Button> gameOverButtons;
+    private final List<Menu> menus;
 
-    //private final List<Resource> resources;
+    // private final List<Resource> resources;
     private final List<Resource> resources;
     private final List<Decoration> decorations;
     private Path path;
 
+    // handlers
+    private final EnemyHandler enemyHandler;
+    private final AttackHandler attackHandler;
+    private final TowerHandler towerHandler;
+    private final UpgradeHandler upgradeHandler;
+    private final ResourceHandler resourceHandler;
     private final ActionHandler actionHandler;
+
+    // buttons
     private final PlayButton playButton;
     private final ExitButton exitButton;
     private final SpeedUpButton speedUpButton;
     private final PauseButton pauseButton;
     private final RestartButton restartButton;
     private final TargetingStrategyToggleButton targetingStrategyToggleButton;
-    private final AttackHandler attackHandler;
-    private final EnemyHandler enemyHandler;
-    private int score; // Players current score
-    private final int difficulty;
 
     private final TowerFactory towerFactory;
+
+    private int score;
+    private final int difficulty;
 
     private final TowerMenu towerMenu;
     private final InfoMenu infoMenu;
     private final UpgradeMenu upgradeMenu;
 
     private final Decoration core;
-
     private final WaveGenerator generator;
-
     private String background;
 
     public GameModel () {
