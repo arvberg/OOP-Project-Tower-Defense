@@ -27,6 +27,7 @@ public class TowerPulse extends Tower {
         currentDirection = new Vector2(0, 0);
         desiredDirection = new Vector2(0, 0);
         cooldown = 0f;
+        attackStrategy = new AreaAttackStrategy();
         targetingStrategies.add(new TargetAllStrategy());
         targetingStrategy = targetingStrategies.getFirst();
         upgradePath1.add(new RangeUpgrade(175));

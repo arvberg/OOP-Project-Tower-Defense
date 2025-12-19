@@ -51,8 +51,10 @@ public class EnemyHandler {
     }
 
     public void addEnemy(Enemy enemy) {
-        Segment first = path.getSegment(0);
-        enemy.setToNewSegment(first.getStartPosition(), first.getDirection(), 0);
+        Segment firstSegment = path.getSegment(0);
+        Vector2 firstSegmentStartPosition = firstSegment.getStartPosition();
+        Direction firstDirection = firstSegment.getDirection();
+        enemy.setToNewSegment(firstSegmentStartPosition, firstDirection, 0);
         enemies.add(enemy);
     }
 

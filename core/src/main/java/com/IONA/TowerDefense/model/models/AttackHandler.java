@@ -165,7 +165,9 @@ public class AttackHandler {
 
     public boolean isHit(Projectile projectile, Enemy enemy) {
         Rectangle hitbox = enemy.getHitBox();
-        return hitbox != null && hitbox.contains(projectile.getX(), projectile.getY());
+        float projectileX = projectile.getPosition().x;
+        float projectileY = projectile.getPosition().y;
+        return hitbox != null && hitbox.contains(projectileX, projectileY);
     }
 
     public void projectileHit(Projectile projectile, List<Enemy> enemies) {

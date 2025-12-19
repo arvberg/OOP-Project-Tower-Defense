@@ -78,13 +78,13 @@ public abstract class Enemy extends Unit {
     }
 
 
-    public boolean outsideSegment(Vector2 enemyPosition, Vector2 segmentEnd, Direction direction) {
+    public boolean outsideSegment(Vector2 segmentEnd, Direction direction) {
 
         return switch (direction) {
-            case NORTH -> enemyPosition.y >= segmentEnd.y;
-            case SOUTH -> enemyPosition.y <= segmentEnd.y;
-            case EAST -> enemyPosition.x >= segmentEnd.x;
-            case WEST -> enemyPosition.x <= segmentEnd.x;
+            case NORTH -> position.y >= segmentEnd.y;
+            case SOUTH -> position.y <= segmentEnd.y;
+            case EAST -> position.x >= segmentEnd.x;
+            case WEST -> position.x <= segmentEnd.x;
         };
     }
 
