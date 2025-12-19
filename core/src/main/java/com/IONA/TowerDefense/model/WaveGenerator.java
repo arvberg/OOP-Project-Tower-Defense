@@ -56,6 +56,7 @@ public class WaveGenerator {
                         if (e.getEnemyType().equals("1")) {
                             Enemy enemy = new EnemyBasic(GameDiff);
                             model.addEnemy(enemy);
+                            System.out.println(enemy.getHp());
                         }
                         if (e.getEnemyType().equals("2")) {
                             Enemy enemy = new EnemyFast(GameDiff);

@@ -29,8 +29,8 @@ public class TowerBasic extends Tower implements Rotatable {
 
     public TowerBasic() {
         dimension = new Vector2(0.8f, 0.8f);
-        damage = 5;
-        baseDamage = 5;
+        baseDamage = 25;
+        damage = baseDamage;
         projectileSpeed = 8;
         baseFireRate = 0.01f;
         cost = 50;

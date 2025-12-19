@@ -42,11 +42,11 @@ public class DamageUpgrade implements TowerUpgrade {
     @Override
     public void apply(Tower tower) {
         float currentDamage = tower.getDamage();
-        float maxDamage = tower.getBaseDamage() * 0.5f;
+        float maxDamage = tower.getBaseDamage() * 2f;
         float factor = 0.2f; // 20% av skillnaden i ökning
 
-        float newRate = currentDamage - (currentDamage - maxDamage) * factor;
-        tower.setFireRate(newRate);
+        int newRate = (int)(currentDamage + (maxDamage - currentDamage) * factor);
+        tower.setDamage(newRate);
         System.out.println("new rate: " + currentDamage);
     }
 }
