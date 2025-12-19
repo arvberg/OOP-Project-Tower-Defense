@@ -7,10 +7,11 @@ import com.IONA.TowerDefense.view.units.towers.TowerPulseDrawer;
 
 public class DrawableTowerIconFactory {
 
-    private DrawableTowerIconFactory(){}
+    private DrawableTowerIconFactory() {
+    }
 
-    public static DrawableButton create(TowerMenuItem item){
-        return switch (item.getName()){
+    public static DrawableButton create(TowerMenuItem item) {
+        return switch (item.getName()) {
             case "TowerBasic" -> new TowerBasicIconDrawer(item);
             case "TowerPulse" -> new TowerPulseIconDrawer(item);
             case "TowerMissile" -> new TowerMissileIconDrawer(item);

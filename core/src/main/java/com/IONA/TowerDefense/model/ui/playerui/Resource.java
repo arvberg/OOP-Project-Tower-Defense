@@ -12,35 +12,16 @@ public class Resource {
     protected float height;
     public String textBar;
     public Color color;
-    public BitmapFont font;
 
-    public Resource(int currentResource, Vector2 position, float width, float height){
+    public Resource(int currentResource, Vector2 position, float width, float height) {
         this.currentResource = currentResource;
         this.position = new Vector2(position);
         this.width = width;
         this.height = height;
-        //this.font = Fonts.GOTHIC_FONT;
         this.textBar = String.valueOf(this.currentResource);
     }
 
-    /*public static void setAllFixedWidth(BitmapFont font){
-        BitmapFont.BitmapFontData data = font.getData();
-        int maxAdvance = 0;
-        for (int index = 0, end = 65536; index < end; index++){
-            BitmapFont.Glyph g = data.getGlyph((char) index);
-            if (g != null && g.xadvance > maxAdvance) maxAdvance = g.xadvance;
-        }
-        for (int index = 0, end = 65536; index < end; index++){
-            BitmapFont.Glyph g = data.getGlyph((char) index);
-            if (g == null) continue;
-            g.xoffset += (maxAdvance - g.xadvance) / 2;
-            g.xadvance = maxAdvance;
-            g.kerning = null;
-            g.fixedWidth = true;
-        }
-    }*/
-
-    public void setCurrentResource(int currentResource){
+    public void setCurrentResource(int currentResource) {
         this.currentResource = currentResource;
     }
 

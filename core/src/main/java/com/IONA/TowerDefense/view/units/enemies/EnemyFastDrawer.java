@@ -26,7 +26,7 @@ public final class EnemyFastDrawer implements DrawableEnemy {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
 
         batch.draw(
             TEXTURE,

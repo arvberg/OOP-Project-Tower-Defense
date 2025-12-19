@@ -36,7 +36,7 @@ public class TowerHandler {
 
     private static final float TOWER_SELECTION_RADIUS = 0.65f; // Tower selection radius
 
-    public TowerHandler (List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler, UpgradeMenu upgradeMenu) {
+    public TowerHandler(List<Tower> towers, TowerFactory factory, Path path, List<Decoration> decor, ResourceHandler resourceHandler, UpgradeMenu upgradeMenu) {
         this.towers = towers;
         this.path = path;
         this.decorations = decor;
@@ -57,8 +57,8 @@ public class TowerHandler {
 
                 clickedTower = tower;
                 notifyTowerSwitchedEvent();
-                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
-                upgradeMenu.setTowerIsClicked(true,clickedTower.getTowerType());
+                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth() / 2, clickedTower.getY() + clickedTower.getDimension().y);
+                upgradeMenu.setTowerIsClicked(true, clickedTower.getTowerType());
                 upgradeMenu.clearGridItems();
                 upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2(), clickedTower.getUpgradePath3());
 
@@ -80,7 +80,7 @@ public class TowerHandler {
         }
     }
 
-    public void placeTower (Vector2 selectedPoint) {
+    public void placeTower(Vector2 selectedPoint) {
 
         if (pendingTower != null && !overlaps(pendingTower)) {
             //System.out.println(pendingTower.getTargetingStrategy().getStrategy());
@@ -101,31 +101,30 @@ public class TowerHandler {
         }
     }
 
-    public void deselectTower () {
+    public void deselectTower() {
         setSelectedTower(null);
         setTowerSelected(false);
         notifyTowerDeselectedEvent();
         System.out.println("Tower deselected");
         // ev använd observer pattern med upgradehandler
         upgradeMenu.clearGridItems();
-        upgradeMenu.setTowerIsClicked(false,"");
-        upgradeMenu.setMenuPosition(16,9);
+        upgradeMenu.setTowerIsClicked(false, "");
+        upgradeMenu.setMenuPosition(16, 9);
     }
 
-    public void buyTower (String tower) {
+    public void buyTower(String tower) {
         Tower newTower = TowerFactory.createTower(tower);
         if (resourceHandler.getMoney() >= newTower.getCost()) {
-                deselectTower();
-                setBuyingState(true);
-                setPendingTower(newTower);
-        }
-        else {
+            deselectTower();
+            setBuyingState(true);
+            setPendingTower(newTower);
+        } else {
             notifyNotEnoughMoney();
             System.out.println("Inte tillräckligt med resurser för att köpa " + tower);
         }
     }
 
-    public void sellTower (Tower tower) {
+    public void sellTower(Tower tower) {
         if (selectedTower != null) {
             deselectTower();
             towers.remove(tower);
@@ -133,7 +132,7 @@ public class TowerHandler {
         }
     }
 
-    public void cancelBuy () {
+    public void cancelBuy() {
         if (pendingTower != null) {
             setBuyingState(false);
             setPendingTower(null);
@@ -163,7 +162,7 @@ public class TowerHandler {
 
         // Set coordinates to compare with
         Rectangle towerRect = new Rectangle(
-            tower.getPosition().x - tower.getDimension().x /2f,
+            tower.getPosition().x - tower.getDimension().x / 2f,
             tower.getPosition().y - tower.getDimension().y / 2f,
             tower.getDimension().x,
             tower.getDimension().y
@@ -172,8 +171,8 @@ public class TowerHandler {
         // Check for all decorations
         for (Decoration decoration : decorations) {
             Rectangle decorationRect = new Rectangle(
-                decoration.getPosition().x - decoration.width /2f,
-                decoration.getPosition().y - decoration.height/2f,
+                decoration.getPosition().x - decoration.width / 2f,
+                decoration.getPosition().y - decoration.height / 2f,
                 decoration.width,
                 decoration.height
             );
@@ -185,7 +184,7 @@ public class TowerHandler {
         // Check for every tower on the map
         for (Tower t : towers) {
             Rectangle placedTowerRect = new Rectangle(
-                t.getPosition().x - t.getDimension().x /2f,
+                t.getPosition().x - t.getDimension().x / 2f,
                 t.getPosition().y - t.getDimension().y / 2f,
                 t.getDimension().x,
                 t.getDimension().y
@@ -204,14 +203,6 @@ public class TowerHandler {
         selectedTower.setTargetingStrategy(currentStrategy);
         System.out.println("New strategy: " + currentStrategy);
         notifyTowerStrategyEvent(currentStrategy.getStrategy());
-    }
-
-    public void addTower(Tower tower) {
-        towers.add(tower);
-    }
-
-    public void removeTower(Tower tower) {
-        towers.remove(tower);
     }
 
     public void removeAllTowers() {
@@ -254,10 +245,6 @@ public class TowerHandler {
 
     public void addTowerListener(TowerListener listener) {
         listeners.add(listener);
-    }
-
-    public void removeListener(TowerListener listener) {
-        listeners.remove(listener);
     }
 
     public void notifyTowerClickedEvent() {

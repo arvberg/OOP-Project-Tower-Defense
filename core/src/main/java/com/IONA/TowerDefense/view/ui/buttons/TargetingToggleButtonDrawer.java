@@ -35,7 +35,7 @@ public final class TargetingToggleButtonDrawer implements DrawableButton, TowerL
         p = button.getButtonPosition();
         batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
         font.setColor(0.859f, 0.824f, 0.773f, 1f);
-        font.draw(batch, currentStrategy, p.x+0.08f, p.y+dimensionY-0.001f);
+        font.draw(batch, currentStrategy, p.x + 0.08f, p.y + dimensionY - 0.001f);
     }
 
     @Override
@@ -43,6 +43,7 @@ public final class TargetingToggleButtonDrawer implements DrawableButton, TowerL
         this.currentStrategy = strategy;
         System.out.println("toggle");
     }
+
     public static void disposeStatic() {
         if (TEXTURE != null) TEXTURE.dispose();
     }

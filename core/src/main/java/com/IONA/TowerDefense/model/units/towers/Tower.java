@@ -52,15 +52,13 @@ public abstract class Tower extends Unit {
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
     protected final Deque<TowerUpgrade> upgradePath3 = new ArrayDeque<>();
 
-    public List<TargetingStrategy> getTargetingStrategies(){
+    public List<TargetingStrategy> getTargetingStrategies() {
         return this.targetingStrategies;
     }
 
-    public String getTowerType(){ return this.towerType; }
-
-    public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
-
-    public boolean getHasCurrentUpgradeMenu(){return this.hasCurrentUpgradeMenu;}
+    public String getTowerType() {
+        return this.towerType;
+    }
 
     public Deque<TowerUpgrade> getUpgradePath1() {
         return upgradePath1;
@@ -70,7 +68,9 @@ public abstract class Tower extends Unit {
         return upgradePath2;
     }
 
-    public Deque<TowerUpgrade> getUpgradePath3() {return upgradePath3;}
+    public Deque<TowerUpgrade> getUpgradePath3() {
+        return upgradePath3;
+    }
 
     public List<Enemy> getTargets(List<Enemy> enemies) {
         return targetingStrategy.pick(enemies, this);
@@ -88,17 +88,13 @@ public abstract class Tower extends Unit {
         this.range = range;
     }
 
-    public void setCost(int cost){
-        this.cost = cost;
-    }
-
-    public int getCost(){
+    public int getCost() {
         return cost;
     }
 
-    public TargetingStrategy getTargetingStrategyAtIndex(int index){return targetingStrategies.get(index);}
-
-    public TargetingStrategy getCurrentTargetingStrategy(){return this.targetingStrategy;}
+    public TargetingStrategy getTargetingStrategyAtIndex(int index) {
+        return targetingStrategies.get(index);
+    }
 
     public boolean isAiming() {
         float deltaDirection = VectorUtils.distance(currentDirection, desiredDirection);
@@ -113,19 +109,21 @@ public abstract class Tower extends Unit {
         return desiredDirection;
     }
 
-    public float getRange(){
+    public float getRange() {
         return range;
     }
 
-    public float getBaseRange(){
+    public float getBaseRange() {
         return baseRange;
     }
 
-    public float getFireRate(){
+    public float getFireRate() {
         return fireRate;
     }
 
-    public float getBaseFireRate() { return baseFireRate; }
+    public float getBaseFireRate() {
+        return baseFireRate;
+    }
 
     public int getDamage() {
         return damage;
@@ -151,10 +149,6 @@ public abstract class Tower extends Unit {
         this.fireRate = fireRate;
     }
 
-    public float getRotationSpeed() {
-        return rotationSpeed;
-    }
-
     public boolean hasCooledDown() {
         return cooldown <= 0f;
     }
@@ -167,25 +161,20 @@ public abstract class Tower extends Unit {
         cooldown = fireRate;
     }
 
-    public void updateCooldown(float delta){
+    public void updateCooldown(float delta) {
         cooldown -= delta;
-    }
-
-    public void setAimingMargin(float aimingMargin) {
-        this.aimingMargin = aimingMargin;
     }
 
     public AttackStrategy getAttackStrategy() {
         return this.attackStrategy;
     }
 
-    public void setAttackStrategy(AttackStrategy attackStrategy) {
-        this.attackStrategy = attackStrategy;
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+        this.targetingStrategy = targetingStrategy;
     }
 
-    public void setTargetingStrategy(TargetingStrategy targetingStrategy){
-        this.targetingStrategy = targetingStrategy;
-    };
+    ;
+
     public float getBaseDamage() {
         return baseDamage;
     }

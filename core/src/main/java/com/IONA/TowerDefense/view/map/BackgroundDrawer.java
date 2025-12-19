@@ -6,11 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BackgroundDrawer {
     private static Texture backgroundTextureStarter = new Texture(Assets.BACKGROUND_BASIC);
-    public BackgroundDrawer(){
+
+    public BackgroundDrawer() {
     }
 
-    public static void drawBackground(SpriteBatch batch, String background, float x, float y, float width, float height){
-        if(background == "Starter map"){
+    public static void drawBackground(SpriteBatch batch, String background, float x, float y, float width, float height) {
+        if (background == "Starter map") {
             batch.draw(backgroundTextureStarter, x, y, width, height);
         }
     }

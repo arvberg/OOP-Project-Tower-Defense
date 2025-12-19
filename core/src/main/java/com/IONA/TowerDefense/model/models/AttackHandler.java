@@ -208,8 +208,4 @@ public class AttackHandler {
     public void addAttackListener(AttackListener l) {
         listeners.add(l);
     }
-
-    public void removeAttackListener(AttackListener l) {
-        listeners.remove(l);
-    }
 }

@@ -2,7 +2,7 @@ package com.IONA.TowerDefense.model.upgrades;
 
 import com.IONA.TowerDefense.model.units.towers.Tower;
 
-public class MaxUpgrade implements TowerUpgrade{
+public class MaxUpgrade implements TowerUpgrade {
 
     private int cost;
 
@@ -11,8 +11,8 @@ public class MaxUpgrade implements TowerUpgrade{
     }
 
     @Override
-    public void incrementCost(float f){
-        this.cost = (int)(cost*f);
+    public void incrementCost(float f) {
+        this.cost = (int) (cost * f);
     }
 
     @Override

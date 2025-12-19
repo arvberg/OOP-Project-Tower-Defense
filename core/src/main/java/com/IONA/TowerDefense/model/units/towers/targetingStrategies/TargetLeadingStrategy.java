@@ -10,6 +10,7 @@ import java.util.List;
 
 public class TargetLeadingStrategy implements TargetingStrategy {
     String name = "Leading";
+
     @Override
     public List<Enemy> pick(List<Enemy> enemies, Tower tower) {
         List<Enemy> result = new ArrayList<>();
@@ -22,7 +23,7 @@ public class TargetLeadingStrategy implements TargetingStrategy {
     }
 
     @Override
-    public String getStrategy(){
+    public String getStrategy() {
         return name;
     }
 }

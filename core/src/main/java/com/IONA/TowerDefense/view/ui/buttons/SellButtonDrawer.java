@@ -32,7 +32,7 @@ public final class SellButtonDrawer implements DrawableButton {
         p = button.getButtonPosition();
         batch.draw(TEXTURE, p.x, p.y, dimensionX, dimensionY);
         font.setColor(0.859f, 0.824f, 0.773f, 1f);
-        font.draw(batch, ("SELL: 56 bytes"), p.x+0.08f, p.y+dimensionY-0.001f);
+        font.draw(batch, ("SELL: 56 bytes"), p.x + 0.08f, p.y + dimensionY - 0.001f);
 
     }
 

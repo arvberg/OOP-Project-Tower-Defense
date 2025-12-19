@@ -11,10 +11,10 @@ import com.badlogic.gdx.math.Vector2;
 public interface GameState {
 
     default void enter() {
-    };
+    }
 
     default void update(float delta) {
-    };
+    }
 
     // default inputhantering.
     // Gäller för Start och Running. Kan flyttas till separata state-klasser om vi får fler states
@@ -61,7 +61,7 @@ public interface GameState {
     }
 
     default void toggle() {
-    };
+    }
 
     default void enemyDeath(Enemy enemy) {
     }
@@ -70,7 +70,8 @@ public interface GameState {
     }
 
     default void exit() {
-    };
+    }
+
 
     private static boolean clickedOnGameArea(GameModel model, Vector2 pos) {
         for (Button b : model.getInGameButtons()) {

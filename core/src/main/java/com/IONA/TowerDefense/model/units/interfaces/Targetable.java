@@ -5,5 +5,4 @@ import java.awt.*;
 public interface Targetable {
     Point getPosition();
 
-    Rectangle getHitbox();
 }

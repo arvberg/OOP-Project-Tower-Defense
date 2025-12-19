@@ -76,9 +76,9 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     private String background;
 
-    public GameModel () {
+    public GameModel() {
 
-        this.towerMenu = new TowerMenu(12,7.5f,this);
+        this.towerMenu = new TowerMenu(12, 7.5f, this);
         this.infoMenu = new InfoMenu(16, 9, this);
         this.upgradeMenu = new UpgradeMenu(16, 9, this);
         this.towers = new ArrayList<>();
@@ -153,7 +153,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     }
 
     public void exitGame() {
-            com.badlogic.gdx.Gdx.app.exit();
+        com.badlogic.gdx.Gdx.app.exit();
     }
 
     public void toggleSpeed() {
@@ -185,25 +185,23 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         currentState.toggle();
     }
 
-    public String getBackground(){return this.background;}
-
-    public void setBackground(String background){
-        this.background = background;
+    public String getBackground() {
+        return this.background;
     }
 
-    public void placeCore(Decoration core){
-        Segment last = path.getSegment(path.segmentCount()-2);
+    public void placeCore(Decoration core) {
+        Segment last = path.getSegment(path.segmentCount() - 2);
         Vector2 end = last.getEnd();
 
         core.setPosition(new Vector2(
-            end.x+0.1f,
+            end.x + 0.1f,
             end.y)
         );
 
         decorations.add(core);
     }
 
-    public void coreDamaged(){
+    public void coreDamaged() {
         if (decorations.isEmpty()) return;
         Rectangle coreHitbox = decorations.get(0).getHitBox();
 
@@ -223,37 +221,33 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public void restartGame() {
         currentState.restartGame();
-        /*enemyHandler.removeAllEnemies();
-        towerHandler.removeAllTowers();
-        attackHandler.removeAllProjectiles();
-        resourceHandler.resetResources();
-        generator.resetWaves();
-
-        setGameState(GameStateEnum.START);
-        //exitButton.setVisible(true);
-        updateButtonLayout();
-        */
     }
 
-    public void handleAction(GameAction action, Button sourceButton) { actionHandler.handleAction(action, sourceButton); }
+    public void handleAction(GameAction action, Button sourceButton) {
+        actionHandler.handleAction(action, sourceButton);
+    }
 
 
     public void updateEnemies(float delta) {
         enemyHandler.updateEnemies(delta);
     }
 
-    public void updateButtonLayout(){
+    public void updateButtonLayout() {
         boolean running = currentState == runningState;
 
         playButton.setVisible(!running);
         speedUpButton.setVisible(running);
     }
 
-    public TowerMenu getTowerMenu(){return this.towerMenu; }
+    public TowerMenu getTowerMenu() {
+        return this.towerMenu;
+    }
 
-    public Path getPath(){return this.path;}
+    public Path getPath() {
+        return this.path;
+    }
 
-    public void setPath(Path path){
+    public void setPath(Path path) {
         this.path = path;
     }
     // Add and remove from list
@@ -263,26 +257,28 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return towers;
     }
 
-    public List<Enemy> getEnemies() { return enemies; }
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
 
     public List<Projectile> getProjectiles() {
         return projectiles;
     }
 
-    public List<Decoration> getDecor(){return decorations;}
+    public List<Decoration> getDecor() {
+        return decorations;
+    }
 
-    public List<Resource> getResources(){return resources;}
+    public List<Resource> getResources() {
+        return resources;
+    }
 
     public int getMoney() {
         return resourceHandler.getMoney();
     }
 
-    public ResourceHandler getResourceHandler(){
+    public ResourceHandler getResourceHandler() {
         return resourceHandler;
-    }
-
-    public int getDifficulty() {
-        return difficulty;
     }
 
     // Selecting a tower
@@ -291,12 +287,12 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     }
 
     // Deslecting a tower, used in select when outside of radius
-    public void deselectTower () {
+    public void deselectTower() {
         towerHandler.deselectTower();
     }
 
     // Placing a tower
-    public void placeTower (Vector2 selectedPoint) {
+    public void placeTower(Vector2 selectedPoint) {
         // placera genom towerHandler
         towerHandler.placeTower(selectedPoint);
 
@@ -340,24 +336,12 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return towerHandler.getSelectedTower();
     }
 
-    public void setSelectedTower(Tower tower) {
-        towerHandler.setSelectedTower(tower);
-    }
-
     public boolean isTowerSelected() {
         return towerHandler.isTowerSelected();
     }
 
-    public void setTowerSelected(Boolean bool) {
-        towerHandler.setTowerSelected(bool);
-    }
-
     public boolean isBuyingState() {
         return towerHandler.isBuyingState();
-    }
-
-    public void setBuyingState(Boolean bool) {
-        towerHandler.setBuyingState(bool);
     }
 
     public Tower getPendingTower() {
@@ -368,25 +352,33 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         towerHandler.setPendingTower(tower);
     }
 
-    public List<Button> getInGameButtons() { return inGameButtons;}
+    public List<Button> getInGameButtons() {
+        return inGameButtons;
+    }
 
-    public List<Button> getTowerItemButtons() { return towerItemButtons;}
+    public List<Button> getTowerItemButtons() {
+        return towerItemButtons;
+    }
 
-    public List<Button> getGameOverButtons() { return gameOverButtons; }
+    public List<Button> getGameOverButtons() {
+        return gameOverButtons;
+    }
 
-    public PlayButton getPlayButton(){
+    public PlayButton getPlayButton() {
         return playButton;
     }
 
-    public ExitButton getExitButton(){
+    public ExitButton getExitButton() {
         return exitButton;
     }
 
-    public SpeedUpButton getSpeedUpButton(){
+    public SpeedUpButton getSpeedUpButton() {
         return speedUpButton;
     }
 
-    public PauseButton getPauseButton(){return pauseButton;}
+    public PauseButton getPauseButton() {
+        return pauseButton;
+    }
 
     public RestartButton getRestartButton() {
         return restartButton;
@@ -396,15 +388,11 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return attackHandler;
     }
 
-    public TowerFactory getTowerFactory() {
-        return towerFactory;
-        }
-
     public List<TowerMenuItem> getTowerMenuItems() {
         return towerMenu.items;
     }
 
-    public List<Button> getUpgradeMenuItems(){
+    public List<Button> getUpgradeMenuItems() {
         return upgradeMenu.items;
     }
 
@@ -463,8 +451,13 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return null;
     }
 
-    public void addButton(Button button){ inGameButtons.add(button);}
-    public void removeButton(Button button){inGameButtons.remove(button);}
+    public void addButton(Button button) {
+        inGameButtons.add(button);
+    }
+
+    public void removeButton(Button button) {
+        inGameButtons.remove(button);
+    }
 
 
     public EnemyHandler getEnemyhandler() {
@@ -475,12 +468,8 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         return this.infoMenu;
     }
 
-    public UpgradeMenu getUpgradeMenu(){
+    public UpgradeMenu getUpgradeMenu() {
         return this.upgradeMenu;
-    }
-
-    public TargetingStrategyToggleButton getTargetingToggleButton() {
-        return targetingStrategyToggleButton;
     }
 
     public GameState getStartState() {

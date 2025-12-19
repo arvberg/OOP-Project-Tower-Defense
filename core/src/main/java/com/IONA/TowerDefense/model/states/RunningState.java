@@ -42,7 +42,6 @@ public class RunningState implements GameState {
     }
 
 
-
     @Override
     public void toggle() {
         model.setState(model.getPausedState());

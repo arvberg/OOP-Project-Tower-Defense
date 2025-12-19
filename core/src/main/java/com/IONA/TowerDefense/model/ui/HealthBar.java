@@ -24,7 +24,7 @@ public class HealthBar {
         this.currentHealth = currentHealth;
     }
 
-    public Vector2  getPosition() {
+    public Vector2 getPosition() {
         return position;
     }
 

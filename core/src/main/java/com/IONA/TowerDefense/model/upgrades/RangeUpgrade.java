@@ -3,7 +3,7 @@ package com.IONA.TowerDefense.model.upgrades;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import org.w3c.dom.ranges.Range;
 
-public class RangeUpgrade implements TowerUpgrade{
+public class RangeUpgrade implements TowerUpgrade {
 
     private int cost;
 
@@ -12,8 +12,8 @@ public class RangeUpgrade implements TowerUpgrade{
     }
 
     @Override
-    public void incrementCost(float f){
-        this.cost = (int)(cost*f);
+    public void incrementCost(float f) {
+        this.cost = (int) (cost * f);
     }
 
     @Override

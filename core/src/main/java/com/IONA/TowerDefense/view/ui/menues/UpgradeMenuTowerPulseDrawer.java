@@ -12,12 +12,12 @@ public final class UpgradeMenuTowerPulseDrawer implements DrawableMenu {
 
     private final UpgradeMenu upgradeMenu;
 
-    public UpgradeMenuTowerPulseDrawer(UpgradeMenu upgradeMenu){
+    public UpgradeMenuTowerPulseDrawer(UpgradeMenu upgradeMenu) {
         this.upgradeMenu = upgradeMenu;
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         if (upgradeMenu.towerIsClicked()) {
             batch.draw(TEXTURE, upgradeMenu.getMenuPosition().x, upgradeMenu.getMenuPosition().y,
                 upgradeMenu.getWidth(), upgradeMenu.getHeight());
