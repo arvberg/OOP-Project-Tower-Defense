@@ -42,7 +42,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
     private float dimensionY;
     private float angleDeg;
 
-    public TowerBasicDrawer(TowerBasic tower){
+    public TowerBasicDrawer(TowerBasic tower) {
         this.tower = tower;
         this.p = tower.getPosition();
         this.dimensionX = tower.getDimension().x;
@@ -51,7 +51,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         angleDeg = tower.getAngleDeg();
 
         if (pulseActive) {
@@ -75,7 +75,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
                 height / 2f,
                 width, height,
                 0.86f, 3.2f,
-                angleDeg-90
+                angleDeg - 90
             );
 
 
@@ -99,7 +99,7 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
             dimensionX / 2f, dimensionY / 2f,
             dimensionX, dimensionY,
             1.3f, 1.3f,
-            angleDeg-90
+            angleDeg - 90
         );
     }
 
@@ -158,6 +158,8 @@ public final class TowerBasicDrawer implements DrawableTower, AttackListener {
         if (this.tower == firingTower) {
             pulseActive = true;
             pulseTime = 0f;
+
         }
+        System.out.println("fire");
     }
 }

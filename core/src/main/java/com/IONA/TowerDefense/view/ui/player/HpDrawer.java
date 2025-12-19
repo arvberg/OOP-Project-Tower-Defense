@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 
-public final class HpDrawer implements DrawableResource{
+public final class HpDrawer implements DrawableResource {
 
     private final ResourceHP hp;
     private final Vector2 p;
@@ -26,6 +26,7 @@ public final class HpDrawer implements DrawableResource{
 
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
+        font.setColor(0.859f, 0.824f, 0.773f, 1f);
         font.draw(batch, (hp.getTextBar() + "/100 HP"), p.x, p.y);
     }
 }

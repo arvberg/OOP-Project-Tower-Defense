@@ -7,7 +7,7 @@ import com.IONA.TowerDefense.model.units.interfaces.Movable;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
-public class Projectile extends Unit implements Movable {
+public abstract class Projectile extends Unit implements Movable {
     protected int damage;
     protected float speed;
     protected Vector2 position;
@@ -15,6 +15,8 @@ public class Projectile extends Unit implements Movable {
     protected Enemy enemyTarget;
     protected boolean destroyed;
     private Vector2 dimension;
+    protected float lifeTime = 0;
+    protected float lifeSpan;
 
     public Projectile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         this.damage = damage;
@@ -24,18 +26,29 @@ public class Projectile extends Unit implements Movable {
         this.destroyed = false;
     }
 
+    public void update(float delta) {
+        move(delta);
+        updateLifeTime(delta);
+    }
+
+    public void updateLifeTime(float delta) {
+        lifeTime += delta;
+        if (lifeTime > lifeSpan) {
+            setDestroyed(true);
+        }
+    }
+
+    public abstract void move(float delta);
+
+    public boolean outOfBounds(Vector2 worldDimensions) {
+        boolean outOfWidth = position.x < 0 || position.x > worldDimensions.x;
+        boolean outOfHeight = position.y < 0 || position.y > worldDimensions.y;
+        return outOfWidth || outOfHeight;
+    }
+
     public void setPosition(float newX, float newY) {
         this.position.x = newX;
         this.position.y = newY;
-    }
-
-    public void move(float delta){
-    }
-
-    public boolean outOfBounds(Vector2 position, Vector2 worldDimensions) {
-        boolean outOfWidth = position.x < 0 || position.x > worldDimensions.x;
-        boolean outOfHeight = position.y < 0 || position.y > worldDimensions.y;
-        return outOfWidth && outOfHeight;
     }
 
     public Vector2 getPosition() {
@@ -65,16 +78,8 @@ public class Projectile extends Unit implements Movable {
         this.dxdy.y = newDy;
     }
 
-    public Vector2 getDir(){
+    public Vector2 getDir() {
         return this.dxdy;
-    }
-
-    public float getX() {
-        return position.x;
-    }
-
-    public float getY() {
-        return position.y;
     }
 
     public Enemy getEnemyTarget() {

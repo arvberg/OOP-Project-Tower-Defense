@@ -3,8 +3,10 @@ package com.IONA.TowerDefense.controller.buttonui;
 import com.IONA.TowerDefense.model.input.GameAction;
 
 public class TargetingStrategyToggleButton extends Button {
-
-    public TargetingStrategyToggleButton(float x, float y) {
-        super(x, y, 1, 1, GameAction.TOGGLE_TARGETING_STRATEGY);
+    String defaultTargetingStrategy;
+    public TargetingStrategyToggleButton(float x, float y, String defaultTargetingStrategy) {
+        super(x, y - 0.3f, 2f, .4f, GameAction.TOGGLE_TARGETING_STRATEGY);
+        this.defaultTargetingStrategy = defaultTargetingStrategy;
     }
+    public String getDefaultTargetingStrategy(){return defaultTargetingStrategy;}
 }

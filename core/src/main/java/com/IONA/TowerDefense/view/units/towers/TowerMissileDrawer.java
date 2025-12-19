@@ -16,14 +16,13 @@ public final class TowerMissileDrawer implements DrawableTower {
     private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
     private static final TextureRegion BODY_REGION_R = new TextureRegion(TEXTURE);
 
-
     private final TowerMissile tower;
     private Vector2 p;
     private float dimensionX;
     private float dimensionY;
     private float angleDeg;
 
-    public TowerMissileDrawer(TowerMissile tower){
+    public TowerMissileDrawer(TowerMissile tower) {
         this.tower = tower;
         this.p = tower.getPosition();
         this.dimensionX = tower.getDimension().x;
@@ -32,15 +31,15 @@ public final class TowerMissileDrawer implements DrawableTower {
     }
 
     @Override
-    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta){
+    public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         angleDeg = tower.getAngleDeg();
 
         batch.draw(
             BODY_REGION_R,
             p.x - dimensionX / 2f,
             p.y - dimensionY / 2f,
-            dimensionX /2f,
-            dimensionY /2f, dimensionX, dimensionY,1f, 1f,angleDeg - 90
+            dimensionX / 2f,
+            dimensionY / 2f, dimensionX, dimensionY, 1f, 1f, angleDeg - 90
         );
     }
 

@@ -29,9 +29,9 @@ public final class MoneyDrawer implements DrawableResource {
     @Override
     public void draw(SpriteBatch batch, ShapeRenderer shapeRenderer, float delta) {
         batch.enableBlending();
-        batch.setColor(1f, 1f, 1f, 1f);   // ← VIKTIGT
-        font.setColor(1f, 1f, 1f, 1f);
-        font.draw(batch, (money.getTextBar() + " mb"), p.x, p.y);
+        //batch.setColor(1f, 1f, 1f, 1f);   // ← VIKTIGT
+        font.setColor(0.859f, 0.824f, 0.773f, 1);
+        font.draw(batch, (money.getTextBar() + " bytes"), p.x, p.y);
 
     }
 }

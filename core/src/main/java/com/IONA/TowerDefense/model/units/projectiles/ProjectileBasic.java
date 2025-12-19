@@ -9,13 +9,14 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ProjectileBasic extends Projectile implements Movable {
 
-    public ProjectileBasic (int damage, float speed, Vector2 position, Vector2 dxdy) {
-        super(damage,speed,position,dxdy);
+    public ProjectileBasic(int damage, float speed, Vector2 position, Vector2 dxdy) {
+        super(damage, speed, position, dxdy);
         this.damage = damage;
         this.speed = speed;
         this.position = position;
         this.dxdy = dxdy;
         destroyed = false;
+        lifeSpan = 5f;
     }
 
     @Override

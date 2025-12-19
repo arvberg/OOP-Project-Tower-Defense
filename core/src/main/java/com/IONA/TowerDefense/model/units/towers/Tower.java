@@ -8,53 +8,57 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public abstract class Tower extends Unit {
+
     protected int damage;
     protected int baseDamage;
     protected float projectileSpeed;
     protected float fireRate;
     protected float baseFireRate;
-    protected float rotationSpeed;
     protected int cost;
     protected float range;
     protected float baseRange;
     protected float cooldown;
+
+    // rotation properties
+    protected Vector2 desiredDirection;
+    protected Vector2 currentDirection;
+    float rotationSpeed;
     protected float aimingMargin;
-    protected Enemy currentTarget;
-    protected Vector2 direction = new Vector2(0,0);
-    protected float angleDeg;
-    protected boolean hasDetected;
-    protected boolean isAiming;
+
+
     protected boolean hasCurrentUpgradeMenu = false;
+    protected String towerType;
+    protected List<TargetingStrategy> targetingStrategies = new ArrayList<>();
 
     protected Vector2 dimension;
 
-    /*
-    update
-    if hasDetected
-        if rotating
-            setDesiredAngle
-                if | angle-desiredangle | < 0.1
-                    setIsAiming = true
-                else
-        if
+    public abstract boolean canAttack();
 
-     */
+    public void update(float delta) {
+        updateCooldown(delta);
+    }
+
+    public float getAngleDeg() {
+        return VectorUtils.angleFromDirection(currentDirection);
+    }
 
     protected TargetingStrategy targetingStrategy;
     protected AttackStrategy attackStrategy;
 
     protected final Deque<TowerUpgrade> upgradePath1 = new ArrayDeque<>();
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
+    protected final Deque<TowerUpgrade> upgradePath3 = new ArrayDeque<>();
 
-    public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
+    public List<TargetingStrategy> getTargetingStrategies() {
+        return this.targetingStrategies;
+    }
 
-    public boolean getHasCurrentUpgradeMenu(){return this.hasCurrentUpgradeMenu;}
+    public String getTowerType() {
+        return this.towerType;
+    }
 
     public Deque<TowerUpgrade> getUpgradePath1() {
         return upgradePath1;
@@ -64,24 +68,9 @@ public abstract class Tower extends Unit {
         return upgradePath2;
     }
 
-    public float getAngleDeg() {
-        return VectorUtils.angleFromDirection(direction);
+    public Deque<TowerUpgrade> getUpgradePath3() {
+        return upgradePath3;
     }
-
-    public boolean getHasDetected() {
-        return hasDetected;
-    }
-
-    public void setHasDetected(boolean hasDetected) {
-        this.hasDetected = hasDetected;
-    }
-
-    public void setCurrentTarget(Enemy enemy){this.currentTarget = enemy;}
-
-    public Enemy getCurrentTarget(){
-            return this.currentTarget;
-    }
-
 
     public List<Enemy> getTargets(List<Enemy> enemies) {
         return targetingStrategy.pick(enemies, this);
@@ -99,38 +88,57 @@ public abstract class Tower extends Unit {
         this.range = range;
     }
 
-    public void setCost(int cost){
-        this.cost = cost;
-    }
-
-    public int getCost(){
+    public int getCost() {
         return cost;
     }
 
-    public float getRange(){
+    public TargetingStrategy getTargetingStrategyAtIndex(int index) {
+        return targetingStrategies.get(index);
+    }
+
+    public boolean isAiming() {
+        float deltaDirection = VectorUtils.distance(currentDirection, desiredDirection);
+        return deltaDirection < aimingMargin;
+    }
+
+    public Vector2 getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public Vector2 getDesiredDirection() {
+        return desiredDirection;
+    }
+
+    public float getRange() {
         return range;
     }
 
-    public float getBaseRange(){
+    public float getBaseRange() {
         return baseRange;
     }
 
-    public float getFireRate(){
+    public float getFireRate() {
         return fireRate;
     }
 
-    public float getBaseFireRate() { return baseFireRate; }
+    public float getBaseFireRate() {
+        return baseFireRate;
+    }
 
     public int getDamage() {
         return damage;
     }
 
-    public void setDamage(int damage) {
-        this.damage = damage;
+    public void setDesiredDirection(Vector2 desiredDirection) {
+        this.desiredDirection = desiredDirection;
     }
 
-    public void setProjectileSpeed(float projectileSpeed) {
-        this.projectileSpeed = projectileSpeed;
+    public void setCurrentDirection(Vector2 currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public float getProjectileSpeed() {
@@ -141,55 +149,19 @@ public abstract class Tower extends Unit {
         this.fireRate = fireRate;
     }
 
-    public Vector2 getDirection() {
-        return direction;
-    }
-
-    public boolean isAimingAtCurrentTarget(Enemy enemy) {
-        return true; // change, continue here
-    }
-
-    public boolean getIsAiming() {
-        return isAiming;
-    }
-
-    public float getAimingMargin() {
-        return aimingMargin;
-    }
-
-    public void setAimingMargin(float margin) {
-        this.aimingMargin = margin;
-    }
-
-    public void setIsAiming(boolean isAiming) {
-        this.isAiming = isAiming;
-    }
-
-    public void setDirection(Vector2 direction) {
-        this.direction = direction;
-    }
-
-    public void setCooldown(float cooldown) {
-        this.cooldown = cooldown;
+    public boolean hasCooledDown() {
+        return cooldown <= 0f;
     }
 
     public float getCooldown() {
         return cooldown;
     }
 
-    public float getRotationSpeed() {
-        return rotationSpeed;
-    }
-
-    public boolean hasCooledDown() {
-        return cooldown <= 0f;
-    }
-
     public void resetCooldown() {
         cooldown = fireRate;
     }
 
-    public void updateCooldown(float delta){
+    public void updateCooldown(float delta) {
         cooldown -= delta;
     }
 
@@ -197,10 +169,16 @@ public abstract class Tower extends Unit {
         return this.attackStrategy;
     }
 
-    public void setAttackStrategy(AttackStrategy attackStrategy) {
-        this.attackStrategy = attackStrategy;
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
+        this.targetingStrategy = targetingStrategy;
     }
 
-    public abstract void setTargetingStrategy(TargetingStrategy targetingStrategy);
+    public TargetingStrategy getTargetingStrategy() {
+        return targetingStrategy;
+    }
+
+    public float getBaseDamage() {
+        return baseDamage;
+    }
 }
 

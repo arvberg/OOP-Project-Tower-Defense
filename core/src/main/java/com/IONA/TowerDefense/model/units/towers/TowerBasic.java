@@ -1,11 +1,14 @@
 package com.IONA.TowerDefense.model.units.towers;
 
+import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.AreaAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.attackStrategies.ProjectileAttackStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
+import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetStrongestStrategy;
+import com.IONA.TowerDefense.model.upgrades.DamageUpgrade;
 import com.IONA.TowerDefense.model.upgrades.FireRateUpgrade;
 import com.IONA.TowerDefense.model.upgrades.MaxUpgrade;
 import com.IONA.TowerDefense.model.upgrades.RangeUpgrade;
@@ -13,11 +16,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class TowerBasic extends Tower {
+
+public class TowerBasic extends Tower implements Rotatable {
 
     public TowerBasic() {
         dimension = new Vector2(0.8f, 0.8f);
         damage = 5;
+        baseDamage = 5;
         projectileSpeed = 8;
         baseFireRate = 0.01f;
         cost = 50;
@@ -26,19 +31,43 @@ public class TowerBasic extends Tower {
         baseRange = 2f;
         cooldown = 0f;
         rotationSpeed = 20f;
-        aimingMargin = 1f;
+        aimingMargin = 0.5f;
+        currentDirection = new Vector2(0, 0);
+        desiredDirection = new Vector2(0, 0);
         attackStrategy = new ProjectileAttackStrategy();
-        targetingStrategy = new TargetLeadingStrategy();
-        upgradePath1.add(new FireRateUpgrade(1));
-        upgradePath2.add(new RangeUpgrade(1));
-        upgradePath2.add(new FireRateUpgrade(1));
-        upgradePath2.add(new MaxUpgrade(0));
+        targetingStrategies.add(new TargetLeadingStrategy()); // The order that you add strategies is very important.
+        targetingStrategies.add(new TargetNearestStrategy());
+        targetingStrategies.add(new TargetStrongestStrategy());
+        targetingStrategy = targetingStrategies.getFirst();
+        upgradePath1.add(new RangeUpgrade(40));
+        upgradePath2.add(new FireRateUpgrade(40));
+        upgradePath3.add(new DamageUpgrade(40));
+        towerType = "TowerBasic";
     }
 
     @Override
     public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
         this.targetingStrategy = targetingStrategy;
     }
+
+    @Override
+    public void rotateTower(float delta) {
+        float r = rotationSpeed * delta;
+        float xNew = currentDirection.x + (desiredDirection.x - currentDirection.x) * r;
+        float yNew = currentDirection.y + (desiredDirection.y - currentDirection.y) * r;
+        this.currentDirection = new Vector2(xNew, yNew).nor();
+    }
+
+    @Override
+    public boolean canAttack() {
+        return hasCooledDown() && isAiming();
+    }
+
+    @Override
+    public void setDesiredDirection(Vector2 desiredDirection) {
+        this.desiredDirection = desiredDirection;
+    }
+
 
 }
 

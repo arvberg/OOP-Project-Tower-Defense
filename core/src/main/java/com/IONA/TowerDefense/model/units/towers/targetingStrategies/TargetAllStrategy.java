@@ -8,8 +8,15 @@ import java.util.List;
 
 public class TargetAllStrategy implements TargetingStrategy {
 
+    private String name = "All";
+
     @Override
     public List<Enemy> pick(List<Enemy> enemies, Tower tower) {
         return enemies;
+    }
+
+    @Override
+    public String getStrategy() {
+        return name;
     }
 }

@@ -12,7 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EnemyTest {
+
     private Enemy enemy;
+
 
     @BeforeEach
     void setUp() {
@@ -103,7 +105,7 @@ public class EnemyTest {
 
     @Test
     void testTakeDamage(){
-        int originalHp = enemy.getHp();
+        int originalHp = enemy.getHp(); // 125
 
         enemy.takeDamage(50);
 

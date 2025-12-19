@@ -1,14 +1,28 @@
 package com.IONA.TowerDefense.view.ui.buttons;
 
-import com.IONA.TowerDefense.controller.buttonui.*;
+import com.IONA.TowerDefense.model.ui.buttonui.*;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.*;
+import com.IONA.TowerDefense.model.units.enemies.Enemy;
+import com.IONA.TowerDefense.model.units.enemies.EnemyBasic;
+import com.IONA.TowerDefense.view.units.enemies.DrawableEnemy;
+import com.IONA.TowerDefense.view.units.enemies.EnemyBasicDrawer;
+import com.IONA.TowerDefense.view.units.towers.DrawableTower;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class DrawableButtonFactory {
 
-    private DrawableButtonFactory(){}
+    private static final Map<Button, DrawableButton> existingViews = new HashMap<>();
 
-    public static DrawableButton create(Button button){
-        return switch (button){
+    private DrawableButtonFactory() {
+    }
+
+    public static DrawableButton create(Button button) {
+        if (existingViews.containsKey(button)) {
+            return existingViews.get(button);
+        }
+        DrawableButton view = switch (button) {
             case PauseButton b -> new PauseButtonDrawer(b);
             case PlayButton b -> new PlayButtonDrawer(b);
             case RestartButton b -> new RestartButtonDrawer(b);
@@ -20,5 +34,7 @@ public class DrawableButtonFactory {
             case TargetingStrategyToggleButton b -> new TargetingToggleButtonDrawer(b);
             default -> throw new IllegalStateException("Unexpected value: " + button);
         };
+        existingViews.put(button, view);
+        return view;
     }
 }

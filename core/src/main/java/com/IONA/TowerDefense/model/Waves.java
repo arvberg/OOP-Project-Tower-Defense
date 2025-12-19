@@ -9,10 +9,11 @@ public class Waves {
 
     protected static class Enemy {
         private String type;
-        //public String difficulty;
         private float delay;
 
-        public String getEnemyType() { return type; }
+        public String getEnemyType() {
+            return type;
+        }
 
         public float getDelay() {
             return delay;
@@ -35,8 +36,6 @@ public class Waves {
         Json json = new Json();
         return json.fromJson(Waves.class, Gdx.files.internal("WaveDatabase.json"));
     }
-
-
 }
 
 

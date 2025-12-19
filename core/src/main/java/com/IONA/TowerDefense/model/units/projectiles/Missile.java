@@ -4,10 +4,12 @@ import com.IONA.TowerDefense.VectorUtils;
 import com.IONA.TowerDefense.model.units.interfaces.Movable;
 import com.badlogic.gdx.math.Vector2;
 
+import static java.lang.Math.abs;
+
 
 public class Missile extends Projectile implements Movable {
-    private float acceleration = 0;
     private float turnSpeed = 5f;
+    private float acceleration = 8f;
 
     public Missile(int damage, float speed, Vector2 position, Vector2 dxdy) {
         super(damage, speed, position, dxdy);
@@ -16,6 +18,7 @@ public class Missile extends Projectile implements Movable {
         this.position = position;
         this.dxdy = dxdy;
         this.destroyed = false;
+        lifeSpan = 5f;
     }
 
     @Override

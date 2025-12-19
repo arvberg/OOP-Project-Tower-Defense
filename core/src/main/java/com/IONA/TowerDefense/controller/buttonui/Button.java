@@ -25,7 +25,7 @@ public abstract class Button {
         return visible && bounds.contains(pos);
     }
 
-    public GameAction getAction(){
+    public GameAction getAction() {
         return action;
     }
 
@@ -42,7 +42,7 @@ public abstract class Button {
         return visible && bounds.contains(x, y);
     }
 
-    public void setVisible(boolean visible){
+    public void setVisible(boolean visible) {
         this.visible = visible;
     }
 
@@ -50,15 +50,15 @@ public abstract class Button {
         position.set(x, y);
     }
 
-    public float getWidth(){
+    public float getWidth() {
         return width;
     }
 
-    public float getHeight(){
+    public float getHeight() {
         return height;
     }
 
-    public boolean isVisible(){
+    public boolean isVisible() {
         return visible;
     }
 }

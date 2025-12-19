@@ -2,7 +2,8 @@ package com.IONA.TowerDefense.view;
 
 public class Assets {
 
-    private Assets() {} // förhindra instansiering
+    private Assets() {
+    } // förhindra instansiering
 
     // BACKGROUNDS
     public static final String BACKGROUND_BASIC = "backgrounds/Background_Basic.png";
@@ -40,10 +41,11 @@ public class Assets {
     public static final String BUTTON_RESTARTBUTTON = "ui/buttons/Button_Restartbutton.png";
     public static final String BUTTON_SELLBUTTON = "ui/buttons/Button_Sellbutton.png";
     public static final String BUTTON_SPEEDUPBUTTON = "ui/buttons/Button_Speedupbutton.png";
-    public static final String BUTTON_TARGETTINGBUTTON = "ui/buttons/Button_Targettingbutton.png";
+    public static final String BUTTON_TARGETTINGBUTTON = "ui/buttons/Button_Toggletargettingbutton.png";
+
 
     // BUTTONS_UPGRADES
-    public static final String BUTTON_UPGRADE_FIRERATEBUTTON = "ui/buttons/upgrades/Button_Upgrade_Firerate.png";
+    public static final String BUTTON_UPGRADE_BASEUPGRADE = "ui/buttons/upgrades/Button_Upgrade_BaseUpgrade.png";
     public static final String BUTTON_UPGRADE_RANGEBUTTON = "ui/buttons/upgrades/Button_Upgrade_Range.png";
 
     // BUTTONS_TOWERICONS
@@ -52,9 +54,10 @@ public class Assets {
     // MENUES
     public static final String MENU_INFOMENU_TOWERBASIC = "ui/menues/Menu_Infomenu_Towerbasic.png";
     public static final String MENU_TOWERMENU = "ui/menues/Menu_Towermenu.png";
-    public static final String MENU_UPGRADEMENU = "ui/menues/Menu_Upgrademenu.png";
     public static final String MENU_TOWERMENU_CANCEL = "ui/menues/Cancel_Button.png";
-
+    public static final String MENU_UPGRADEMENU_TOWERBASIC = "ui/menues/Menu_Upgrademenu_TowerBasic.png";
+    public static final String MENU_UPGRADEMENU_TOWERMISSILE = "ui/menues/Menu_Upgrademenu_TowerMissile.png";
+    public static final String MENU_UPGRADEMENU_TOWERPULSE = "ui/menues/Menu_Upgrademenu_TowerPulse.png";
 
     // ANIMATIONS_ATLASES
     public static final String ANIMATION_ATLAS_CORE = "animations/atlases/core/Animation_Core.atlas";
