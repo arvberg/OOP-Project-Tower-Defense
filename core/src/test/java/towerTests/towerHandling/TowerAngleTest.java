@@ -34,6 +34,11 @@ public class TowerAngleTest {
                 public java.util.List<Enemy> pick(java.util.List<Enemy> enemies, Tower tower) {
                     return enemies;
                 }
+
+                @Override
+                public String getStrategy() {
+                    return "";
+                }
             };
         }
 
@@ -51,11 +56,6 @@ public class TowerAngleTest {
         public void rotateTower(float delta) {
             // Gör det deterministiskt: "snap" direkt till desired
             this.currentDirection = new Vector2(desiredDirection).nor();
-        }
-
-        @Override
-        public float getRotationSpeed() {
-            return 999f;
         }
 
         @Override

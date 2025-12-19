@@ -71,22 +71,24 @@ public class EnemyTest {
 
     @Test
     void testOutsideSegmentNorth() {
-        assertTrue(enemy.outsideSegment(new Vector2(5, 10), new Vector2(5, 5), Direction.NORTH));
+        enemy.setToNewSegment(new Vector2(5, 5), Direction.NORTH, 0);
+        assertTrue(enemy.outsideSegment(new Vector2(5, 10), Direction.NORTH));
     }
 
     @Test
     void testOutsideSegmentSouth() {
-        assertTrue(enemy.outsideSegment(new Vector2(5, 1), new Vector2(5, 5), Direction.SOUTH));
+        assertTrue(enemy.outsideSegment(new Vector2(5, 1), Direction.SOUTH));
     }
 
     @Test
     void testOutsideSegmentEast() {
-        assertTrue(enemy.outsideSegment(new Vector2(10, 5), new Vector2(5, 5), Direction.EAST));
+        enemy.setToNewSegment(new Vector2(5, 5), Direction.EAST, 0);
+        assertTrue(enemy.outsideSegment(new Vector2(10, 5), Direction.EAST));
     }
 
     @Test
     void testOutsideSegmentWest() {
-        assertTrue(enemy.outsideSegment(new Vector2(1, 5), new Vector2(5, 5), Direction.WEST));
+        assertTrue(enemy.outsideSegment(new Vector2(1, 5), Direction.WEST));
     }
 
     @Test

@@ -41,7 +41,9 @@ public abstract class Enemy extends Unit {
 
 
     public void move(float delta) {
-
+        if(dir == null){
+            return;
+        }
         // sekunder per frame
         // speed = units per sekund
         switch (dir) {

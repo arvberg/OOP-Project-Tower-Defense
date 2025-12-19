@@ -33,6 +33,11 @@ public class TowerPlacementTest {
         }
 
         @Override
+        public boolean canAttack() {
+            return true;
+        }
+
+        @Override
         public void setTargetingStrategy(TargetingStrategy targetingStrategy) {
 
         }

@@ -26,6 +26,11 @@ public class WaveGenerator {
     }
 
     public void SpawnNextWave() {
+        if (waves == null ||
+            waves.waveslist == null ||
+            waves.waveslist.size == 0){
+            return;
+        }
         finishedSpawning = false;
         rewardGiven = false;
 

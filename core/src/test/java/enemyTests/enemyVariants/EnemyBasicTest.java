@@ -11,11 +11,11 @@ public class EnemyBasicTest {
     void testConstructorValues(){
         EnemyBasic e = new EnemyBasic(2);
 
-        assertEquals(400 + 200 * 2, e.getHp());
-        assertEquals(400 + 200 * 2, e.getMaxHp());
-        assertEquals(2.53f, e.speed);
-        assertEquals(25, e.getMoney());
-        assertEquals(10, e.getDamageNumber());
+        assertEquals(100 + 25 * 2, e.getHp());
+        assertEquals(100 + 25 * 2, e.getMaxHp());
+        assertEquals(1.5f, e.speed);
+        assertEquals(6, e.getMoney());
+        assertEquals(104, e.getDamageNumber());
 
         assertNotNull(e.getHitBox());
     }

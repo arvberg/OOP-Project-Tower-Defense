@@ -70,6 +70,8 @@ public class ResourceHandler {
         return lives;
     }
 
+    public int getScore(){ return score; }
+
     public void setLives(int newLives) {
         this.lives = Math.max(newLives, 0);
     }
