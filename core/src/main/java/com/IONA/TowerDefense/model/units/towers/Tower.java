@@ -68,6 +68,10 @@ public abstract class Tower extends Unit {
         return targetingStrategy.pick(enemies, this);
     }
 
+    public TargetingStrategy getTargetingStrategy() {
+        return targetingStrategy;
+    }
+
     public void setDimension(Vector2 dimension) {
         this.dimension = dimension;
     }

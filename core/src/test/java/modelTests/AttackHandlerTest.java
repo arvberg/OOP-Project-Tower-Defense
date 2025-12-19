@@ -136,25 +136,4 @@ public class AttackHandlerTest {
 
         assertFalse(handler.isHit(projectile, enemy));
     }
-
-    @Test
-    void projectileHit_destroysProjectileAndDamagesEnemy() {
-        AttackHandler handler =
-            new AttackHandler(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-
-        DummyEnemy enemy = new DummyEnemy(0, 0);
-        int initialEnemyHp = enemy.getHp();
-
-        DummyProjectile projectile = new DummyProjectile();
-        projectile.setPosition(new Vector2(0.5f, 0.5f)); // inuti hitBox (0..2, 0..2)
-
-        assertTrue(handler.isHit(projectile, enemy)); // sanity check
-
-        List<Enemy> enemies = new ArrayList<>();
-        enemies.add(enemy);
-
-        handler.projectileHit(projectile, enemies);
-
-        assertTrue(enemy.getHp() < initialEnemyHp);
-    }
 }

@@ -18,7 +18,7 @@ public class TowerFactoryTest {
 
     @Test
     void testCreateTowerMissile() {
-        Tower t = TowerFactory.createTower("TowerFast");
+        Tower t = TowerFactory.createTower("TowerMissile");
         assertInstanceOf(TowerMissile.class, t);
     }
 
