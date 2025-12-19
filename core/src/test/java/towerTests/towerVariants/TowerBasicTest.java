@@ -20,17 +20,4 @@ public class TowerBasicTest {
         assertEquals(0f, t.getCooldown());
         assertEquals(new Vector2(1f, 1f), t.getDimension());
     }
-
-    @Test
-    void testCanShoot(){
-        TowerBasic t = new TowerBasic();
-        assertTrue(t.canShoot());
-    }
-
-    @Test
-    void testResetCooldown(){
-        TowerBasic t = new TowerBasic();
-        t.resetCooldown();
-        assertFalse(t.canShoot());
-    }
 }

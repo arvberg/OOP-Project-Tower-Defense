@@ -2,7 +2,7 @@ package com.IONA.TowerDefense.model.states;
 
 import com.IONA.TowerDefense.model.models.GameModel;
 import com.IONA.TowerDefense.model.ui.Menu;
-import com.IONA.TowerDefense.controller.buttonui.Button;
+import com.IONA.TowerDefense.model.ui.Button;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.TowerMenuItem;
 import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.towers.Tower;

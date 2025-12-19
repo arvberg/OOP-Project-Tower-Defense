@@ -26,12 +26,19 @@ public class WaveGenerator {
     }
 
     public void SpawnNextWave() {
+        if (waves == null ||
+            waves.waveslist == null ||
+            waves.waveslist.size == 0){
+            return;
+        }
+
         finishedSpawning = false;
         rewardGiven = false;
 
         float cumulativeDelay = 0;
 
         for (Waves.Enemy e : waves.waveslist.get(WaveNr).enemies) {
+
             cumulativeDelay += e.getDelay();  // 1, 2, 3, 4, ...
 
             float spawnTime = cumulativeDelay;
@@ -42,11 +49,11 @@ public class WaveGenerator {
                         Enemy enemy = new EnemyBasic(GameDiff);
                         model.addEnemy(enemy);
                     }
-                    if(e.getEnemyType().equals("2")) {
+                    if (e.getEnemyType().equals("2")) {
                         Enemy enemy = new EnemyFast(GameDiff);
                         model.addEnemy(enemy);
                     }
-                    if(e.getEnemyType().equals("3")) {
+                    if (e.getEnemyType().equals("3")) {
                         Enemy enemy = new EnemyTanky(GameDiff);
                         model.addEnemy(enemy);
                     }

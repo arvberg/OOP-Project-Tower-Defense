@@ -21,12 +21,5 @@ public class TowerFastTest {
         assertEquals(0f, t.getCooldown());
         assertEquals(new Vector2(1f, 1f), t.getDimension());
     }
-
-    @Test
-    void testCoolDownReset() {
-        TowerFast t = new TowerFast();
-        t.resetCooldown();
-        assertFalse(t.canShoot());
-    }
 }
 

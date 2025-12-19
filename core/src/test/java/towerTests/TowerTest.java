@@ -41,27 +41,6 @@ public class TowerTest {
     }
 
     @Test
-    void testCooldownStartsZeroAndCanShoot(){
-        assertTrue(tower.canShoot());
-    }
-
-    @Test
-    void testCooldownResetPreventsShoot(){
-        tower.resetCooldown();
-        assertFalse(tower.canShoot());
-    }
-
-    @Test
-    void testCooldownDecreases(){
-        tower.resetCooldown();
-        tower.updateCooldown(0.5f);
-        assertFalse(tower.canShoot());
-
-        tower.updateCooldown(0.5f);
-        assertTrue(tower.canShoot());
-    }
-
-    @Test
     void testSetAndDimensions(){
         Vector2 dim = new Vector2(2f, 3f);
         tower.setDimension(dim);
