@@ -16,7 +16,6 @@ public final class TowerMissileDrawer implements DrawableTower {
     private static final TextureRegion RANGE_REGION = new TextureRegion(TEXTURE_RANGE);
     private static final TextureRegion BODY_REGION_R = new TextureRegion(TEXTURE);
 
-
     private final TowerMissile tower;
     private Vector2 p;
     private float dimensionX;

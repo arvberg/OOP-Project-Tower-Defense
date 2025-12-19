@@ -96,7 +96,7 @@
         }
 
         public void takeDamage(int damage) {
-            hp -= damage;
+            hp = Math.max(0, hp - damage);
             healthBar.setCurrentHealth(hp);
         }
 

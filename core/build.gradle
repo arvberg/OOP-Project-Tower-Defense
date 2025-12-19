@@ -13,12 +13,11 @@ tasks.withType(JavaCompile).configureEach {
   options.incremental = true
 }
 
-
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-core'
 
-
 dependencies {
+  // ===== MAIN / RUNTIME =====
   api "com.badlogicgames.ashley:ashley:$ashleyVersion"
   api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
   api "com.badlogicgames.gdx-controllers:gdx-controllers-core:$gdxControllersVersion"
@@ -28,19 +27,29 @@ dependencies {
   api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-  testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+  // ===== TESTING (JUnit 5) =====
+  testImplementation platform("org.junit:junit-bom:5.10.0")
 
-  implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+  // JUnit Jupiter (API + Engine + params m.m.)
+  testImplementation "org.junit.jupiter:junit-jupiter"
 
-  if(enableGraalNative == 'true') {
+  // IMPORTANT: IntelliJ-runnern saknade denna -> fixar TestDescriptor-felet
+  testImplementation "org.junit.platform:junit-platform-engine:1.10.0"
+
+  // (Valfritt men ofta bra att ha för IDE/launcher)
+  testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+
+  if (enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
-
-  test {
-    useJUnitPlatform()
-  }
-
-
 }
 
+// ===== IMPORTANT: force JUnit Platform for ALL tests =====
+tasks.withType(Test).configureEach {
+  useJUnitPlatform()
+
+  // (valfritt) gör det lättare att se vad som körs
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}

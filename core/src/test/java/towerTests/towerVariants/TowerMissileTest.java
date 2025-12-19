@@ -2,7 +2,7 @@ package towerTests.towerVariants;
 
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.towers.TowerBasic;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
+import com.IONA.TowerDefense.model.units.towers.TowerMissile;
 import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.DisplayName;
@@ -10,9 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TowerBasicTest {
-
-    static class TestableTowerBasic extends TowerBasic {
+public class TowerMissileTest {
+    static class TestableTowerMissile extends TowerMissile {
         private boolean cooledDown;
         private boolean aiming;
 
@@ -36,26 +35,9 @@ class TowerBasicTest {
     }
 
     @Test
-    @DisplayName("Constructor sets default values")
-    void constructor_setsDefaults() {
-        TowerBasic tower = new TowerBasic();
-
-        assertNotNull(tower.getAttackStrategy());
-        assertNotNull(tower.getTargetingStrategy());
-
-        assertEquals(50, tower.getCost());
-        assertEquals(5, tower.getDamage());
-        assertEquals(2f, tower.getRange(), 0.0001);
-        assertEquals(2f, tower.getBaseRange(), 0.0001);
-
-        assertEquals(0f, tower.getCurrentDirection().x, 0.0001);
-        assertEquals(0f, tower.getCurrentDirection().y, 0.0001);
-    }
-
-    @Test
     @DisplayName("setTargetingStrategy sets given strategy")
     void setTargetingStrategy_setsStrategy() {
-        TowerBasic tower = new TowerBasic();
+        TowerMissile tower = new TowerMissile();
         TargetingStrategy strategy = new TargetNearestStrategy();
 
         tower.setTargetingStrategy(strategy);
@@ -66,7 +48,7 @@ class TowerBasicTest {
     @Test
     @DisplayName("setDesiredDirection updates desired direction")
     void setDesiredDirection_updatesDesiredDirection() {
-        TowerBasic tower = new TowerBasic();
+        TowerMissile tower = new TowerMissile();
         Vector2 dir = new Vector2(1, 0);
 
         tower.setDesiredDirection(dir);
@@ -78,7 +60,7 @@ class TowerBasicTest {
     @Test
     @DisplayName("rotateTower changes direction when desired is different")
     void rotateTower_changesDirection() {
-        TowerBasic tower = new TowerBasic();
+        TowerMissile tower = new TowerMissile();
         tower.setCurrentDirection(new Vector2(1, 0));
         tower.setDesiredDirection(new Vector2(0, 1));
 
@@ -90,7 +72,7 @@ class TowerBasicTest {
     @Test
     @DisplayName("rotateTower does not crash for zero desired direction")
     void rotateTower_zeroDesired_doesNotCrash() {
-        TowerBasic tower = new TowerBasic();
+        TowerMissile tower = new TowerMissile();
         tower.setDesiredDirection(new Vector2(0, 0));
 
         assertDoesNotThrow(() -> tower.rotateTower(0.1f));
@@ -99,7 +81,7 @@ class TowerBasicTest {
     @Test
     @DisplayName("canAttack only true when cooled down and aiming")
     void canAttack_truthTable() {
-        TestableTowerBasic tower = new TestableTowerBasic();
+        TestableTowerMissile tower = new TestableTowerMissile();
 
         tower.setCooledDown(false);
         tower.setAiming(false);
