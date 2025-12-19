@@ -44,9 +44,9 @@ public class AttackHandler {
         tower.resetCooldown();
 
         if (tower instanceof TowerPulse) {
-            notifyPulseActivated();
+            notifyPulseActivated(tower);
         } else {
-            notifyProjectileFired();
+            notifyProjectileFired(tower);
         }
     }
 
@@ -193,15 +193,15 @@ public class AttackHandler {
         projectiles.clear();
     }
 
-    public void notifyProjectileFired() {
+    public void notifyProjectileFired(Tower tower) {
         for (AttackListener l : listeners) {
-            l.onProjectileFired();
+            l.onProjectileFired(tower);
         }
     }
 
-    public void notifyPulseActivated() {
+    public void notifyPulseActivated(Tower tower) {
         for (AttackListener l : listeners) {
-            l.onPulseActivated();
+            l.onPulseActivated(tower);
         }
     }
 
