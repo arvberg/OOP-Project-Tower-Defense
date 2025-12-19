@@ -4,10 +4,15 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 
 public class FireRateUpgrade implements TowerUpgrade {
 
-    private final int cost;
+    private int cost;
 
     public FireRateUpgrade(int cost) {
         this.cost = cost;
+    }
+
+    @Override
+    public void incrementCost(float f){
+        this.cost = (int)(cost*f);
     }
 
     @Override

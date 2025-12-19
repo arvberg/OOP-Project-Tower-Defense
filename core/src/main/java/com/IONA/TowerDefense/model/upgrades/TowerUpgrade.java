@@ -7,4 +7,5 @@ public interface TowerUpgrade {
     int getCost();
     boolean canApply(Tower tower);
     void apply(Tower tower);
+    void incrementCost(float f);
 }

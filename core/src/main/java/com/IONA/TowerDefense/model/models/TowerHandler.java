@@ -4,17 +4,10 @@ import com.IONA.TowerDefense.model.map.Path;
 import com.IONA.TowerDefense.model.map.Segment;
 import com.IONA.TowerDefense.model.ui.towerui.sideMenu.UpgradeMenu;
 import com.IONA.TowerDefense.model.units.decorations.Decoration;
-import com.IONA.TowerDefense.model.units.enemies.Enemy;
 import com.IONA.TowerDefense.model.units.interfaces.TargetingStrategy;
 import com.IONA.TowerDefense.model.units.interfaces.TowerListener;
 import com.IONA.TowerDefense.model.units.towers.Tower;
 import com.IONA.TowerDefense.model.units.towers.TowerFactory;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetAllStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetLeadingStrategy;
-import com.IONA.TowerDefense.model.units.towers.targetingStrategies.TargetNearestStrategy;
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -36,7 +29,7 @@ public class TowerHandler {
     private Tower pendingTower = null;
     private Tower selectedTower = null;
 
-    private final List<TargetingStrategy> targetingStrategies = new ArrayList<>();
+    //private final List<TargetingStrategy> targetingStrategies = new ArrayList<>();
     private int currentStrategyIndex = 0;
 
     private UpgradeMenu upgradeMenu;
@@ -48,9 +41,6 @@ public class TowerHandler {
         this.path = path;
         this.decorations = decor;
         this.resourceHandler = resourceHandler;
-        targetingStrategies.add(new TargetAllStrategy());
-        targetingStrategies.add(new TargetLeadingStrategy());
-        targetingStrategies.add(new TargetNearestStrategy());
         this.upgradeMenu = upgradeMenu;
     }
 
@@ -64,13 +54,13 @@ public class TowerHandler {
             float distance = center.dst(selectedPoint);
 
             if (distance <= TOWER_SELECTION_RADIUS) {
-                clickedTower = tower;
-                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
-                upgradeMenu.setTowerIsClicked(true);
-                upgradeMenu.clearGridItems();
-                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2());
-                tower.setHasCurrentUpgradeMenu(true);
 
+                clickedTower = tower;
+                notifyTowerSwitchedEvent();
+                upgradeMenu.setMenuPosition(clickedTower.getX() - upgradeMenu.getWidth()/2, clickedTower.getY() + clickedTower.getDimension().y);
+                upgradeMenu.setTowerIsClicked(true,clickedTower.getTowerType());
+                upgradeMenu.clearGridItems();
+                upgradeMenu.createGridItems(clickedTower.getUpgradePath1(), clickedTower.getUpgradePath2(), clickedTower.getUpgradePath3());
 
                 break; // break om torn hittat
             }
@@ -82,6 +72,7 @@ public class TowerHandler {
 
             // selecta nytt torn om vi trycker på ett torn
         } else if (selectedTower != clickedTower) {
+
             setSelectedTower(clickedTower);
             setTowerSelected(true);
             notifyTowerClickedEvent();
@@ -92,6 +83,7 @@ public class TowerHandler {
     public void placeTower (Vector2 selectedPoint) {
 
         if (pendingTower != null && !overlaps(pendingTower)) {
+            //System.out.println(pendingTower.getTargetingStrategy().getStrategy());
             pendingTower.setPosition(selectedPoint);
             towers.add(pendingTower);
 
@@ -103,7 +95,9 @@ public class TowerHandler {
             setPendingTower(null);
             setBuyingState(false);
             notifyTowerPlacedEvent();
-            System.out.println("tower placed");
+            System.out.println("tower placed: " + selectedTower);
+
+
         }
     }
 
@@ -114,13 +108,12 @@ public class TowerHandler {
         System.out.println("Tower deselected");
         // ev använd observer pattern med upgradehandler
         upgradeMenu.clearGridItems();
-        upgradeMenu.setTowerIsClicked(false);
+        upgradeMenu.setTowerIsClicked(false,"");
         upgradeMenu.setMenuPosition(16,9);
     }
 
     public void buyTower (String tower) {
         Tower newTower = TowerFactory.createTower(tower);
-
         if (resourceHandler.getMoney() >= newTower.getCost()) {
                 deselectTower();
                 setBuyingState(true);
@@ -206,10 +199,11 @@ public class TowerHandler {
 
 
     public void toggleTargetingStrategy() {
-        currentStrategyIndex = (currentStrategyIndex + 1) % targetingStrategies.size();
-        TargetingStrategy currentStrategy = targetingStrategies.get(currentStrategyIndex);
+        currentStrategyIndex = (currentStrategyIndex + 1) % selectedTower.getTargetingStrategies().size();
+        TargetingStrategy currentStrategy = selectedTower.getTargetingStrategyAtIndex(currentStrategyIndex);
         selectedTower.setTargetingStrategy(currentStrategy);
         System.out.println("New strategy: " + currentStrategy);
+        notifyTowerStrategyEvent(currentStrategy.getStrategy());
     }
 
     public void addTower(Tower tower) {
@@ -272,6 +266,12 @@ public class TowerHandler {
         }
     }
 
+    public void notifyTowerSwitchedEvent() {
+        for (TowerListener l : listeners) {
+            l.onTowerSwitched();
+        }
+    }
+
     public void notifyTowerPlacedEvent() {
         for (TowerListener l : listeners) {
             l.onTowerPlaced();
@@ -295,5 +295,12 @@ public class TowerHandler {
             l.onTowerDeselected();
         }
     }
+
+    public void notifyTowerStrategyEvent(String strategy) {
+        for (TowerListener l : listeners) {
+            l.onTowerStrategyToggle(strategy);
+        }
+    }
+
 
 }

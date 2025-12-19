@@ -8,10 +8,7 @@ import com.IONA.TowerDefense.model.units.towers.attackStrategies.AttackStrategy;
 import com.IONA.TowerDefense.model.upgrades.TowerUpgrade;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public abstract class Tower extends Unit {
 
@@ -33,6 +30,9 @@ public abstract class Tower extends Unit {
 
 
     protected boolean hasCurrentUpgradeMenu = false;
+    protected String towerType;
+    protected List<TargetingStrategy> targetingStrategies = new ArrayList<>();
+
     protected Vector2 dimension;
 
     public abstract boolean canAttack();
@@ -50,6 +50,13 @@ public abstract class Tower extends Unit {
 
     protected final Deque<TowerUpgrade> upgradePath1 = new ArrayDeque<>();
     protected final Deque<TowerUpgrade> upgradePath2 = new ArrayDeque<>();
+    protected final Deque<TowerUpgrade> upgradePath3 = new ArrayDeque<>();
+
+    public List<TargetingStrategy> getTargetingStrategies(){
+        return this.targetingStrategies;
+    }
+
+    public String getTowerType(){ return this.towerType; }
 
     public void setHasCurrentUpgradeMenu(boolean b){this.hasCurrentUpgradeMenu=b;}
 
@@ -63,13 +70,10 @@ public abstract class Tower extends Unit {
         return upgradePath2;
     }
 
+    public Deque<TowerUpgrade> getUpgradePath3() {return upgradePath3;}
 
     public List<Enemy> getTargets(List<Enemy> enemies) {
         return targetingStrategy.pick(enemies, this);
-    }
-
-    public TargetingStrategy getTargetingStrategy() {
-        return targetingStrategy;
     }
 
     public void setDimension(Vector2 dimension) {
@@ -91,6 +95,10 @@ public abstract class Tower extends Unit {
     public int getCost(){
         return cost;
     }
+
+    public TargetingStrategy getTargetingStrategyAtIndex(int index){return targetingStrategies.get(index);}
+
+    public TargetingStrategy getCurrentTargetingStrategy(){return this.targetingStrategy;}
 
     public boolean isAiming() {
         float deltaDirection = VectorUtils.distance(currentDirection, desiredDirection);
@@ -175,8 +183,9 @@ public abstract class Tower extends Unit {
         this.attackStrategy = attackStrategy;
     }
 
-    public abstract void setTargetingStrategy(TargetingStrategy targetingStrategy);
-
+    public void setTargetingStrategy(TargetingStrategy targetingStrategy){
+        this.targetingStrategy = targetingStrategy;
+    };
     public float getBaseDamage() {
         return baseDamage;
     }

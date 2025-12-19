@@ -40,10 +40,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.IONA.TowerDefense.HeartBeat.delta;
 
@@ -63,8 +60,8 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
     private final SoundManager soundManager = new SoundManager();
 
-    private final List<AttackListener> attackListeners = new ArrayList<>();
-    private final List<TowerListener> towerListeners = new ArrayList<>();
+    private final Set<AttackListener> attackListeners = new HashSet<>();
+    private final Set<TowerListener> towerListeners = new HashSet<>();
 
     // Variables for fading transitions
     private float fadeTimer = 0f;
@@ -105,7 +102,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     private DrawableTower getDrawableTower(Tower t){
         DrawableTower view = towerViews.computeIfAbsent(t, DrawableTowerFactory::create);
 
-        if (view instanceof AttackListener l && !attackListeners.contains(l)) {
+        if (view instanceof AttackListener l && !attackListeners.contains(view)) {
             attackListeners.add(l);
         }
 
@@ -121,8 +118,15 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     private DrawableButton getDrawableButton(Button b){
-        return buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
+        DrawableButton view = buttonViews.computeIfAbsent(b, DrawableButtonFactory::create);
+
+        if (view instanceof TowerListener l && !towerListeners.contains(view)) {
+            towerListeners.add(l);
+        }
+
+        return view;
     }
+
 
     private DrawableMenu getDrawableMenu(Menu m){
         return menuViews.computeIfAbsent(m, DrawableMenuFactory::create);
@@ -168,9 +172,14 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
 
         for (Menu m : model.getMenus()) {
             DrawableMenu view = getDrawableMenu(m);
-                view.draw(batch, shapeRenderer, delta);
+            view.draw(batch, shapeRenderer, delta);
         }
 
+        for (Button b : model.getInGameButtons()){
+            DrawableButton view = getDrawableButton(b);
+            view.draw(batch, shapeRenderer, delta);
+
+        }
 
         if (!model.isBuyingState()) {
             for (Button b : model.getTowerItemButtons()) {
@@ -256,6 +265,8 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         itemViews.entrySet().removeIf(b -> !model.getTowerItemButtons().contains(b.getKey()));
         menuViews.entrySet().removeIf(m-> !model.getMenus().contains(m.getKey()));
         resourceViews.entrySet().removeIf(r -> !model.getResources().contains(r.getKey()));
+        towerViews.entrySet().removeIf(t -> !model.getTowers().contains(t.getKey()));
+
 
     }
 
@@ -301,6 +312,7 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
         for (AttackListener l : attackListeners) {
             l.onProjectileFired(tower);
         }
+
     }
 
     @Override
@@ -327,6 +339,12 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     }
 
     @Override
+    public void onTowerDeselected(){}
+
+    @Override
+    public void onTowerSwitched(){menuViews.clear();}
+
+    @Override
     public void onTowerPlaced() {
         soundManager.playSound("place_tower");
     }
@@ -346,4 +364,14 @@ public class Draw implements EnemyDeathListener, AttackListener, InputListener, 
     public void onUpgrade() {
         soundManager.playSound("tower_upgraded");
     }
+
+    @Override
+    public void onTowerStrategyToggle(String strategy){
+    for(TowerListener t: towerListeners){
+        t.onTowerStrategyToggle(strategy);
+
+    }
+
+    }
+
 }
