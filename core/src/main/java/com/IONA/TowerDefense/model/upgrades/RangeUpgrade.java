@@ -14,14 +14,16 @@ import org.w3c.dom.ranges.Range;
 public class RangeUpgrade implements TowerUpgrade {
 
     private int cost;
+    private float upgradeScaling;
 
-    public RangeUpgrade(int cost) {
+    public RangeUpgrade(int cost, float upgradeScaling) {
         this.cost = cost;
+        this.upgradeScaling = upgradeScaling;
     }
 
     @Override
-    public void incrementCost(float f) {
-        this.cost = (int) (cost * f);
+    public void incrementCost() {
+        this.cost = (int) (cost * upgradeScaling);
     }
 
     @Override

@@ -45,7 +45,8 @@ public class ActionHandler {
             case UPGRADE_TOWER -> {
                 if (model.isTowerSelected()) {
                     UpgradeMenuItem item = (UpgradeMenuItem) sourceButton;
-                    model.upgradeTower(model.getSelectedTower(), item.consumeUpgrade());
+                    model.upgradeTower(model.getSelectedTower(), item.getUpgrade(), item);
+
                 }
             }
             case CANCEL_TOWER -> model.cancelTowerBuy();

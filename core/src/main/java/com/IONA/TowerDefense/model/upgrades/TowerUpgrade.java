@@ -11,5 +11,5 @@ public interface TowerUpgrade {
 
     void apply(Tower tower);
 
-    void incrementCost(float f);
+    void incrementCost();
 }

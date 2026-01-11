@@ -36,6 +36,7 @@ public class TowerMissile extends Tower implements Rotatable {
         projectileSpeed = 2;
         baseFireRate = 2f;
         cost = 300;
+        value = (float) cost*0.7f;
         fireRate = 2f;
         range = 8f;
         baseRange = 2f;
@@ -49,9 +50,9 @@ public class TowerMissile extends Tower implements Rotatable {
         targetingStrategies.add(new TargetNearestStrategy());
         targetingStrategies.add(new TargetStrongestStrategy());
         targetingStrategy = targetingStrategies.getFirst();
-        upgradePath1.add(new RangeUpgrade(100));
-        upgradePath2.add(new FireRateUpgrade(250));
-        upgradePath3.add(new DamageUpgrade(80));
+        upgradePath1.add(new RangeUpgrade(100,2f));
+        upgradePath2.add(new FireRateUpgrade(250,2f));
+        upgradePath3.add(new DamageUpgrade(80,2f));
         towerType = "TowerMissile";
     }
 

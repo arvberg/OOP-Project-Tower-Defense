@@ -19,10 +19,14 @@ public class UpgradeMenuItem extends Button {
         return upgrades.peek();
     }
 
-    public TowerUpgrade consumeUpgrade() {
+    public TowerUpgrade getUpgrade() {
         TowerUpgrade nextUpgrade = upgrades.size() > 1 ? upgrades.pop() : upgrades.peek();
         assert nextUpgrade != null;
-        nextUpgrade.incrementCost(2f);
         return nextUpgrade;
+    }
+
+    public void updateNextCost(){
+        TowerUpgrade nextUpgrade = upgrades.size() > 1 ? upgrades.pop() : upgrades.peek();
+        nextUpgrade.incrementCost();
     }
 }

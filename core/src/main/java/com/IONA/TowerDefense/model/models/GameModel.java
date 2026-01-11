@@ -342,7 +342,7 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public void sellTower(Tower tower) {
         towerHandler.sellTower(tower);
-        resourceHandler.gainMoney(tower.getCost());
+        resourceHandler.gainMoney(tower.getValue());
         resourceHandler.updateMoneyResource();
     }
 
@@ -356,11 +356,13 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
      * @param tower the tower to upgrade
      * @param upgrade the upgrade to apply
      */
-    public void upgradeTower(Tower tower, TowerUpgrade upgrade) {
+    public void upgradeTower(Tower tower, TowerUpgrade upgrade, UpgradeMenuItem item) {
         if (resourceHandler.getMoney() >= upgrade.getCost() && towerHandler.getSelectedTower() != null) {
             upgradeHandler.upgrade(tower, upgrade);
             resourceHandler.spendMoney(upgrade.getCost());
             resourceHandler.updateMoneyResource();
+            tower.updateValue(upgrade.getCost());
+            item.updateNextCost();
         }
     }
 

@@ -34,6 +34,7 @@ public class TowerBasic extends Tower implements Rotatable {
         projectileSpeed = 8;
         baseFireRate = 0.01f;
         cost = 80;
+        value = (float) cost*0.7f;
         fireRate = 0.55f;
         range = 2f;
         baseRange = 2f;
@@ -47,9 +48,9 @@ public class TowerBasic extends Tower implements Rotatable {
         targetingStrategies.add(new TargetNearestStrategy());
         targetingStrategies.add(new TargetStrongestStrategy());
         targetingStrategy = targetingStrategies.getFirst();
-        upgradePath1.add(new RangeUpgrade(40));
-        upgradePath2.add(new FireRateUpgrade(40));
-        upgradePath3.add(new DamageUpgrade(40));
+        upgradePath1.add(new RangeUpgrade(40,2f));
+        upgradePath2.add(new FireRateUpgrade(40,2f));
+        upgradePath3.add(new DamageUpgrade(40,2f));
         towerType = "TowerBasic";
     }
 

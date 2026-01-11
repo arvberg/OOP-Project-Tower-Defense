@@ -32,6 +32,7 @@ public abstract class Tower extends Unit {
     protected float range;
     protected float baseRange;
     protected float cooldown;
+    protected float value;
 
     // rotation properties
     protected Vector2 desiredDirection;
@@ -101,6 +102,10 @@ public abstract class Tower extends Unit {
 
     public int getCost() {
         return cost;
+    }
+
+    public int getValue(){
+        return (int)this.value;
     }
 
     public TargetingStrategy getTargetingStrategyAtIndex(int index) {
@@ -174,6 +179,10 @@ public abstract class Tower extends Unit {
 
     public void updateCooldown(float delta) {
         cooldown -= delta;
+    }
+
+    public void updateValue(float bytes){
+        this.value += bytes*0.7f;
     }
 
     public AttackStrategy getAttackStrategy() {

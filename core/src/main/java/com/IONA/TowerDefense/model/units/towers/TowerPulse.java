@@ -30,6 +30,7 @@ public class TowerPulse extends Tower {
         projectileSpeed = 8;
         baseFireRate = 0.1f;
         cost = 260;
+        value = (float) cost*0.7f;
         fireRate = 0.7f;
         range = 2f;
         baseRange = 2f;
@@ -40,9 +41,9 @@ public class TowerPulse extends Tower {
         attackStrategy = new AreaAttackStrategy();
         targetingStrategies.add(new TargetAllStrategy());
         targetingStrategy = targetingStrategies.getFirst();
-        upgradePath1.add(new RangeUpgrade(175));
-        upgradePath2.add(new FireRateUpgrade(175));
-        upgradePath3.add(new DamageUpgrade(200));
+        upgradePath1.add(new RangeUpgrade(175,2f));
+        upgradePath2.add(new FireRateUpgrade(175,2f));
+        upgradePath3.add(new DamageUpgrade(200,2f));
         towerType = "TowerPulse";
     }
 

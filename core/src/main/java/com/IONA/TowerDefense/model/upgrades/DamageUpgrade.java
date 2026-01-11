@@ -12,9 +12,11 @@ public class DamageUpgrade implements TowerUpgrade {
 
 
     private int cost;
+    private float upgradeScaling;
 
-    public DamageUpgrade(int cost) {
+    public DamageUpgrade(int cost, float upgradeScaling) {
         this.cost = cost;
+        this.upgradeScaling = upgradeScaling;
     }
 
     @Override
@@ -33,8 +35,8 @@ public class DamageUpgrade implements TowerUpgrade {
     }
 
     @Override
-    public void incrementCost(float f) {
-        this.cost = (int) (cost * f);
+    public void incrementCost() {
+        this.cost = (int) (cost * upgradeScaling);
     }
 
     ;

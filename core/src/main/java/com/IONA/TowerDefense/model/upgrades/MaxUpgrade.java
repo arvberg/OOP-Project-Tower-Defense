@@ -5,14 +5,16 @@ import com.IONA.TowerDefense.model.units.towers.Tower;
 public class MaxUpgrade implements TowerUpgrade {
 
     private int cost;
+    private float upgradeScaling;
 
-    public MaxUpgrade(int cost) {
+    public MaxUpgrade(int cost, float upgradeScaling) {
         this.cost = cost;
+        this.upgradeScaling = upgradeScaling;
     }
 
     @Override
-    public void incrementCost(float f) {
-        this.cost = (int) (cost * f);
+    public void incrementCost() {
+        this.cost = (int) (cost * upgradeScaling);
     }
 
     @Override
