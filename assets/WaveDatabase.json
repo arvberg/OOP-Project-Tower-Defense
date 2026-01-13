@@ -116,6 +116,33 @@
         {"type": "2", "delay": 0.1},
         {"type": "2", "delay": 0.1}
       ]
+    },
+
+    {
+      "id": 6,
+      "enemies":[
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1},
+        {"type": "2", "delay": 0.1}
+      ]
     }
   ]
 
