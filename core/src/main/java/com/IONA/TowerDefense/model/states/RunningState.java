@@ -34,13 +34,13 @@ public class RunningState implements GameState {
         model.getTowerMenu().update(delta);
         model.getInfoMenu().update(delta);
 
-        // Kolla om wave är klar
+        // Check if the wave is cleared
         if (model.getGenerator().WaveCleared()) {
             model.getGenerator().WaveReward();
             model.setState(model.getStartState());
         }
 
-        // byt till game over state
+        // Set state to game over state
         if (model.getResourceHandler().getLives() <= 0) {
             model.setState(model.getGameOverState());
         }

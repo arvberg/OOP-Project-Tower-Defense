@@ -260,7 +260,6 @@ public class AttackHandler {
         listeners.add(l);
     }
 
-
     public void removeAllProjectiles() {
         projectiles.clear();
     }

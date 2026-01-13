@@ -267,10 +267,6 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
      * @param sourceButton the button that triggered the action
      */
 
-    public void addInputListener(InputListener l){
-        inputListeners.add(l);
-    }
-
     public void handleAction(GameAction action, Button sourceButton) {
         actionHandler.handleAction(action, sourceButton);
     }
@@ -608,6 +604,10 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
 
     public List<Button> getUpgradeMenuItems() {
         return upgradeMenu.items;
+    }
+
+    public void addInputListener(InputListener l){
+        inputListeners.add(l);
     }
 
     public void notifyButtonHovered(String s){

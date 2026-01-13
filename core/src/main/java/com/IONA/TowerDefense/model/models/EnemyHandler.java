@@ -93,7 +93,7 @@ public class EnemyHandler {
         }
     }
 
-    public void addAttackListener(EnemyDeathListener l) {
+    public void addEnemyDeathListener(EnemyDeathListener l) {
         listeners.add(l);
     }
     /**

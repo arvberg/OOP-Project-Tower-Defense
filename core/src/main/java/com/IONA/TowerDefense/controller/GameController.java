@@ -31,8 +31,8 @@ public class GameController {
 
         attackhandler.addAttackListener(model);
         attackhandler.addAttackListener(view);
-        enemyhandler.addAttackListener(model);
-        enemyhandler.addAttackListener(view);
+        enemyhandler.addEnemyDeathListener(model);
+        enemyhandler.addEnemyDeathListener(view);
         towerHandler.addTowerListener(model);
         towerHandler.addTowerListener(view);
         upgradeHandler.addUpgradeListener(view);
