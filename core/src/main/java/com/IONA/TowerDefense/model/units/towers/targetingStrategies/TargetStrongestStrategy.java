@@ -19,7 +19,7 @@ public class TargetStrongestStrategy implements TargetingStrategy {
         Enemy strongestEnemy = enemies.get(0);
         for (Enemy enemy :  enemies) {
             float hp = enemy.getHp();
-            if (hp < strongestEnemy.getHp()) {
+            if (hp > strongestEnemy.getHp()) {
                 strongestEnemy = enemy;
             }
         }

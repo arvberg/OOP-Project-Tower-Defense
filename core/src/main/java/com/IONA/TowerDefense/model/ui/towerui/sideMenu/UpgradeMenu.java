@@ -78,12 +78,10 @@ public class UpgradeMenu extends Menu {
             if (!model.getMenus().contains(this)) {
                 model.getMenus().add(this);
             }
-            System.out.println("Adding menu!");
             System.out.println(model.getMenus());
         } else {
             this.belongsTo = "";
             model.getMenus().remove(this);
-            System.out.println("Removing Menu!");
             System.out.println(model.getMenus());
         }
     }
