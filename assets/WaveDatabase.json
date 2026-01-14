@@ -5,13 +5,13 @@
     {   // Som innehåller Waves objekt.
       "id": 0,
       "enemies":[   // Varje Wave objekt har ett id och en lista av enemies
-        {"type": "3", "delay": 1},   // Varje enemy har en type och en difficulty.
-        {"type": "3", "delay": 1},
-        {"type": "3", "delay": 1},
-        {"type": "3", "delay": 1},
-        {"type": "3", "delay": 1},
-        {"type": "3", "delay": 1},
-        {"type": "3", "delay": 1}
+        {"type": "1", "delay": 1},   // Varje enemy har en type och en difficulty.
+        {"type": "1", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "1", "delay": 1},
+        {"type": "1", "delay": 1}
 
       ]
     },
