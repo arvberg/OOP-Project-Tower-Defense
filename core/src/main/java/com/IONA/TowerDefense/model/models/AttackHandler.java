@@ -155,6 +155,7 @@ public class AttackHandler {
     }
 
     private void handleMissileTarget(Missile missile) {
+
         Enemy target = missile.getEnemyTarget();
 
         if (target == null || target.isDead() || !enemies.contains(target)) {

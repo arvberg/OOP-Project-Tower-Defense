@@ -14,9 +14,9 @@ public class MyPacker {
 
         TexturePacker.process(
             settings,
-            "assets/animations/collections/towerbasicfire",
-            "assets/animations/atlases/towerbasicfire",
-            "Animation_Towerbasicfire"
+            "assets/animations/collections/phis",
+            "assets/animations/atlases/phis",
+            "Animation_Phis"
         );
 
         System.out.println("✔ Atlas packed!");

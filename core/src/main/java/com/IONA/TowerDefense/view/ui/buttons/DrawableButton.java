@@ -23,5 +23,6 @@ public sealed interface DrawableButton extends Drawable permits
     TowerMenuItemButtonDrawer,
     TowerMissileIconDrawer,
     TowerPulseIconDrawer,
+    CancelButtonDrawer,
     UpgradeMenuItemButtonDrawer{
 }

@@ -1,0 +1,138 @@
+
+Animation_Phis.png
+size: 2048, 2048
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 2, 1462
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 0
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 2, 1097
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 1
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 621, 1462
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 2
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 2, 732
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 3
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 621, 1097
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 4
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 1240, 1462
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 5
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 2, 367
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 6
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 621, 732
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 7
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 1240, 1097
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 8
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 2, 2
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 9
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 621, 367
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 10
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 1240, 732
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 11
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 621, 2
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 12
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 1240, 367
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 13
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 1240, 2
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 14
+
+Animation_Phis2.png
+size: 2048, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 2, 2
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 15
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 621, 2
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 16
+animations-collections-animation-Animation_Phish
+  rotate: false
+  xy: 1240, 2
+  size: 617, 363
+  orig: 617, 363
+  offset: 0, 0
+  index: 17

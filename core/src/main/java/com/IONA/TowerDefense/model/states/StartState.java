@@ -25,6 +25,7 @@ public class StartState implements GameState {
 
     @Override
     public void update(float delta) {
+        model.getAttackHandler().update(delta);
         // väntar på Play
     }
 

@@ -27,6 +27,7 @@ public class HomingAttackStrategy implements AttackStrategy {
             int pDamage = tower.getDamage();
             Vector2 towerPos = new Vector2(tower.getPosition());
             Projectile p = new Missile(pDamage, pSpeed, towerPos, pDirection);
+            p.setEnemyTarget(e);
             projectiles.add(p);
         }
     }

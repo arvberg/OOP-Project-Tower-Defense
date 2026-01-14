@@ -127,13 +127,15 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
         this.speedUpButton = new SpeedUpButton(14.8f, 0.2f);
         this.pauseButton = new PauseButton(0f, 0f);
         this.restartButton = new RestartButton(5f, 3f);
-        this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y);
+        this.cancelButton = new CancelButton(towerMenu.getMenuPosition().x, towerMenu.getMenuPosition().y, towerMenu.getWidth(), towerMenu.getHeight());
+        cancelButton.setVisible(false);
         this.targetingStrategyToggleButton = new TargetingStrategyToggleButton(5, 5, "");
 
 
         inGameButtons.add(playButton);
         inGameButtons.add(speedUpButton);
         inGameButtons.add(pauseButton);
+        inGameButtons.add(cancelButton);
         gameOverButtons.add(restartButton);
         gameOverButtons.add(exitButton);
         towerMenu.createGridItems(towerItemButtons);
@@ -416,6 +418,10 @@ public class GameModel implements EnemyDeathListener, AttackListener, TowerListe
     public void updateTowerFollowingMouse(Vector2 mousePos) {
         if (towerHandler.getPendingTower() != null && towerHandler.isBuyingState()) {
             towerHandler.getPendingTower().setPosition(mousePos);
+            cancelButton.setVisible(true);
+        }
+        else{
+            cancelButton.setVisible(false);
         }
     }
 

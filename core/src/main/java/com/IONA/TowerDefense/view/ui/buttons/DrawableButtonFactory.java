@@ -40,6 +40,7 @@ public class DrawableButtonFactory {
             case UpgradeMenuItem b -> DrawableUpgradeFactory.create(b);
             case ExitButton b -> new ExitButtonDrawer(b);
             case TargetingStrategyToggleButton b -> new TargetingToggleButtonDrawer(b);
+            case CancelButton b -> new CancelButtonDrawer(b);
             default -> throw new IllegalStateException("Unexpected value: " + button);
         };
         existingViews.put(button, view);

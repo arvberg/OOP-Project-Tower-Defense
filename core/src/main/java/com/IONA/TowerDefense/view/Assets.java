@@ -73,6 +73,7 @@ public class Assets {
     public static final String ANIMATION_ATLAS_BUG = "animations/atlases/bug/Animation_Bug.atlas";
     public static final String ANIMATION_ATLAS_PULSE = "animations/atlases/pulse/Animation_Pulse.atlas";
     public static final String ANIMATION_ATLAS_TOWERBASICFIRE = "animations/atlases/towerbasicfire/Animation_Towerbasicfire.atlas";
+    public static final String ANIMATION_ATLAS_PHIS = "animations/atlases/phis/Animation_Phis.atlas";
 
 
     // ANIMATIONS_PNGCOLLECTIONS

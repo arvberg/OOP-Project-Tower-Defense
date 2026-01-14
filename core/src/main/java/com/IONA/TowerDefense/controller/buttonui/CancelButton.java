@@ -5,8 +5,8 @@ import com.IONA.TowerDefense.model.ui.Button;
 
 public class CancelButton extends Button {
 
-    public CancelButton(float x, float y) {
-        super(x, y, 1f, 1f, GameAction.CANCEL_TOWER);
+    public CancelButton(float x, float y, float width, float height) {
+        super(x, y, width, height, GameAction.CANCEL_TOWER);
     }
 
 }
