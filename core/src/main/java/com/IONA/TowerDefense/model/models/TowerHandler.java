@@ -231,7 +231,7 @@ public class TowerHandler {
      * Toggles the targeting strategy of the selected tower.
      */
     public void toggleTargetingStrategy() {
-        currentStrategyIndex = (currentStrategyIndex + 1) % selectedTower.getTargetingStrategies().size();
+        currentStrategyIndex = (selectedTower.getTargetingStrategies().indexOf(selectedTower.getTargetingStrategy())+1) % selectedTower.getTargetingStrategies().size();
         TargetingStrategy currentStrategy = selectedTower.getTargetingStrategyAtIndex(currentStrategyIndex);
         selectedTower.setTargetingStrategy(currentStrategy);
         System.out.println("New strategy: " + currentStrategy);
